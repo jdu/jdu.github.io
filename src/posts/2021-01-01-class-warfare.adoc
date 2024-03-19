@@ -595,7 +595,7 @@ When a property of a class is stored inside of a __slots__ instead of a dict, re
 
 On a small scale this might not seem that big of a deal, but if you're playing with a large data-set where each record is loaded into an instance of your class, the performance gain and reduction in memory usage can be pretty dramatic, even over using a plain old dict and no class at all.
 
-Classes in Data Engineering
+== Classes in Data Engineering
 
 This is all well and good, but what use are classes in Data Engineering?
 
