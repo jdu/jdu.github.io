@@ -7,6 +7,7 @@ import signal
 import shutil
 import logging
 import sys
+import datetime
 
 import jinja2
 from jinja2 import Environment, FileSystemLoader, select_autoescape
@@ -14,6 +15,9 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 logging.basicConfig(level=logging.DEBUG)
 
 OUTPUT_FOLDER = "docs"
+
+# Get a unix timestamp of the current time
+NOW = str(datetime.datetime.utcnow().timestamp())
 
 # Create the main output folder in case it doesn't exist
 if not os.path.exists(OUTPUT_FOLDER):
@@ -156,7 +160,8 @@ class Page:
             f.write(tmpl.render(
                 page_content=self.content,
                 page_title=title,
-                toc=self.toc[1:]
+                toc=self.toc[1:],
+                timestamp=NOW,
             ))
 
 
@@ -168,6 +173,7 @@ def _render_index(posts, reading):
     output = tmpl.render(
         posts=posts,
         reading=reading,
+        timestamp=NOW,
     )
     print(output_path)
     with open(output_path, "w") as f:
