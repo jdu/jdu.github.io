@@ -54,6 +54,7 @@ body, h1, h2, h3, h4, p, figure, blockquote, dl, dd {
 
 .main {
   flex-direction: row;
+  min-height: 100vh;
   display: flex;
 }
 
@@ -100,6 +101,7 @@ body, h1, h2, h3, h4, p, figure, blockquote, dl, dd {
 .main .content .home-cols .home-col h2 {
   text-transform: uppercase;
   letter-spacing: 1px;
+  margin-bottom: 14px;
   font: 600 18px / 24px Source Sans Pro, sans-serif;
 }
 
@@ -117,7 +119,7 @@ body, h1, h2, h3, h4, p, figure, blockquote, dl, dd {
 .main .page {
   background: #fff;
   flex: 3;
-  padding: 16px;
+  padding: 16px 16px 16px 60px;
 }
 
 .main .page h1 {
@@ -131,6 +133,7 @@ body, h1, h2, h3, h4, p, figure, blockquote, dl, dd {
   border-radius: 3px;
   flex-direction: row;
   max-width: 912px;
+  margin-bottom: 30px;
   padding: 12px;
   display: flex;
 }

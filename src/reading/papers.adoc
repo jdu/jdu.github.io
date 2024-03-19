@@ -2,7 +2,8 @@
 
 This is a collection of different papers, from a variety of sources, that I have read and really appreciated or liked over the year. Some of these are in domains that a re far removed from where I am at the moment, and a fair few I may not even be able to 100% grasp at this point in my career still. But overall they've been interesting or had to deal with something that I have a keen interest in.
 
-== 2023
 
-TBW
+== Engineering & Project Management 
 
+- https://www.researchgate.net/publication/220579480_Problem_detection[Problem Detection]
+- https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=6111359[All Late Projects Are the Same - Tom Demarco]
