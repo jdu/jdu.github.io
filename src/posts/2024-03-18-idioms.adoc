@@ -1,0 +1,47 @@
+= Idioms, Principles, and Laws
+
+This is basically an evolving collection of idioms, principles, and laws that I'm collecting up and parsing through to come up with some concrete things to keep in the back of my head when engineering solutions.
+
+. Write the simplest thing that could possibly work first. Complex algorithms might be faster in the limit, but often the limit is never approached. Code clarity is almost always more important tha that last 2% of performance.
+. Avoid dynamic memory allocation.
+. Don't re-invent the wheel. This is especially true of infrastructure. Use what the OS gives you.
+. Like seatbelts, you want a type system to fit snugly but not painfully.
+. If a tool has more options or features than I can easily remember, it means those options effectively don't exist.
+. Don't invent your own serialization format
+. Exiting early and complaining loudly is a kind of error recovery
+. All queues are bounded, they just vary in how they deal with being full.
+. Make invalid states unrepresentable
+. Be welcoming and friendly. No matter who much you think you made it all on your own, it took a cast of thousands.
+. Simplicity compounds towards complexity. KISS aggressively.
+. At the end of the dat, you're a programmer. Stay humble.
+. Functions are the ultimate abstraction.
+. If you "just" understand it, everyone else is screwed. Even you in six months time.
+. Code is not documentation, it's a source of truth.
+. Use what's right for you in any context.
+. All programming languages are children of lambda calculus and / or turing machines. Learn them.
+. Data commands code
+. Mental capacity is limited; don't fry your head computer.
+. Functional til it hurts; imperative until it works.
+. Before optimizing, profile. What you find might surprise you.
+. Adding complexity is not free.
+
+== On "Just"
+
+> "Just" is suggesting a solution someone might not have seriously considered. "Just" suggests to get something done without spending your time over-engineering or exaggerating it. Nike's famous "Just do it." is a grat example - just do it. don't overthink it, dont' make excuses, do the thing you want to do. If someone's telling you to "just x" they think you have the capacity and ability to get x done. If they didn't, they'd elaborate.
+
+== On Testing
+
+> I get paid for code that works, not for test, so my philosophy is to test as little as possible to reach a given level of confidence [...]. If I don't typically make a kind of mistake (like setting the wrong variables in a constructor), I don't test for it.
+. Kent Beck (S.O.)
+
+> Maybe that's all you need. That and people who give a damn.
+
+== Conways Law
+
+> [O]rganizations which design systems (in the broad sense used here) are constrained to produce designs which are copies of the communication structures of these organizations.
+-- Melvin E. Conway, How Do Committees Invent?
+
+== Galls Law
+
+> A complex system that works is invariably found to have evolved from a simple system that worked. The inverse proposition also appears to be true: A complex system designed from scratch never works and cannot be made to work. You have to start over, beginning with a working simple system.
+-- John Gall, Systemantics: How Systems Really Work and How They Fail

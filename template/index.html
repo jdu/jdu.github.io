@@ -30,19 +30,9 @@
                     <h2>Articles</h2>
 
                     <ul>
-                        
-                        <li><a href="/posts/2024-ice.html">Ice</a></li>
-                        
-                        <li><a href="/posts/2024-03-18-idioms.html">Idioms, Principles, and Laws</a></li>
-                        
-                        <li><a href="/posts/2022-git-worktrees.html">git Worktrees</a></li>
-                        
-                        <li><a href="/posts/2021-method-madness.html">Method Madness</a></li>
-                        
-                        <li><a href="/posts/2021-01-01-class-warfare.html">Class Warfare!</a></li>
-                        
-                        <li><a href="/posts/2020-03-16-working-from-home.html">Working From Home -- Tips, Tricks, and Motivation</a></li>
-                        
+                        {% for article in posts %}
+                        <li><a href="{{article.url}}">{{article.title}}</a></li>
+                        {% endfor %}
                     </ul>
 
                 </div>
@@ -61,9 +51,9 @@
                     <h2>Reading</h2>
 
                     <ul>
-                        
-                        <li><a href="/reading/reading.html">Reading</a></li>
-                        
+                        {% for article in reading %}
+                        <li><a href="{{article.url}}">{{article.title}}</a></li>
+                        {% endfor %}
                     </ul>
 
                     <!--

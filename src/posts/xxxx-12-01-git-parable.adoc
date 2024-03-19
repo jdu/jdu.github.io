@@ -1,0 +1,431 @@
+= Git -  A parable
+:prot-name: Bill
+:friend-name: Pat
+:client-name: Deirdre
+:dev-name: Scott
+
+// https://www.youtube.com/watch?v=ANNboouhNHE&t=553s
+
+`git` is hard. And when I say it's hard, I don't mean that the tools themselves are particularly hard, you can sort of hobble along using the `git` command-line without  ever really having to understand what is going on under the hood and get a reasonable flow going. However, when something goes wrong, or you're faced with a complicated situation, you can google the answer, but you're not always sure exactly what is happening under the hood.
+
+This post is not about *how* to use `git`, it's a journey of understanding -- a parable -- that will help you get to grips with *why* `git` is the way it is, how decisions in its design lead to where it is now, and ultimately (hopefully) give you a basis for understanding what's __really__ happening when you do that `git checkout`.
+
+== `git` is not *GitHub*
+
+++++
+<aside>
+<p>Emphasis on "decentralized" here, the original use-case for git was to generate _patch files_ and share them through mailing lists or email in order to get them merged into a main version (managed by Linus).</p>
+</aside>
+++++
+
+First things first, you could be forgiven for not realizing, but `git` itself was not developed by GitHub. It was originally developed by Linus Torvalds as a way to better manage decentralized development on the Linux Kernel.
+
+`git` wasn't the first source control management system to come around either, but it seems to be the one that has garnered the most traction -- both commercially and internally at various companies and organisations.
+
+We're not going to delve into the history of `git` here, but you should note following:
+
+[cols="1,1"]
+|===
+h|`git`
+h|*GitHub*
+
+|A tool for decentralized management of change for code
+|A commercial application which _hosts_ and centralizes `git` repositories
+
+|===
+
+== A Parable
+
+=== Our Premise
+
+The world of our parable is one where we have a software engineer named *{prot-name}*. {prot-name} works with an operating system which is pretty barebones. It has the following features:
+
+. A hierarchical file system consisting of folders and files
+. A Code / Plaintext Editor
+
+++++
+<aside>
+<img src="/images/biscuits_rev2_clean.png"/>
+</aside>
+++++
+
+{prot-name} has decided to start a new software project called *Squiqqledysplorch* that will help his organization to track an inventory of biscuits, their types and whose eaten those biscuits in order to build some analysis and insight into organisational semantics around biscuit edibility and enjoyability. This work is critical to the to their success and prosperity and will lead to revolutionary approaches to internal biscuit distribution optimization.
+
+=== {prot-name} gets dug in
+
+To start, {prot-name} creates a new folder on his system called `squiggledysplorch`, he frames out his project, creating sub-folders and files containing code in his favourite programming language.
+
+++++
+<aside>
+++++
+What {prot-name} is thinking about is a _version control system_
+++++
+</aside>
+++++
+
+After a couple of weeks, {prot-name} decides that he needs some way to track chunks of changes and versions of his code so that he can roll back changes that don't make sense, or revert changes that he has made to older versions, as well as compare different versions of code.
+
+=== {prot-name} gets inspired
+
+{prot-name} has a good friend {friend-name} who works as a photographer. One day, {friend-name} tells {prot-name} about one of his clients, a woman named {client-name} who books a photo session every year with {friend-name} on the same day to have a snapshot of her daughter taken.
+
+++++
+<aside>
+<img src="/images/photos_rev2_clean.png"/>
+</aside>
+++++
+
+{client-name} likes to be able to look back through these snapshots to see what her daughter {daughter-name} looked like through all the different stages of her development, from a baby up to her current age. The snapshots let {client-name} feel like she can move back and forth in time, seeing her daughter like this is meaningful to {client-name}.
+
+{prot-name} listens, and has a eureka moment, he suddenly has a solution to his code version control problem!
+
+=== {prot-name}s First Attempt
+
+What {prot-name} wants are _snapshots_. Like "save points" in a video game, they're individual copies of the state of the code-base at specific points in time.
+
+{prot-name}s first attempt is really promising.
+
+He creates a new folder called "working", this is where {prot-name} will work most of the time, and when he feels like it's a reasonable time to take a "snapshot" of his work, he'll just copy the entire folder, and rename the copy with a numbering system so that he can keep track of the order of the snapshots:
+
+++++
+<img src="/images/terminal_clean.png"/>
+++++
+
+----
+- squiqqledysplorch\ <- Project folder
+    - working\ <- where {prot-name} works day to day
+    - snapshot.0\ <- A snapshot
+----
+
+The most important rule of {prot-name}s new system, is that once he's created a snapshot of the _working_ folder, and renamed it to _snapshot.<number>_ he *never* edits that snapshot folder again. It's a copy of his code at that specific point in time, frozen as a reference.
+
+After the next chunk of work, {prot-name} creates another copy (snapshot):
+
+++++
+<img src="/images/snapshots_initial_clean.png"/>
+++++
+
+----
+- squiqqledysplorch\ <- Project folder
+    - working\ <- where {prot-name} works day to day
+    - snapshot.0\ <- A snapshot
+    - snapshot.1\ < Another snapshot / copy
+----
+
+=== A problem arises
+
+{prot-name} can't remember what changes are in each snapshot, or when he created them. When he's looking at his folder, he can see the snapshot numbers, but as more and more snapshots are created, it gets harder to tell which ones which.
+
+++++
+<img src="/images/lot_of_snapshots_clean.png"/>
+++++
+
+To fix this, {prot-name} adds a `message.txt` file to each of the snapshot folders, inside of each he adds the date and time the snapshot was created, along with a message describing the changes contained in that snapshot compared to the previous snapshot. Something like this:
+
+.message.txt
+----
+2022-01-01 12:34:55
+
+Introduce a new method `foo`, and reset the bar to `xyz123`.
+----
+
+Now he has one in each of his _snapshot.<XXX>_ folders.
+
+++++
+<img src="/images/message_clean.png"/>
+++++
+
+Now {prot-name} can find specific changes he made in the past by searching the message.txt files and comparing files between his `working` folder and specific `snapshot.<number>` folder.
+
+{prot-name} has create a linear history.
+
+=== It's release time
+
+{prot-name} gets on with working in his new snapshot-based version control system. Generating new snapshots when he feels it's time, until he's happy that he has a stable version that he can call *version 1.0* of *squiggledyspotch*.
+
+He creates a new snapshot `snapshot.99` to represent his code that's ready to release.
+
+----
+- squiqqledysplorch\
+    - working\
+    - snapshot.0\
+    - snapshot.1\
+    - ... Lots of snapshots
+    - snapshot.99\ <- The release snapshot
+----
+
+{prot-name} packages up his `version 1.0`, puts it out there, and releases it to the public and they absolutely love it.
+
+image::michele-canciello-W7gXCjUj0iI-unsplash.jpg[]
+
+It's a huge success!
+
+Now that the application is out in the wild, {prot-name} starts getting new feature requests coming in:
+
+. "Can we enter multi-packs of Hobnobs"
+. "Can you add German language support for the German office?"
+
+{prot-name} starts working on these new features right away, creating snapshots `100`, `101`, `102` and on and on.
+
+
+----
+- squiqqledysplorch\
+    - working\
+    - snapshot.0\
+    - snapshot.1\
+    - ... Lots of snapshots
+    - snapshot.99\ <- version 1.0 snapshot
+    - snapshot.100\ <- New Feature: internationalization
+    - snapshot.101\ <- New Feature: multi-pack biscuit entry
+    - snapshot.102\ <- New Feature: Allow users to leave
+----
+
+.A Wild bug appears
+While toiling away building features for the next major release, some bug reports start coming in for `squiddledysplorch v1.0` -- the one in {prot-name}s `snapshot.99` folder.
+
+[quote,A User Probably]
+Help! I can't get out of the biscuit editor!!!!
+
+Easy enough right? We can just copy `snapshot.99` -- the snapshot that correlates to `squiddledysplorch v1.0` -- into the `working` directory, so that {prot-name}s `working` directory is at exactly the state it was in when he created `snapshot.99`/`v1.0`. This is exactly the reason we've gone down this road of setting up version control!
+
+Now {prot-name} can work away in his `working` directory to fix the bugs in v1.0.
+
+---
+++++
+<center>
+++++
+
+*Here there be dragons!*
+
+++++
+</center>
+++++
+---
+
+Uh oh! {prot-name}'s version control system deals *really well* with _linear development_, but now, with the changes to `snapshot.99`, for the first time ever, {prot-name} has to create a new snapshot *that is not the direct descendant of the preceding snapshot*.
+
+image::https://lucid.app/publicSegments/view/8ea1fdd3-b860-4861-9c4f-88e8af14cb47/image.png[]
+
+This utterly breaks the linear design of {prot-name}'s source control system. You can no longer trace the parent relation, `snapshot.103` *does not* follow directly from `snapshot.102`... it follows directly from `snapshot.99`.
+
+{prot-name} can no longer determine the ancestry of any given snapshot by simply counting backwards...
+
+So he needs something *more powerful* than a linear system.
+
+=== A second bout of inspiration
+
+{prot-name}'s pretty frustrated, he needs something better to manage his code and the feature requests and bug reports are piling up. He decides to step back, throw on his coat and a wooly jumper and go for a walk to get some fresh air.
+
+++++
+<aside>
+<img src="/images/tree_clean.png"/>
+</aside>
+++++
+
+On his way through a local park, a massive Oak tree catches {prot-name}'s eye. He spends countless minutes admiring the branches and the complexity of the tree, when all of a sudden, inspiration strikes again!
+
+
+Looking at the structure of the tree, and it's branches, {prot-name} looks at individual tips of branches, and traces their path back to the trunk. The tree on the whole is a super complex piece of natural engineering, but the _rules_ for finding your way back to the trunk from any given branch tip, are actually super simple, and they're perfect for keeping track of *multiple lines of development*.
+
+
+He needs *each* snapshot to point to the *previous snapshot* (i.e. it's parent snapshot). So each snapshot *has one parent* except for the very first snapshot.
+
+So how do we store this "pointer" to the previous snapshot
+
+We add it to our `message.txt` file in each of our snapshot folders!
+
+----
+2022-04-01 12:45:32
+parent: snapshot.99
+
+Fixed a bug where total global annihilation could be caused by issuing a bad combination of shortcut keys.
+----
+
+Now we can easily and simply trace the ancestry of any given snapshot all the way back to the root snapshot by looking in the snapshots `message.txt`!
+
+Instead of having a single latest snapshot, we now have two latest snapshots:
+
+. `snapshot.103` which contains our v1.0 bugfixes
+. `snapshot.102` which contains our most recent stable development work for the next release
+
+Now instead of a *linear history* we have a *non-linear history*. Our version control system represents our snapshots as a tree of changes.
+
+{prot-name} leans hard into his new branching version control, it allows him to start "branches" to try out new ideas, ones he can drop if they don't pan out, and he can create branches to provide alternate versions or fix bugs in previous versions. His tree-based source control has turned out great.
+
+=== It all gets a bit messy
+
+Now that {prot-name} is creating lots of tree-based snapshots, the numbering system `snapshot.<number>` doesn't really provide a lot of meaning any more and keeping track of which number to use next is starting to get pretty annoying. As well as this, the numbers don't really have a lot of meaning anymore, `snapshot.103` follows on directly from `snapshot.99`.
+
+So {prot-name} is struggling to keep track of which snapshots belong to which branches. In his head he gives the individual branches names to denote the type of work that's happening in that branch, and his core root branch he calls `main` in his head.
+
+Because the snapshots all contain a `message.txt` that points to its immediate ancestor snapshot, all {prot-name} really needs is a way to keep track of which snapshots are the "tips" of each branch.
+
+He decides to create a new file `branches` directly in the `squiggledysplorch` folder and outside of his `snapshot.<number>` and `working` directory to hold a reference to the latest snapshot for each branch:
+
+----
+- squiqqledysplorch\
+    - branches <- HERE
+    - working\
+    - snapshot.0\
+    - snapshot.1\
+    - ... Lots of snapshots
+    - snapshot.99\
+    - snapshot.100\
+    - snapshot.101\
+    - snapshot.102\ <- `main` branch tip
+    - snapshot.103\ <- `v1.0-maint` branch tip
+----
+
+In the `branches` file he lists all of his friendly branch names and for each one lists the most recent snapshot for that branch.
+
+.branches
+----
+main:       snapshot-102
+v1.0-maint: snapshot-103
+----
+
+Now if {prot-name} wants to switch to a different branch, he just needs to look in the _branches_ folder, and copy the appropriate _snapshot.<number>_ folder into his _working_ directory.
+
+And because his `message.txt` file always contains a reference to a snapshots immediate parent, he can always trace his way back from the tip of a branch by following the `parent` entry back to where it split off from his `main` branch.
+
+== Tags
+
+After using branches for a while, {prot-name} decides he needs a new kind of reference, something to help him specifically know which snapshots represent a given release. 
+
+{prot-name} has multiple versioned releases out the door at this point, and trying to figure out which snapshot, on which branch, correlates to a given release, is becoming a pretty unruly undertaking.
+
+Our _branches_ file in our root folder can only tell us which snapshots represent the *tips* of each of our branches, so {prot-name} adds a new file in the root folder called "tags" and adds some friendly names pointing to individual snapshots representing specific releases, like our v1.0.0 initial release and the v1.0.1 release that has his bugfixes in it.
+
+.message.txt
+----
+v1.0.0       snapshot-99
+v1.0.1       snapshot-110
+----
+
+== Getting Collaborative
+
+The amount of work that needs to be done on the project is starting to get out of {prot-name}s ability to manage it on his own. He wrangles another developer named {dev-name} to and start working on the project alongside him.
+
+{dev-name} is keen to get started and really interested in {prot-name}s version control system, so {prot-name} sends {dev-name} a copy of all of his working and snapshot version back through the history of project so they can get started.
+
+they take long trips
+she's incommunicado for a long while
+in the meantime they both do a lot of coding
+when they get back there's a flaw in the version control system
+because both have been using the same numbering system, they both
+have directories named 114, 115, but with differing code changes
+
+++++
+<img src="/images/divergent_snapshots_clean.png"/>
+++++
+
+You also don't know who AUTHORED those changes in each of the snapshots
+change snapshot messages to contain an author field (nam, eamil)
+we stop naming the snapshots with simple numbers
+They are redundant because the history is no longer linear
+Use the contents of the message.txt and SHA-1 algorithm to generate a hash
+the hash is unique to the snapshot because no two messages will ever
+have the same date, parent and message
+both update their histories with the technique
+instead of clashing folders, they now have distinct folders with `8BA344` and `DB9ECB` or something
+all older snapshots are converted to the new format as well
+you can now fetch the other persons snapshots and place them next to your
+snapshots
+Because the snapshots reference their parents, the history of the code-base
+can still be drawn as a tree
+the tree now is made up of snapshots authored by both developers
+The snapshots can be created and moved around computers without losing
+their identities, or where they belong in the history of the code-base
+snapshots can be shared, or kept private if you're not ready to share it with others
+the travel habits mean they have no internet access. They only really need internet
+access when they need to share their changes to {prot-name}
+
+== Reconciliation and Merging
+
+Ask Zoe to work on a new `match` branch to implement a new function
+You work on it as well
+Once it's time to merge them in, Z shares her snapshots for the code changes
+she's done, and you take your work, and hers, copy them into your working directory
+and create a merge snapshot that brings the two branches together.
+The new snapshot we've created is special.
+Instead of having 1 parent snapshot, it has TWO
+thew first parent is the latest on Bills branch and the second is the latest
+on Zs branch
+Once the merge is done, Z can fetch the merged changes from Bill to get
+all the changes she doesn't have yet, and the new merge snapshot
+Both developers histories not match again, and they're in sync
+
+== Rewriting history
+
+You have a tendency to go off on tangents, create branches based off of
+ill-advised pressure from senior members of staff, and your innate compulstion
+to keep your code-base clean and tidy suddenly kicks in.
+There are a number of branches and snapshots which amounted to bupkis
+and you want tog
+
+
+// Drop
+== Staging
+
+As much as you like to keep your new work specific to a specific feature
+once in a while you end up hacking away on something in your working
+directory that's totally unrelated.
+Halfway into this, you realize that your working directory now contains
+what really should be two separate snapshots
+to sort this out, bill starts using a `staging` directory
+This folder acts as an intermediate step between your working directory
+and a final snapshot
+each time you finish a snapshot you copy it into the staging directory,
+and then you create a snapshot from that staging directory
+if a change belongs in the next snapshot then you mimic that change in
+the staging directory, but if it doesn't then you can leave it inside the working
+directory and make it part of some later snapshot
+When you're happy with the staging directory, you create a new snapshot from it
+This separation of concern, makes it easier to specify what SI and ISN'T in
+the next snapshot
+
+You have to be careful though, consider a single file README which you edit
+and the mimic into `staging`, you go on with your business, edit some other files,
+but after a while you make another change to README.
+Now you have made two changes to that file, but only the first one is in the staging
+area, if you were to create a snapshot now, your second change would be absent.
+EVERY new edit must be added tothe staging area if it is to be part of the next snapshot.
+
+== Diffs
+
+Now with a working directory, a staging area, and loads of snapshots lying around, it starts to get confusing as to what the specific code changes are between these directories.
+
+A snapshot message only gives you a summary of what changed, but it doesn't reall tell you exactly what lines were change dbetween the two files. Using a diffing algorithm, you can make a small program that shows you the differences in the two code versions. As you develop and copy things from your working directory to the staging area, you will want to easily see what is different between the two, so that you can determine what else needs to be staged. It's also important to see how the staging area is different from the last snapshot, since these chages are what will become part of the next snapshot that you produce.
+
+There are many other diffs that you might want to see as well.
+
+The different between a specific snapshot and its parent would show you the specific changes that were introduced by that snapshot.
+
+The difference between two branches would be helpful to make sure that your development doesn't watder too far away from the main line, for example. Now, remember Z? After a few more trips around the work, Z starts to complain that her hard drive is filing up with hundreds of nearly identical copies of the code.
+
+You too havec been feeling like all the file duplication is wasteful.
+
+Aftersome thinking you come up with something very clever. The SHA-1 has produces a unique string that is unique for a given files contents.
+
+. new directory called objects
+.
+
+
+---
+
+Our numbering system isn't particularly useful any more, each snapshot number doesn't really tell us much about the lineage of that snapshot because our new tree-based approach means that numbers can sort of, jump all over the place across our trees branches.
+
+Because it's not particularly useful, and we have the _parent_ property in our `message.txt` for each snapshot, we can replace the number with something more useful.
+
+
+== More Information
+
+TBW
+
+== References
+
+TBW
+
+== End Note
+
+TBW

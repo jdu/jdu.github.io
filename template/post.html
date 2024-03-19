@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="main">
+
+  <div class="left-menu">
+
+
+    <a class="brand" href="/">JDU</a>
+
+    <div class="contents">
+
+      <h3><a href="#top">{{ page_title }}</a></h3>
+
+      <ul>
+        {% for item in toc %}
+
+        <li class="toc-{{item[0]}}"><a href="#{{item[2]}}"><small>{{item[0]}}</small>{{item[1]}}</a></li>
+
+        {% endfor %}
+
+        <!-- <li class="divider"></li> -->
+
+        <!--
+
+        <li class="end-part">
+          <a href="#references">References</a>
+        </li>
+
+        <li class="end-part">
+          <a href="#end-note"><small>note</small>End Note</a>
+        </li>
+
+        -->
+      </ul>
+
+    </div>
+  </div>
+
+  <div class="page">
+    <h1>{{ page_title }}</h1>
+
+    <article class="chapter">
+
+      {{ page_content }}
+
+    </article>
+
+
+    <footer>
+      Handcrafted by Jeff Uren — <a href="https://github.com/jdu/jdu.github.io/blob/master/LICENSE"
+        target="_blank">&copy; 2024</a>
+    </footer>
+  </div>
+
+</div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+<!-- and it's easy to individually load additional languages -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+
+<script>hljs.highlightAll();</script>
+
+{% endblock content %}

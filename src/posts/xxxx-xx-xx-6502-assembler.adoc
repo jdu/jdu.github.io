@@ -1,0 +1,7 @@
+= 6502 Assembler
+
+http://skilldrick.github.io/easy6502/
+https://nerdy-nights.nes.science/
+https://www.nesdev.org/wiki/Nesdev_Wiki
+https://git.sr.ht/~rabbits/famicom-cookbook
+https://github.com/nesdoug/01_Hello

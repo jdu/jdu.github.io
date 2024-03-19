@@ -1,0 +1,8 @@
+- name: Other Stuff
+  items:
+    - name: Knowledge
+      link: /knowledge.html
+- name: Footer
+  items: []
+- name: GitHub
+  link: https://github.com/jdu

@@ -1,0 +1,71 @@
+= An IDE for Authors
+
+// https://www.inkandswitch.com/inkbase/
+
+WARNING: This is a work in progress, please ignore grammar, spelling, errors, and omissions until this notice is removed.
+
+== Authorship as Integrated Development
+
+=== Success of Paper and Pen
+
+=== Complex Concepts, Linkages, Timelines
+
+=== Sprawling, Multi-Volume Works
+
+=== `git` but for Authors
+
+=== Rules
+
+=== Research Questions
+
+=== Project Goals
+
+=== Prior Art
+
+== Cultivate
+
+=== The Interface
+
+TBW
+
+=== Objects, Properties and Rules
+
+TBW
+
+=== Dynamism in the Editing Experience
+
+TBW
+
+=== Versioning, Branching, Editing
+
+TBW
+
+=== Integrated Editing Experience
+
+TBW
+
+== Sample of Use Cases
+
+=== Managing Multiple Drafts
+
+TBW
+
+=== Context-Sensitive Research, Notes, Classes, and Objects
+
+TBW
+
+=== Distraction-Free Editing
+
+TBW
+
+== Key Ingredients
+
+TBW
+
+== Findings and Open Questions
+
+TBW
+
+== Conclusion
+
+TBW

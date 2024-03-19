@@ -1,0 +1,90 @@
+= git Worktrees
+:source-highlighter: highlight.js
+
+You may or may not have noticed that some of the people in the DataOps team work with `git` in a slightly different way than you would normally expect people to. 
+
+If you hadn't noticed, you're in for a bit of a roller-coaster ride into an oft-unused feature of git that makes jumping between branches and different contexts a lot easier.
+
+== A Little Background
+
+The reason we work the way that I'm going to describe further down is because we do **alot** of context switching. When I say alot I mean alot. We jump between different pipelines, bugfixes and tasks more or less constantly throughout a day because some of our code takes time to run before we really see the fruits of our labours.
+
+Normal branching in git requires that you check in your code whenever you need to swap to another branch so that you're not carrying changes between different sets of branches by accident. It's really annoying when you forget to check in a file and swap branches and then suddenly you've got a change from another set of work sitting in your new, totally unrelated branch.
+
+
+== How DataOps (and I) use worktrees
+
+First we create a barebones folder to hold our project:
+
+----
+$ mdir my_project
+----
+
+We then clone the "bare" repository into a directory called `.bare`
+
+```
+$ git clone --bare git@github.com/wellcometrust/wt-data .bare
+```
+
+What this does is clone down the internal git repo database but not the artifacts themselves. So this is all the information about the different branches, commits, merges, etc... that exist in the repo.
+
+Once we have that in place we need to set a config file at the root of our `my_project` folder to tell it to look in the `.bare` folder for the git repos information.
+
+```
+$ echo "gitdir: ./.bare" > .git
+```
+
+Now we can run the command `git status` and our top-level folder will act like it's the git repo that we want to work with... sort of.
+
+We need to create our first worktree first.
+
+```
+$ git worktree add main
+```
+
+What this will do is checkout the `main` branch into a folder called `main` under our `my_project` folder.
+
+That probably doesn't seem all that special to be honest. But this is where the magic kicks in.
+
+We can now have multiple top-level directories in our root folder representing branches. So we can go ahead and add another worktree:
+
+```
+$ git worktree add some-new-feature
+```
+
+and we'll now have two branch-based directories in our root directory.
+
+```
+my_project/
+    .bare/
+    main/
+    some-new-feature/
+```
+
+Not rather than swapping / checking out branches, stashing changes to swap between branches, or doing unnecessary commits just to work around these things, we can simply change directories and even work on two sets of changes concurrently.
+
+Once we're done, and we've pushed our branch to the remote:
+
+```
+$ cd some-new-feature
+$ git push origin some-new-feature
+```
+
+We can go ahead and remove the worktree from the root by using the command:
+
+```
+$ git worktree remove some-new-feature
+``` 
+
+Drop into main and pull down the changes once we've merged them in:
+
+```
+$ cd main && git pull origin main
+```
+
+And then checkout a new worktree for whatever we're working on next:
+
+```
+$ git worktree add another-new-feature
+```
+

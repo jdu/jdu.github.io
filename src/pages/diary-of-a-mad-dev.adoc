@@ -1,0 +1,15 @@
+= Diary of a (Madman) Developer
+
+NOTE:: This post is a *work in progress*, as such there might be omissions, errors, bad spelling, bad grammar, flow problems, or other issues. Be kind, and come back later when it's been revised and finalized!
+
+== What the hell is all this?
+
+For a number of years I worked tirelessly on a project called EWARS (and later Sonoma, and then Oana) that amalgamated a data collection, reporting, analysis, mapping, and a whole ot of other components for the World Health Organisation (WHO).
+
+At some point i'll do a more formal write-up about that project, but, having bought a scanner to do work on the illustrations for other posts (and a book; dun-dun-dunnn) I figured i'd allocate some time to scanning in *a lot* of old drawings, diagrams, designs, notes and other ephemera from the years that I worked on this project.
+
+The images below span a period of about 6 years, across about 20 notebooks. It's not exhaustive, nor in chronological order. More than anything it's a peek into the life of a one-man show development project, and maybe a testament to what you can actually accomplish given time, space, freedom and a hard work ethic.
+
+The system that this content revolves around is still in use across somewhere between 20-30 countries spanning the Pacific, Middle-East, Africa and more. My time ont he project ended around 2017, and somewhat at a loose end I tried to figure out if I could take the projects code and turn it into something bigger.
+
+== A Wasteland of Ephemera

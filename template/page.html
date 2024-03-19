@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<nav class="wide">
+  <a class="brand" href="/">JDU</a>
+
+  <div class="contents">
+
+    <h3><a href="#top">{{ page_title }}</a></h3>
+
+    <ul>
+      {% for item in toc %}
+
+      <li class="toc-{{item[0]}}"><a href="#"><small>{{item[0]}}</small>{{item[1]}}</a></li>
+
+      {% endfor %}
+
+      <li class="divider"></li>
+
+      <li class="end-part">
+        <a href="#references">References</a>
+      </li>
+
+      <li class="end-part">
+        <a href="#end-note"><small>note</small>End Note</a>
+      </li>
+    </ul>
+
+  </div>
+
+
+</nav>
+
+<div class="page">
+  <h1>{{ page_title }}</h1>
+
+  <article class="chapter">
+    {{ page_content }}
+
+    <footer>
+      Handcrafted by Jeff Uren — <a href="https://github.com/jdu/jdu.github.io/blob/master/LICENSE"
+        target="_blank">&copy; 2022</a>
+    </footer>
+  </article>
+</div>
+
+
+{% endblock content %}

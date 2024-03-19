@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>JDU </title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro:400|Source+Sans+Pro:300,400,600' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+  
+
+<div class="main">
+
+  <div class="left-menu">
+
+
+    <a class="brand" href="/">JDU</a>
+
+    <div class="contents">
+
+      <h3><a href="#top">Method Madness</a></h3>
+
+      <ul>
+        
+
+        <li class="toc-1"><a href="#_a_gotcha"><small>1</small>A gotcha</a></li>
+
+        
+
+        <li class="toc-2"><a href="#_its_just_a_list"><small>2</small>It's just a list!</a></li>
+
+        
+
+        <!-- <li class="divider"></li> -->
+
+        <!--
+
+        <li class="end-part">
+          <a href="#references">References</a>
+        </li>
+
+        <li class="end-part">
+          <a href="#end-note"><small>note</small>End Note</a>
+        </li>
+
+        -->
+      </ul>
+
+    </div>
+  </div>
+
+  <div class="page">
+    <h1>Method Madness</h1>
+
+    <article class="chapter">
+
+      <div id="preamble">
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+This was written a number of years ago as a primer to help some colleagues understand some basic programming concepts.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Looking at this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-python" data-lang="python">def apply_fn(x):
+    new_format = x
+
+    if x[1] != 0:
+         new_format = f"{x[0]}, ({x[1]})"
+    else:
+         new_format = x.type
+
+    return new_format
+
+df_pg_table['type_size'] = df_pg_table[['type','size']].apply(apply_fn , axis=1)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Its a bit janky to read and trying to understand basic programming concepts while mingled in with pandas concepts, probably muddies the water a little bit. So we&#8217;ll refactor this to a similar concept using plainer python:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-python" data-lang="python">def apply_fn(x):
+    new_format = None
+
+    if x[1] != 0:
+        new_format = f"{x[0]}, ({x[1]})"
+    else:
+        new_format = x.type
+
+    return x + (new_format,)
+
+my_data = [
+   # (size, type)
+   (10, 'INT'),
+   (7, 'f64'),
+]
+
+my_data = map(apply_fn, my_data)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>So above is a simplification of Lauras code using std (standard) python concepts.</p>
+</div>
+<div class="paragraph">
+<p>We&#8217;re declaring a method <code>apply_fn</code> and that methods signature is this line <code>def apply_fn(x)</code></p>
+</div>
+<div class="paragraph">
+<p>So what&#8217;s the significance of <code>x</code> here? It&#8217;s a <strong>variable</strong>, it&#8217;s in the <strong>signature</strong> but the method itself is not tied specifically to the <code>map</code> function, <code>map</code> doesn&#8217;t state that there must be an <code>x</code>, and it&#8217;s the same with pandas. So how does it know to use the name x for the data it passes in?</p>
+</div>
+<div class="paragraph">
+<p>It doesn&#8217;t. The end.</p>
+</div>
+<div class="paragraph">
+<p>(no not really)</p>
+</div>
+<div class="paragraph">
+<p>The <code>x</code> variable here is part of what&#8217;s called the <code>local scope</code> "Oh frig now he&#8217;s talkin' 'bout scopes" I hear you say. I know you love it :heart:.</p>
+</div>
+<div class="paragraph">
+<p>Scopes aren&#8217;t too complicated, they&#8217;re basically the context (i.e. what&#8217;s available) for the code currently getting executed and they define the borders of what a block of code can access:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-python" data-lang="python"># this is a GLOBALLY scoped variable
+SOME_VAR = 0
+
+# this is a globally scoped function
+def some_func(x):
+    inner_var = 1
+    # x is a LOCALLY scoped variable, it's not accessible outside
+    # of this indented area
+    inner_var = x + SOME_VAR
+    # this local scope can access the GLOBAL scope, it's like a waterfall
+
+    def inner_func(y):
+        # because this function is declared INSIDE of `some_func` it can
+        # actually access variables declared in GLOBAL, inside `some_func`,
+        # and inside itself
+        return x + y # notice we don't have to pass in `x`? it already has access to it from the outer scope
+
+    # This DOES NOT work in reverse though. `some_func` can not access the
+    # `y` variable inside of `inner_func` you can't reach into inner scopes,
+    # you can only reach UP out of the inner scope.
+
+    return inner_func(inner_var)
+
+# We can call some_func(x) here
+some_func(12)
+
+# But we can't call inner_func(y)
+inner_func(4) # ERROR, DOES NOT COMPUTE
+
+# We can print SOME_VAR
+print(SOME_VAR)
+
+# But we can't print y out here
+print(y) # ERROR! ERROR!</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Stay with me now, we&#8217;re laying some groundwork, so scopes basically save you from doing silly things, if we didn&#8217;t have scopes, then you would be constantly overwriting variables all over your code in different places when you accidentally used the same name more than once. A variable named <code>my_var</code> nested somewhere deep inside of a function, inside a class, inside a loop could change the value of a variable somewhere way over on the other side of your code-base. We don&#8217;t want that.</p>
+</div>
+<div class="paragraph">
+<p>But did you notice something else in the code above?</p>
+</div>
+<div class="paragraph">
+<p>We declared this function:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-python" data-lang="python">def inner_func(y):
+    return x + y</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>But when we called it we didn&#8217;t pass it a variable named y</p>
+</div>
+<div class="paragraph">
+<p>Shock, horror, notify his next of kin! A murder is afoot! Does this even run!?!?!?</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-python" data-lang="python">return inner_func(inner_var)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>What gives?</p>
+</div>
+<div class="paragraph">
+<p>Well it turns out there are TWO types of function "arguments" in python.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Positional Arguments</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-python" data-lang="python">def my_func(x0, x1, x2):
+    print(x0, x1, x2)</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Keyword Arguments</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-python" data-lang="python">def my_func(x0=None, x1=None, x2=None):
+    print(x0, x1, x1)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Python doesn&#8217;t actually care about the names of positional arguments because python uses two different ways to pass around data:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Pass by value (or copy on move) (used for "immutables" like int, float, string)</p>
+</li>
+<li>
+<p>Pass by reference (used for "mutables" like dict, list, class instances)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You can google these, but I&#8217;ll try and explain here. The gist of it, is that when you call a function with some variable:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-python" data-lang="python">my_var = 12
+my_func(my_var)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You&#8217;re not actually sending that my_var into the function, it isn&#8217;t a box containing the number 12. Depending on the type, you&#8217;re either passing a "reference" to the location in memory where that data is held, or passing a reference to <strong>a copy in memory of the data into the function</strong>.</p>
+</div>
+<div class="paragraph">
+<p><code>my_var</code> doesn&#8217;t CONTAIN any data, it simply acts as a signpost to a place in your computers memory where that data lives. If it&#8217;s something that&#8217;s immutable (like an int, float, etc..) it will COPY that data. if it&#8217;s something mutable (a dict, or list for instance), it will <strong>pass a reference to the original data</strong>.</p>
+</div>
+<div class="paragraph">
+<p>So we&#8217;re not actually passing in the data itself, so the names, they actually don&#8217;t matter.</p>
+</div>
+<div class="paragraph">
+<p>Think of variable names as an old-school library card index, if you&#8217;ve been really jonesin' to read the latest shades of grey or sumthin, it&#8217;s in the library somewhere, but in order to find it you need something to "point" you to its location in the stacks. A code that correlates to an aisle, and a shelf. That&#8217;s what a library index does.</p>
+</div>
+<div class="paragraph">
+<p>And that&#8217;s what variables are, they tell you WHERE the book is, but they don&#8217;t have much more than the title of the book themselves and a locator code. In systems languages like C++, and C these are called "pointers", in rust they&#8217;re called "borrows", but in those languages you have OTHER options for passing around data, in python, you&#8217;ve sort of got the main pass-by-reference and pass-by-value ones, so they don&#8217;t bother telling you that&#8217;s what&#8217;s happening under the hood, it&#8217;s just. how. it. works.</p>
+</div>
+<div class="paragraph">
+<p>So when you do <code>my_func(my_var)</code> you&#8217;re not copying the data into the functions inner scope, you&#8217;re passing in an id that correlates to a location in memory, and depending on the type of data, it could be a copy of or the original data itself.</p>
+</div>
+<div class="paragraph">
+<p>You can actually see this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-python" data-lang="python">my_var = 12
+
+print(id(my_var))
+# 140312941304464 &lt;- its library code!!!</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When you declare (define) a function:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-python" data-lang="python">def my_func(x):
+    print(x)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>What your code is effectively saying is this:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>My function is called <code>my_func</code></p>
+</li>
+<li>
+<p>It accepts one positional argument which is a reference to some data in memory</p>
+</li>
+<li>
+<p>You can use and modify that data in memory using a variable named <code>x</code> when executing code in my function body (my scope)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>So it doesn&#8217;t care that the positional argument is called <code>x</code>, <code>plop</code>, <code>squiddledysplorch</code> or literally <code>whatever</code> so long as it&#8217;s not a python keyword (i.e. <code>map</code>, <code>list</code> , <code>dict</code>, etc&#8230;&#8203;). All it&#8217;s doing, is when someone calls the function, is sending in an id locating some data, in the order they&#8217;re passed in, and linking them to locally scoped variable names, the same order they&#8217;re declared.</p>
+</div>
+<div class="paragraph">
+<p>So you can actually do this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-python" data-lang="python">def my_func(x, y):
+    print(x, y)
+
+x = 1
+y = 2
+
+my_func(x, y)
+# This will print: 1 2
+
+my_func(y, x)
+# this will print: 2 1
+
+x_plop = x
+y_plop = y
+my_func(x_plop, y_plop)
+# this will print: 1 2
+
+# If we could align it visually
+
+    my_func(y, x)    # Calling the function
+            |  |
+            ▼  ▼
+def my_func(x, y):   # Function declaration
+    print(x, y)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>So again, much like the points in countdown, the names don&#8217;t matter, they&#8217;re there because remembering that you stored <code>12</code> at address <code>140312941304464</code> is a non-starter.</p>
+</div>
+<div class="paragraph">
+<p>So going back to our pythonized version of Lauras code</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-python" data-lang="python">def apply_fn(x):
+    new_format = None
+
+    if x[1] != 0:
+        new_format = f"{x[0]}, ({x[1]})"
+    else:
+        new_format = x.type
+
+    return x + (new_format,)
+
+my_data = [
+   # (size, type)
+   (10, 'INT'),
+   (7, 'f64'),
+]
+
+my_data = map(apply_fn, my_data)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>All <code>map</code> (or pandas <code>apply</code>) cares about is that the function being passed to it (in this case <code>apply_fn</code>) accepts one positional argument, <code>map</code> will call that function, passing a "reference" to the data item it&#8217;s currently looping over in the iterable thing it&#8217;s looping.</p>
+</div>
+<div class="paragraph">
+<p>To simplify this even more, we can take out <code>map</code> and show  you how this would work with just a plain old loop.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-python" data-lang="python">def apply_fn(x):
+    new_format = None
+    if x[1] != 0:
+        new_format = f"{x[0]}, ({x[1]})"
+    else:
+        new_format = x.type
+    return x + (new_format,)
+
+my_data = [
+   # (size, type)
+   (10, 'INT'),
+   (7, 'F64'),
+]
+
+my_new_data = []
+
+for item in my_data:
+    updated_record = apply_fn(item)
+    my_new_data.append(updated_record)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This and the previous <code>map</code> code accomplish the SAME thing. just <code>map</code> is optimized and faster under the hood.</p>
+</div>
+<div class="paragraph">
+<p><code>map</code> and <code>apply</code>  just do the function call for you, passing a reference to the current item in its internal loop to the function as a positional argument (in this case position 0).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_a_gotcha">A gotcha</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Now, there&#8217;s something to be VERY VERY clear about with pass-by-reference and pass-by-value, which you may not have caught. And python programmers actually manage to get through a significant bit of life before this bites them, I know a few who had been working with python for decades and didn&#8217;t understand this. And it can be summed up like so:</p>
+</div>
+<div class="paragraph">
+<p>The data inside the function, can at times be the same data as outside the function when it&#8217;s passed in by reference.</p>
+</div>
+<div class="paragraph">
+<p>That means that if you have code like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-python" data-lang="python">my_variable = {"Hello": 123} # dicts are mutable!!!
+
+def my_func(x):
+    x['Hello'] = 456
+    # notice we're not returning anything
+
+my_func(my_variable)
+
+print(my_variable)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You could be forgiven for assuming that the output of <code>print(my_variable)</code> would still  be:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-json" data-lang="json">{"Hello": 123}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>But you would be <strong>wrong</strong>, and you should feel bad about that. Did you even read the stuff I wrote above!?!</p>
+</div>
+<div class="paragraph">
+<p>Remember that pass-by-reference means we&#8217;re telling the scope inside of the function where to find the original data, <strong>we&#8217;re not making a copy of that data unless it&#8217;s an immutable type</strong> (int, float, string). We&#8217;re allowing it to use the original data (and use in this case also means the ability to change).</p>
+</div>
+<div class="paragraph">
+<p>So <code>print(my_variable)</code> will output <code>{"Hello": 456}</code> even though the variable <code>x</code> is a different name, it "references" the same data in memory, even though we aren&#8217;t returning or assigning the result back to <code>my_variable</code>.</p>
+</div>
+<div class="paragraph">
+<p>Through referencing, <code>x</code> and <code>my_variable</code> are linked as "pointers" to the same contiguous block of bytes of data in memory whenever <code>my_func</code> is called.</p>
+</div>
+<div class="paragraph">
+<p>To illustrate this simpler:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-python" data-lang="python">var_1 = [1] # list - mutable type
+var_2 = var_1
+var_3 = var_2
+
+# lets add 12 to the list in var_3!
+var_3.append(12)
+
+print(var_1)
+# [1, 12] wait whut?
+
+print(id(var_1))
+print(id(var_2))
+print(id(var_3))
+
+# 140197766227648
+# 140197766227648
+# 140197766227648</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We&#8217;re not copying the data here to other variables through assignment, these are all <em>referencing the SAME data in memory</em>. So when you edit ONE of them, the value accessible in all of them will be that same value as the edited one.</p>
+</div>
+<div class="paragraph">
+<p>If you&#8217;re using an immutable type though, it&#8217;s a different story:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-python" data-lang="python">var_1 = 12 # IMMUTABLE INT
+var_2 = var_1
+var_3 = var_2
+
+var_3 = 999
+
+print(var_1)
+# 12
+
+print(id(var_1))
+print(id(var_2))
+print(id(var_3))
+
+# 140359862360720 # var_1
+# 140359862360720 # var_2... same as var_1? WHUT?
+# 140359860206928 # var_3</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>What gives with the ids you might ask? <code>var_1</code> and <code>var_2</code> have the same id, but <code>var_3</code> has a totally different id. I thought you said immutable types make COPIES DAMMIT!</p>
+</div>
+<div class="paragraph">
+<p>Python is being very very clever here. Sneaky sneaky. It&#8217;s because we edited <code>var_3 &#8217;s value and didn&#8217;t edit `var_2</code> .</p>
+</div>
+<div class="paragraph">
+<p>Python won&#8217;t make a copy and update the reference to a new memory location until you try to <em>change the variables value</em>. So <code>var_1</code> and <code>var_2</code> are pointing to the same location in memory, the idea being that, if they both are supposed to have the value <code>12</code> what&#8217;s the point of storing two copies of the same <code>12</code> and wasting space? So if you have multiple variables throughout your code that are <code>some_var = 12</code> they all might actually be pointing to the same <code>12</code> in memory!</p>
+</div>
+<div class="paragraph">
+<p>The moment we change <code>var_2</code> though, its id will change to a new location:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-python" data-lang="python">var_2 += 2
+
+print(var_2)
+# 14
+
+print(id(var_1))
+print(id(var_2))
+print(id(var_3))
+# 140359862360720
+# 140327892261584 &lt;- New ID in memory
+# 140359860206928</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>So it&#8217;s being "lazy", and the benefit of it&#8217;s laziness, is that we use less memory for immutable types.</p>
+</div>
+<div class="paragraph">
+<p>Mind = Blown?</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_its_just_a_list">It&#8217;s just a list!</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A while back we talked about the <code><strong></code> and <code></strong>*</code> when you see them in function signatures. You can actually define a function like so:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-python" data-lang="python">def my_func(*args):
+    print(args)
+
+my_var = 298
+my_func(12, 16, my_var)
+# (12, 16, my_var)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>is special, it basically tells python to collect up all the positional arguments into a tuple (an immutable list). The reason we have this, is so that we can have functions which accept varying numbers of arguments.</p>
+</div>
+<div class="paragraph">
+<p>If we tried to do this without our special little friend <code>*</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-python" data-lang="python">def my_func(args):
+    print(args)
+
+my_var = 298
+
+my_func(12, 16, my_var)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We would get an error:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+TypeError: my_func() takes 1 positional argument but 3 were given</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You might not find that all that useful, but it highlights that there&#8217;s nothing special about the actual argument names here, they&#8217;re just placeholders, for positions, literally.</p>
+</div>
+<div class="paragraph">
+<p>Hopefully this has been helpful, if so, i&#8217;ll do another one about classes for you guys!</p>
+</div>
+</div>
+</div>
+
+
+    </article>
+
+
+    <footer>
+      Handcrafted by Jeff Uren — <a href="https://github.com/jdu/jdu.github.io/blob/master/LICENSE"
+        target="_blank">&copy; 2024</a>
+    </footer>
+  </div>
+
+</div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+<!-- and it's easy to individually load additional languages -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+
+<script>hljs.highlightAll();</script>
+
+
+</body>
+
+</html>

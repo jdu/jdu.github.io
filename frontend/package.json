@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "watch": "parcel watch src/style/style.less --no-hmr --dist-dir ../docs/static"
+  },
+  "devDependencies": {
+    "@parcel/transformer-less": "2.11.0",
+    "parcel": "2.11.0"
+  }
+}

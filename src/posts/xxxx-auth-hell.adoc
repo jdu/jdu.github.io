@@ -1,0 +1,55 @@
+= Auth Hell
+
+// Diagrams of
+// - Kerberos
+// - NTLM
+// - Kerberos + SPNEGO
+// - LDAP(s)
+// - AD
+// - OIDC/OAuth2.0
+// - JWT
+
+== Active Directory
+
+TBW
+
+== NTLM
+
+TBW
+
+== LDAP(s)
+
+TBW
+
+== Kerberos
+
+TBW
+
+== OIDC/OAuth2.0
+
+TBW
+
+== JWT
+
+TBW
+
+== Bearer Authentication
+
+TBW
+
+== Digest Authentication
+
+TBW
+
+== App-Based Authentication
+
+TBW
+
+== PAM
+
+TBW
+
+
+== Author Notes
+
+TBW

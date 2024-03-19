@@ -1,0 +1,57 @@
+= History
+:stylesheet: assets/tufte.css
+
+== Wellcome Trust (2019 - Current)
+
+Lead Software Engineer (Data)
+
+TBW
+
+== AppCheck (6 months)
+
+Senior Software Engineer
+
+TBW
+
+== World Health Organisation (Consultant)
+
+Lead Software Engineer / Epidimiologist
+
+TBW
+
+== UNHCR (Consultant)
+
+Senior Software Engineer
+
+TBW
+
+== Manulife Financial
+
+Senior Software Engineer
+
+TBW
+
+== BDO Canada
+
+Software Developer
+
+TBW
+
+== CDC Systems Inc.
+
+Software Developer
+
+TBW
+
+== Octane CMS
+
+Graphic Design / UI Design
+
+TBW
+
+== Ministry of Natural Resources (Wildfire Fighter)
+
+Wildfire Fighter
+
+TBW
+

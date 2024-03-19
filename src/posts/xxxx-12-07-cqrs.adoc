@@ -1,0 +1,53 @@
+= CQRS
+
+Command Query R Segregation probably sounds really complicated if you've not been exposed to it, but we're going to talk over why it might be a better choice in a number of instances for things like large distributed applications, LoB (Line of Business) applications and several other areas where you need to have auditable tracking, replayability, and discrete separations of concern amongst your individual contexts.
+
+== What is CQRS?
+
+It's not a framework, it's more or less a pattern, but one that can inform the entire design of your overall applications code-base. CGRS can be likened to the level of OOP (Object-Oriented Programming) as it's a top-level way to organize code, logic, and integrations in a way that puts emphasis on maintainable, testable, smaller discrete chunks of logic and functionality.
+
+++++
+<aside>
+++++
+Honest, there is _nothing_ wrong with OOP and model-oriented programming!
+++++
+</aside>
+++++
+So what's wrong with OOP and the Model-style approach? Absolutely nothing! CQRS is a just another tool in your tool-box which you can reach for when an appropriate use-case rears it's head. CQRS, after an initial bit of work, tends to require less boilerplate and less tracking / managing model changes across inheritance and extension throughout your code-base.
+
+== CQRS Fundamentals
+
+++++
+<aside>
+++++
+*RPC* is really about making _functions_ available through an interface (HTTP2, protobuf, gRPC, GraphQL, TCP, UDP, etc...) in such a way that it feels as though you're calling a function on the service versus interacting with a structured API.
+++++
+</aside>
+++++
+
+At it's core, CQRS is really about *Commands* and *Events*. A Command is something that your code-base handles, and as a by-product of that handling it produces _events_. At a more fundamental take, CQRS lends itself well to RPC (Remote Procedure Call) type of design. For example, given a ToDo application, you might accept the following command:
+
+----
+{
+   "cmd": "CreateTask",
+   "data": {
+       "task": "Pick up lettuce and cheese from shop",
+       "assignee": "Olivia",
+   }
+}
+----
+
+In an OOP world we would deserialize this data, cast / ingest it into a model representation, then trigger functionality on the model itself. Where this starts to become a bit tedious is that we start having storage operations (CRUD), querying operations (`SELECT .... FROM tasks`) and integrations to other services (email, slack notifications, message broker sends) all tied into the main class implementation either concretely, or through inheritance, composition, or in secondary classes, etc...
+
+In the CQRS world we segregate these functions into `services` and `queries`. Functionality like sending an email to the new assignee isn't tied into model directly, but triggered through a `Service` which takes in an `Event` like this:
+
+----
+{
+    "event": "SendEmailEvent",
+    "data": {
+       "subject": "New Task assignment",
+       "to": "Olivia",
+       "body": "A new task has been assigned to you!"
+    }
+}
+----

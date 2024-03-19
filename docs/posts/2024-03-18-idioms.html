@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>JDU </title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro:400|Source+Sans+Pro:300,400,600' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+  
+
+<div class="main">
+
+  <div class="left-menu">
+
+
+    <a class="brand" href="/">JDU</a>
+
+    <div class="contents">
+
+      <h3><a href="#top">Idioms, Principles, and Laws</a></h3>
+
+      <ul>
+        
+
+        <li class="toc-1"><a href="#_on_"just""><small>1</small>On "Just"</a></li>
+
+        
+
+        <li class="toc-2"><a href="#_on_testing"><small>2</small>On Testing</a></li>
+
+        
+
+        <li class="toc-3"><a href="#_conways_law"><small>3</small>Conways Law</a></li>
+
+        
+
+        <li class="toc-4"><a href="#_galls_law"><small>4</small>Galls Law</a></li>
+
+        
+
+        <!-- <li class="divider"></li> -->
+
+        <!--
+
+        <li class="end-part">
+          <a href="#references">References</a>
+        </li>
+
+        <li class="end-part">
+          <a href="#end-note"><small>note</small>End Note</a>
+        </li>
+
+        -->
+      </ul>
+
+    </div>
+  </div>
+
+  <div class="page">
+    <h1>Idioms, Principles, and Laws</h1>
+
+    <article class="chapter">
+
+      <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This is basically an evolving collection of idioms, principles, and laws that I&#8217;m collecting up and parsing through to come up with some concrete things to keep in the back of my head when engineering solutions.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Write the simplest thing that could possibly work first. Complex algorithms might be faster in the limit, but often the limit is never approached. Code clarity is almost always more important tha that last 2% of performance.</p>
+</li>
+<li>
+<p>Avoid dynamic memory allocation.</p>
+</li>
+<li>
+<p>Don&#8217;t re-invent the wheel. This is especially true of infrastructure. Use what the OS gives you.</p>
+</li>
+<li>
+<p>Like seatbelts, you want a type system to fit snugly but not painfully.</p>
+</li>
+<li>
+<p>If a tool has more options or features than I can easily remember, it means those options effectively don&#8217;t exist.</p>
+</li>
+<li>
+<p>Don&#8217;t invent your own serialization format</p>
+</li>
+<li>
+<p>Exiting early and complaining loudly is a kind of error recovery</p>
+</li>
+<li>
+<p>All queues are bounded, they just vary in how they deal with being full.</p>
+</li>
+<li>
+<p>Make invalid states unrepresentable</p>
+</li>
+<li>
+<p>Be welcoming and friendly. No matter who much you think you made it all on your own, it took a cast of thousands.</p>
+</li>
+<li>
+<p>Simplicity compounds towards complexity. KISS aggressively.</p>
+</li>
+<li>
+<p>At the end of the dat, you&#8217;re a programmer. Stay humble.</p>
+</li>
+<li>
+<p>Functions are the ultimate abstraction.</p>
+</li>
+<li>
+<p>If you "just" understand it, everyone else is screwed. Even you in six months time.</p>
+</li>
+<li>
+<p>Code is not documentation, it&#8217;s a source of truth.</p>
+</li>
+<li>
+<p>Use what&#8217;s right for you in any context.</p>
+</li>
+<li>
+<p>All programming languages are children of lambda calculus and / or turing machines. Learn them.</p>
+</li>
+<li>
+<p>Data commands code</p>
+</li>
+<li>
+<p>Mental capacity is limited; don&#8217;t fry your head computer.</p>
+</li>
+<li>
+<p>Functional til it hurts; imperative until it works.</p>
+</li>
+<li>
+<p>Before optimizing, profile. What you find might surprise you.</p>
+</li>
+<li>
+<p>Adding complexity is not free.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_on_just">On "Just"</h2>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>"Just" is suggesting a solution someone might not have seriously considered. "Just" suggests to get something done without spending your time over-engineering or exaggerating it. Nike&#8217;s famous "Just do it." is a grat example - just do it. don&#8217;t overthink it, dont' make excuses, do the thing you want to do. If someone&#8217;s telling you to "just x" they think you have the capacity and ability to get x done. If they didn&#8217;t, they&#8217;d elaborate.</p>
+</div>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_on_testing">On Testing</h2>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>I get paid for code that works, not for test, so my philosophy is to test as little as possible to reach a given level of confidence [&#8230;&#8203;]. If I don&#8217;t typically make a kind of mistake (like setting the wrong variables in a constructor), I don&#8217;t test for it.
+. Kent Beck (S.O.)</p>
+</div>
+</blockquote>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>Maybe that&#8217;s all you need. That and people who give a damn.</p>
+</div>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_conways_law">Conways Law</h2>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>[O]rganizations which design systems (in the broad sense used here) are constrained to produce designs which are copies of the communication structures of these organizations.</p>
+</div>
+</blockquote>
+<div class="attribution">
+&#8212; Melvin E. Conway<br>
+<cite>How Do Committees Invent?</cite>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_galls_law">Galls Law</h2>
+<div class="sectionbody">
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>A complex system that works is invariably found to have evolved from a simple system that worked. The inverse proposition also appears to be true: A complex system designed from scratch never works and cannot be made to work. You have to start over, beginning with a working simple system.</p>
+</div>
+</blockquote>
+<div class="attribution">
+&#8212; John Gall<br>
+<cite>Systemantics: How Systems Really Work and How They Fail</cite>
+</div>
+</div>
+</div>
+</div>
+
+
+    </article>
+
+
+    <footer>
+      Handcrafted by Jeff Uren — <a href="https://github.com/jdu/jdu.github.io/blob/master/LICENSE"
+        target="_blank">&copy; 2024</a>
+    </footer>
+  </div>
+
+</div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+<!-- and it's easy to individually load additional languages -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+
+<script>hljs.highlightAll();</script>
+
+
+</body>
+
+</html>
