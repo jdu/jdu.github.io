@@ -1,6 +1,6 @@
 = Technical Book To-Read / Wishlist
 
-These are books that i'm aiming to get tackle, they're not all easy ones to be honest, but the hope is that reading them will help me to understand a lot more aspects of the technical work that I'm involved in and also bolster my own confidence in approaches to developing and designing systems and solutions.
+These are books that i'm aiming to tackle, they're not all easy ones to be honest, but the hope is that reading them will help me to understand a lot more aspects of the technical work that I'm involved in and also bolster my own confidence in approaches to developing and designing systems and solutions.
 
 
 . Dijkstra, A Dicipline of Programming
