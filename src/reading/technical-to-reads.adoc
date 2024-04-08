@@ -1,0 +1,46 @@
+= Technical Book To-Read / Wishlist
+
+These are books that i'm aiming to get tackle, they're not all easy ones to be honest, but the hope is that reading them will help me to understand a lot more aspects of the technical work that I'm involved in and also bolster my own confidence in approaches to developing and designing systems and solutions.
+
+
+. Dijkstra, A Dicipline of Programming
+. Warren, Hacker's Delight
+. Stevens, Advanced Programming in the UNIX Environment
+. Stevens, UNIX Network Programming
+. Varghese, Networking Algorithms
+. McKusick, The Design and Implementation of the FreeBSD Operating System
+. Kerrisk, The Linux Programming Interface
+. Stroustrop, The C+ Programming Language
+. Gustedt, Modern C
+. Hanson, C Interfaces & Implementations
+. Garcia + Widjaja, Communications Networks
+. Kleinrock, Queueing Systems
+. Henessy + Patterson, Computer Architecture: A Quantitative Approach
+. Kennedy, Optimizing Compilers for Modern Architectures
+. Stepanov, From Mathematics to Generic Programming
+. CLRS, Introduction to Algorithms
+. Samet, Metrics and Multidimensional Data Structures
+. McKenney, Is Parallel Programming Hard, and if so, what can you do about it
+. Crochemere et al, Algorithsm on strings
+. Culler et al, Parallel Computer Architecture
+. Ward + Halstead, Computation Structures
+. Shriver + Smith, The Anatomy of a High Performance Microprocessor
+. Vazjiran, Approximation Algorithms
+. Raghoven + Smith, Randomised Algorithms
+. Sipser, Introduction to the Theory of Computation
+. Ahova + Barak, Computational Complexity
+. Pierce, Types and Programming Languages
+. Barendregt, The Lambda Calculus
+. Okasaki, Purely Functional Data Structures
+. VenRoy + Hardid, Concepts, Techniques, and Models of Computer Programming
+. Galub + VanLoan, Matrix Computations
+. Axler, Linear Algebra Done Right
+. Knuth, Concerete Mathematics
+. Black, Hacking the Planet with Notcurses
+. Roughgarden, Various algorithm books
+. Beej, Networking
+. Bakker, Mathematical Theory of Program Correctness
+. Gries, The Science of Programming
+. Francez, Program Verification
+. Boer + Olderog, Verification of Sequential and Concurrent Programs
+. Levitin, Algorithmic Puzzles
