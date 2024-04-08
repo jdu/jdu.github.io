@@ -2,6 +2,8 @@
 
 This is basically an evolving collection of idioms, principles, and laws that I'm collecting up and parsing through to come up with some concrete things to keep in the back of my head when engineering solutions.
 
+== General
+
 . Write the simplest thing that could possibly work first. Complex algorithms might be faster in the limit, but often the limit is never approached. Code clarity is almost always more important tha that last 2% of performance.
 . Avoid dynamic memory allocation.
 . Don't re-invent the wheel. This is especially true of infrastructure. Use what the OS gives you.
