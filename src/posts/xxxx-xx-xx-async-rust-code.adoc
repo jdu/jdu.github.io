@@ -1,0 +1,25 @@
+= Async Rust Code
+
+
+== Notes
+
+. Talk about rust async code being state managers
+. How to store an async rust code / function
+
+
+[source,rust]
+----
+pub async fn some_async(num: i32) -> Result<Value> {
+    todo!();
+}
+----
+
+
+[source,rust]
+----
+use std::OnceLock;
+
+
+
+
+----

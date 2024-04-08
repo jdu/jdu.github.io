@@ -11,6 +11,7 @@ In most cases it's because something about the books feeds into the way I think,
 - Zen and the Art of Motorcycle Maintenance - Robert M. Persig
 - Suttree - Cormac McCarthy
 - The Summer Book - Tove Jannson
+- Where the Sidewalk Ends - Shel Silverstein
 
 == 2024 Reads
 
@@ -22,7 +23,7 @@ In most cases it's because something about the books feeds into the way I think,
 == 2023 Reads
 
 - The Summer Book - Tove Jansson
-- The Winter Book - Tove Jannson
+- A Winter Book - Tove Jannson
 - The Other Wind - Ursula K. Le Guin
 - Islands - Alistair Macleod
 - Notes from an Island - Tove Jansson
@@ -39,12 +40,15 @@ In most cases it's because something about the books feeds into the way I think,
 - Norwegian Wood - Lars Mytting
 - Spike - Jeremy Farrar
 - Island - Alastair Macleod
-- Where teh water lilys grow - Lawrence
-- Strange Things - Margaret Atwood
+- Where the water lilys grow - Lawrence
+- Strange Things: The Malevolent North in Canadian Literature - Margaret Atwood
+- Traveling Light - Tove Jansson
+- To Hold Up the Sky - Cixin Liu
+- Wintering: The Power of Rest - Katherine May
+- Norwegian Wood - Lars Mytting
 
 
 == 2022 Reads
-
 
 - Seven Fallen Feathers: Racism, Death, and Hard Truths in a Northern City - Tanya Talaga
 - The Left Hand of Darkness - Le Guin, Ursula K.
@@ -58,5 +62,47 @@ In most cases it's because something about the books feeds into the way I think,
 - Wind, Sand and Stars - Antoine de Saint-Exupéry
 - What If? - Randall Munroe
 - The Pragmatic Programmer - Multiple Authors
-- 
-
+- The Complete Works - H.P. Lovecraft
+- The Better Angels of our Nature - Steven Pinker
+- The Art of Computer Programming: Vols 1-3 - Donald Knuth
+- Fire Season - Connor Phillips
+- Rising Steam - Terry Pratchett
+- The Master and Margarita - Mikhail Bulgakov
+- Betrayal of Trust: The Collapse of Global Public Health - Laurie Garrett
+- The Minimum Description Length Principle - Peter D. Grunwald
+- The Coming Plague - Laurie Garrett
+- Textbook of International Health - Ann-Emanauelle Birn
+- Heart of Darkness - Joseph Conrad
+- The Long Dark Tea-Time of the Soul - Douglas Adams
+- Taran Wanderer - Lloyd Alexander
+- The Pragmatic Programmer - Andy Hunt
+- Neverwhere - Neil Gaiman
+- The Ocean at the end of the Lane - Neil Gaiman
+- The Jokes Over - Ralph Steadman
+- Nation - Terry Pratchett
+- Thief of Time - Terry Pratchett
+- The Book of Ti'ana - Rand Miller
+- The Book of D'ni - Rand Miller
+- Eric - Terry Pratchett
+- Sourcery - Terry Pratchett
+- The Wee Free Men - Terry Pratchett
+- The Rum Diary - Hunter S. Thompson
+- Life, the Universe and Everything - Douglas Adams
+- Python Essential Reference - David Bazley
+- Kingdom of Fear - Hunter S. Thompson
+- Concrete Mathematics - Ronald Graham
+- A Wizard of Earthsea - Ursula K. Le Guin
+- Programming in Objective-C - Stephen G. Kochan
+- The Shackleton Voyage - Roland Huntford
+- Making Money - Terry Pratchett
+- The Book of Atrus - Rand Miller
+- Assassin's Apprentice - Robin Hobb
+- The Color of Magic - Terry Pratchett
+- Hackers Delight - Henry S. Warren Jr.
+- Fear and Loathing on the Campaign Trail '72 - Hunter S. Thompson
+- The Truth: Stage Adaptation  - Stephen Briggs
+- Surely You're Joking My Feynman - Richard Feynman
+- The Story of Commodore - Brian Bignall
+- The Histories - Herodotus
+- Equal Rites - Terry Pratchett
+- The Dark Side of the Sun - Terry Pratchett
