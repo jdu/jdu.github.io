@@ -78,6 +78,9 @@ class Page:
         elif "research" in self.file_path:
             self.content_type = "RESEARCH"
             self.url = f"/research/{self.mod_file_name}"
+        elif "til" in self.file_path:
+            self.content_type = "PAGE"
+            self.url = f"/til/{self.mod_file_name}"
         elif "reading" in self.file_path:
             self.content_type = "READING"
             self.url = f"/reading/{self.mod_file_name}"

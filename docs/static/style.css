@@ -59,8 +59,8 @@ body, h1, h2, h3, h4, p, figure, blockquote, dl, dd {
 }
 
 .main .left-menu {
-  color: #4b6781;
-  background: #004239;
+  color: #333;
+  background: #f2f2f2;
   flex: 1;
   min-width: 336px;
   max-width: 336px;
@@ -70,7 +70,7 @@ body, h1, h2, h3, h4, p, figure, blockquote, dl, dd {
 .main .content {
   background: #fff;
   flex: 3;
-  padding: 16px 16px 16px 60px;
+  padding: 16px 60px;
 }
 
 .main .content h2 {
@@ -157,6 +157,29 @@ body, h1, h2, h3, h4, p, figure, blockquote, dl, dd {
 
 .auth-block-main {
   background: #f2f2f2;
+}
+
+@media screen and (width <= 600px) {
+  .left-menu {
+    display: none;
+  }
+
+  .content {
+    padding: 16px !important;
+  }
+
+  .page {
+    flex: 1;
+    padding: 8px !important;
+  }
+
+  article.chapter {
+    width: auto !important;
+  }
+}
+
+.sect1 {
+  margin-top: 2.2rem;
 }
 
 ul[role="list"], ol[role="list"] {
@@ -439,7 +462,12 @@ aside p:first-child {
 }
 
 .contents h3 {
+  color: #000;
   margin-bottom: 16px;
+}
+
+.contents h3 a {
+  color: #000;
 }
 
 .contents ul {
@@ -460,7 +488,7 @@ aside p:first-child {
 }
 
 .contents ul li a {
-  color: #f2f2f2;
+  color: #333;
 }
 
 .contents ul li a:hover {
@@ -468,27 +496,21 @@ aside p:first-child {
 }
 
 .contents h3 a {
-  color: #7aa0b8;
+  color: #000;
   border-bottom: none;
   text-decoration: none;
 }
 
 nav.wide ul {
-  border-top: 1px solid #3b4b5e;
-  border-bottom: 1px solid #3b4b5e;
+  border-top: 1px solid #333;
+  border-bottom: 1px solid #333;
   margin: 6px 0 3px;
   padding: 6px 0 4px;
   list-style-type: none;
 }
 
-nav.wide ul li a {
-  color: #7aa0b8;
-  border-bottom: none;
-  text-decoration: none;
-}
-
-.contents ul li a:hover {
-  color: #dee9ed;
+nav.wide ul li a, .contents ul li a:hover {
+  color: #000;
   border-bottom: none;
   text-decoration: none;
 }
@@ -551,7 +573,7 @@ article ol, article ul {
 }
 
 .brand {
-  color: #f2f2f2;
+  color: #333;
   border: none;
   padding: 55px 48px 23px;
   font-size: 64px;

@@ -30,15 +30,15 @@ dd {
 
   .left-menu {
     font: 300 15px/24px "Source Sans Pro", Arial, sans-serif;
-    color: #4b6781;
-    background: #004239;
+    color: #333;
+    background: #F2F2F2;
     flex: 1;
     max-width: 336px;
     min-width: 336px;
   }
 
   .content {
-    padding: 16px 16px 16px 60px;
+    padding: 16px 60px 16px 60px;
     background: white;
     flex: 3;
 
@@ -133,3 +133,51 @@ dd {
   background: #F2F2F2;
 }
 
+
+
+.left-menu {
+  @media screen and (max-width: 600px) {
+    display: none;
+  }
+}
+
+.content {
+  @media screen and (max-width: 600px) {
+    padding: 16px !important;
+  }
+}
+
+.page {
+  @media screen and (max-width: 600px) {
+    padding: 8px 8px 8px 8px !important;
+    flex: 1;
+  }
+}
+
+article {
+  &.chapter {
+    @media screen and (max-width: 600px) {
+      width: auto !important;
+    }
+  }
+}
+
+// @media screen and (min-width: 600px) {
+//
+// }
+//
+// @media screen and (min-width: 768px) {
+//
+// }
+//
+// @media screen and (min-width: 992px) {
+//
+// }
+//
+// @media screen and (min-width: 1200px) {
+//
+// }
+
+.sect1 {
+  margin-top: 2.2rem;
+}
