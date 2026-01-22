@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>No Title - JDU</title>
+    <link rel="stylesheet" href="../static/css/tufte.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <article>
+      <h1>No Title</h1>
+      <section><?xml version="1.0" encoding="UTF-8"?>
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<article xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
+<info>
+<title>Git -  A parable</title>
+<date>2026-01-05</date>
+</info>
+<simpara><literal>git</literal> is hard. And when I say it&#8217;s hard, I don&#8217;t mean that the tools themselves are particularly hard, you can sort of hobble along using the <literal>git</literal> command-line without  ever really having to understand what is going on under the hood and get a reasonable flow going. However, when something goes wrong, or you&#8217;re faced with a complicated situation, you can google the answer, but you&#8217;re not always sure exactly what is happening under the hood.</simpara>
+<simpara>This post is not about <emphasis role="strong">how</emphasis> to use <literal>git</literal>, it&#8217;s a journey of understanding&#8201;&#8212;&#8201;a parable&#8201;&#8212;&#8201;that will help you get to grips with <emphasis role="strong">why</emphasis> <literal>git</literal> is the way it is, how decisions in its design lead to where it is now, and ultimately (hopefully) give you a basis for understanding what&#8217;s <emphasis>really</emphasis> happening when you do that <literal>git checkout</literal>.</simpara>
+<section xml:id="_git_is_not_github">
+<title><literal>git</literal> is not <emphasis role="strong">GitHub</emphasis></title>
+<aside>
+<p>Emphasis on "decentralized" here, the original use-case for git was to generate _patch files_ and share them through mailing lists or email in order to get them merged into a main version (managed by Linus).</p>
+</aside>
+<simpara>First things first, you could be forgiven for not realizing, but <literal>git</literal> itself was not developed by GitHub. It was originally developed by Linus Torvalds as a way to better manage decentralized development on the Linux Kernel.</simpara>
+<simpara><literal>git</literal> wasn&#8217;t the first source control management system to come around either, but it seems to be the one that has garnered the most traction&#8201;&#8212;&#8201;both commercially and internally at various companies and organisations.</simpara>
+<simpara>We&#8217;re not going to delve into the history of <literal>git</literal> here, but you should note following:</simpara>
+<informaltable frame="all" rowsep="1" colsep="1">
+<tgroup cols="2">
+<colspec colname="col_1" colwidth="50*"/>
+<colspec colname="col_2" colwidth="50*"/>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara><emphasis role="strong"><literal>git</literal></emphasis></simpara></entry>
+<entry align="left" valign="top"><simpara><emphasis role="strong"><emphasis role="strong">GitHub</emphasis></emphasis></simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>A tool for decentralized management of change for code</simpara></entry>
+<entry align="left" valign="top"><simpara>A commercial application which <emphasis>hosts</emphasis> and centralizes <literal>git</literal> repositories</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+</section>
+<section xml:id="_a_parable">
+<title>A Parable</title>
+<section xml:id="_our_premise">
+<title>Our Premise</title>
+<simpara>The world of our parable is one where we have a software engineer named <emphasis role="strong">Bill</emphasis>. Bill works with an operating system which is pretty barebones. It has the following features:</simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>A hierarchical file system consisting of folders and files</simpara>
+</listitem>
+<listitem>
+<simpara>A Code / Plaintext Editor</simpara>
+</listitem>
+</orderedlist>
+<aside>
+<img src="/images/biscuits_rev2_clean.png"/>
+</aside>
+<simpara>Bill has decided to start a new software project called <emphasis role="strong">Squiqqledysplorch</emphasis> that will help his organization to track an inventory of biscuits, their types and whose eaten those biscuits in order to build some analysis and insight into organisational semantics around biscuit edibility and enjoyability. This work is critical to the to their success and prosperity and will lead to revolutionary approaches to internal biscuit distribution optimization.</simpara>
+</section>
+<section xml:id="_bill_gets_dug_in">
+<title>Bill gets dug in</title>
+<simpara>To start, Bill creates a new folder on his system called <literal>squiggledysplorch</literal>, he frames out his project, creating sub-folders and files containing code in his favourite programming language.</simpara>
+<aside>
+<simpara>What Bill is thinking about is a <emphasis>version control system</emphasis></simpara>
+</aside>
+<simpara>After a couple of weeks, Bill decides that he needs some way to track chunks of changes and versions of his code so that he can roll back changes that don&#8217;t make sense, or revert changes that he has made to older versions, as well as compare different versions of code.</simpara>
+</section>
+<section xml:id="_bill_gets_inspired">
+<title>Bill gets inspired</title>
+<simpara>Bill has a good friend Pat who works as a photographer. One day, Pat tells Bill about one of his clients, a woman named Deirdre who books a photo session every year with Pat on the same day to have a snapshot of her daughter taken.</simpara>
+<aside>
+<img src="/images/photos_rev2_clean.png"/>
+</aside>
+<simpara>Deirdre likes to be able to look back through these snapshots to see what her daughter {daughter-name} looked like through all the different stages of her development, from a baby up to her current age. The snapshots let Deirdre feel like she can move back and forth in time, seeing her daughter like this is meaningful to Deirdre.</simpara>
+<simpara>Bill listens, and has a eureka moment, he suddenly has a solution to his code version control problem!</simpara>
+</section>
+<section xml:id="_bills_first_attempt">
+<title>Bills First Attempt</title>
+<simpara>What Bill wants are <emphasis>snapshots</emphasis>. Like "save points" in a video game, they&#8217;re individual copies of the state of the code-base at specific points in time.</simpara>
+<simpara>Bills first attempt is really promising.</simpara>
+<simpara>He creates a new folder called "working", this is where Bill will work most of the time, and when he feels like it&#8217;s a reasonable time to take a "snapshot" of his work, he&#8217;ll just copy the entire folder, and rename the copy with a numbering system so that he can keep track of the order of the snapshots:</simpara>
+<img src="/images/terminal_clean.png"/>
+<screen>- squiqqledysplorch\ &lt;- Project folder
+    - working\ &lt;- where {prot-name} works day to day
+    - snapshot.0\ &lt;- A snapshot</screen>
+<simpara>The most important rule of Bills new system, is that once he&#8217;s created a snapshot of the <emphasis>working</emphasis> folder, and renamed it to <emphasis>snapshot.&lt;number&gt;</emphasis> he <emphasis role="strong">never</emphasis> edits that snapshot folder again. It&#8217;s a copy of his code at that specific point in time, frozen as a reference.</simpara>
+<simpara>After the next chunk of work, Bill creates another copy (snapshot):</simpara>
+<img src="/images/snapshots_initial_clean.png"/>
+<screen>- squiqqledysplorch\ &lt;- Project folder
+    - working\ &lt;- where {prot-name} works day to day
+    - snapshot.0\ &lt;- A snapshot
+    - snapshot.1\ &lt; Another snapshot / copy</screen>
+</section>
+<section xml:id="_a_problem_arises">
+<title>A problem arises</title>
+<simpara>Bill can&#8217;t remember what changes are in each snapshot, or when he created them. When he&#8217;s looking at his folder, he can see the snapshot numbers, but as more and more snapshots are created, it gets harder to tell which ones which.</simpara>
+<img src="/images/lot_of_snapshots_clean.png"/>
+<simpara>To fix this, Bill adds a <literal>message.txt</literal> file to each of the snapshot folders, inside of each he adds the date and time the snapshot was created, along with a message describing the changes contained in that snapshot compared to the previous snapshot. Something like this:</simpara>
+<formalpara>
+<title>message.txt</title>
+<para>
+<screen>2022-01-01 12:34:55
+
+Introduce a new method `foo`, and reset the bar to `xyz123`.</screen>
+</para>
+</formalpara>
+<simpara>Now he has one in each of his <emphasis>snapshot.&lt;XXX&gt;</emphasis> folders.</simpara>
+<img src="/images/message_clean.png"/>
+<simpara>Now Bill can find specific changes he made in the past by searching the message.txt files and comparing files between his <literal>working</literal> folder and specific <literal>snapshot.&lt;number&gt;</literal> folder.</simpara>
+<simpara>Bill has create a linear history.</simpara>
+</section>
+<section xml:id="_its_release_time">
+<title>It&#8217;s release time</title>
+<simpara>Bill gets on with working in his new snapshot-based version control system. Generating new snapshots when he feels it&#8217;s time, until he&#8217;s happy that he has a stable version that he can call <emphasis role="strong">version 1.0</emphasis> of <emphasis role="strong">squiggledyspotch</emphasis>.</simpara>
+<simpara>He creates a new snapshot <literal>snapshot.99</literal> to represent his code that&#8217;s ready to release.</simpara>
+<screen>- squiqqledysplorch\
+    - working\
+    - snapshot.0\
+    - snapshot.1\
+    - ... Lots of snapshots
+    - snapshot.99\ &lt;- The release snapshot</screen>
+<simpara>Bill packages up his <literal>version 1.0</literal>, puts it out there, and releases it to the public and they absolutely love it.</simpara>
+<informalfigure>
+<mediaobject>
+<imageobject>
+<imagedata fileref="michele-canciello-W7gXCjUj0iI-unsplash.jpg"/>
+</imageobject>
+<textobject><phrase>michele canciello W7gXCjUj0iI unsplash</phrase></textobject>
+</mediaobject>
+</informalfigure>
+<simpara>It&#8217;s a huge success!</simpara>
+<simpara>Now that the application is out in the wild, Bill starts getting new feature requests coming in:</simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>"Can we enter multi-packs of Hobnobs"</simpara>
+</listitem>
+<listitem>
+<simpara>"Can you add German language support for the German office?"</simpara>
+</listitem>
+</orderedlist>
+<simpara>Bill starts working on these new features right away, creating snapshots <literal>100</literal>, <literal>101</literal>, <literal>102</literal> and on and on.</simpara>
+<screen>- squiqqledysplorch\
+    - working\
+    - snapshot.0\
+    - snapshot.1\
+    - ... Lots of snapshots
+    - snapshot.99\ &lt;- version 1.0 snapshot
+    - snapshot.100\ &lt;- New Feature: internationalization
+    - snapshot.101\ &lt;- New Feature: multi-pack biscuit entry
+    - snapshot.102\ &lt;- New Feature: Allow users to leave</screen>
+<formalpara>
+<title>A Wild bug appears</title>
+<para>While toiling away building features for the next major release, some bug reports start coming in for <literal>squiddledysplorch v1.0</literal>&#8201;&#8212;&#8201;the one in Bills <literal>snapshot.99</literal> folder.</para>
+</formalpara>
+<blockquote>
+<attribution>
+A User Probably
+</attribution>
+<simpara>Help! I can&#8217;t get out of the biscuit editor!!!!</simpara>
+</blockquote>
+<simpara>Easy enough right? We can just copy <literal>snapshot.99</literal>&#8201;&#8212;&#8201;the snapshot that correlates to <literal>squiddledysplorch v1.0</literal>&#8201;&#8212;&#8201;into the <literal>working</literal> directory, so that Bills <literal>working</literal> directory is at exactly the state it was in when he created <literal>snapshot.99</literal>/<literal>v1.0</literal>. This is exactly the reason we&#8217;ve gone down this road of setting up version control!</simpara>
+<simpara>Now Bill can work away in his <literal>working</literal> directory to fix the bugs in v1.0.</simpara>
+<simpara><?asciidoc-hr?></simpara>
+<center>
+<simpara><emphasis role="strong">Here there be dragons!</emphasis></simpara>
+</center>
+<simpara><?asciidoc-hr?></simpara>
+<simpara>Uh oh! Bill&#8217;s version control system deals <emphasis role="strong">really well</emphasis> with <emphasis>linear development</emphasis>, but now, with the changes to <literal>snapshot.99</literal>, for the first time ever, Bill has to create a new snapshot <emphasis role="strong">that is not the direct descendant of the preceding snapshot</emphasis>.</simpara>
+<informalfigure>
+<mediaobject>
+<imageobject>
+<imagedata fileref="https://lucid.app/publicSegments/view/8ea1fdd3-b860-4861-9c4f-88e8af14cb47/image.png"/>
+</imageobject>
+<textobject><phrase>image</phrase></textobject>
+</mediaobject>
+</informalfigure>
+<simpara>This utterly breaks the linear design of Bill&#8217;s source control system. You can no longer trace the parent relation, <literal>snapshot.103</literal> <emphasis role="strong">does not</emphasis> follow directly from <literal>snapshot.102</literal>&#8230;&#8203; it follows directly from <literal>snapshot.99</literal>.</simpara>
+<simpara>Bill can no longer determine the ancestry of any given snapshot by simply counting backwards&#8230;&#8203;</simpara>
+<simpara>So he needs something <emphasis role="strong">more powerful</emphasis> than a linear system.</simpara>
+</section>
+<section xml:id="_a_second_bout_of_inspiration">
+<title>A second bout of inspiration</title>
+<simpara>Bill&#8217;s pretty frustrated, he needs something better to manage his code and the feature requests and bug reports are piling up. He decides to step back, throw on his coat and a wooly jumper and go for a walk to get some fresh air.</simpara>
+<aside>
+<img src="/images/tree_clean.png"/>
+</aside>
+<simpara>On his way through a local park, a massive Oak tree catches Bill&#8217;s eye. He spends countless minutes admiring the branches and the complexity of the tree, when all of a sudden, inspiration strikes again!</simpara>
+<simpara>Looking at the structure of the tree, and it&#8217;s branches, Bill looks at individual tips of branches, and traces their path back to the trunk. The tree on the whole is a super complex piece of natural engineering, but the <emphasis>rules</emphasis> for finding your way back to the trunk from any given branch tip, are actually super simple, and they&#8217;re perfect for keeping track of <emphasis role="strong">multiple lines of development</emphasis>.</simpara>
+<simpara>He needs <emphasis role="strong">each</emphasis> snapshot to point to the <emphasis role="strong">previous snapshot</emphasis> (i.e. it&#8217;s parent snapshot). So each snapshot <emphasis role="strong">has one parent</emphasis> except for the very first snapshot.</simpara>
+<simpara>So how do we store this "pointer" to the previous snapshot</simpara>
+<simpara>We add it to our <literal>message.txt</literal> file in each of our snapshot folders!</simpara>
+<screen>2022-04-01 12:45:32
+parent: snapshot.99
+
+Fixed a bug where total global annihilation could be caused by issuing a bad combination of shortcut keys.</screen>
+<simpara>Now we can easily and simply trace the ancestry of any given snapshot all the way back to the root snapshot by looking in the snapshots <literal>message.txt</literal>!</simpara>
+<simpara>Instead of having a single latest snapshot, we now have two latest snapshots:</simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara><literal>snapshot.103</literal> which contains our v1.0 bugfixes</simpara>
+</listitem>
+<listitem>
+<simpara><literal>snapshot.102</literal> which contains our most recent stable development work for the next release</simpara>
+</listitem>
+</orderedlist>
+<simpara>Now instead of a <emphasis role="strong">linear history</emphasis> we have a <emphasis role="strong">non-linear history</emphasis>. Our version control system represents our snapshots as a tree of changes.</simpara>
+<simpara>Bill leans hard into his new branching version control, it allows him to start "branches" to try out new ideas, ones he can drop if they don&#8217;t pan out, and he can create branches to provide alternate versions or fix bugs in previous versions. His tree-based source control has turned out great.</simpara>
+</section>
+<section xml:id="_it_all_gets_a_bit_messy">
+<title>It all gets a bit messy</title>
+<simpara>Now that Bill is creating lots of tree-based snapshots, the numbering system <literal>snapshot.&lt;number&gt;</literal> doesn&#8217;t really provide a lot of meaning any more and keeping track of which number to use next is starting to get pretty annoying. As well as this, the numbers don&#8217;t really have a lot of meaning anymore, <literal>snapshot.103</literal> follows on directly from <literal>snapshot.99</literal>.</simpara>
+<simpara>So Bill is struggling to keep track of which snapshots belong to which branches. In his head he gives the individual branches names to denote the type of work that&#8217;s happening in that branch, and his core root branch he calls <literal>main</literal> in his head.</simpara>
+<simpara>Because the snapshots all contain a <literal>message.txt</literal> that points to its immediate ancestor snapshot, all Bill really needs is a way to keep track of which snapshots are the "tips" of each branch.</simpara>
+<simpara>He decides to create a new file <literal>branches</literal> directly in the <literal>squiggledysplorch</literal> folder and outside of his <literal>snapshot.&lt;number&gt;</literal> and <literal>working</literal> directory to hold a reference to the latest snapshot for each branch:</simpara>
+<screen>- squiqqledysplorch\
+    - branches &lt;- HERE
+    - working\
+    - snapshot.0\
+    - snapshot.1\
+    - ... Lots of snapshots
+    - snapshot.99\
+    - snapshot.100\
+    - snapshot.101\
+    - snapshot.102\ &lt;- `main` branch tip
+    - snapshot.103\ &lt;- `v1.0-maint` branch tip</screen>
+<simpara>In the <literal>branches</literal> file he lists all of his friendly branch names and for each one lists the most recent snapshot for that branch.</simpara>
+<formalpara>
+<title>branches</title>
+<para>
+<screen>main:       snapshot-102
+v1.0-maint: snapshot-103</screen>
+</para>
+</formalpara>
+<simpara>Now if Bill wants to switch to a different branch, he just needs to look in the <emphasis>branches</emphasis> folder, and copy the appropriate <emphasis>snapshot.&lt;number&gt;</emphasis> folder into his <emphasis>working</emphasis> directory.</simpara>
+<simpara>And because his <literal>message.txt</literal> file always contains a reference to a snapshots immediate parent, he can always trace his way back from the tip of a branch by following the <literal>parent</literal> entry back to where it split off from his <literal>main</literal> branch.</simpara>
+</section>
+</section>
+<section xml:id="_tags">
+<title>Tags</title>
+<simpara>After using branches for a while, Bill decides he needs a new kind of reference, something to help him specifically know which snapshots represent a given release.</simpara>
+<simpara>Bill has multiple versioned releases out the door at this point, and trying to figure out which snapshot, on which branch, correlates to a given release, is becoming a pretty unruly undertaking.</simpara>
+<simpara>Our <emphasis>branches</emphasis> file in our root folder can only tell us which snapshots represent the <emphasis role="strong">tips</emphasis> of each of our branches, so Bill adds a new file in the root folder called "tags" and adds some friendly names pointing to individual snapshots representing specific releases, like our v1.0.0 initial release and the v1.0.1 release that has his bugfixes in it.</simpara>
+<formalpara>
+<title>message.txt</title>
+<para>
+<screen>v1.0.0       snapshot-99
+v1.0.1       snapshot-110</screen>
+</para>
+</formalpara>
+</section>
+<section xml:id="_getting_collaborative">
+<title>Getting Collaborative</title>
+<simpara>The amount of work that needs to be done on the project is starting to get out of Bills ability to manage it on his own. He wrangles another developer named Scott to and start working on the project alongside him.</simpara>
+<simpara>Scott is keen to get started and really interested in Bills version control system, so Bill sends Scott a copy of all of his working and snapshot version back through the history of project so they can get started.</simpara>
+<simpara>they take long trips
+she&#8217;s incommunicado for a long while
+in the meantime they both do a lot of coding
+when they get back there&#8217;s a flaw in the version control system
+because both have been using the same numbering system, they both
+have directories named 114, 115, but with differing code changes</simpara>
+<img src="/images/divergent_snapshots_clean.png"/>
+<simpara>You also don&#8217;t know who AUTHORED those changes in each of the snapshots
+change snapshot messages to contain an author field (nam, eamil)
+we stop naming the snapshots with simple numbers
+They are redundant because the history is no longer linear
+Use the contents of the message.txt and SHA-1 algorithm to generate a hash
+the hash is unique to the snapshot because no two messages will ever
+have the same date, parent and message
+both update their histories with the technique
+instead of clashing folders, they now have distinct folders with <literal>8BA344</literal> and <literal>DB9ECB</literal> or something
+all older snapshots are converted to the new format as well
+you can now fetch the other persons snapshots and place them next to your
+snapshots
+Because the snapshots reference their parents, the history of the code-base
+can still be drawn as a tree
+the tree now is made up of snapshots authored by both developers
+The snapshots can be created and moved around computers without losing
+their identities, or where they belong in the history of the code-base
+snapshots can be shared, or kept private if you&#8217;re not ready to share it with others
+the travel habits mean they have no internet access. They only really need internet
+access when they need to share their changes to Bill</simpara>
+</section>
+<section xml:id="_reconciliation_and_merging">
+<title>Reconciliation and Merging</title>
+<simpara>Ask Zoe to work on a new <literal>match</literal> branch to implement a new function
+You work on it as well
+Once it&#8217;s time to merge them in, Z shares her snapshots for the code changes
+she&#8217;s done, and you take your work, and hers, copy them into your working directory
+and create a merge snapshot that brings the two branches together.
+The new snapshot we&#8217;ve created is special.
+Instead of having 1 parent snapshot, it has TWO
+thew first parent is the latest on Bills branch and the second is the latest
+on Zs branch
+Once the merge is done, Z can fetch the merged changes from Bill to get
+all the changes she doesn&#8217;t have yet, and the new merge snapshot
+Both developers histories not match again, and they&#8217;re in sync</simpara>
+</section>
+<section xml:id="_rewriting_history">
+<title>Rewriting history</title>
+<simpara>You have a tendency to go off on tangents, create branches based off of
+ill-advised pressure from senior members of staff, and your innate compulstion
+to keep your code-base clean and tidy suddenly kicks in.
+There are a number of branches and snapshots which amounted to bupkis
+and you want tog</simpara>
+</section>
+<section xml:id="_staging">
+<title>Staging</title>
+<simpara>As much as you like to keep your new work specific to a specific feature
+once in a while you end up hacking away on something in your working
+directory that&#8217;s totally unrelated.
+Halfway into this, you realize that your working directory now contains
+what really should be two separate snapshots
+to sort this out, bill starts using a <literal>staging</literal> directory
+This folder acts as an intermediate step between your working directory
+and a final snapshot
+each time you finish a snapshot you copy it into the staging directory,
+and then you create a snapshot from that staging directory
+if a change belongs in the next snapshot then you mimic that change in
+the staging directory, but if it doesn&#8217;t then you can leave it inside the working
+directory and make it part of some later snapshot
+When you&#8217;re happy with the staging directory, you create a new snapshot from it
+This separation of concern, makes it easier to specify what SI and ISN&#8217;T in
+the next snapshot</simpara>
+<simpara>You have to be careful though, consider a single file README which you edit
+and the mimic into <literal>staging</literal>, you go on with your business, edit some other files,
+but after a while you make another change to README.
+Now you have made two changes to that file, but only the first one is in the staging
+area, if you were to create a snapshot now, your second change would be absent.
+EVERY new edit must be added tothe staging area if it is to be part of the next snapshot.</simpara>
+</section>
+<section xml:id="_diffs">
+<title>Diffs</title>
+<simpara>Now with a working directory, a staging area, and loads of snapshots lying around, it starts to get confusing as to what the specific code changes are between these directories.</simpara>
+<simpara>A snapshot message only gives you a summary of what changed, but it doesn&#8217;t reall tell you exactly what lines were change dbetween the two files. Using a diffing algorithm, you can make a small program that shows you the differences in the two code versions. As you develop and copy things from your working directory to the staging area, you will want to easily see what is different between the two, so that you can determine what else needs to be staged. It&#8217;s also important to see how the staging area is different from the last snapshot, since these chages are what will become part of the next snapshot that you produce.</simpara>
+<simpara>There are many other diffs that you might want to see as well.</simpara>
+<simpara>The different between a specific snapshot and its parent would show you the specific changes that were introduced by that snapshot.</simpara>
+<simpara>The difference between two branches would be helpful to make sure that your development doesn&#8217;t watder too far away from the main line, for example. Now, remember Z? After a few more trips around the work, Z starts to complain that her hard drive is filing up with hundreds of nearly identical copies of the code.</simpara>
+<simpara>You too havec been feeling like all the file duplication is wasteful.</simpara>
+<simpara>Aftersome thinking you come up with something very clever. The SHA-1 has produces a unique string that is unique for a given files contents.</simpara>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>new directory called objects
+.</simpara>
+</listitem>
+</orderedlist>
+<simpara><?asciidoc-hr?></simpara>
+<simpara>Our numbering system isn&#8217;t particularly useful any more, each snapshot number doesn&#8217;t really tell us much about the lineage of that snapshot because our new tree-based approach means that numbers can sort of, jump all over the place across our trees branches.</simpara>
+<simpara>Because it&#8217;s not particularly useful, and we have the <emphasis>parent</emphasis> property in our <literal>message.txt</literal> for each snapshot, we can replace the number with something more useful.</simpara>
+</section>
+<section xml:id="_more_information">
+<title>More Information</title>
+<simpara>TBW</simpara>
+</section>
+<section xml:id="_references">
+<title>References</title>
+<simpara>TBW</simpara>
+</section>
+<section xml:id="_end_note">
+<title>End Note</title>
+<simpara>TBW</simpara>
+</section>
+</article>
+</section>
+    </article>
+  </body>
+</html>

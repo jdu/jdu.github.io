@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>No Title - JDU</title>
+    <link rel="stylesheet" href="../static/css/tufte.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <article>
+      <h1>No Title</h1>
+      <section><?xml version="1.0" encoding="UTF-8"?>
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<article xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
+<info>
+<title>Method Madness</title>
+<date>2026-01-05</date>
+</info>
+<note>
+<simpara>This was written a number of years ago as a primer to help some colleagues understand some basic programming concepts.</simpara>
+</note>
+<simpara>Looking at this:</simpara>
+<programlisting language="python" linenumbering="unnumbered">def apply_fn(x):
+    new_format = x
+
+    if x[1] != 0:
+         new_format = f"{x[0]}, ({x[1]})"
+    else:
+         new_format = x.type
+
+    return new_format
+
+df_pg_table['type_size'] = df_pg_table[['type','size']].apply(apply_fn , axis=1)</programlisting>
+<simpara>Its a bit janky to read and trying to understand basic programming concepts while mingled in with pandas concepts, probably muddies the water a little bit. So we&#8217;ll refactor this to a similar concept using plainer python:</simpara>
+<programlisting language="python" linenumbering="unnumbered">def apply_fn(x):
+    new_format = None
+
+    if x[1] != 0:
+        new_format = f"{x[0]}, ({x[1]})"
+    else:
+        new_format = x.type
+
+    return x + (new_format,)
+
+my_data = [
+   # (size, type)
+   (10, 'INT'),
+   (7, 'f64'),
+]
+
+my_data = map(apply_fn, my_data)</programlisting>
+<simpara>So above is a simplification of Lauras code using std (standard) python concepts.</simpara>
+<simpara>We&#8217;re declaring a method <literal>apply_fn</literal> and that methods signature is this line <literal>def apply_fn(x)</literal></simpara>
+<simpara>So what&#8217;s the significance of <literal>x</literal> here? It&#8217;s a <emphasis role="strong">variable</emphasis>, it&#8217;s in the <emphasis role="strong">signature</emphasis> but the method itself is not tied specifically to the <literal>map</literal> function, <literal>map</literal> doesn&#8217;t state that there must be an <literal>x</literal>, and it&#8217;s the same with pandas. So how does it know to use the name x for the data it passes in?</simpara>
+<simpara>It doesn&#8217;t. The end.</simpara>
+<simpara>(no not really)</simpara>
+<simpara>The <literal>x</literal> variable here is part of what&#8217;s called the <literal>local scope</literal> "Oh frig now he&#8217;s talkin' 'bout scopes" I hear you say. I know you love it :heart:.</simpara>
+<simpara>Scopes aren&#8217;t too complicated, they&#8217;re basically the context (i.e. what&#8217;s available) for the code currently getting executed and they define the borders of what a block of code can access:</simpara>
+<programlisting language="python" linenumbering="unnumbered"># this is a GLOBALLY scoped variable
+SOME_VAR = 0
+
+# this is a globally scoped function
+def some_func(x):
+    inner_var = 1
+    # x is a LOCALLY scoped variable, it's not accessible outside
+    # of this indented area
+    inner_var = x + SOME_VAR
+    # this local scope can access the GLOBAL scope, it's like a waterfall
+
+    def inner_func(y):
+        # because this function is declared INSIDE of `some_func` it can
+        # actually access variables declared in GLOBAL, inside `some_func`,
+        # and inside itself
+        return x + y # notice we don't have to pass in `x`? it already has access to it from the outer scope
+
+    # This DOES NOT work in reverse though. `some_func` can not access the
+    # `y` variable inside of `inner_func` you can't reach into inner scopes,
+    # you can only reach UP out of the inner scope.
+
+    return inner_func(inner_var)
+
+# We can call some_func(x) here
+some_func(12)
+
+# But we can't call inner_func(y)
+inner_func(4) # ERROR, DOES NOT COMPUTE
+
+# We can print SOME_VAR
+print(SOME_VAR)
+
+# But we can't print y out here
+print(y) # ERROR! ERROR!</programlisting>
+<simpara>Stay with me now, we&#8217;re laying some groundwork, so scopes basically save you from doing silly things, if we didn&#8217;t have scopes, then you would be constantly overwriting variables all over your code in different places when you accidentally used the same name more than once. A variable named <literal>my_var</literal> nested somewhere deep inside of a function, inside a class, inside a loop could change the value of a variable somewhere way over on the other side of your code-base. We don&#8217;t want that.</simpara>
+<simpara>But did you notice something else in the code above?</simpara>
+<simpara>We declared this function:</simpara>
+<programlisting language="python" linenumbering="unnumbered">def inner_func(y):
+    return x + y</programlisting>
+<simpara>But when we called it we didn&#8217;t pass it a variable named y</simpara>
+<simpara>Shock, horror, notify his next of kin! A murder is afoot! Does this even run!?!?!?</simpara>
+<programlisting language="python" linenumbering="unnumbered">return inner_func(inner_var)</programlisting>
+<simpara>What gives?</simpara>
+<simpara>Well it turns out there are TWO types of function "arguments" in python.</simpara>
+<itemizedlist>
+<listitem>
+<simpara>Positional Arguments</simpara>
+</listitem>
+</itemizedlist>
+<programlisting language="python" linenumbering="unnumbered">def my_func(x0, x1, x2):
+    print(x0, x1, x2)</programlisting>
+<itemizedlist>
+<listitem>
+<simpara>Keyword Arguments</simpara>
+</listitem>
+</itemizedlist>
+<programlisting language="python" linenumbering="unnumbered">def my_func(x0=None, x1=None, x2=None):
+    print(x0, x1, x1)</programlisting>
+<simpara>Python doesn&#8217;t actually care about the names of positional arguments because python uses two different ways to pass around data:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>Pass by value (or copy on move) (used for "immutables" like int, float, string)</simpara>
+</listitem>
+<listitem>
+<simpara>Pass by reference (used for "mutables" like dict, list, class instances)</simpara>
+</listitem>
+</itemizedlist>
+<simpara>You can google these, but I&#8217;ll try and explain here. The gist of it, is that when you call a function with some variable:</simpara>
+<programlisting language="python" linenumbering="unnumbered">my_var = 12
+my_func(my_var)</programlisting>
+<simpara>You&#8217;re not actually sending that my_var into the function, it isn&#8217;t a box containing the number 12. Depending on the type, you&#8217;re either passing a "reference" to the location in memory where that data is held, or passing a reference to <emphasis role="strong">a copy in memory of the data into the function</emphasis>.</simpara>
+<simpara><literal>my_var</literal> doesn&#8217;t CONTAIN any data, it simply acts as a signpost to a place in your computers memory where that data lives. If it&#8217;s something that&#8217;s immutable (like an int, float, etc..) it will COPY that data. if it&#8217;s something mutable (a dict, or list for instance), it will <emphasis role="strong">pass a reference to the original data</emphasis>.</simpara>
+<simpara>So we&#8217;re not actually passing in the data itself, so the names, they actually don&#8217;t matter.</simpara>
+<simpara>Think of variable names as an old-school library card index, if you&#8217;ve been really jonesin' to read the latest shades of grey or sumthin, it&#8217;s in the library somewhere, but in order to find it you need something to "point" you to its location in the stacks. A code that correlates to an aisle, and a shelf. That&#8217;s what a library index does.</simpara>
+<simpara>And that&#8217;s what variables are, they tell you WHERE the book is, but they don&#8217;t have much more than the title of the book themselves and a locator code. In systems languages like C++, and C these are called "pointers", in rust they&#8217;re called "borrows", but in those languages you have OTHER options for passing around data, in python, you&#8217;ve sort of got the main pass-by-reference and pass-by-value ones, so they don&#8217;t bother telling you that&#8217;s what&#8217;s happening under the hood, it&#8217;s just. how. it. works.</simpara>
+<simpara>So when you do <literal>my_func(my_var)</literal> you&#8217;re not copying the data into the functions inner scope, you&#8217;re passing in an id that correlates to a location in memory, and depending on the type of data, it could be a copy of or the original data itself.</simpara>
+<simpara>You can actually see this:</simpara>
+<programlisting language="python" linenumbering="unnumbered">my_var = 12
+
+print(id(my_var))
+# 140312941304464 &lt;- its library code!!!</programlisting>
+<simpara>When you declare (define) a function:</simpara>
+<programlisting language="python" linenumbering="unnumbered">def my_func(x):
+    print(x)</programlisting>
+<simpara>What your code is effectively saying is this:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>My function is called <literal>my_func</literal></simpara>
+</listitem>
+<listitem>
+<simpara>It accepts one positional argument which is a reference to some data in memory</simpara>
+</listitem>
+<listitem>
+<simpara>You can use and modify that data in memory using a variable named <literal>x</literal> when executing code in my function body (my scope)</simpara>
+</listitem>
+</itemizedlist>
+<simpara>So it doesn&#8217;t care that the positional argument is called <literal>x</literal>, <literal>plop</literal>, <literal>squiddledysplorch</literal> or literally <literal>whatever</literal> so long as it&#8217;s not a python keyword (i.e. <literal>map</literal>, <literal>list</literal> , <literal>dict</literal>, etc&#8230;&#8203;). All it&#8217;s doing, is when someone calls the function, is sending in an id locating some data, in the order they&#8217;re passed in, and linking them to locally scoped variable names, the same order they&#8217;re declared.</simpara>
+<simpara>So you can actually do this:</simpara>
+<programlisting language="python" linenumbering="unnumbered">def my_func(x, y):
+    print(x, y)
+
+x = 1
+y = 2
+
+my_func(x, y)
+# This will print: 1 2
+
+my_func(y, x)
+# this will print: 2 1
+
+x_plop = x
+y_plop = y
+my_func(x_plop, y_plop)
+# this will print: 1 2
+
+# If we could align it visually
+
+    my_func(y, x)    # Calling the function
+            |  |
+            ▼  ▼
+def my_func(x, y):   # Function declaration
+    print(x, y)</programlisting>
+<simpara>So again, much like the points in countdown, the names don&#8217;t matter, they&#8217;re there because remembering that you stored <literal>12</literal> at address <literal>140312941304464</literal> is a non-starter.</simpara>
+<simpara>So going back to our pythonized version of Lauras code</simpara>
+<programlisting language="python" linenumbering="unnumbered">def apply_fn(x):
+    new_format = None
+
+    if x[1] != 0:
+        new_format = f"{x[0]}, ({x[1]})"
+    else:
+        new_format = x.type
+
+    return x + (new_format,)
+
+my_data = [
+   # (size, type)
+   (10, 'INT'),
+   (7, 'f64'),
+]
+
+my_data = map(apply_fn, my_data)</programlisting>
+<simpara>All <literal>map</literal> (or pandas <literal>apply</literal>) cares about is that the function being passed to it (in this case <literal>apply_fn</literal>) accepts one positional argument, <literal>map</literal> will call that function, passing a "reference" to the data item it&#8217;s currently looping over in the iterable thing it&#8217;s looping.</simpara>
+<simpara>To simplify this even more, we can take out <literal>map</literal> and show  you how this would work with just a plain old loop.</simpara>
+<programlisting language="python" linenumbering="unnumbered">def apply_fn(x):
+    new_format = None
+    if x[1] != 0:
+        new_format = f"{x[0]}, ({x[1]})"
+    else:
+        new_format = x.type
+    return x + (new_format,)
+
+my_data = [
+   # (size, type)
+   (10, 'INT'),
+   (7, 'F64'),
+]
+
+my_new_data = []
+
+for item in my_data:
+    updated_record = apply_fn(item)
+    my_new_data.append(updated_record)</programlisting>
+<simpara>This and the previous <literal>map</literal> code accomplish the SAME thing. just <literal>map</literal> is optimized and faster under the hood.</simpara>
+<simpara><literal>map</literal> and <literal>apply</literal>  just do the function call for you, passing a reference to the current item in its internal loop to the function as a positional argument (in this case position 0).</simpara>
+<section xml:id="_a_gotcha">
+<title>A gotcha</title>
+<simpara>Now, there&#8217;s something to be VERY VERY clear about with pass-by-reference and pass-by-value, which you may not have caught. And python programmers actually manage to get through a significant bit of life before this bites them, I know a few who had been working with python for decades and didn&#8217;t understand this. And it can be summed up like so:</simpara>
+<simpara>The data inside the function, can at times be the same data as outside the function when it&#8217;s passed in by reference.</simpara>
+<simpara>That means that if you have code like this:</simpara>
+<programlisting language="python" linenumbering="unnumbered">my_variable = {"Hello": 123} # dicts are mutable!!!
+
+def my_func(x):
+    x['Hello'] = 456
+    # notice we're not returning anything
+
+my_func(my_variable)
+
+print(my_variable)</programlisting>
+<simpara>You could be forgiven for assuming that the output of <literal>print(my_variable)</literal> would still  be:</simpara>
+<programlisting language="json" linenumbering="unnumbered">{"Hello": 123}</programlisting>
+<simpara>But you would be <emphasis role="strong">wrong</emphasis>, and you should feel bad about that. Did you even read the stuff I wrote above!?!</simpara>
+<simpara>Remember that pass-by-reference means we&#8217;re telling the scope inside of the function where to find the original data, <emphasis role="strong">we&#8217;re not making a copy of that data unless it&#8217;s an immutable type</emphasis> (int, float, string). We&#8217;re allowing it to use the original data (and use in this case also means the ability to change).</simpara>
+<simpara>So <literal>print(my_variable)</literal> will output <literal>{"Hello": 456}</literal> even though the variable <literal>x</literal> is a different name, it "references" the same data in memory, even though we aren&#8217;t returning or assigning the result back to <literal>my_variable</literal>.</simpara>
+<simpara>Through referencing, <literal>x</literal> and <literal>my_variable</literal> are linked as "pointers" to the same contiguous block of bytes of data in memory whenever <literal>my_func</literal> is called.</simpara>
+<simpara>To illustrate this simpler:</simpara>
+<programlisting language="python" linenumbering="unnumbered">var_1 = [1] # list - mutable type
+var_2 = var_1
+var_3 = var_2
+
+# lets add 12 to the list in var_3!
+var_3.append(12)
+
+print(var_1)
+# [1, 12] wait whut?
+
+print(id(var_1))
+print(id(var_2))
+print(id(var_3))
+
+# 140197766227648
+# 140197766227648
+# 140197766227648</programlisting>
+<simpara>We&#8217;re not copying the data here to other variables through assignment, these are all <emphasis>referencing the SAME data in memory</emphasis>. So when you edit ONE of them, the value accessible in all of them will be that same value as the edited one.</simpara>
+<simpara>If you&#8217;re using an immutable type though, it&#8217;s a different story:</simpara>
+<programlisting language="python" linenumbering="unnumbered">var_1 = 12 # IMMUTABLE INT
+var_2 = var_1
+var_3 = var_2
+
+var_3 = 999
+
+print(var_1)
+# 12
+
+print(id(var_1))
+print(id(var_2))
+print(id(var_3))
+
+# 140359862360720 # var_1
+# 140359862360720 # var_2... same as var_1? WHUT?
+# 140359860206928 # var_3</programlisting>
+<simpara>What gives with the ids you might ask? <literal>var_1</literal> and <literal>var_2</literal> have the same id, but <literal>var_3</literal> has a totally different id. I thought you said immutable types make COPIES DAMMIT!</simpara>
+<simpara>Python is being very very clever here. Sneaky sneaky. It&#8217;s because we edited <literal>var_3 &#8217;s value and didn&#8217;t edit `var_2</literal> .</simpara>
+<simpara>Python won&#8217;t make a copy and update the reference to a new memory location until you try to <emphasis>change the variables value</emphasis>. So <literal>var_1</literal> and <literal>var_2</literal> are pointing to the same location in memory, the idea being that, if they both are supposed to have the value <literal>12</literal> what&#8217;s the point of storing two copies of the same <literal>12</literal> and wasting space? So if you have multiple variables throughout your code that are <literal>some_var = 12</literal> they all might actually be pointing to the same <literal>12</literal> in memory!</simpara>
+<simpara>The moment we change <literal>var_2</literal> though, its id will change to a new location:</simpara>
+<programlisting language="python" linenumbering="unnumbered">var_2 += 2
+
+print(var_2)
+# 14
+
+print(id(var_1))
+print(id(var_2))
+print(id(var_3))
+# 140359862360720
+# 140327892261584 &lt;- New ID in memory
+# 140359860206928</programlisting>
+<simpara>So it&#8217;s being "lazy", and the benefit of it&#8217;s laziness, is that we use less memory for immutable types.</simpara>
+<simpara>Mind = Blown?</simpara>
+</section>
+<section xml:id="_its_just_a_list">
+<title>It&#8217;s just a list!</title>
+<simpara>A while back we talked about the <literal><emphasis role="strong"></literal> and <literal></emphasis>*</literal> when you see them in function signatures. You can actually define a function like so:</simpara>
+<programlisting language="python" linenumbering="unnumbered">def my_func(*args):
+    print(args)
+
+my_var = 298
+my_func(12, 16, my_var)
+# (12, 16, my_var)</programlisting>
+<simpara>is special, it basically tells python to collect up all the positional arguments into a tuple (an immutable list). The reason we have this, is so that we can have functions which accept varying numbers of arguments.</simpara>
+<simpara>If we tried to do this without our special little friend <literal>*</literal>:</simpara>
+<programlisting language="python" linenumbering="unnumbered">def my_func(args):
+    print(args)
+
+my_var = 298
+
+my_func(12, 16, my_var)</programlisting>
+<simpara>We would get an error:</simpara>
+<screen linenumbering="unnumbered">Traceback (most recent call last):
+  File "&lt;stdin&gt;", line 1, in &lt;module&gt;
+TypeError: my_func() takes 1 positional argument but 3 were given</screen>
+<simpara>You might not find that all that useful, but it highlights that there&#8217;s nothing special about the actual argument names here, they&#8217;re just placeholders, for positions, literally.</simpara>
+<simpara>Hopefully this has been helpful, if so, i&#8217;ll do another one about classes for you guys!</simpara>
+</section>
+</article>
+</section>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>JDU </title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro:400|Source+Sans+Pro:300,400,600' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+  
+
+<div class="main">
+
+  <div class="left-menu">
+
+
+    <a class="brand" href="/">JDU</a>
+
+    <div class="contents">
+
+      <h3><a href="#top">CQRS</a></h3>
+
+      <ul>
+        
+
+        <li class="toc-1"><a href="#_what_is_cqrs?"><small>1</small>What is CQRS?</a></li>
+
+        
+
+        <li class="toc-2"><a href="#_cqrs_fundamentals"><small>2</small>CQRS Fundamentals</a></li>
+
+        
+
+        <li class="divider"></li>
+
+        <li class="end-part">
+          <a href="#references">References</a>
+        </li>
+
+        <li class="end-part">
+          <a href="#end-note"><small>note</small>End Note</a>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+
+  <div class="page">
+    <h1>CQRS</h1>
+
+    <article class="chapter">
+
+      <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Command Query R Segregation probably sounds really complicated if you&#8217;ve not been exposed to it, but we&#8217;re going to talk over why it might be a better choice in a number of instances for things like large distributed applications, LoB (Line of Business) applications and several other areas where you need to have auditable tracking, replayability, and discrete separations of concern amongst your individual contexts.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_what_is_cqrs">What is CQRS?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>It&#8217;s not a framework, it&#8217;s more or less a pattern, but one that can inform the entire design of your overall applications code-base. CGRS can be likened to the level of OOP (Object-Oriented Programming) as it&#8217;s a top-level way to organize code, logic, and integrations in a way that puts emphasis on maintainable, testable, smaller discrete chunks of logic and functionality.</p>
+</div>
+<aside>
+<div class="paragraph">
+<p>Honest, there is <em>nothing</em> wrong with OOP and model-oriented programming!</p>
+</div>
+</aside>
+<div class="paragraph">
+<p>So what&#8217;s wrong with OOP and the Model-style approach? Absolutely nothing! CQRS is a just another tool in your tool-box which you can reach for when an appropriate use-case rears it&#8217;s head. CQRS, after an initial bit of work, tends to require less boilerplate and less tracking / managing model changes across inheritance and extension throughout your code-base.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cqrs_fundamentals">CQRS Fundamentals</h2>
+<div class="sectionbody">
+<aside>
+<div class="paragraph">
+<p><strong>RPC</strong> is really about making <em>functions</em> available through an interface (HTTP2, protobuf, gRPC, GraphQL, TCP, UDP, etc&#8230;&#8203;) in such a way that it feels as though you&#8217;re calling a function on the service versus interacting with a structured API.</p>
+</div>
+</aside>
+<div class="paragraph">
+<p>At it&#8217;s core, CQRS is really about <strong>Commands</strong> and <strong>Events</strong>. A Command is something that your code-base handles, and as a by-product of that handling it produces <em>events</em>. At a more fundamental take, CQRS lends itself well to RPC (Remote Procedure Call) type of design. For example, given a ToDo application, you might accept the following command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>{
+   "cmd": "CreateTask",
+   "data": {
+       "task": "Pick up lettuce and cheese from shop",
+       "assignee": "Olivia",
+   }
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In an OOP world we would deserialize this data, cast / ingest it into a model representation, then trigger functionality on the model itself. Where this starts to become a bit tedious is that we start having storage operations (CRUD), querying operations (<code>SELECT &#8230;&#8203;. FROM tasks</code>) and integrations to other services (email, slack notifications, message broker sends) all tied into the main class implementation either concretely, or through inheritance, composition, or in secondary classes, etc&#8230;&#8203;</p>
+</div>
+<div class="paragraph">
+<p>In the CQRS world we segregate these functions into <code>services</code> and <code>queries</code>. Functionality like sending an email to the new assignee isn&#8217;t tied into model directly, but triggered through a <code>Service</code> which takes in an <code>Event</code> like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>{
+    "event": "SendEmailEvent",
+    "data": {
+       "subject": "New Task assignment",
+       "to": "Olivia",
+       "body": "A new task has been assigned to you!"
+    }
+}</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+    </article>
+
+
+    <footer>
+      Handcrafted by Jeff Uren — <a href="https://github.com/jdu/jdu.github.io/blob/master/LICENSE"
+        target="_blank">&copy; 2024</a>
+    </footer>
+  </div>
+
+</div>
+
+
+
+</body>
+
+</html>

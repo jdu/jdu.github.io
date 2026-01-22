@@ -1,0 +1,1565 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>DataMesh &amp; UDA</title>
+    <link rel="stylesheet" href="static/css/tufte.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+
+  <body>
+    <article>
+      <h1 id="tufte-css">UDA & DataMesh</h1>
+      <p class="subtitle">Jeff Uren</p>
+      <section>
+        <p>
+          This is a visual explainer to help understand what the UDA and
+          DataMesh are, and how they extend and evolve our current data platform
+          and capabilities to support Wellcome over the next decade.
+        </p>
+        <p>
+          We have some real problems in our data operations that need
+          addressing, and the solution outlined here is designed to solve or
+          mitigate a number of those problems to ensure that Wellcome is capable
+          of the level of introspection that we have come to be known for, as
+          well as firmly entrenching the ability to look outward at the research
+          landscape on the whole with as much information as possible.
+        </p>
+      </section>
+
+      <section>
+        <h2 id="problems">Current Problems</h2>
+
+        <p>
+          We have a litany of "soft" issues around our data which makes it
+          prohibitively hard to move at the pace that Wellcomes data needs are
+          moving, and at the scale that Wellcome endeavours to operate at with
+          the scale of resource that we have.
+        </p>
+
+        <p>
+          You've probably already guessed at what the problems are, or think you
+          know what kinds of problems we have, but i'll wager you're probably very
+          wrong.
+        </p>
+
+        <dl>
+          <dt><strong>Insights <-> DataOps Collaboration</strong></dt>
+          <dd>
+            Collaboration is hard when you can't share actual data, right now
+            building new data for insights requires <strong>a lot</strong> of
+            back and forth between Viz, Insights, ML, DataOps. This can mean
+            lots of model diagrams, sample generation, rejigging tables over and
+            over and codifying business logic.
+          </dd>
+          <dt><strong>Messy Business Logic</strong></dt>
+          <dd>
+            Right now, business logic about how we calculate things is mixed
+            between pipelines, dashboards and everywhere in between. This makes
+            re-usability hard, and isolates information about operations and
+            data into small groups or single individuals heads where it stays
+            and eventually leaves the organisation.
+          </dd>
+          <dt><strong>Inconsistent / Missing Meaning</strong></dt>
+          <dd>
+            Wellcome has a wide remit, we cross 100s of domains in terms of the
+            data we hold and work with and the business concepts that we
+            interact with on a daily basis. The <strong>meaning</strong> of
+            those things can differ in small and vast ways across different
+            teams and places inside the organisation. This leads to confusion
+            and problems further down the line.
+          </dd>
+          <dt><strong>Scale of Data</strong></dt>
+          <dd>
+            We're more and more tasked with ingesting, integrating and
+            processing larger and more complex domains of data, which requires
+            the DataOps team to learn new domains constantly, Insights and
+            DataOps have a high uplift in understanding in order to translate
+            data from disparate systems into meaningful insights for the wider
+            organisation.
+          </dd>
+          <dt><strong>Where does it live?</strong></dt>
+          <dd>
+            Tracking where data comes from is hard, we're better than we have
+            been in the past, but it can become prohibitively hard to track and
+            understand how data moves through large distributed systems, and to
+            propagate the metadata alongside that data as it moves from place to
+            place.
+          </dd>
+          <dt><strong>Upstream changes break downstream analytics</strong></dt>
+          <dd>
+            We want to be <strong>resilient</strong>, and part of resilience is choosing the
+            right abstracts. When upstream systems are deprecated, migrated, or data 
+            within those systems changes in different ways, the knock-on effect runs 
+            right through our entire platform to the analytics. We need better resilience
+            against change upstream from us where we lack any ability to exert control.
+          </dd>
+          <dt><strong>Connections are hard</strong></dt>
+          <dd>
+            Finding where disparate concepts across our organisation marry together
+            to provide a comprehensive and complete view of the organisation is tricky and
+            fraught with problems because of inconsistent definitions between "things" in different
+            areas. Inconsistent ids, lack of owned forms of identification systems, policies 
+            and more contribute to a "garbage in, garbage out" problem.
+          </dd>
+        </dl>
+
+        <p>
+          <span class="sidenote">
+          All of this stresses my team out. I don't like when my teams stressed out, they
+          don't laugh at my crumby dad jokes when they're stressed out.
+          </span>
+          This is just a smattering of problems we currently have that have
+          required some deep thought and consideration in order to arrive at a
+          sensible solution that doesn't just benefit DataOps, but benefits
+          every at Wellcome and helps to ignite faster, better quality analysis
+          for everyone across the organisation.
+        </p>
+
+
+        <p>
+          We're not talking about re-architecting our systems on en masse here either.
+          We're talking about surgical changes which shift out platform, operations and systems
+          forward towards better outcomes internally for a variety of teams. 
+        </p>
+      </section>
+
+      <section>
+        <h2 id="overview">Overview</h2>
+
+        <p>
+          These changes revolve around <strong>two overarching concepts</strong> that couple together
+          to create a consistent, <a href="https://en.wikipedia.org/wiki/Semantic_technology" target="_blank">semantic data platform</a>.
+        </p>
+
+
+        <p>
+          We're actually leaning on some older, time-tested and proven
+          technologies with some Wellcome Data Team flare drizzled all over to
+          make it a bit more spicy, the way we like it. We took proven, emerging
+          approaches to data operations, melded them with stable long-term
+          technologies, and poured in a whole lot of hot sauce.
+        </p>
+
+        <figure class="fullwidth">
+          <img src="img/overview.png"/>
+          See! So simple!
+        </figure>
+      </section>
+
+      <section>
+        <h2 id="uda-overvie">What is a Unified Data Architecture (UDA)?</h2>
+
+        <p>
+          If you're technical by nature, you might be thinking this is a fancy
+          term for an Enterprise Data Model. That's not what this is, and we
+          frankly don't care how data is modelled and designed in the various
+          systems that Wellcome relies on. That's not our remit.
+        </p>
+
+        <p>
+          The UDA is a registry of <strong>Business Concepts</strong>, these
+          aren't data-sets, they're not concrete things that you can query
+          directly to retrieve information about the org. They're not backed by a table
+          in a warehouse somewhere.
+          <label sidenote=
+        <span class="sidenote"
+          >but you can indirectly which we'll get to later</span
+        >
+        </p>
+
+        <p>
+            We define our Business Concepts using an <a href="https://en.wikipedia.org/wiki/Upper_ontology" target="_blank">Upper Ontology</a>
+          which allows us to define things with a common language for describing all of 
+        the varying things <strong>that are important to Wellcome</strong>.
+          <span class="marginnote">
+              <img src="img/uda_turtle.png"/>
+              A Business Concept expressed in the turtle language.
+          </span>
+          <hr/>
+        </p>
+
+      </section>
+
+      <section>
+        <h3 id ="uda-upper">Wellcomes Upper Ontology</h3>
+
+        <p>
+        Our upper ontology is defined in RDF using the OWL ontology. This lets us leverage a whole ecosystem of established
+        concepts across different areas like RDF itself, SKOS, FOAF, and more. And the despite the simplicity of RDFs triple
+        syntax, it supports an immense level of complexity.
+        </p>
+
+          <blockquote>
+            <p>
+          An important function of an upper ontology is to support broad semantic 
+        interoperability among a large number of domain-specific ontologies by providing a 
+        common starting point for the formulation of definitions.
+            </p>
+            <footer>Wikipedia</footer>
+          </blockquote>
+
+        <p>
+        We express our ontology, including the upper ontology using the <a href="https://www.w3.org/TR/turtle" target="_blank">turtle language</a>
+        as it's a nice bit of syntactic sugaring, and allows us to forego a lot of the boilerplate that you have to write for 
+        normal RDF triple declarations.
+      </p>
+
+        <p>
+        <span class="sidenote">
+            <img src="img/horror.webp"
+        </span>
+        </p>
+      <figure class="">
+        <img src="img/rdf.png"/>
+        No one wants to spend their days writing RDF triples.
+      </figure>
+
+        <p>
+          It's a fairly simple upper ontology that consists of six (6) primary primitives which are used to model <code>Domains</code> and the concepts inside of them.
+        </p>
+
+
+        <figure class="fullwidth">
+        <img src="img/upper.png"/>
+
+      </figure>
+
+        <p>
+        <span class="marginnote">
+          <img src="img/bad.png" width="100%"/>
+          I know you think this is better, but it's bad, and you should feel bad.
+        </span>
+          On first glance, you might wonder why the design of a domain isn't more hierarchical.
+          This is intentional and not just a dereliction of duty. We all have a tendency to bucket 
+        things mentally into hierarchical taxonomies of items. Logically A Domain has models, which have attributes, and some of 
+        those attributes are enumerations, right?
+        </p>
+
+        <p>
+        Not to DataOps they don't.
+      </p>
+
+        <p>
+          From our perspective, there are some concerns with a hierarchical ontology like that, we specifically designed this 
+        solution to avoid.
+        </p>
+
+        <p>
+        Notably, a definition of an <code>Attribute</code>, an Attribute is a piece of data that belongs to the <code>Domain</code>
+      that it's defined within. It doesn't belong to any one given Business Concept, and it could be shared between multiple business concepts
+      within the same domain. Heck, it could be used and referenced from <strong>other domains in the ontology</strong>.
+      </p>
+
+        <p>
+          If we define a thing once, instead of as an individualized property of every model or concept, we benefit from a single
+        consensus on what that thing <strong>means and represents</strong> instead of maintaining multiple different versions of it.
+      </p>
+
+      </section>
+
+      <section>
+          <h3 id="upper-other">Tertiary ontology</h3>
+
+          <p>
+            Defining logical models of business concepts and how they inter-relate isn't the only thing we're concerned about with 
+        our UDA. There are additional pressing concerns that revolve around metadata and classification that are hard problems to solve in a 
+        batch-oriented data platform.
+        </p>
+
+        <p>
+          Classifying and expressing ownership of data is a hard problem in a distributed system where data goes from the source
+          through multiple transformations, joins and changes.
+        </p>
+
+        <p>
+          Most operations use SQL-oriented tooling that can be introspected (to an extent) to understand where data moves through
+          a system. That approach is problematic in that in removes your ability to choose the right tools for specific jobs and operations.
+        And in a lot of cases, SQL-based operations aren't the most performant or maintainable approaches to data engineering. You know this 
+        if you've ever had to wrangle a 1,000+ line SQL with multiple CTEs and CASE statements peppered throughout.
+        </p>
+
+        <p> 
+        Our metadata <code>mwi</code> ontology allows us to annotate business concepts with additional information throughout
+        the UDA to act as the concrete central source of truth for extended metadata, and classification information.
+      </p>
+
+        <pre>
+        <code>
+
+funding: a upper:Domain ;
+  upper:domain        "funding" ;
+  owl:imports         uda: .
+
+funding:Owner a mwi:Owner ;
+  mwi:email           "n.frentrop@wellcome.org" ;
+  mwi:name            "Nina Frentrtop" .
+
+        </code>
+      </pre>
+
+        <p>
+        This goes all the way down to individual <code>Attribute</code> concepts, where we define things like sensitivity.
+        </p>
+
+      <pre>
+        <code>
+
+funding:contact_first_name a upper:Attribute ;
+  upper:datatype        xsd:string ;
+  mwi:sensitivity       mwi:SL2 ;
+  upper:label           "Funding Contact First Name"@en ;
+  upper:description     "The anglicized first name of the contact"@en .
+        </code>
+      </pre>
+
+      <p>
+        But remember, these don't represent <strong>data.</strong> They represent a "thing" that Wellcome cares about or 
+        is important to the organisation.
+      </p>
+
+      <p>Which precipitates...</p>
+
+      </section>
+
+      <section>
+        <h3 id="upper-mappings">Schemas, Mappings, and more Schemas</h3>
+        <p>
+        <span class="newthought">Ontologies are tricky things,</span> they're actually quite a bit of fun, like a thought experiment wrapped in a puzzle. But they're
+        more or less useless <strong>if you can't find a meaningful way to operationalize them.</strong>
+        </p>
+      
+        <p>
+        <span class="sidenote">Super downer</span>
+        Without a valid path to make them meaningful, they'll eventually end up in the dust-bin, and eventually
+        as the organisations moves forward through time, they'll become wholly irrelevant.
+        </p>
+
+        <p>
+          This is where mappings come in.
+        </p>
+
+      <figure class="fullwidth">
+        <img src="img/mappings.png"/>
+        Map all the things!!
+      </figure>
+
+      <p>
+        We define four (4) additional concepts in our ontology, and utilize a strong industry-developed 
+        schema system in order to relate concepts to data and where it lives.
+      </p>
+
+      <dl>
+        <dt><strong>Data Container</strong></dt>
+        <dd>
+          We have a concept of a "Data container", these are data-sets sitting in our datamesh, 
+          addressable by a specific identifier. At this point we don't care about how that data gets
+          where it is <span class="sidenote">That's the DataMesh's job</span> we're only concerned with knowing
+          that a thing exists somewhere that holds some data.
+        </dd>
+        <dt><strong>Schema (Avro)</strong></dt>
+        <dd>
+          An Avro schema is a definition in either AVDL or AVSC <span class="sidenote">Custom JSON spec</span> 
+          which describes some data, its' types and contains annotations about the properties and characteristics
+          of data held in a data container or data pipeline.
+        </dd>
+        <dt><strong>Mapping</strong></dt>
+        <dd>
+          A mapping is a direct correlation between the properties of a business concept defined in the UDA to 
+          the properties of one or more data containers sitting in our data mesh.
+        </dd>
+        <dt><strong>Projection</strong></dt>
+        <dd>
+          A projection, is the result of an outward mapping from the UDA to some form of output. This could be a data table,
+          a graphql query endpoint, a REST endpoint, a data product output like a report or a parquet data-set
+          in our object storage. These outputs are generally materialized by our DataMesh.
+        </dd>
+      </dl>
+
+
+      <p>Let's say we have some model called "Thing"</p>
+      <pre>
+        <code>
+
+stuff:Thing a upper:DirectClass ;
+  upper:keyedOn     ( stuff:thing_id ) ;
+  upper:property    stuff:thing_id ;
+  upper:property    stuff:thing_name ;
+  upper:label       "A Thing" ;
+  upper:description "A Thing in a place" .
+
+stuff:thing_id a upper:Attribute ;
+  upper:datatype    xsd:integer ;
+  upper:label       "Thing ID"@en ;
+
+stuff:thing_name a upper:Attribute ;
+  upper:datatype    xsd:string ;
+  upper:label       "Thing Name"@en .
+
+        </code>
+      </pre>
+
+      <p>
+        In our DataMesh we pull data from a system called "ThingManager" and through various means 
+        explained later in this document, that data arrives in a parquet or iceberg data-sets in our data lake.
+      </p>
+
+
+      <p>
+        The DataMesh outputs a schema in Avro format (AVSC) or we manually create a set of AVSC schema
+        files from an AVDL declaration alongside the data. 
+      </p>
+
+
+
+      <pre>
+        <code>
+namespace com.wellcome.uda.datamesh.stuff
+
+record StuffThingV1 {
+  string id;
+  union { null, string } name;
+}
+        </code>
+      </pre>
+
+      <figure>
+        <img src="img/magic.png" width="100%"/>
+        <span>
+        Systems architecture is like, so easy.
+        </span>
+      </figure>
+
+      <p>
+        Because we have the strongly typed Avro schema, we can automatically generate a representation
+        of that data container as a <code>Source</code> in our UDA ontology.
+      </p>
+
+
+      <p>
+
+      <span class="marginnote">We don't write this manually, we have processes which generate this from the schemas</span>
+      </p>
+      <pre>
+        <code>
+@prefix stuff_thing_v1:       &lt;urn:wellcome:iuda:datamesh:source:stuff_thing_v1&gt;
+
+stuff_thing_v1:
+  rdf:type              datamesh:Source ;
+  datamesh:description  "Data mesh source automatically generated" ;
+  datamesh:displayName  "StuffThingV1" ;
+  datamesh:schema       [
+      rdf:type          avro:Record ;
+      avro:doc          "Stuff Thing V1\n" ;
+      avro:fields (
+          stuff_thing_v1:id
+          stuff_thing_v1:name
+      ) ;
+      avro:name             "STUFF_thing_record_prod_v1" ;
+      avro:namespace        "com.wellcome.uda.avro.generated.stuff" 
+  ] ;
+  datamesh:sourceId       "StuffThingV1" ;
+  datamesh:sourceIdentifier "stuff_thing_record_prod_v1" ;
+  datamesh:sourceType       datamesh:APPLICATION_PRODUCER .
+
+stuff_thing_v1:id 
+  rdf:type          avro:Field ;
+  avro:doc          "Thing ID" ;
+  avro:name         "id" ;
+  avro:type         avro:string ;
+  avro:primaryKey   true .
+
+stuff_thing_v1:name 
+  rdf:type        avro:Field ;
+  avro:doc        "Thing Name" ;
+  avro:name       "name" ;
+  avro:type       avro:string .
+        </code>
+      </pre>
+
+      <p>
+        Once we have data flowing into our lake, we can now add a new mapping in the UDA that correlates our <i>concept of a Thing</i>
+        to the concrete data we have representing <strong>StuffThingV1</strong>.
+      </p>
+
+      <p>
+        <span class="marginnote">We <strong>do write this thing</strong></span>
+      </p>
+      <pre>
+        <code>
+&lt;https://rdf.wellcome-data.org/mapping?primaryConcept=https://rdf.wellcome-data.org/onto/stuff#Thing&dataAsset=urn:wellcome:uda:datamesh:source:stuff_thing_v1&gt;
+  rdf:type                  mapping:Mapping ;
+  mappingforPrimaryConcept [
+    rdf:type                mapping:ConceptMapping ;
+    mapping:fieldMapping [
+      rdf:type              mapping:FieldMapping ;
+      mapping:fromProperty  stuff:thing_id ;
+      mapping:toField       &lt;urn:wellcome:uda:datamesh:source:stuff_thing_v1:id&gt; 
+    ] ;
+    mapping:fieldMapping [
+      rdf:type              mapping:FieldMapping ;
+      mapping:fromProperty  stuff:thing_name ;
+      mapping:toField       &lt;urn:wellcome:uda:datamesh:source:stuff_thing_v1:name&gt;
+    ] 
+  ] ;
+  mapping:toDataAsset       &lt;urn:wellcome:uda:datamesh:source:stuff_thing_v1&gt; .
+        </code>
+      </pre>
+
+      <p>
+        Something <strong>really important to note here</strong> is that we are not <u>mapping the data <strong>to the concept</strong></u>.
+        We're doing the reverse, we're mapping the concept to the data, it's types and it's locality inside of our systems.
+      </p>
+
+      <p>
+        So from the perspective of the DataOps Team, we create data containers in our data lake by ingesting data from various
+        sources, and those data containers have their schemas auto-documented either through some later discussed datamesh process 
+        or we manually generate a schema in Avro format from parquet / iceberg schemas, polars schemas, or hand curated in rare cases.
+      </p>
+
+      <p>
+        <span class="sidenote">Not really...</span>
+        We then write a mapping in the UDA using turtle, and frankly, at this point, we can probably walk away.
+      </p>
+
+        
+      </section>
+
+      <section>
+        <h2 id="upper-lineage">Lineage</h2>
+
+        <p>
+        No I don't mean how you claim that your great-great-grandfather was the arch-duke of Canter-Cester-Bury-Shire.
+        When we talk about <i>lineage</i> we're talking about the capability to trace how a piece of data moves and changes
+        throughout a system.
+      </p>
+
+      <p>
+        This is traditionally a hard problem, and there are a number of really complicated solutions out there that
+        don't really get you all the way there the way we'd like.
+      </p>
+
+      <p>
+        We want to know where data coming in from a source system is touched or lives across the various parts of our systems.
+        For a variety of reasons:
+      </p>
+
+      <ul>
+        <li>To assess impact of changes in upstream systems.</li>
+        <li>To debug and diagnose data quality issues in our analytical outputs.</li>
+        <li>To perform audits to report on data usage and access controls.</li>
+        <li>In order to propagate ownership, classification and metadata into places it needs to be.</li>
+        <li>In order to be able to apply access constraints and masking consistently across different interfaces.</li>
+      </ul>
+
+      <h3>Batch Process Lineage</h3>
+
+      <p>
+        Historically, every task in your pipeline drove lineage into a metadata platform as a secondary concern
+        of every task running in your pipelines.
+      </p>
+
+      <pre>
+        <code>
+my_task = TaskOperator(
+  task_id="some_task_name",
+  ...
+  inlets=[
+    Datatable("s3://data-lake/WAREHOUSE_RAW/source_name/source.parquet"),
+  ],
+  outlets=[
+    Datatable("postgres:warehouse/theme_stuff/stuff_table")
+  ]
+)
+        </code>
+      </pre>
+
+      <p>
+        This gets unbelievably tedious, and in the case of <i>dynamic pipelines</i> where data coming from the 
+        source could result in multiple data-sets or new fields being populated. It creates a chicken and egg situation
+        that requires more and more complex tricks to work around.
+      </p>
+
+      <h3>PaaS Approaches</h3>
+
+      <p>
+        The other side of the approaches is to constrain the tooling available to an extent that lineage can be inferred
+        from introspecting the usage of the tools. Think for example pipelines which are purely based on SQL queries,
+        where you can introspect the query to figure out which fields were selected from where into other fields in the output.
+      </p>
+
+      <p>
+        These approaches have a multitude of drawbacks:
+      </p>
+
+      <ul>
+        <li>Constrained tooling limits our ability to pick the best tool for any given job.</li>
+        <li>Pipeline metadata relies heavily on human-curated annotations and definitions of changes.</li>
+        <li>Moving to a new platform is potentially a multi-year project involving rewrites, training and re-solving already solved problems.</li>
+      </ul>
+
+      <p>
+        <span class="sidenote">Surprise surprise</span>
+        We've taken a wholly different tact.
+      </p>
+
+      <h3>It's Graphs all the way down</h3>
+
+      <p>
+        In our new UDA world, this actually ends up being a solved problem with a little bit of elbow grease, and in a 
+        way that ends up being much more intuitive than your traditional metadata systems.
+      </p>
+
+      <p>
+        Because all our data revolves around the central UDA Business Concepts themselves, this actually becomes a relatively
+        easily solved problem because of a couple of intrinsic properties of the UDA.
+      </p>
+
+      <ul>
+        <li>Business Concepts <storng>map to</storng> strongly typed data containers</li>
+        <li>Data Products are expressed as <strong>projections</strong> from the Business Concepts</li>
+        <li>Our UDA is expressed in RDF triple notation which means we can load it into a graph database.</li>
+      </ul>
+
+      <p>
+        This means that from any vantage point within our system and processes, we can look down the pipeline and traverse the graph 
+        of our system to see every stage at which the data moved through the mappings, and "cross-pollinate" 
+        from the concept sub-graph outwards appropriately.
+      </p>
+
+      <figure>
+        <img src="img/graph.png"/>
+        G(ir)aphs all the way down, not turtles.
+      </figure>
+
+    </section>
+
+    <section>
+      <h2 id="upper-udm">UDM - Unified Data Management</h2>
+
+      <p>
+        The RDF and turtle examples we've shown, and the larger model set we're working on building up are meant
+        primarily as a <strong>bootstrapping mechanism</strong>. Long-term we don't want to be managing updates to 
+        the domains and business concepts through the turtle language, though it will make onboarding new domains and 
+        concepts easier in the long haul.
+      </p>
+
+      <p>
+        Ultimately defining the meaning of these things is a community effort. In support of that, we're developing 
+        the UDM (UDA Data Management) application in a core app at https://rdf.wellcome-data.org. 
+      </p>
+
+      <p>
+        From there you can browse and navigate the different domains and their associated ontologies, and propose 
+        changes to meanings and descriptions. Add new Attributes and define relationships we've missed between different
+        concepts.
+      </p>
+
+      <p>
+        We pride ourselves in the DataOps team in delving deeply into the domains we manage data for, but we'll never
+        be as knowledgeable in those domains as the people that operate within, work on, and own those domains. 
+      </p>
+
+      <p>
+        Defining meaning at Wellcome is a collective process, not an individual, or even a team-oriented one. Consensus
+        is important for communicating and collaborating. Dictionaries and business glossaries just aren't enough.
+      </p>
+    </section>
+
+    <section>
+      <h3 id="uda-last">Last notes on UDA (Promise)</h3>
+        <p>
+          <span class="newthought">This opens up a whole world of possibilities,</span> that were previously walled behind
+          a mountainous amount of work in order to achieve.
+        </p>
+
+      <h4>Concept Graph & GraphQL</h4>
+
+      <p>
+        We have already started to build the graph database which is the beating heart of integrating this with other areas
+        of our data platform. But we've also started to layer on a graphql query API that allows people to more easily traverse
+        the "known world of Wellcome" through the business concepts and how they relate.
+      </p>
+
+      <h4>Wellcome Graph</h4>
+
+      <p>
+        Because our UDA encodes an upper ontology describing the domains, their attributes and importantly the relationships 
+        between those models and attributes. We can drive a level deeper and build a Wellcome Graph that allows people to traverse
+        the <strong>data</strong> that makes up our organisation. 
+      </p>
+
+      <p>
+        For example being able to go from a grant, through to a grant manager, through to the team, department, and division they work 
+        within, or to see their peers in the same team in case you need to get in contact while the person in question is away.
+      </p>
+
+      <h4>Wellcome @ Time Graph Feature</h4>
+
+      <p>
+        Because we can codify properties into the graph that we're using as an extended store, and because we have CDC 
+        capabilities in our ingestion pipelines. That can enable us to add temporal features to the graph to allow 
+        us to visualize changes to Wellcome over time. Exploring a view of Wellcome from last month, last year, or a decade ago.
+      </p>
+
+      <h4>Federated GraphQLs</h4>
+
+      <p>
+        Our mappings enable a number of other potentially automatic features as well. For example the ability to generate graphqls
+        definitions to be picked up by a service designed to implemented them from the definitions. 
+      </p>
+
+      <pre>
+        <code>
+"""
+Thing
+"""
+type Stuff_Thing @key(fields: "thing_name") @udaUri(uri: "https://rdf.wellcome-data.org/onto/stuff#Thing") {
+  """
+  The name of the thing
+  """
+  thing_name: String @udaUri(uri: "https://rdf.wellcome-data.org/onto/stuff#thing_name")
+  """
+  The ID of the thing
+  """
+  thing_id: String @udaUri(uri: "https://rdf.wellcome-data.org/onto/stuff#thing_id")
+}
+        </code>
+      </pre>
+
+      <p>
+        This is just the beginning of our UDA / ontology adventure at Wellcome here in the Data Team,
+        we have other plans on how we can use RDF, OWL, and other specifications in the W3C to unlock
+        nmew and powerful capabilities for the team and the organisation.
+      </p>
+
+      <h3>The death of point to point integrations</h3>
+
+      <p>
+        We have a lot of point-ot-point integrations at Wellcome. Disparate systems need information from 
+        various different applications and services that are running throughout the organisation. These point to point
+        integrations require development of translational layers between those systems to transform data coming in from 
+        one system into data formats that are supported in the next.
+      </p>
+
+      <p>
+        UDA has the ability to eliminate the need for point-to-point altogether. If we have an agreed definition
+        of the concepts needed for an integration, and mappings that point to where that data lives, and a data mesh
+        which is continually updating those containers. Something magical happens.
+      </p>
+
+      <p>
+        We have the ability to build projections in a short turnaround time which serve the needs of any integration
+        between two or more systems. For those of you who have been tasked with integrating systems in any job, you'll understand
+        how much of a boon it is to have a stable, consistent representation of the data you need in your system
+        in a form like the UDA.
+      </p>
+
+      <p>
+        We have a tendency to shift and move platforms constantly at Wellcome, and each time we have to re-invent the wheel
+        to run and execute those migrations. If we have the UDA, and the strong Business Concepts tied to data containers 
+        that are continually updating. Migrations between systems become a standardized and predictable process 
+        regardless of how data is structured in the old and new systems.
+      </p>
+
+      <h3>The Big Cheese</h3>
+
+      <p>
+        One of the really important aspects of this, is one that might not be immediately evident 
+        to people working outside of the Data Team. With the advent of a concerete set of Business Concepts, 
+        we have a usable middle-ground where Viz & Insights and the DataOps Team can meet in the middle.
+      </p>
+
+      <p>
+        <strong>DataOps</strong> doesn't have to work towards shifting needs in terms of tables outputs in the warehouse. 
+        We get a stable cocnept to drive towards, and that helps us figure out what data we need to 
+        source to service those Concepts, and if a system changes on the backend, we simply have to
+        rework how data coming from that system maps to the existing Business concepts.
+      </p>
+
+      <p>
+        <strong>Viz, Insights & ML teams</strong> get a strong point of reference for building
+        analytical outputs and the foundations for a larger self-service data platform where they're
+        less reliant on DataOps to build tables, and data outputs for their needs.
+      </p>
+
+      <p>
+        <strong>Data Owners</strong> get the ability to codify their knowledge and understanding of their 
+        domains in a single place to reduce confusion and inconsistency in the reporting and analytical
+        work revolving around their areas and themes.
+      </p>
+
+    </section>
+
+      <section>
+        <h2 id="datamesh-overview">What is a DataMesh?</h2>
+
+        <p>
+        <span class="marginnote">I'll try and keep it spicy for you</span>
+        We've talked alot about UDA here, and it's really really important in the grand scheme of all of this. 
+        But here when I start to tell you about the DataMesh component of all this, you might get a little board.
+        </p>
+
+        <p>
+        Our current setup, as in our pipelines, orchestrator all play a part in the DataMesh, but in order to support
+        the concepts inside the UDA and to drive all of this forward. There's some fine surgery we need to do to 
+        graft some pieces into what is already a complex systems.
+        </p>
+
+        <p>
+        The changes we're making aren't just to solve problems for the wider organisation, the changes we're doing 
+        in the lower levels of the DataMesh are geared towards underpinning the UDA, but also towards easing the 
+        burden on my engineering team.
+      </p>
+
+      <p>
+        You see, the volume of data we manage is growing exponentially. The number of sources that we ingest data 
+        from, and model and transform and curate is growing at a rapid pace as more and more focus tips towards
+        data-oriented decision making within Wellcome.
+      </p>
+
+      <p>
+        There's a heavy burden there, and our current setup means we can have our heads down in working on changes or new
+        data sources for weeks at a time before anyone sees the fruits of our labours. And the large Pull requests which result
+        from all this work create a heavy burden on our peers in our team to review and understand the changes we're making as well.
+      </p>
+
+      <h3>What is a DataMesh?</h3>
+
+      <p>
+        <span class="marginnote">
+          You business-y types will get lots of cred with "Yeah, we use <strong>DataMesh</strong> here at Wellcome y'know"
+        </span>
+        <span class="newthought">DataMesh is a fancy term for saying that we're going to run a lot of complex services,</span> and they're going to
+        integrate at multiple layers in order to provide a robust and complex data topology to underpin the analytical
+        workloads we do.
+      </p>
+
+      <p>
+        That might sound like a whole lot of hoo-ha, but at the core of it are some very real changes. But it's worth understanding
+        that DataMesh in our case, doesn't give anything away about what we're actually running. From our perspective it's just
+        a reference point for a few technologies that we're putting in place <strong>around the UDA</strong>.
+      </p>
+
+      </section>
+
+      <section>
+        <h2 id="mesh-streams">Streams</h2>
+
+        <p>
+        Stream-based processing has been around for a long time. But in recent years, some of the tooling around stream-based
+        systems has become stronger and stronger.
+      </p>
+
+        <p>
+        Our current Airflow setup isn't going away, and some of the parts of our airflow-based setup that currently feed our warehouse,
+        can be repurposed, specifically the write points where we can extend those writes to include the necessary schemas and artifacts to 
+        support the UDA.
+      </p>
+
+        <p>
+        What is happening is the insertion of a new, stream-based coordination service in our cluster which lives in partnership
+        with our current orchestrator. We've written this new orchestrator ourselves to be lean, mean, and i'll be honest with you,
+        it's punching way above it's weight in terms of the streaming landscape it's being injected into.
+      </p>
+
+      <p>
+        Let's meet some of the new (and some old to be honest) players in our DataOps Services baseball line-up.
+      </p>
+
+      <dl>
+        <dt><strong>Kafka</strong></dt>
+        <dd>
+          Kafka is a streaming message queue platform. It's designed to take in messages in various formats (Avro, JSON, Protobuf) and 
+          then distribute those messages equilaterally to workers that subscribe to the individual topics that hold them.
+        </dd>
+        <dt><strong>Kafka Schema Registry</strong></dt>
+        <dd>
+          The Schema registry is an add-on to Kafka that gives you strong contracts against your topics in the message broker. It 
+          adds great things like schema versioning for messages within a single topic, and the ability to store, manage and retrieve 
+          schemas through a REST API.
+        </dd>
+        <dt><strong>Kafka Connect</strong></dt>
+        <dd>
+          Kafka connect is <strong>yet another kafka add-on</strong> that allows us to simplify certain jobs, for instance writing
+          out messages from a topic to a file in S3, or a database table in Postgres amongst many other places. At it's simplest, it's
+          configuration driven, you can set up a config object in Kafka Connect pointing at a topic in the cluster, and a destination (sink)
+          and it will listen for new messages and when they come in write them out to the target location.
+        </dd>
+        <dt><strong>KSQLDB</strong></dt>
+        <dd>
+          Whaddayaknow, another kafka add-on, this little add-on allows us to query kafka topics and metadata around the topics using
+          ANSI SQL. It's just a little convenience to allow us to get a data a little quicker and easier.
+        </dd>
+      </dl>
+
+      <h3>DataOps Coordinator</h3>
+
+      <p class="small">We need a better name...</p>
+
+      <p>
+        The coordinator has what on the surface seems like a pretty simple job. <strong>Coordinating things.</strong>
+      </p>
+
+      <p>
+        It sits in our Kubernetes cluster, chugging away doing a couple different jobs.
+      </p>
+
+      <h3>Loading Task Metadata</h3>
+
+      <p>
+        We write tasks in the python programming language, sometimes there's some shell scripts in there, but the vast
+        majority of our tasks in our pipelines come in the form of a python script. 
+      </p>
+
+      <p>
+        <span class="marginnote">
+          "Frontmatter" is just a fancy way of saying there's some important text at the start of the file.
+        </span>
+        For tasks in our stream coordination, we publish those tasks to a specific key in our S3 DataMesh bucket. Each task
+        script lives on it's own and doesn't come with additional dependencies. But what they do have is "frontmatter".
+      </p>
+
+      <pre>
+        <code>
+# ---
+# name: my_task_a
+# size: FARGATE_SMALL
+# topic: stuff_thing_v1
+  replicas: 5
+# group_id: stuff_thing_v1_listener
+# lag: 10
+# ---
+
+# /// script
+# dependencies = [
+#   "polars[pyarrow]",
+#   "confluent-kafka",
+# ]
+# ///
+        </code>
+      </pre>
+
+      <p>
+        The pythonistas amongst you might recognize the <code># /// script</code> frontmatter. This is a stunted 
+        <code>uv</code> project syntax, which means we can run these scripts using the <code>uv</code> CLI and <code>uv</code>
+        will do all the work of setting up and installing the dependencies we need. In our case we specify a <code>UV_CACHE_DIR</code> 
+        in the environment for the task which speeds up the installation time.
+      </p>
+
+      <p>
+        The previous block is what we're interested in right now. That is our orchestrator frontmatter. When our orchestrator
+        crawls the S3 buckets tasks, it loads up these frontmatter blocks and starts polling the topic defined in the task frontmatter 
+        based on the details we declare there.
+      </p>
+
+      <figure class="fullwidth">
+        <img src="img/coordinator1.png" width="100%"/>
+        They grow up so fast...
+      </figure>
+
+
+      <h3>Detecting Lag</h3>
+
+      <p>
+        <span class="marginnote">
+          <img src="img/quake.jpg"/>
+          So many frags...
+        </span>
+        No I don't mean the kind you get in your favourite first-person shooter...
+      </p>
+
+      <p>
+        Lag in the streaming world is a pretty distinct concept, but before we get into how we calculate lag, you need 
+        to have a basic understanding of how a kafka topic and consumers are structured.
+      </p>
+
+      <p>
+        <strong>Kafka Consumers</strong> are running processes that connect to a kafka broker, and <i>subscribe</i> to a
+        given topic. Once they're subscribed, Kafka will start to queue up messages from the topic for that consumer. The consumer polls
+        periodically to the topic to see if there are new messages and pulls them off the queue to operate on.
+      </p>
+
+      <p>
+        If it's a new consumer, the consumer can tell Kafka what messages it's interested in processing from, the <code>latest</code> or
+        <code>earliest</code> records. Once kafka has seena  consumer once, and the consumer group has taken messages off the topic queues, kafka
+        will store and track the consumer groups <strong>offset in the topic</strong>. The offset is essentially how far into the topic 
+        the consumer has worked.
+      </p>
+
+      <p>
+        Now there's a heavy caveat here, a <strong>topic can be partitioned</strong> into multiple sets of messages, and Kafka tracks
+        the consumer groups offsets for each of the partitions. This complicates calculating lag slightly.
+      </p>
+
+      <figure class="fullwidth">
+        <img src="img/offset.png" width="100%"/>
+        Moooom the internest slow and I can't frag my friends!!!
+      </figure>
+
+      <p>
+        So in order to calculate lag, we have to get the high and low point in each partition, and the consumer groups offset in that partition
+        to arrive at a cumulative lag across all partitions for the consumer group.
+      </p>
+
+      <p>
+        Once we have that, the orchestrator can check whether the specific task that has been registered, has declared a lag threshold which 
+        is exceeded by the total lag across the partitions.
+      </p>
+
+      <p>
+        If it finds that the threshold has been exceeded. It moves onto it's last and final responsibility.
+      </p>
+
+      <h3>Running Tasks</h3>
+
+      <p>
+        Our orchestrator is smart, it knows that it's in a kubernetes cluster, and it has a python script it knows is a runnable artifact.
+        So it can start up a fargate pod, or multiple fargate pods depending on the task definition to try and reduce the lag in the message topic.
+      </p>
+
+      <p>
+        The tasks themselves connect to the topic in question and start to ingest the data coming in from the topic. They either write that data out
+        to locations in the mesh storage, or they pass messages onto downstream topics, topics that the coordinator is checking consistently. 
+      </p>
+
+      <p>
+        Once tasks have eaten their fill from their subscribed topics, they shut down and report their status through the kubernetes API as completed. 
+        The orchestrator tracks the running state of those jobs, and if they see completed task pods, it collectes the logs from the pod, shunts them 
+        to S3 in case we need to check them over, and then destroys the pod altogether. As soon as all task pods are completed for a specific topic / consumer group
+        combination, the orchestrator settles back into checking the lag for that topic.
+      </p>
+
+      <p>
+        The orchestrator can manage a large number of clusters of tasks with a low resource footprint because it's tuned to only do these
+        specific tasks. It doesn't expose a UI, or an API, or anything fancy. If I showed you the binary executable for it, 
+        you'd be shocked to find out it's only about 5mb and doesn't require any packages to be installed. It just sits there and quietly conducts its own little data orchestra. 
+      </p>
+
+      <p>
+        <span class="marginnote">
+          <img src="img/dogfood.gif"/>
+          Delicious messages...
+        </span>
+        The information we need from the orchestrator itself, is dogfooded through it's own processes. When the orchestrator starts a new task, it pushes 
+        a message onto a system topic declaring it's starting the tasks, when the tasks are running, it sends a message saying they're running, when they complete,
+        or in a worst case scenario... fail, it shunts a message about the completion status. A small, persistently running worker reads off that topic and writes
+        the data to parquet, triggers alerts and aggregates metrics about our coordination service and the subsequent tasks.
+      </p>
+
+      </section>
+
+      <section>
+        <p>
+          Tufte CSS provides tools to style web articles using the ideas
+          demonstrated by Edward Tufte’s books and handouts. Tufte’s style is
+          known for its simplicity, extensive use of sidenotes, tight
+          integration of graphics with text, and carefully chosen typography.
+        </p>
+        <p>
+          Tufte CSS was created by
+          <a href="http://www.daveliepmann.com">Dave Liepmann</a> and is now an
+          Edward Tufte project. The original idea was cribbed from
+          <a href="https://tufte-latex.github.io/tufte-latex/">Tufte-LaTeX</a>
+          and
+          <a href="http://rmarkdown.rstudio.com/tufte_handout_format.html"
+            >R Markdown’s Tufte Handout format</a
+          >. We give hearty thanks to all the people who have contributed to
+          those projects.
+        </p>
+        <p>
+          If you see anything that Tufte CSS could improve, we welcome your
+          contribution in the form of an issue or pull request on the GitHub
+          project:
+          <a href="https://github.com/edwardtufte/tufte-css">tufte-css</a>.
+          Please note the
+          <a href="https://github.com/edwardtufte/tufte-css#contributing"
+            >contribution guidelines</a
+          >.
+        </p>
+        <p>
+          Finally, a reminder about the goal of this project. The web is not
+          print. Webpages are not books. Therefore, the goal of Tufte CSS is not
+          to say “websites should look like this interpretation of Tufte’s
+          books” but rather “here are some techniques Tufte developed that we’ve
+          found useful in print; maybe you can find a way to make them useful on
+          the web”. Tufte CSS is merely a sketch of one way to implement this
+          particular set of ideas. It should be a starting point, not a design
+          goal, because any project should present their information as best
+          suits their particular circumstances.
+        </p>
+      </section>
+
+      <section>
+        <h2 id="getting-started">Getting Started</h2>
+        <p>
+          To use Tufte CSS, copy <code>tufte.css</code> and the
+          <code>et-book</code> directory of font files to your project
+          directory, then add the following to your HTML document’s
+          <code>head</code> block:
+        </p>
+
+        <pre><code>&lt;link rel="stylesheet" href="tufte.css"/&gt;</code></pre>
+
+        <p>
+          Now you just have to use the provided CSS rules, and the Tufte CSS
+          conventions described in this document. For best results, View Source
+          and Inspect Element frequently.
+        </p>
+      </section>
+
+      <section>
+        <h2 id="fundamentals">Fundamentals</h2>
+        <h3 id="fundamentals--sections-and-headers">Sections and Headings</h3>
+        <p>
+          Organize your document with an <code>article</code> element inside
+          your <code>body</code> tag. Inside that, use <code>section</code> tags
+          around each logical grouping of text and headings.
+        </p>
+        <p>
+          Tufte CSS uses <code>h1</code> for the document title,
+          <code>p</code> with class <code>subtitle</code> for the document
+          subtitle, <code>h2</code> for section headings, and
+          <code>h3</code> for low-level headings. More specific headings are not
+          supported. If you feel the urge to reach for a heading of level 4 or
+          greater, consider redesigning your document:
+        </p>
+        <blockquote
+          cite="http://www.edwardtufte.com/bboard/q-and-a-fetch-msg?msg_id=0000hB"
+        >
+          <p>
+            [It is] notable that the Feynman lectures (3 volumes) write about
+            all of physics in 1800 pages, using only 2 levels of hierarchical
+            headings: chapters and A-level heads in the text. It also uses the
+            methodology of <em>sentences</em> which then cumulate sequentially
+            into <em>paragraphs</em>, rather than the grunts of bullet points.
+            Undergraduate Caltech physics is very complicated material, but it
+            didn’t require an elaborate hierarchy to organize.
+          </p>
+          <footer>
+            <a
+              href="http://www.edwardtufte.com/bboard/q-and-a-fetch-msg?msg_id=0000hB"
+              >Edward Tufte, forum post, ‘Book design: advice and examples’
+              thread</a
+            >
+          </footer>
+        </blockquote>
+        <p>
+          As a bonus, this excerpt regarding the use of headings provides an
+          example of block quotes. In Tufte CSS they are just lightly styled,
+          semantically correct HTML using <code>blockquote</code> and
+          <code>footer</code> elements. See page 20 of
+          <a href="https://www.edwardtufte.com/tufte/books_vdqi"
+            >The Visual Display of Quantitative Information</a
+          >
+          for an example in print.
+        </p>
+        <p>
+          <span class="newthought"
+            >In his later books<label
+              for="sn-in-his-later-books"
+              class="margin-toggle sidenote-number"
+            ></label></span
+          ><input
+            type="checkbox"
+            id="sn-in-his-later-books"
+            class="margin-toggle"
+          /><span class="sidenote"
+            ><a href="http://www.edwardtufte.com/tufte/books_be"
+              ><em>Beautiful Evidence</em></a
+            ></span
+          >, Tufte starts each section with a bit of vertical space, a
+          non-indented paragraph, and the first few words of the sentence set in
+          small caps. For this we use a span with the class
+          <code>newthought</code>, as demonstrated at the beginning of this
+          paragraph. Vertical spacing is accomplished separately through
+          <code>&lt;section&gt;</code> tags. Be consistent: though we do so in
+          this paragraph for the purpose of demonstration, do not alternate use
+          of header elements and the <code>newthought</code> technique. Pick one
+          approach and stick to it.
+        </p>
+
+        <h3 id="fundamentals--text">Text</h3>
+        <p>
+          Although paper handouts obviously have a pure white background, the
+          web is better served by the use of slightly off-white and off-black
+          colors. Tufte CSS uses <code>#fffff8</code> and
+          <code>#111111</code> because they are nearly indistinguishable from
+          their ‘pure’ cousins, but dial down the harsh contrast. We stick to
+          the greyscale for text, reserving color for specific, careful use in
+          figures and images.
+        </p>
+        <p>
+          In print, Tufte has used the proprietary Monotype Bembo<label
+            for="sn-proprietary-monotype-bembo"
+            class="margin-toggle sidenote-number"
+          ></label
+          ><input
+            type="checkbox"
+            id="sn-proprietary-monotype-bembo"
+            class="margin-toggle"
+          /><span class="sidenote"
+            >See Tufte’s comment in the
+            <a
+              href="http://www.edwardtufte.com/bboard/q-and-a-fetch-msg?msg_id=0000Vt"
+              >Tufte book fonts</a
+            >
+            thread.</span
+          >
+          font. A similar effect is achieved in digital formats with the now
+          open-source
+          <a href="https://github.com/edwardtufte/et-book">ETBook</a>, which
+          Tufte CSS supplies with a <code>@font-face</code> reference to a .ttf
+          file. In case ETBook somehow doesn’t work, Tufte CSS shifts gracefully
+          to other serif fonts like Palatino and Georgia.
+        </p>
+        <p>
+          Also notice how Tufte CSS includes separate font files for bold
+          (strong) and italic (emphasis), instead of relying on the browser to
+          mechanically transform the text. This is typographic best practice.
+        </p>
+        <p class="sans">
+          If you prefer sans-serifs, use the <code>sans</code> class. It relies
+          on Gill Sans, Tufte’s sans-serif font of choice.
+        </p>
+        <p>
+          Links in Tufte CSS match the body text in color and do not change on
+          mouseover or when clicked. Here is a
+          <a href="#">dummy example</a> that goes nowhere. These links are
+          underlined, since this is the most widely recognized indicator of
+          clickable text.
+          <label for="mn-blue-links" class="margin-toggle">&#8853;</label
+          ><input
+            type="checkbox"
+            id="mn-blue-links"
+            class="margin-toggle"
+          /><span class="marginnote"
+            >Blue text, while also a widely recognizable clickable-text
+            indicator, is crass and distracting. Luckily, it is also rendered
+            unnecessary by the use of underlining.</span
+          >
+        </p>
+        <p>
+          As always, these design choices are merely one approach that Tufte CSS
+          provides by default. Other approaches can also be made to work. The
+          goal is to make sentences readable without interference from links, as
+          well as to make links immediately identifiable even by casual web
+          users.
+        </p>
+      </section>
+
+      <section>
+        <h2 id="epigraphs">Epigraphs</h2>
+        <div class="epigraph">
+          <blockquote>
+            <p>
+              The English language . . . becomes ugly and inaccurate because our
+              thoughts are foolish, but the slovenliness of our language makes
+              it easier for us to have foolish thoughts.
+            </p>
+            <footer>George Orwell, “Politics and the English Language”</footer>
+          </blockquote>
+          <blockquote>
+            <p>
+              For a successful technology, reality must take precedence over
+              public relations, for Nature cannot be fooled.
+            </p>
+            <footer>
+              Richard P. Feynman,
+              <cite>“What Do You Care What Other People Think?”</cite>
+            </footer>
+          </blockquote>
+          <blockquote>
+            I do not paint things, I paint only the differences between things.
+            <footer>
+              Henri Matisse,
+              <cite>Henri Matisse Dessins: thèmes et variations</cite> (Paris,
+              1943), 37
+            </footer>
+          </blockquote>
+        </div>
+        <p>
+          If you’d like to introduce your page or a section of your page with
+          some quotes, use epigraphs. Modeled after chapter epigraphs in Tufte’s
+          books (particularly <em>Beautiful Evidence</em>), these are
+          <code>blockquote</code> elements with a bit of specialized styling.
+          Quoted text is italicized. The source goes in a
+          <code>footer</code> element inside the <code>blockquote</code>. We
+          have provided three examples in the epigraph of this section,
+          demonstrating shorter and longer quotes, with and without a paragraph
+          tag, and showing how multiple quotes within an epigraph fit together
+          with the use of a wrapper class.
+        </p>
+      </section>
+
+      <section>
+        <h2 id="sidenotes">Sidenotes: Footnotes and Marginal Notes</h2>
+        <p>
+          One of the most distinctive features of Tufte’s style is his extensive
+          use of sidenotes.<label
+            for="sn-extensive-use-of-sidenotes"
+            class="margin-toggle sidenote-number"
+          ></label
+          ><input
+            type="checkbox"
+            id="sn-extensive-use-of-sidenotes"
+            class="margin-toggle"
+          /><span class="sidenote">This is a sidenote.</span> Sidenotes are like
+          footnotes, except they don’t force the reader to jump their eye to the
+          bottom of the page, but instead display off to the side in the margin.
+          Perhaps you have noticed their use in this document already. You are
+          very astute.
+        </p>
+        <p>
+          Sidenotes are a great example of the web not being like print. On
+          sufficiently large viewports, Tufte CSS uses the margin for sidenotes,
+          margin notes, and small figures. On smaller viewports, elements that
+          would go in the margin are hidden until the user toggles them into
+          view. The goal is to present related but not necessary information
+          such as asides or citations <em>as close as possible</em> to the text
+          that references them. At the same time, this secondary information
+          should stay out of the way of the eye, not interfering with the
+          progression of ideas in the main text.
+        </p>
+        <p>
+          Sidenotes consist of two elements: a superscript reference number that
+          goes inline with the text, and a sidenote with content. To add the
+          former, just put a label and dummy checkbox into the text where you
+          want the reference to go, like so:
+        </p>
+        <pre><code>&lt;label for="sn-demo"
+       class="margin-toggle sidenote-number"&gt;
+&lt;/label&gt;
+&lt;input type="checkbox"
+       id="sn-demo"
+       class="margin-toggle"/&gt;</code></pre>
+        <p>
+          You must manually assign a reference <code>id</code> to each side or
+          margin note, replacing “sn-demo” in the <code>for</code> and the
+          <code>id</code> attribute values with an appropriate descriptor. It is
+          useful to use prefixes like <code>sn-</code> for sidenotes and
+          <code>mn-</code> for margin notes.
+        </p>
+        <p>
+          Immediately adjacent to that sidenote reference in the main text goes
+          the sidenote content itself, in a <code>span</code> with class
+          <code>sidenote</code>. This tag is also inserted directly in the
+          middle of the body text, but is either pushed into the margin or
+          hidden by default. Make sure to position your sidenotes correctly by
+          keeping the sidenote-number label close to the sidenote itself.
+        </p>
+        <p>
+          For optimal readability of sidenotes, enclose the main text in the
+          <code>section</code> tag.
+        </p>
+        <p>
+          If you want a sidenote without footnote-style numberings, then you
+          want a margin note.
+          <label for="mn-demo" class="margin-toggle">&#8853;</label>
+          <input type="checkbox" id="mn-demo" class="margin-toggle" />
+          <span class="marginnote">
+            This is a margin note. Notice there isn’t a number preceding the
+            note.
+          </span>
+          On large screens, a margin note is just a sidenote that omits the
+          reference number. This lessens the distracting effect taking away from
+          the flow of the main text, but can increase the cognitive load of
+          matching a margin note to its referent text. However, on small
+          screens, a margin note is like a sidenote except its
+          viewability-toggle is a symbol rather than a reference number. This
+          document currently uses the symbol &#8853; (<code>&amp;#8853;</code>),
+          but it’s up to you.
+        </p>
+        <p>
+          Margin notes are created just like sidenotes, but with the
+          <code>marginnote</code> class for the content and the
+          <code>margin-toggle</code> class for the label and dummy checkbox. For
+          instance, here is the code for the margin note used in the previous
+          paragraph:
+        </p>
+        <pre><code>&lt;label for="mn-demo" class="margin-toggle"&gt;&amp;#8853;&lt;/label&gt;
+&lt;input type="checkbox" id="mn-demo" class="margin-toggle"/&gt;
+&lt;span class="marginnote"&gt;
+  This is a margin note. Notice there isn’t a number preceding the note.
+&lt;/span&gt;</code></pre>
+        <p>
+          Figures in the margin are created as margin notes, as demonstrated in
+          the next section.
+        </p>
+      </section>
+
+      <section>
+        <h2 id="figures">Figures</h2>
+        <p>
+          Tufte emphasizes tight integration of graphics with text. Data,
+          graphs, and figures are kept with the text that discusses them. In
+          print, this means they are not relegated to a separate page. On the
+          web, that means readability of graphics and their accompanying text
+          without extra clicks, tab-switching, or scrolling.
+        </p>
+        <p>
+          Figures should try to use the <code>figure</code> element, which by
+          default are constrained to the main column. Don’t wrap figures in a
+          paragraph tag. Any label or margin note goes in a regular margin note
+          inside the figure. For example, most of the time one should introduce
+          a figure directly into the main flow of discussion, like so:
+        </p>
+        <figure>
+          <label for="mn-exports-imports" class="margin-toggle">&#8853;</label
+          ><input
+            type="checkbox"
+            id="mn-exports-imports"
+            class="margin-toggle"
+          /><span class="marginnote"
+            >From Edward Tufte,
+            <em>Visual Display of Quantitative Information</em>, page 92.</span
+          >
+          <img
+            src="img/exports-imports.png"
+            alt="Exports and Imports to and from Denmark & Norway from 1700 to 1780"
+          />
+        </figure>
+
+        <p>
+          <label for="mn-figure-1" class="margin-toggle">&#8853;</label
+          ><input type="checkbox" id="mn-figure-1" class="margin-toggle" /><span
+            class="marginnote"
+            ><img src="img/rhino.png" alt="Image of a Rhinoceros" />F.J. Cole,
+            “The History of Albrecht Dürer’s Rhinoceros in Zooological
+            Literature,”
+            <em
+              >Science, Medicine, and History: Essays on the Evolution of
+              Scientific Thought and Medical Practice</em
+            >
+            (London, 1953), ed. E. Ashworth Underwood, 337-356. From page 71 of
+            Edward Tufte’s <em>Visual Explanations</em>.</span
+          >
+          But tight integration of graphics with text is central to Tufte’s work
+          even when those graphics are ancillary to the main body of a text. In
+          many of those cases, a margin figure may be most appropriate. To place
+          figures in the margin, just wrap an image (or whatever) in a margin
+          note inside a <code>p</code> tag, as seen to the right of this
+          paragraph.
+        </p>
+        <p>
+          If you need a full-width figure, give it the
+          <code>fullwidth</code> class. Make sure that’s inside an
+          <code>article</code>, and it will take up (almost) the full width of
+          the screen. This approach is demonstrated below using Edward Tufte’s
+          English translation of the Napoleon’s March data visualization. From
+          <em>Beautiful Evidence</em>, page 122-124.
+        </p>
+        <figure class="fullwidth">
+          <img
+            src="img/napoleons-march.png"
+            alt="Figurative map of the successive losses of the French Army in the Russian campaign, 1812-1813"
+          />
+        </figure>
+        <p>
+          One obstacle to creating elegant figures on the web is the difficulty
+          of handling different screen sizes, especially on the fly. Embedded
+          <code>iframe</code> elements are particularly troublesome. For these
+          instances we provide a helper class, <code>iframe-wrapper</code>, the
+          most common use for which is probably YouTube videos, e.g.
+        </p>
+        <pre><code>&lt;figure class="iframe-wrapper"&gt;
+  &lt;iframe width="853" height="480" src="https://www.youtube.com/embed/YslQ2625TR4" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/figure&gt;</code></pre>
+        <figure class="iframe-wrapper">
+          <iframe
+            width="853"
+            height="480"
+            src="https://www.youtube.com/embed/YslQ2625TR4"
+            frameborder="0"
+            allowfullscreen
+          ></iframe>
+        </figure>
+        <p>
+          You can use this class on a <code>div</code> instead of a
+          <code>figure</code>, with slightly different results but the same
+          general effect. Experiment and choose depending on your application.
+        </p>
+      </section>
+
+      <section>
+        <h2 id="code">Code</h2>
+        <p>
+          Technical jargon, programming language terms, and code samples are
+          denoted with the <code>code</code> class, as I’ve been using in this
+          document to denote HTML. Code needs to be monospace for formatting
+          purposes and to aid in code analysis, but it must maintain its
+          readability. To those ends, Tufte CSS follows GitHub’s font selection,
+          which shifts gracefully along the monospace spectrum from the elegant
+          but rare Consolas all the way to good old reliable Courier.
+        </p>
+        <p>
+          Extended code examples should live in a <code>code</code> element
+          within a <code>pre</code> element. This adds control over indentation
+          and overflow as well:
+        </p>
+        <pre><code>;; Some code examples in Clojure. This is a comment.
+
+;; applying a function to every item in the collection
+(map tufte-css blog-posts)
+;;;; if unfamiliar, see http://www.lispcast.com/annotated-map
+
+;; side-effecty loop (unformatted, causing text overflow) - from https://clojuredocs.org/clojure.core/doseq
+(doseq [[[a b] [c d]] (map list (sorted-map :1 1 :2 2) (sorted-map :3 3 :4 4))] (prn (* b d)))
+
+;; that same side-effecty loop, formatted
+(doseq [[[a b] [c d]] (map list
+                           (sorted-map :1 1 :2 2)
+                           (sorted-map :3 3 :4 4))]
+  (prn (* b d)))
+
+;; If this proselytizing has worked, check out:
+;; http://howistart.org/posts/clojure/1</code></pre>
+      </section>
+
+      <section>
+        <h2 id="imagequilts">ImageQuilts</h2>
+        <p>
+          Tufte CSS provides support for Edward Tufte and Adam Schwartz’s
+          <a href="http://imagequilts.com/">ImageQuilts</a>. See the
+          <a
+            href="http://www.edwardtufte.com/bboard/q-and-a-fetch-msg?msg_id=0003wk"
+            >ET forum announcement thread</a
+          >
+          for more on quilts. Some have ragged edges, others straight. Include
+          these images just as you would any other <code>figure</code>.
+        </p>
+        <p>
+          This is an ImageQuilt surveying Chinese calligraphy, placed in a
+          full-width figure to accommodate its girth:
+        </p>
+        <figure class="fullwidth">
+          <img
+            src="img/imagequilt-chinese-calligraphy.png"
+            alt="Image of Chinese Calligraphy"
+          />
+        </figure>
+        <p>
+          Here is an ImageQuilt of 47 animal sounds over and over, in a figure
+          constrained to the main text region. This quilt has ragged edges, but
+          the image itself is of course still rectangular.
+        </p>
+        <figure>
+          <img
+            src="img/imagequilt-animal-sounds.png"
+            alt="Image of animal sounds"
+          />
+        </figure>
+      </section>
+
+      <section>
+        <h2 id="epilogue">Epilogue</h2>
+        <p>
+          Many thanks go to Edward Tufte for leading the way with his work. It
+          is only through his kind and careful editing that this project
+          accomplishes what it does. All errors of implementation are of course
+          mine.
+        </p>
+      </section>
+    </article>
+  </body>
+</html>

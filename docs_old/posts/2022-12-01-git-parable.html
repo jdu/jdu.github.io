@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>JDU </title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro:400|Source+Sans+Pro:300,400,600' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+  
+
+<div class="main">
+
+  <div class="left-menu">
+
+
+    <a class="brand" href="/">JDU</a>
+
+    <div class="contents">
+
+      <h3><a href="#top">Git -  A parable</a></h3>
+
+      <ul>
+        
+
+        <li class="toc-1"><a href="#_git_is_not_github"><small>1</small>`git` is not GitHub</a></li>
+
+        
+
+        <li class="toc-2"><a href="#_a_parable"><small>2</small>A Parable</a></li>
+
+        
+
+        <li class="toc-2.1"><a href="#_our_premise"><small>2.1</small>Our Premise</a></li>
+
+        
+
+        <li class="toc-2.2"><a href="#_{prot-name}_gets_dug_in"><small>2.2</small>{prot-name} gets dug in</a></li>
+
+        
+
+        <li class="toc-2.3"><a href="#_{prot-name}_gets_inspired"><small>2.3</small>{prot-name} gets inspired</a></li>
+
+        
+
+        <li class="toc-2.4"><a href="#_{prot-name}s_first_attempt"><small>2.4</small>{prot-name}s First Attempt</a></li>
+
+        
+
+        <li class="toc-2.5"><a href="#_a_problem_arises"><small>2.5</small>A problem arises</a></li>
+
+        
+
+        <li class="toc-2.6"><a href="#_its_release_time"><small>2.6</small>It's release time</a></li>
+
+        
+
+        <li class="toc-2.7"><a href="#_a_second_bout_of_inspiration"><small>2.7</small>A second bout of inspiration</a></li>
+
+        
+
+        <li class="toc-2.8"><a href="#_it_all_gets_a_bit_messy"><small>2.8</small>It all gets a bit messy</a></li>
+
+        
+
+        <li class="toc-3"><a href="#_tags"><small>3</small>Tags</a></li>
+
+        
+
+        <li class="toc-4"><a href="#_getting_collaborative"><small>4</small>Getting Collaborative</a></li>
+
+        
+
+        <li class="toc-5"><a href="#_reconciliation_and_merging"><small>5</small>Reconciliation and Merging</a></li>
+
+        
+
+        <li class="toc-6"><a href="#_rewriting_history"><small>6</small>Rewriting history</a></li>
+
+        
+
+        <li class="toc-7"><a href="#_staging"><small>7</small>Staging</a></li>
+
+        
+
+        <li class="toc-8"><a href="#_diffs"><small>8</small>Diffs</a></li>
+
+        
+
+        <li class="toc-9"><a href="#_more_information"><small>9</small>More Information</a></li>
+
+        
+
+        <li class="toc-10"><a href="#_references"><small>10</small>References</a></li>
+
+        
+
+        <li class="toc-11"><a href="#_end_note"><small>11</small>End Note</a></li>
+
+        
+
+        <li class="divider"></li>
+
+        <li class="end-part">
+          <a href="#references">References</a>
+        </li>
+
+        <li class="end-part">
+          <a href="#end-note"><small>note</small>End Note</a>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+
+  <div class="page">
+    <h1>Git -  A parable</h1>
+
+    <article class="chapter">
+
+      <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>git</code> is hard. And when I say it&#8217;s hard, I don&#8217;t mean that the tools themselves are particularly hard, you can sort of hobble along using the <code>git</code> command-line without  ever really having to understand what is going on under the hood and get a reasonable flow going. However, when something goes wrong, or you&#8217;re faced with a complicated situation, you can google the answer, but you&#8217;re not always sure exactly what is happening under the hood.</p>
+</div>
+<div class="paragraph">
+<p>This post is not about <strong>how</strong> to use <code>git</code>, it&#8217;s a journey of understanding&#8201;&#8212;&#8201;a parable&#8201;&#8212;&#8201;that will help you get to grips with <strong>why</strong> <code>git</code> is the way it is, how decisions in its design lead to where it is now, and ultimately (hopefully) give you a basis for understanding what&#8217;s <em>really</em> happening when you do that <code>git checkout</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_git_is_not_github"><code>git</code> is not <strong>GitHub</strong></h2>
+<div class="sectionbody">
+<aside>
+<p>Emphasis on "decentralized" here, the original use-case for git was to generate _patch files_ and share them through mailing lists or email in order to get them merged into a main version (managed by Linus).</p>
+</aside>
+<div class="paragraph">
+<p>First things first, you could be forgiven for not realizing, but <code>git</code> itself was not developed by GitHub. It was originally developed by Linus Torvalds as a way to better manage decentralized development on the Linux Kernel.</p>
+</div>
+<div class="paragraph">
+<p><code>git</code> wasn&#8217;t the first source control management system to come around either, but it seems to be the one that has garnered the most traction&#8201;&#8212;&#8201;both commercially and internally at various companies and organisations.</p>
+</div>
+<div class="paragraph">
+<p>We&#8217;re not going to delve into the history of <code>git</code> here, but you should note following:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock"><code>git</code></p></th>
+<th class="tableblock halign-left valign-top"><p class="tableblock"><strong>GitHub</strong></p></th>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A tool for decentralized management of change for code</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A commercial application which <em>hosts</em> and centralizes <code>git</code> repositories</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_a_parable">A Parable</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_our_premise">Our Premise</h3>
+<div class="paragraph">
+<p>The world of our parable is one where we have a software engineer named <strong>Bill</strong>. Bill works with an operating system which is pretty barebones. It has the following features:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>A hierarchical file system consisting of folders and files</p>
+</li>
+<li>
+<p>A Code / Plaintext Editor</p>
+</li>
+</ol>
+</div>
+<aside>
+<img src="/images/biscuits_rev2_clean.png"/>
+</aside>
+<div class="paragraph">
+<p>Bill has decided to start a new software project called <strong>Squiqqledysplorch</strong> that will help his organization to track an inventory of biscuits, their types and whose eaten those biscuits in order to build some analysis and insight into organisational semantics around biscuit edibility and enjoyability. This work is critical to the to their success and prosperity and will lead to revolutionary approaches to internal biscuit distribution optimization.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_bill_gets_dug_in">Bill gets dug in</h3>
+<div class="paragraph">
+<p>To start, Bill creates a new folder on his system called <code>squiggledysplorch</code>, he frames out his project, creating sub-folders and files containing code in his favourite programming language.</p>
+</div>
+<aside>
+<div class="paragraph">
+<p>What Bill is thinking about is a <em>version control system</em></p>
+</div>
+</aside>
+<div class="paragraph">
+<p>After a couple of weeks, Bill decides that he needs some way to track chunks of changes and versions of his code so that he can roll back changes that don&#8217;t make sense, or revert changes that he has made to older versions, as well as compare different versions of code.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_bill_gets_inspired">Bill gets inspired</h3>
+<div class="paragraph">
+<p>Bill has a good friend Pat who works as a photographer. One day, Pat tells Bill about one of his clients, a woman named Deirdre who books a photo session every year with Pat on the same day to have a snapshot of her daughter taken.</p>
+</div>
+<aside>
+<img src="/images/photos_rev2_clean.png"/>
+</aside>
+<div class="paragraph">
+<p>Deirdre likes to be able to look back through these snapshots to see what her daughter {daughter-name} looked like through all the different stages of her development, from a baby up to her current age. The snapshots let Deirdre feel like she can move back and forth in time, seeing her daughter like this is meaningful to Deirdre.</p>
+</div>
+<div class="paragraph">
+<p>Bill listens, and has a eureka moment, he suddenly has a solution to his code version control problem!</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_bills_first_attempt">Bills First Attempt</h3>
+<div class="paragraph">
+<p>What Bill wants are <em>snapshots</em>. Like "save points" in a video game, they&#8217;re individual copies of the state of the code-base at specific points in time.</p>
+</div>
+<div class="paragraph">
+<p>Bills first attempt is really promising.</p>
+</div>
+<div class="paragraph">
+<p>He creates a new folder called "working", this is where Bill will work most of the time, and when he feels like it&#8217;s a reasonable time to take a "snapshot" of his work, he&#8217;ll just copy the entire folder, and rename the copy with a numbering system so that he can keep track of the order of the snapshots:</p>
+</div>
+<img src="/images/terminal_clean.png"/>
+<div class="listingblock">
+<div class="content">
+<pre>- squiqqledysplorch\ &lt;- Project folder
+    - working\ &lt;- where {prot-name} works day to day
+    - snapshot.0\ &lt;- A snapshot</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The most important rule of Bills new system, is that once he&#8217;s created a snapshot of the <em>working</em> folder, and renamed it to <em>snapshot.&lt;number&gt;</em> he <strong>never</strong> edits that snapshot folder again. It&#8217;s a copy of his code at that specific point in time, frozen as a reference.</p>
+</div>
+<div class="paragraph">
+<p>After the next chunk of work, Bill creates another copy (snapshot):</p>
+</div>
+<img src="/images/snapshots_initial_clean.png"/>
+<div class="listingblock">
+<div class="content">
+<pre>- squiqqledysplorch\ &lt;- Project folder
+    - working\ &lt;- where {prot-name} works day to day
+    - snapshot.0\ &lt;- A snapshot
+    - snapshot.1\ &lt; Another snapshot / copy</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_a_problem_arises">A problem arises</h3>
+<div class="paragraph">
+<p>Bill can&#8217;t remember what changes are in each snapshot, or when he created them. When he&#8217;s looking at his folder, he can see the snapshot numbers, but as more and more snapshots are created, it gets harder to tell which ones which.</p>
+</div>
+<img src="/images/lot_of_snapshots_clean.png"/>
+<div class="paragraph">
+<p>To fix this, Bill adds a <code>message.txt</code> file to each of the snapshot folders, inside of each he adds the date and time the snapshot was created, along with a message describing the changes contained in that snapshot compared to the previous snapshot. Something like this:</p>
+</div>
+<div class="listingblock">
+<div class="title">message.txt</div>
+<div class="content">
+<pre>2022-01-01 12:34:55
+
+Introduce a new method `foo`, and reset the bar to `xyz123`.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now he has one in each of his <em>snapshot.&lt;XXX&gt;</em> folders.</p>
+</div>
+<img src="/images/message_clean.png"/>
+<div class="paragraph">
+<p>Now Bill can find specific changes he made in the past by searching the message.txt files and comparing files between his <code>working</code> folder and specific <code>snapshot.&lt;number&gt;</code> folder.</p>
+</div>
+<div class="paragraph">
+<p>Bill has create a linear history.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_its_release_time">It&#8217;s release time</h3>
+<div class="paragraph">
+<p>Bill gets on with working in his new snapshot-based version control system. Generating new snapshots when he feels it&#8217;s time, until he&#8217;s happy that he has a stable version that he can call <strong>version 1.0</strong> of <strong>squiggledyspotch</strong>.</p>
+</div>
+<div class="paragraph">
+<p>He creates a new snapshot <code>snapshot.99</code> to represent his code that&#8217;s ready to release.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>- squiqqledysplorch\
+    - working\
+    - snapshot.0\
+    - snapshot.1\
+    - ... Lots of snapshots
+    - snapshot.99\ &lt;- The release snapshot</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Bill packages up his <code>version 1.0</code>, puts it out there, and releases it to the public and they absolutely love it.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="data:image/jpg;base64," alt="michele canciello W7gXCjUj0iI unsplash">
+</div>
+</div>
+<div class="paragraph">
+<p>It&#8217;s a huge success!</p>
+</div>
+<div class="paragraph">
+<p>Now that the application is out in the wild, Bill starts getting new feature requests coming in:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>"Can we enter multi-packs of Hobnobs"</p>
+</li>
+<li>
+<p>"Can you add German language support for the German office?"</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Bill starts working on these new features right away, creating snapshots <code>100</code>, <code>101</code>, <code>102</code> and on and on.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>- squiqqledysplorch\
+    - working\
+    - snapshot.0\
+    - snapshot.1\
+    - ... Lots of snapshots
+    - snapshot.99\ &lt;- version 1.0 snapshot
+    - snapshot.100\ &lt;- New Feature: internationalization
+    - snapshot.101\ &lt;- New Feature: multi-pack biscuit entry
+    - snapshot.102\ &lt;- New Feature: Allow users to leave</pre>
+</div>
+</div>
+<div class="paragraph">
+<div class="title">A Wild bug appears</div>
+<p>While toiling away building features for the next major release, some bug reports start coming in for <code>squiddledysplorch v1.0</code>&#8201;&#8212;&#8201;the one in Bills <code>snapshot.99</code> folder.</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+Help! I can&#8217;t get out of the biscuit editor!!!!
+</blockquote>
+<div class="attribution">
+&#8212; A User Probably
+</div>
+</div>
+<div class="paragraph">
+<p>Easy enough right? We can just copy <code>snapshot.99</code>&#8201;&#8212;&#8201;the snapshot that correlates to <code>squiddledysplorch v1.0</code>&#8201;&#8212;&#8201;into the <code>working</code> directory, so that Bills <code>working</code> directory is at exactly the state it was in when he created <code>snapshot.99</code>/<code>v1.0</code>. This is exactly the reason we&#8217;ve gone down this road of setting up version control!</p>
+</div>
+<div class="paragraph">
+<p>Now Bill can work away in his <code>working</code> directory to fix the bugs in v1.0.</p>
+</div>
+<hr>
+<center>
+<div class="paragraph">
+<p><strong>Here there be dragons!</strong></p>
+</div>
+</center>
+<hr>
+<div class="paragraph">
+<p>Uh oh! Bill&#8217;s version control system deals <strong>really well</strong> with <em>linear development</em>, but now, with the changes to <code>snapshot.99</code>, for the first time ever, Bill has to create a new snapshot <strong>that is not the direct descendant of the preceding snapshot</strong>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="https://lucid.app/publicSegments/view/8ea1fdd3-b860-4861-9c4f-88e8af14cb47/image.png" alt="image">
+</div>
+</div>
+<div class="paragraph">
+<p>This utterly breaks the linear design of Bill&#8217;s source control system. You can no longer trace the parent relation, <code>snapshot.103</code> <strong>does not</strong> follow directly from <code>snapshot.102</code>&#8230;&#8203; it follows directly from <code>snapshot.99</code>.</p>
+</div>
+<div class="paragraph">
+<p>Bill can no longer determine the ancestry of any given snapshot by simply counting backwards&#8230;&#8203;</p>
+</div>
+<div class="paragraph">
+<p>So he needs something <strong>more powerful</strong> than a linear system.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_a_second_bout_of_inspiration">A second bout of inspiration</h3>
+<div class="paragraph">
+<p>Bill&#8217;s pretty frustrated, he needs something better to manage his code and the feature requests and bug reports are piling up. He decides to step back, throw on his coat and a wooly jumper and go for a walk to get some fresh air.</p>
+</div>
+<aside>
+<img src="/images/tree_clean.png"/>
+</aside>
+<div class="paragraph">
+<p>On his way through a local park, a massive Oak tree catches Bill&#8217;s eye. He spends countless minutes admiring the branches and the complexity of the tree, when all of a sudden, inspiration strikes again!</p>
+</div>
+<div class="paragraph">
+<p>Looking at the structure of the tree, and it&#8217;s branches, Bill looks at individual tips of branches, and traces their path back to the trunk. The tree on the whole is a super complex piece of natural engineering, but the <em>rules</em> for finding your way back to the trunk from any given branch tip, are actually super simple, and they&#8217;re perfect for keeping track of <strong>multiple lines of development</strong>.</p>
+</div>
+<div class="paragraph">
+<p>He needs <strong>each</strong> snapshot to point to the <strong>previous snapshot</strong> (i.e. it&#8217;s parent snapshot). So each snapshot <strong>has one parent</strong> except for the very first snapshot.</p>
+</div>
+<div class="paragraph">
+<p>So how do we store this "pointer" to the previous snapshot</p>
+</div>
+<div class="paragraph">
+<p>We add it to our <code>message.txt</code> file in each of our snapshot folders!</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>2022-04-01 12:45:32
+parent: snapshot.99
+
+Fixed a bug where total global annihilation could be caused by issuing a bad combination of shortcut keys.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now we can easily and simply trace the ancestry of any given snapshot all the way back to the root snapshot by looking in the snapshots <code>message.txt</code>!</p>
+</div>
+<div class="paragraph">
+<p>Instead of having a single latest snapshot, we now have two latest snapshots:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>snapshot.103</code> which contains our v1.0 bugfixes</p>
+</li>
+<li>
+<p><code>snapshot.102</code> which contains our most recent stable development work for the next release</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Now instead of a <strong>linear history</strong> we have a <strong>non-linear history</strong>. Our version control system represents our snapshots as a tree of changes.</p>
+</div>
+<div class="paragraph">
+<p>Bill leans hard into his new branching version control, it allows him to start "branches" to try out new ideas, ones he can drop if they don&#8217;t pan out, and he can create branches to provide alternate versions or fix bugs in previous versions. His tree-based source control has turned out great.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_it_all_gets_a_bit_messy">It all gets a bit messy</h3>
+<div class="paragraph">
+<p>Now that Bill is creating lots of tree-based snapshots, the numbering system <code>snapshot.&lt;number&gt;</code> doesn&#8217;t really provide a lot of meaning any more and keeping track of which number to use next is starting to get pretty annoying. As well as this, the numbers don&#8217;t really have a lot of meaning anymore, <code>snapshot.103</code> follows on directly from <code>snapshot.99</code>.</p>
+</div>
+<div class="paragraph">
+<p>So Bill is struggling to keep track of which snapshots belong to which branches. In his head he gives the individual branches names to denote the type of work that&#8217;s happening in that branch, and his core root branch he calls <code>main</code> in his head.</p>
+</div>
+<div class="paragraph">
+<p>Because the snapshots all contain a <code>message.txt</code> that points to its immediate ancestor snapshot, all Bill really needs is a way to keep track of which snapshots are the "tips" of each branch.</p>
+</div>
+<div class="paragraph">
+<p>He decides to create a new file <code>branches</code> directly in the <code>squiggledysplorch</code> folder and outside of his <code>snapshot.&lt;number&gt;</code> and <code>working</code> directory to hold a reference to the latest snapshot for each branch:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>- squiqqledysplorch\
+    - branches &lt;- HERE
+    - working\
+    - snapshot.0\
+    - snapshot.1\
+    - ... Lots of snapshots
+    - snapshot.99\
+    - snapshot.100\
+    - snapshot.101\
+    - snapshot.102\ &lt;- `main` branch tip
+    - snapshot.103\ &lt;- `v1.0-maint` branch tip</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the <code>branches</code> file he lists all of his friendly branch names and for each one lists the most recent snapshot for that branch.</p>
+</div>
+<div class="listingblock">
+<div class="title">branches</div>
+<div class="content">
+<pre>main:       snapshot-102
+v1.0-maint: snapshot-103</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now if Bill wants to switch to a different branch, he just needs to look in the <em>branches</em> folder, and copy the appropriate <em>snapshot.&lt;number&gt;</em> folder into his <em>working</em> directory.</p>
+</div>
+<div class="paragraph">
+<p>And because his <code>message.txt</code> file always contains a reference to a snapshots immediate parent, he can always trace his way back from the tip of a branch by following the <code>parent</code> entry back to where it split off from his <code>main</code> branch.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_tags">Tags</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After using branches for a while, Bill decides he needs a new kind of reference, something to help him specifically know which snapshots represent a given release.</p>
+</div>
+<div class="paragraph">
+<p>Bill has multiple versioned releases out the door at this point, and trying to figure out which snapshot, on which branch, correlates to a given release, is becoming a pretty unruly undertaking.</p>
+</div>
+<div class="paragraph">
+<p>Our <em>branches</em> file in our root folder can only tell us which snapshots represent the <strong>tips</strong> of each of our branches, so Bill adds a new file in the root folder called "tags" and adds some friendly names pointing to individual snapshots representing specific releases, like our v1.0.0 initial release and the v1.0.1 release that has his bugfixes in it.</p>
+</div>
+<div class="listingblock">
+<div class="title">message.txt</div>
+<div class="content">
+<pre>v1.0.0       snapshot-99
+v1.0.1       snapshot-110</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_getting_collaborative">Getting Collaborative</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The amount of work that needs to be done on the project is starting to get out of Bills ability to manage it on his own. He wrangles another developer named Scott to and start working on the project alongside him.</p>
+</div>
+<div class="paragraph">
+<p>Scott is keen to get started and really interested in Bills version control system, so Bill sends Scott a copy of all of his working and snapshot version back through the history of project so they can get started.</p>
+</div>
+<div class="paragraph">
+<p>they take long trips
+she&#8217;s incommunicado for a long while
+in the meantime they both do a lot of coding
+when they get back there&#8217;s a flaw in the version control system
+because both have been using the same numbering system, they both
+have directories named 114, 115, but with differing code changes</p>
+</div>
+<img src="/images/divergent_snapshots_clean.png"/>
+<div class="paragraph">
+<p>You also don&#8217;t know who AUTHORED those changes in each of the snapshots
+change snapshot messages to contain an author field (nam, eamil)
+we stop naming the snapshots with simple numbers
+They are redundant because the history is no longer linear
+Use the contents of the message.txt and SHA-1 algorithm to generate a hash
+the hash is unique to the snapshot because no two messages will ever
+have the same date, parent and message
+both update their histories with the technique
+instead of clashing folders, they now have distinct folders with <code>8BA344</code> and <code>DB9ECB</code> or something
+all older snapshots are converted to the new format as well
+you can now fetch the other persons snapshots and place them next to your
+snapshots
+Because the snapshots reference their parents, the history of the code-base
+can still be drawn as a tree
+the tree now is made up of snapshots authored by both developers
+The snapshots can be created and moved around computers without losing
+their identities, or where they belong in the history of the code-base
+snapshots can be shared, or kept private if you&#8217;re not ready to share it with others
+the travel habits mean they have no internet access. They only really need internet
+access when they need to share their changes to Bill</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_reconciliation_and_merging">Reconciliation and Merging</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ask Zoe to work on a new <code>match</code> branch to implement a new function
+You work on it as well
+Once it&#8217;s time to merge them in, Z shares her snapshots for the code changes
+she&#8217;s done, and you take your work, and hers, copy them into your working directory
+and create a merge snapshot that brings the two branches together.
+The new snapshot we&#8217;ve created is special.
+Instead of having 1 parent snapshot, it has TWO
+thew first parent is the latest on Bills branch and the second is the latest
+on Zs branch
+Once the merge is done, Z can fetch the merged changes from Bill to get
+all the changes she doesn&#8217;t have yet, and the new merge snapshot
+Both developers histories not match again, and they&#8217;re in sync</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_rewriting_history">Rewriting history</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You have a tendency to go off on tangents, create branches based off of
+ill-advised pressure from senior members of staff, and your innate compulstion
+to keep your code-base clean and tidy suddenly kicks in.
+There are a number of branches and snapshots which amounted to bupkis
+and you want tog</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_staging">Staging</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>As much as you like to keep your new work specific to a specific feature
+once in a while you end up hacking away on something in your working
+directory that&#8217;s totally unrelated.
+Halfway into this, you realize that your working directory now contains
+what really should be two separate snapshots
+to sort this out, bill starts using a <code>staging</code> directory
+This folder acts as an intermediate step between your working directory
+and a final snapshot
+each time you finish a snapshot you copy it into the staging directory,
+and then you create a snapshot from that staging directory
+if a change belongs in the next snapshot then you mimic that change in
+the staging directory, but if it doesn&#8217;t then you can leave it inside the working
+directory and make it part of some later snapshot
+When you&#8217;re happy with the staging directory, you create a new snapshot from it
+This separation of concern, makes it easier to specify what SI and ISN&#8217;T in
+the next snapshot</p>
+</div>
+<div class="paragraph">
+<p>You have to be careful though, consider a single file README which you edit
+and the mimic into <code>staging</code>, you go on with your business, edit some other files,
+but after a while you make another change to README.
+Now you have made two changes to that file, but only the first one is in the staging
+area, if you were to create a snapshot now, your second change would be absent.
+EVERY new edit must be added tothe staging area if it is to be part of the next snapshot.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_diffs">Diffs</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Now with a working directory, a staging area, and loads of snapshots lying around, it starts to get confusing as to what the specific code changes are between these directories.</p>
+</div>
+<div class="paragraph">
+<p>A snapshot message only gives you a summary of what changed, but it doesn&#8217;t reall tell you exactly what lines were change dbetween the two files. Using a diffing algorithm, you can make a small program that shows you the differences in the two code versions. As you develop and copy things from your working directory to the staging area, you will want to easily see what is different between the two, so that you can determine what else needs to be staged. It&#8217;s also important to see how the staging area is different from the last snapshot, since these chages are what will become part of the next snapshot that you produce.</p>
+</div>
+<div class="paragraph">
+<p>There are many other diffs that you might want to see as well.</p>
+</div>
+<div class="paragraph">
+<p>The different between a specific snapshot and its parent would show you the specific changes that were introduced by that snapshot.</p>
+</div>
+<div class="paragraph">
+<p>The difference between two branches would be helpful to make sure that your development doesn&#8217;t watder too far away from the main line, for example. Now, remember Z? After a few more trips around the work, Z starts to complain that her hard drive is filing up with hundreds of nearly identical copies of the code.</p>
+</div>
+<div class="paragraph">
+<p>You too havec been feeling like all the file duplication is wasteful.</p>
+</div>
+<div class="paragraph">
+<p>Aftersome thinking you come up with something very clever. The SHA-1 has produces a unique string that is unique for a given files contents.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>new directory called objects
+.</p>
+</li>
+</ol>
+</div>
+<hr>
+<div class="paragraph">
+<p>Our numbering system isn&#8217;t particularly useful any more, each snapshot number doesn&#8217;t really tell us much about the lineage of that snapshot because our new tree-based approach means that numbers can sort of, jump all over the place across our trees branches.</p>
+</div>
+<div class="paragraph">
+<p>Because it&#8217;s not particularly useful, and we have the <em>parent</em> property in our <code>message.txt</code> for each snapshot, we can replace the number with something more useful.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_more_information">More Information</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>TBW</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_references">References</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>TBW</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_end_note">End Note</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>TBW</p>
+</div>
+</div>
+</div>
+
+
+    </article>
+
+
+    <footer>
+      Handcrafted by Jeff Uren — <a href="https://github.com/jdu/jdu.github.io/blob/master/LICENSE"
+        target="_blank">&copy; 2024</a>
+    </footer>
+  </div>
+
+</div>
+
+
+
+</body>
+
+</html>

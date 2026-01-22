@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>No Title - JDU</title>
+    <link rel="stylesheet" href="../static/css/tufte.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <article>
+      <h1>No Title</h1>
+      <section><?xml version="1.0" encoding="UTF-8"?>
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<article xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
+<info>
+<title>Idioms, Principles, and Laws</title>
+<date>2026-01-05</date>
+</info>
+<simpara>This is basically an evolving collection of idioms, principles, and laws that I&#8217;m collecting up and parsing through to come up with some concrete things to keep in the back of my head when engineering solutions.</simpara>
+<section xml:id="_general">
+<title>General</title>
+<orderedlist numeration="arabic">
+<listitem>
+<simpara>Write the simplest thing that could possibly work first. Complex algorithms might be faster in the limit, but often the limit is never approached. Code clarity is almost always more important tha that last 2% of performance.</simpara>
+</listitem>
+<listitem>
+<simpara>Avoid dynamic memory allocation.</simpara>
+</listitem>
+<listitem>
+<simpara>Don&#8217;t re-invent the wheel. This is especially true of infrastructure. Use what the OS gives you.</simpara>
+</listitem>
+<listitem>
+<simpara>Like seatbelts, you want a type system to fit snugly but not painfully.</simpara>
+</listitem>
+<listitem>
+<simpara>If a tool has more options or features than I can easily remember, it means those options effectively don&#8217;t exist.</simpara>
+</listitem>
+<listitem>
+<simpara>Don&#8217;t invent your own serialization format</simpara>
+</listitem>
+<listitem>
+<simpara>Exiting early and complaining loudly is a kind of error recovery</simpara>
+</listitem>
+<listitem>
+<simpara>All queues are bounded, they just vary in how they deal with being full.</simpara>
+</listitem>
+<listitem>
+<simpara>Make invalid states unrepresentable</simpara>
+</listitem>
+<listitem>
+<simpara>Be welcoming and friendly. No matter who much you think you made it all on your own, it took a cast of thousands.</simpara>
+</listitem>
+<listitem>
+<simpara>Simplicity compounds towards complexity. KISS aggressively.</simpara>
+</listitem>
+<listitem>
+<simpara>At the end of the dat, you&#8217;re a programmer. Stay humble.</simpara>
+</listitem>
+<listitem>
+<simpara>Functions are the ultimate abstraction.</simpara>
+</listitem>
+<listitem>
+<simpara>If you "just" understand it, everyone else is screwed. Even you in six months time.</simpara>
+</listitem>
+<listitem>
+<simpara>Code is not documentation, it&#8217;s a source of truth.</simpara>
+</listitem>
+<listitem>
+<simpara>Use what&#8217;s right for you in any context.</simpara>
+</listitem>
+<listitem>
+<simpara>All programming languages are children of lambda calculus and / or turing machines. Learn them.</simpara>
+</listitem>
+<listitem>
+<simpara>Data commands code</simpara>
+</listitem>
+<listitem>
+<simpara>Mental capacity is limited; don&#8217;t fry your head computer.</simpara>
+</listitem>
+<listitem>
+<simpara>Functional til it hurts; imperative until it works.</simpara>
+</listitem>
+<listitem>
+<simpara>Before optimizing, profile. What you find might surprise you.</simpara>
+</listitem>
+<listitem>
+<simpara>Adding complexity is not free.</simpara>
+</listitem>
+</orderedlist>
+</section>
+<section xml:id="_on_just">
+<title>On "Just"</title>
+<blockquote>
+<simpara>"Just" is suggesting a solution someone might not have seriously considered. "Just" suggests to get something done without spending your time over-engineering or exaggerating it. Nike&#8217;s famous "Just do it." is a grat example - just do it. don&#8217;t overthink it, dont' make excuses, do the thing you want to do. If someone&#8217;s telling you to "just x" they think you have the capacity and ability to get x done. If they didn&#8217;t, they&#8217;d elaborate.</simpara>
+</blockquote>
+</section>
+<section xml:id="_on_testing">
+<title>On Testing</title>
+<blockquote>
+<simpara>I get paid for code that works, not for test, so my philosophy is to test as little as possible to reach a given level of confidence [&#8230;&#8203;]. If I don&#8217;t typically make a kind of mistake (like setting the wrong variables in a constructor), I don&#8217;t test for it.
+. Kent Beck (S.O.)</simpara>
+</blockquote>
+<blockquote>
+<simpara>Maybe that&#8217;s all you need. That and people who give a damn.</simpara>
+</blockquote>
+</section>
+<section xml:id="_conways_law">
+<title>Conways Law</title>
+<blockquote>
+<attribution>
+Melvin E. Conway
+<citetitle>How Do Committees Invent?</citetitle>
+</attribution>
+<simpara>[O]rganizations which design systems (in the broad sense used here) are constrained to produce designs which are copies of the communication structures of these organizations.</simpara>
+</blockquote>
+</section>
+<section xml:id="_galls_law">
+<title>Galls Law</title>
+<blockquote>
+<attribution>
+John Gall
+<citetitle>Systemantics: How Systems Really Work and How They Fail</citetitle>
+</attribution>
+<simpara>A complex system that works is invariably found to have evolved from a simple system that worked. The inverse proposition also appears to be true: A complex system designed from scratch never works and cannot be made to work. You have to start over, beginning with a working simple system.</simpara>
+</blockquote>
+</section>
+</article>
+</section>
+    </article>
+  </body>
+</html>

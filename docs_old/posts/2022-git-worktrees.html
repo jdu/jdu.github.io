@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>JDU </title>
+  <link rel="stylesheet" href="/static/style.css?1713178759.332603" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro:400|Source+Sans+Pro:300,400,600' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+  
+
+<div class="main">
+
+  <div class="left-menu">
+
+
+    <a class="brand" href="/">JDU</a>
+
+    <div class="contents">
+
+      <h3><a href="#top">git Worktrees</a></h3>
+
+      <ul>
+        
+
+        <li class="toc-1"><a href="#_a_little_background"><small>1</small>A Little Background</a></li>
+
+        
+
+        <li class="toc-2"><a href="#_how_dataops_and_i_use_worktrees"><small>2</small>How DataOps (and I) use worktrees</a></li>
+
+        
+
+        <!-- <li class="divider"></li> -->
+
+        <!--
+
+        <li class="end-part">
+          <a href="#references">References</a>
+        </li>
+
+        <li class="end-part">
+          <a href="#end-note"><small>note</small>End Note</a>
+        </li>
+
+        -->
+      </ul>
+
+    </div>
+  </div>
+
+  <div class="page">
+    <h1>git Worktrees</h1>
+
+    <article class="chapter">
+
+      <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>You may or may not have noticed that some of the people in the DataOps team work with <code>git</code> in a slightly different way than you would normally expect people to.</p>
+</div>
+<div class="paragraph">
+<p>If you hadn&#8217;t noticed, you&#8217;re in for a bit of a roller-coaster ride into an oft-unused feature of git that makes jumping between branches and different contexts a lot easier.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_a_little_background">A Little Background</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The reason we work the way that I&#8217;m going to describe further down is because we do <strong>alot</strong> of context switching. When I say alot I mean alot. We jump between different pipelines, bugfixes and tasks more or less constantly throughout a day because some of our code takes time to run before we really see the fruits of our labours.</p>
+</div>
+<div class="paragraph">
+<p>Normal branching in git requires that you check in your code whenever you need to swap to another branch so that you&#8217;re not carrying changes between different sets of branches by accident. It&#8217;s really annoying when you forget to check in a file and swap branches and then suddenly you&#8217;ve got a change from another set of work sitting in your new, totally unrelated branch.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_how_dataops_and_i_use_worktrees">How DataOps (and I) use worktrees</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>First we create a barebones folder to hold our project:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ mdir my_project</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We then clone the "bare" repository into a directory called <code>.bare</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">$ git clone --bare git@github.com/wellcometrust/wt-data .bare</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>What this does is clone down the internal git repo database but not the artifacts themselves. So this is all the information about the different branches, commits, merges, etc&#8230;&#8203; that exist in the repo.</p>
+</div>
+<div class="paragraph">
+<p>Once we have that in place we need to set a config file at the root of our <code>my_project</code> folder to tell it to look in the <code>.bare</code> folder for the git repos information.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">$ echo "gitdir: ./.bare" &gt; .git</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now we can run the command <code>git status</code> and our top-level folder will act like it&#8217;s the git repo that we want to work with&#8230;&#8203; sort of.</p>
+</div>
+<div class="paragraph">
+<p>We need to create our first worktree first.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">$ git worktree add main</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>What this will do is checkout the <code>main</code> branch into a folder called <code>main</code> under our <code>my_project</code> folder.</p>
+</div>
+<div class="paragraph">
+<p>That probably doesn&#8217;t seem all that special to be honest. But this is where the magic kicks in.</p>
+</div>
+<div class="paragraph">
+<p>We can now have multiple top-level directories in our root folder representing branches. So we can go ahead and add another worktree:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">$ git worktree add some-new-feature</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>and we&#8217;ll now have two branch-based directories in our root directory.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">my_project/
+    .bare/
+    main/
+    some-new-feature/</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Not rather than swapping / checking out branches, stashing changes to swap between branches, or doing unnecessary commits just to work around these things, we can simply change directories and even work on two sets of changes concurrently.</p>
+</div>
+<div class="paragraph">
+<p>Once we&#8217;re done, and we&#8217;ve pushed our branch to the remote:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">$ cd some-new-feature
+$ git push origin some-new-feature</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We can go ahead and remove the worktree from the root by using the command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">$ git worktree remove some-new-feature</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Drop into main and pull down the changes once we&#8217;ve merged them in:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">$ cd main &amp;&amp; git pull origin main</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And then checkout a new worktree for whatever we&#8217;re working on next:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">$ git worktree add another-new-feature</code></pre>
+</div>
+</div>
+</div>
+</div>
+
+
+    </article>
+
+
+    <footer>
+      Handcrafted by Jeff Uren — <a href="https://github.com/jdu/jdu.github.io/blob/master/LICENSE"
+        target="_blank">&copy; 2024</a>
+    </footer>
+  </div>
+
+</div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+<!-- and it's easy to individually load additional languages -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+
+<script>hljs.highlightAll();</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>No Title - JDU</title>
+    <link rel="stylesheet" href="../static/css/tufte.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <article>
+      <h1>No Title</h1>
+      <section><?xml version="1.0" encoding="UTF-8"?>
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<article xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
+<info>
+<title>Fear the Rebase</title>
+<date>2026-01-05</date>
+</info>
+<simpara>One of the aspects of <literal>git</literal> (and version control in general) that people seem to have the most anxiety about, is rebasing. In engineering circles, the term "rebase" can create an immediate sense of dread at a level befitting a horror film. That dread increases linearly with the length of time it&#8217;s been since you either last rebased, or initially branched away from the safety of the <literal>main</literal>.</simpara>
+<section xml:id="_its_work">
+<title>It&#8217;s Work</title>
+<formalpara>
+<title>Illustration of branch lagging behind main, drastically</title>
+<para>One of the reasons that people espouse making smaller, incremental change and&#8201;&#8212;&#8201;keeping new branches specific and constrained&#8201;&#8212;&#8201;is to avoid the situation above. While you have been toiling away, life has carried on in the <literal>main</literal> branch, without you, and you are suddenly faced with a situation where you need all of that "new" work available in your special branch you&#8217;ve been hunkered down in for the last of couple weeks or even months.</para>
+</formalpara>
+<simpara>Let&#8217;s be honest, we have a tendency to lump things together, and even though most of your branches are pointed, here and there, we all have a tendency to go off the rails a bit. I mean it&#8217;s just one line of code that you notice could have been a tad bit more performant in that other file over there.</simpara>
+<simpara>But this is one of the reasons we <emphasis>have</emphasis> <literal>git</literal>, to smooth over these rough patches and to reduce the burden on the developer these situations create. NOtice I said "reduce", we can&#8217;t eliminate it completely, but trust me when I say that handling some rebase conflicts is a lot better than what we used to have to do.</simpara>
+</section>
+<section xml:id="_what_dark_art_is_this">
+<title>What Dark Art is This?</title>
+<simpara>So what does rebase actually do? And when should you rebase? There are a couple of main reasons you might want to use a rebase:</simpara>
+<itemizedlist>
+<listitem>
+<simpara>It&#8217;s been a long while since you create your branch, and it will be awhile before it&#8217;s ready to be merged into them <literal>main</literal> or <literal>master</literal> branch, but in the meantime you need other peoples changes that have been merged in since your branch was cut.</simpara>
+</listitem>
+<listitem>
+<simpara>You know there will be problems when it comes time to merge your branch, and you want to smooth out those problems well ahead of time.</simpara>
+</listitem>
+<listitem>
+<simpara>You want your code to be pinned to a different, specific commit in <literal>main</literal> (for instance a commit for a specific release version your code targets) to test your changes against different, older versions of your code-base.</simpara>
+</listitem>
+</itemizedlist>
+<simpara>There are really, any number of reasons that you might want to do it to be honest, but what is actually happening during a rebase? How can we dispel the sense of dread we get at the mere mention of it?</simpara>
+</section>
+<section xml:id="_rest_ye_weary_time_traveller">
+<title>Rest ye weary time traveller</title>
+<simpara>A lot of people like to think of rebasing as "rewriting the history of their branch".</simpara>
+<formalpara>
+<title>Image of rebase before and after</title>
+<para>We&#8217;re effectively telling <literal>git</literal> to transport us to another time and place, along with all of our baggage. And just as if you were suddenly flying 30 years into the future, in real life, the further into the future you are flung, the higher the probability that there is going to need to be some adjustments made in order to "fit in".</para>
+</formalpara>
+<simpara>In <literal>git</literal> parlance, we call these "conflicts". We don&#8217;t really have a proper time machine in the <literal>git</literal> world, but what we do have is the ability to rapidly move you through the intervening years (or commits) and make judgment calls on some easier adjustments. But if it gets too hard, <literal>git</literal> will ask you to intervene and help it to figure out what to do.</simpara>
+<simpara>`git&#8217;s version control is based around objects, a given project can have any number of objects (mostly files,) and for a series of commits in the history of a branch, a lot of those files can stay pretty well the same. The "work" arises really, when a change to a file in your branch, doesn&#8217;t get along with a change to a file in the branch you&#8217;re rebasing on.</simpara>
+</section>
+</article>
+</section>
+    </article>
+  </body>
+</html>

@@ -1,0 +1,1752 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Frozen Insight in a Moving World</title>
+    <link rel="stylesheet" href="static/css/tufte.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+
+  <body>
+    <article>
+      <h1>Frozen Insight in a Moving World</h1>
+      <p class="subtitle">Jeff Uren</p>
+      <section>
+        <p>
+          One of the most divisive technical, and work-related topic of our
+          current times, is the rift between people who wholeheartedly believe
+          in AI and it's application to optimization, efficiency, and growth
+          versus the people that are maintaining strong, and consistent levels
+          of scepticism.
+        </p>
+
+        <p>
+          This is an article exploring that divide, where it might arise from,
+          and why what we believe about the long-term prevalence of AI is
+          misaligned with the reality of how society adopts and approaches new
+          technologies and "paradigm shifts".
+        </p>
+
+        <p>
+          <span class="marginnote">
+            I am guilty of getting hung up on individual specifics about tooling
+            around AI and how it's applied in specific areas. I admittedly had
+            fun generating images and funny songs, but it ultimately felt hollow
+            for me and I slowly but surely stopped using "creative" AI over a
+            short period of time.
+          </span>
+          I've historically been vocal about being anti-AI in general. But the
+          problem i've found is that the perceived issue with AI, isn't
+          necessarily the one that people highlight continually in anti-AI
+          posts. I find myself disagreeing with anti-AI sentiment, just as often
+          as I do pro-AI sentiment and it's hard to pin down the "why".
+        </p>
+      </section>
+
+      <section>
+        <h2>The Anti-AI Narrative</h2>
+
+        <p>
+          The current narratives around anti-AI sentiment center around a few
+          specific domains, these get rehashed over and over in varying ways to
+          different degrees:
+        </p>
+
+        <dl class="dl-table">
+          <dt>Epistemic Fragility</dt>
+          <dd>
+            AI systems produce confident answers that can be subtly wrong,
+            making errors harder to detect and increasing the cost of
+            verification.
+          </dd>
+          <dt>Loss of Systems Context</dt>
+          <dd>
+            Models reason locally and statistically, not holistically, missing
+            emergent behaviour, long-term coupling, and cross-domain
+            consequences.
+          </dd>
+          <dt>Energy-Value Imbalance</dt>
+          <dd>
+            The environment and financial cost of training and running models is
+            often disproportionate to the marginal productivity gains they
+            deliver.
+          </dd>
+          <dt>Accountability Dilution</dt>
+          <dd>
+            When decisions are mediated by AI, responsibility becomes diffused.
+            "The model said so", which weakens ownership, reviews, and outcomes.
+          </dd>
+          <dt>Cognitive Atrophy</dt>
+          <dd>
+            Over-reliance on AI can erode skills, judgement, and learning by
+            removing the <i>struggle</i> where expertise is developed.
+          </dd>
+          <dt>Phsychological Harm</dt>
+          <dd>
+            Work mediated by AI can feel less meaningful, reducing pride,
+            authorship, and connection. This contributes to high stress and
+            disengagement.
+          </dd>
+          <dt>Homogenization of Outputs</dt>
+          <dd>
+            Widespread AI use flattens out style, approaches, and solutions. It
+            reduces diversity of thinking and kills competitive differentiation.
+          </dd>
+          <dt>Frozen Past Bias</dt>
+          <dd>
+            Models encode historical data and assumptions, reinforcing old norms
+            and hardening to cultural or domain change.
+          </dd>
+          <dt>False Authority</dt>
+          <dd>
+            Statistical outcomes are mistaken for understanding which give AI
+            unearned credibility in complicated or moral decisions.
+          </dd>
+          <dt>Governance Lag</dt>
+          <dd>
+            The rate at which AI is being adopted, and pushes far exceeds the
+            speed at which appropriate oversight, auditability, and resources
+            arrive.
+          </dd>
+          <dt>Tool-Role Confusion</dt>
+          <dd>
+            AI shifts from being an assistant to implicit decision-making
+            without explicit consent, clarity, or restructuring of
+            responsibility.
+          </dd>
+          <dt>Security Surface Area</dt>
+          <dd>
+            These models and their infrastructure and deep ties to internal,
+            sensitive information are new vectors for data leakage, prompt
+            injections, model inversion, and supply-chain risks.
+          </dd>
+          <dt>Inappropriate Workflows</dt>
+          <dd>
+            Workflows relegate the person executing the work to sign-posting
+            versus decision-making.
+          </dd>
+          <dt>Enshittification</dt>
+          <dd>
+            Historically human spaces are being flooded with AI outputs. Forums,
+            social media, books, movies, TV, and other content causing people to
+            distrust and walk away from them.
+          </dd>
+        </dl>
+      </section>
+
+      <section>
+        <h2>The Other Side</h2>
+
+        <p>
+          For a good quality comparison we need to represent the other side of
+          the argument as well. If all we do is talk about the things that are
+          being derided, we ignore the things that are being supported.
+        </p>
+
+        <dl class="dl-table">
+          <dt>Leverage of Expertise</dt>
+          <dd>
+            AI allows scarce expert knowledge to be applied more broadly,
+            reducing bottlenecks and raising the baseline capability of teams.
+          </dd>
+          <dt>Acceleration of Iteration</dt>
+          <dd>
+            By reducing time spent on boilerplate, scaffolding, and recall, AI
+            shortens feedback loops and increases the speed of experimentation.
+          </dd>
+          <dt>Reduction of Mechanical Load</dt>
+          <dd>
+            AI offloads repetitive cognitive tasks (formatting, translation,
+            refactoring, documentation), freeing humans to focus on higher-level
+            reasoning.
+          </dd>
+          <dt>Error Surface Reduction</dt>
+          <dd>
+            In constrained domains, AI can catch classes of mistakes humans
+            routinely miss (syntax errors, common security flaws, consistency
+            issues).
+          </dd>
+          <dt>Search and Recall at Scale</dt>
+          <dd>
+            AI excels at synthesizing large bodies of existing information,
+            making institutional knowledge more accessible.
+          </dd>
+          <dt>Accessibility and Inclusion</dt>
+          <dd>
+            AI lowers barriers for non-experts by translating, summarizing, or
+            scaffolding work across language, skill, or domain.
+          </dd>
+          <dt>Parallelism of Thought</dt>
+          <dd>
+            AI enables multiple solution paths to be explored simultaneously,
+            increasing the chance of discovering viable approaches.
+          </dd>
+          <dt>Economic Efficiency</dt>
+          <dd>
+            At scale, AI can reduce marginal cost per unit of output,
+            particularly for high-volume, low-variance tasks.
+          </dd>
+          <dt>Human-in-the-loop Augmentation</dt>
+          <dd>
+            When properly constrained, AI can act as a "second set of eyes",
+            improving outcomes without replacing decision authority.
+          </dd>
+          <dt>Shift from Recall to Judgement</dt>
+          <dd>
+            Proponents argue AI allows humans to spend less time remembering
+            facts and more time evaluating trade-offs.
+          </dd>
+        </dl>
+
+        <p>
+          <span class="marginnote">
+            Insurance companies replacing claim evaluations wholly with AI, call
+            centers laying off staff and using AI systems, most modern
+            businesses using AI chatbots for website support.
+          </span>
+          An important observation here is that most proponents
+          <strong>assume AI is subordinate to human judgement</strong>, even
+          when real-world deployments more often than not drift
+          <i>far beyond</i> that assumption.
+        </p>
+      </section>
+
+      <section>
+        <h2>Reframing</h2>
+
+        <p>
+          A lot of the pusback against AI has been centered around a tighter
+          grouping of concerns:
+        </p>
+
+        <ul>
+          <li>Incorrect outputs</li>
+          <li>Lack of system awareness</li>
+          <li>Environmental cost</li>
+          <li>Diluted accountability</li>
+          <li>Psychological impact</li>
+        </ul>
+
+        <p>
+          <span class="marginnote">
+            The sheer level of fear-mongering overall, and catastrophizing
+            around AI is having wide-scale mental health ramifications in and of
+            itself. It's like meta-anxiety layered over top of the actual
+            anxiety.
+          </span>
+          The reasons underpinning these arguments are <strong>valid</strong>,
+          but the protagonists tend to treat the problem as a collection of
+          technical and ethical shortcomings that need be addressed as
+          individual problems.
+        </p>
+
+        <p>
+          That resistenace needs to be reframed as something more fundamental.
+          The individual issues that are called out are a <i>response</i> to
+          lower-level, deeper, more visceral shift that people can <i>feel</i>.
+          We need to unpack that tension, hold it up to the light and describe
+          it as it really is.
+        </p>
+      </section>
+
+      <section>
+        <h2>Setting up</h2>
+
+        <p>
+          When we talk about AI we tend to default to a few main framings that
+          fall into categories like productivity, accuracy, ethics, and
+          employment. Those framings
+          <i>are</i> useful, but the keep the debate firmly centered around
+          <strong>outcomes</strong>.
+        </p>
+
+        <p>
+          What people seem to be looking at less is the
+          <strong>kind of value</strong> that AI optimizes for, and what that
+          optimisation <i>displaces</i>. We need a lens or framework that
+          operates above the outcomes, use cases, and technical details to help
+          us understand.
+        </p>
+
+        <p>
+          The Metaphysics of Quality, developed by Robert Pirsig, offers a way
+          of understanding reality that places value (not matter or mind) at the
+          centre of experience. Rather than treating quality as subjective
+          preference or objective measurement, it treats it as something
+          immediately felt, guiding action before it can be analysed or named.
+          The framework is useful, not because it provides answers, but because
+          it helps explain why systems, ideas, and institutions can
+          <i>feel</i> either alive or dead long before we can articulate what's
+          gone wrong.
+        </p>
+
+        <p>At a basic level, we can distinguish between two modes of value.</p>
+
+        <p>
+          <strong>Static value</strong><br />
+          <i>codification, repetition, optimisation</i><br />
+          Static value shows up as rules, metrics, models, standards, and "best
+          pracrtices", and it's essential for scale and coordination.
+        </p>
+
+        <p>
+          <strong>Dynamic Quality</strong><br />
+          <i>
+            situational judgement, lived experience, intuition, and
+            responsibility in the moment </i
+          ><br />
+          Dynamic Quality is how new value enters a system in the first place,
+          before it gets formalized and stratified into static values or tossed
+          aside through irrelevance.
+        </p>
+
+        <p>
+          Modern life and even more specifically <i>work</i>, are built on top
+          of a constant tension between these two modes.
+        </p>
+
+        <p>
+          <strong>Static culture</strong> ⇒ stabilizes what we already know<br />
+          <strong>Dynamic judgement</strong> ⇒ adapts what we don't know
+        </p>
+
+        <p>
+          AI enters into this whole equilibrium at a pretty sensitive spot. It
+          doesn't just automate execution. More and more it operates in spaces
+          where judgement has traditionally dominated.
+        </p>
+
+        <p>
+          We use this static-dynamic lens to look at specific objections and
+          historical comparisons of change to get to the bottom of a much
+          simpler question:
+        </p>
+
+        <blockquote class="blockquote">
+          <p>
+            "What happens when systems designed to optimize for frozen
+            understanding begin to claim dominance over human judgement?"
+          </p>
+        </blockquote>
+
+        <p>
+          That will bring us back around to viewing the individual, familiar
+          arguments we keep seeing repeated online, in parliaments, and at the
+          office cooler in a light that frames them less like individuad,
+          isolated concerns and more like symptoms of a deeper issue in culture
+          and potentially the signs of a growing higher sense of self-awareness.
+        </p>
+      </section>
+
+      <section>
+        <h2>How does change actually happen?</h2>
+
+        <p>
+          Change follows a fairly straightforward lifecycle in terms of the
+          tension between static and dynamic.
+        </p>
+
+        <hr />
+
+        <dl class="dl-table">
+          <dt>1. Dynamic breakthrough</dt>
+          <dd>
+            Something <i>works</i> or <i>feels right</i> before you can actually
+            explain why.
+          </dd>
+          <dt>2. Selection</dt>
+          <dd>
+            Society, sub-cultures, or even individuals notice that the
+            breakthrough has value.
+          </dd>
+          <dt>3. Stabilization</dt>
+          <dd>It becomes a rule, tool, process, or abstraction.</dd>
+          <dt>4. Decay</dt>
+          <dd>The static pattern starts to resist new Dynamic Quality.</dd>
+          <dt>5. Tension</dt>
+          <dd>Innovation vs. preservation.</dd>
+        </dl>
+
+        <hr />
+
+        <p><strong>Repeat</strong></p>
+
+        <hr />
+
+        <p>
+          All progress lives inside of this tension between static and dynamic.
+        </p>
+      </section>
+
+      <section>
+        <h2>The Industrial Revolution</h2>
+
+        <p>
+          <span class="marginnote">
+            I actually really don't like this comparison because it's rooted in
+            a lot of fear-mongering.
+          </span>
+          AI gets framed through analogy to the Industrial Revolution pretty
+          often. Just the same as mechanisation transformed physical labour, the
+          automating of repetitive tasks, increasing output, and ultimately
+          reshaping and forming large economies. AI is presented as the next
+          <strong>inevitable</strong> step. A step where automation of thinking
+          happens. These arguments frame resistance to AI as the same as workers
+          resisiting industrialization. Fear-based, short-sighted, and even more
+          annoyingly, futile and out of our control.
+        </p>
+
+        <p>
+          That comparison is really powerful because it has a sort of built-in
+          sense of accomplishment and reformation of society associated with it.
+          There was disruption, change, hardships, and social upheaval. In the
+          long-term we came out of that era with massive gains in productivity,
+          shifts in living standards, and all kinds of technological progress.
+        </p>
+
+        <p>
+          By comparing to that period of history, AI adoption gets framed as not
+          only an absolute necessity, but the right direction from a moral
+          perspective. It's touted as something that we have to endure in order
+          to benefit later.
+        </p>
+
+        <p>
+          <span class="marginnote">
+            I don't see any automated creative painting machines, or
+            book-writing automotons that have remained in use past their initial
+            exposure during the revolution still kickin' around.
+          </span>
+          But that whole analogy really screws up and over-simplifies the nature
+          of change itself. We replaced human muscle with machinery, but we
+          still retained a large share of the ability to
+          <strong>express judgement</strong>, <strong>meaning</strong>, and the
+          ability to take <strong>responsibility</strong>. AI operates directly
+          on domains where judgement <i>is</i>
+          the work. Things like reasoning, decision-making, creativity, and
+          evaluation. Treating these two transformational periods as equivalent
+          obscures what's actually changing.
+        </p>
+
+        <p>
+          I don't want to go too far into the comparison, because frankly, it's
+          not really worth it and I only mention it here because it's so often
+          the first port of call in an argument. People who use this comparison
+          are reaching for the fear-mongering, and trying to project the feeling
+          of inevitability about that period onto AI without very much else in
+          common to stand on. We can do better by honing in on a much more
+          granular aspect of that era.
+        </p>
+      </section>
+
+      <section>
+        <h2>The Victorians</h2>
+
+        <p>
+          Victorian moral codes emerged during a period of rapid industrial and
+          social change, offering a rigid framework of propriety, discipline,
+          and "correct" behaviour intended to impose order on a very quickly
+          evolving society.
+        </p>
+        <p>
+          These norms were codified into social rules, institutions, and moral
+          expectations that claimed universal authority, usually in tension with
+          how people actually lived and felt. They're an important comparison
+          because they show how systems of static moral certainty, introduced to
+          managed upheaval, can outlive their relevance. They carry on as
+          prescriptions long after the lived experience that gave them meaning
+          moved on.
+        </p>
+
+        <p>
+          Victorian systems froze moral judgement into rigid code and
+          institutions. They optimized for order, productivity, and propriety.
+          But they ignored how people
+          <i>actually experience life</i>. As society and dynamic quality moved
+          on, those static patterns became moralizing, brittle, and finally
+          irrelevant.
+        </p>
+
+        <p>
+          AI risks the same fate because AI <i>embodies</i> static intellectual
+          value at scale.
+        </p>
+
+        <ul>
+          <li>Past data</li>
+          <li>Codified reasoning</li>
+          <li>Optimized outputs</li>
+        </ul>
+
+        <p>
+          It produces answers without any kind of struggle, passes judgement
+          without risk, and produces results without lived engagement.
+        </p>
+
+        <p>But <i>meaning</i> arises where dynamic quality is felt:</p>
+
+        <ul>
+          <li>Choosing</li>
+          <li>Exercising taste</li>
+          <li>Failing</li>
+          <li>Taking responsibility</li>
+        </ul>
+
+        <p>
+          Compared to Victorian morality, the trajectory of AI won't be one
+          where it sees AI fail outright. It will be a cultural failure and not
+          a full rejection:
+        </p>
+
+        <ul>
+          <li>Tolerate it where work is already static</li>
+          <li>Ignore it where meaning matters</li>
+          <li>
+            Eventually treat it as background infrastructure, not authority
+          </li>
+        </ul>
+
+        <p>
+          When systems claim moral or creative authority over lived experience,
+          culture doesn't outright revolt against it, it <i>evolves past it.</i>
+        </p>
+      </section>
+
+      <section>
+        <h2>Metaverse vs. Anything Else</h2>
+
+        <p>
+          The metaverse was presented as the next major evolution of the
+          internet. It was a persistent, shared digital space where people would
+          work, socialise, create, and trade through immersive virtual
+          environments. Rather than browsing websites or using apps, users were
+          meant to
+          <i>enter</i> the internet. They would be present themselves as avatars
+          in three-dimensional worlds that blurred the boundaries between
+          physical and digital life. The metaverse would become a universal
+          layer beneath social media, commerce, and collaboration, reshaping how
+          people interact online the way that the smartphone did.
+        </p>
+
+        <p>Initially the metaverse held a lot of <i>Dynamic Quality</i>.</p>
+
+        <ul>
+          <li>
+            Genuine curiosity about presence, embodiment, and new forms of
+            social interaction
+          </li>
+          <li>Early VR moments where users felt "this could be something"</li>
+          <li>
+            Open-ended exploration of what digital space <i>might become</i>
+          </li>
+        </ul>
+
+        <p>
+          The problem is that it <i>hardened</i> into something else altogether,
+          and static authority outpaced lived experience.
+        </p>
+
+        <ul>
+          <li>Meaning was prescribed instead of emerging</li>
+          <li>Social norms were designed top-down</li>
+          <li>Use cases were declared rather than found</li>
+          <li>Users were asked to <i>believe</i> before they <i>felt</i></li>
+        </ul>
+
+        <p>
+          Human judgement was slowly replaced with
+          <i>narrative inevitability</i>.
+        </p>
+
+        <blockquote class="blockquote">
+          <p>"This is the future, you just haven't caught up yet"</p>
+        </blockquote>
+
+        <p>
+          The key thing to note is that no one <strong>raged</strong> against
+          the metaverse, there was just complete and utter disengagement from
+          the concept. VR itself <i>still survives</i> in a few different places
+          (gaming, training simulations, specialized professional tools), but
+          they're very niche and not as widespread as the Metaverse's ambitions
+          were aiming for.
+        </p>
+
+        <p>
+          It's really important to point out specifically what happened here,
+          because the metaverse didn't fail because of any of the following:
+        </p>
+
+        <ul>
+          <li>Bad hardware</li>
+          <li>Weak graphics</li>
+          <li>or because it was a generally stupid idea</li>
+        </ul>
+
+        <p>
+          It failed because
+          <strong>static meaning arrived before the lived meaning</strong>, the
+          system demanded participation without <i>earning it</i>, and
+          optimization replaced discovery.
+        </p>
+
+        <p>
+          It's a funny one in our list of examples, because all the other
+          examples we cover here are instances of past frozen static values
+          trying to exert control over fresher dynamic quality. In the
+          metaverse's case it tried to
+          <i
+            >freeze the future before people had experienced why it mattered.</i
+          >
+        </p>
+      </section>
+
+      <section>
+        <h2>Crypto/Blockchain and AI</h2>
+
+        <p>
+          Blockchain is a near perfect precursor to AI trajectory. Moreso than a
+          comparison to the Industrial Revolution. Blockchain was and still
+          attempts to overreach into Dynamic Quality.
+        </p>
+
+        <h3>The Promise</h3>
+
+        <p>Crypto promised trust without institutions, and code as law.</p>
+
+        <h3>Static Overreach</h3>
+
+        <p>
+          But it came with frozen values, immutable ledgers, and algorithmic
+          morality.
+        </p>
+
+        <h3>Dynamic Quality Lost</h3>
+
+        <p>
+          Crypto removed discretion, forgiveness, and contextual judgement from
+          financial transactions.Ultimately resulting in a loss of meaningful
+          participation in trade for efficiency.
+        </p>
+
+        <h3>Cultural Reaction</h3>
+
+        <ul>
+          <li>Speculation dominates</li>
+          <li>Real social uses wither and disappear</li>
+          <li>Survives as niche infrastructure (settlement, rails)</li>
+        </ul>
+
+        <p>
+          Both AI and crypto are tolerated where static value fits, rejected
+          whhere Dynamic Quality matters.
+        </p>
+
+        <h3>Outcome</h3>
+
+        <p>
+          Crypto tried to replace social morality<br />
+          AI tries to replace intellectual judgement
+        </p>
+
+        <p>
+          That makes AIs backlash faster, more emotional, and more culturally
+          visible.
+        </p>
+
+        <p>
+          Crypto failed when code claimed moral authority. And it has collapsed
+          into background infrastructure.
+        </p>
+      </section>
+
+      <section>
+        <h2>Taylorism</h2>
+
+        <p>
+          Taylorism was an early industrial management approach that treated
+          work like a machine problem to be optimized. Tasks were broken down,
+          timed, standardizd, and controlled from above, with thinking separated
+          from doing. It worked well for repetitive factory labour, but it also
+          stripped workers of judgement, craft, and ownership.
+        </p>
+
+        <p>
+          It turned people into components rather than participants. Over time,
+          that loss of agency proved just as costly as the inefficiencies
+          Taylorism actually set out to fix.
+        </p>
+
+        <p>
+          Taylorism arrived through practical learning. Factory managers were
+          dealing with disorder, waste, and unsafe conditions. By watching work
+          more closely, trying changes, and keeping what improved output and
+          safety, they found better ways to organise repetitive labour. Those
+          improvements came from direct experience with real problems. That was
+          Dynamic Quality in action, respinding to conditions as they were.
+        </p>
+
+        <p>
+          The failure came when those early insights were frozen into rules and
+          treated as permanent, universal truths. Tasks were standardized beyond
+          their usefulness, judgement was pushed up the hierarchy, and workers
+          were expected to follow instructions rather than think. Static value
+          replaced ongoing learning. Dynamic judgement on the floor wasn't
+          trusted anymore.
+        </p>
+
+        <p>
+          The outcome again wasn't open revolt, it was quiet withdrawal. People
+          did the job as written, not as understood. Skill, pride, and
+          responsibility faded. Over time, organisations lost adaptability and
+          paid for it through disengagement, inefficiency, and brittle systems.
+          Taylorism survived only where work remained simple and repeatable, and
+          failed where judgement mattered.
+        </p>
+
+        <p>
+          AI is following a similar path. It begins with real gains from
+          experimentation and assistance, where people try tools, keep what
+          helps, and stay in control of decisions. This early phase is Dynamic
+          Quality at work.
+        </p>
+
+        <p>
+          The risk comes when those tools harden into defaults and authorities.
+          Outputs are trusted because they're generated, workflows are shaped
+          around the mode, and judgement is quietly removed from the person
+          doing the work. Static value takes over.
+        </p>
+
+        <p>
+          If AI follows the same trajectory, it ends up in aplce where it's
+          relegated to places where the tasks are narrow and repeatable.
+        </p>
+      </section>
+
+      <section>
+        <h2>Digital Social Norms</h2>
+
+        <p>
+          For a long time, unrestricted access to social media was treated as a
+          settled "good". It rested on a static value that favoured openness,
+          connection, and free participation. That value held while the harms
+          were <i>abstract</i> or easy to dismiss.
+        </p>
+
+        <p>
+          Over time, those harms have become more concrete. Rising anxiety,
+          sleep disruption, attention problems, bullying, and compulsive use
+          have begun to show up consistently in <strong>children.</strong>
+          These aren't abstract concerns. They cut into biological patterns like
+          rest and nervous system regulation, and social patterns of trust,
+          belonging, and safety. At that level, the costs are immediate and hard
+          to argue away.
+        </p>
+
+        <p>
+          The recent bans reflect newer dynamic judgement asserting itself.
+          Faced with lived evidence, society has begun to prioritize protection
+          and care over openness. Lower-level patterns demanded attention, and
+          rightly took precedence over an older intellectual ideal that no
+          longer fit reality.
+        </p>
+      </section>
+
+      <section>
+        <h2>Smartphones</h2>
+
+        <p>
+          This one might strike pretty close to home for a few people. I was in
+          my early 20's when the first Apple iPhone was released. I stood in
+          line at a Bell store in downtown Toronto and waited to see if I could
+          nab one. I ended up having to wait a week for restocking, but I
+          eventually got my hands on one, a white one!
+        </p>
+
+        <p>
+          I was enthralled. Smartphones were a whole new world. We can look back
+          now and realize how horribly bad the user interfaces and overall
+          design was compared to more modern aesthetics, but at the time it was
+          utterly groundbreaking.
+        </p>
+
+        <p>
+          They were a clear expression of dynamic quality. A convergence of
+          communication, computation, and creativity that felt open-ended and
+          empowering. Early smartphones expanded what people could do
+          <i>in the moment</i>. Navigation, creation, connecting, and
+          experimenting without prescribing how those capabilities were used.
+          They <i>earned</i> their place by <i>augmenting</i> judgement and
+          <i>extending</i> human agency into new spaces.
+        </p>
+
+        <p>
+          <span class="marginnote">
+            People like to decry this as consumers being eternally unhappy
+            unless they have the next, newest, greatest thing, but frankly, I
+            haven't bought a new fridge, or office chair, or car in decades. And
+            yet I always seem to have the latest iPhone. I'm chasing that
+            original feeling.
+          </span>
+          Unfortunatey, over time, that dynamic promise has hardened into static
+          value. Smartphones became platforms optimized for engagement metrics,
+          behavioural prediction, and constant connectivity. Attention has been
+          systemitized, interaction patterns were standardized, and "smartness"
+          increasingly means automated nudges, recommendations, and background
+          decisions made on the user's behalf. The device shifted from tool to
+          intermediary, shaping our behaviour rather than simply supporting it.
+        </p>
+
+        <p>
+          Viewed this way, the growing interest in "dumb" phones and
+          deliberately limited devices isn't just nostalgia or technophobia.
+          It's a value correction. What people are pushing back on isn't
+          computation, but the loss of agency, focus and <i>intentionality</i>.
+        </p>
+
+        <p>
+          In quality terms, static optimization (engagement, convenience,
+          automation, etc...) has begun to crowd out the dynamic qualities that
+          made smartphones valuable in the first place. Things like presence,
+          choice, and lived control. The conflict is between systems that decide
+          <i>for us</i> and tools that allow us to decide <i>with them</i>.
+        </p>
+
+        <p>
+          <span class="marginnote">
+            My next phone will likely be a much simpler one after decades of
+            Apple iPhones, when I can afford something like a Light Phone, or
+            maybe a Boox Palma and Nokia 3310.
+          </span>
+          The failure mode of the smartphone isn't technical, it's human. Focus
+          is declining, stress is increasing, and people feel less in control of
+          their time. The outcome is a slow, quiet correction. People are
+          turning off features, uninstalling apps, cancelling subscriptions,
+          limiting use, or simply choosing simpler devices. And they're not
+          doing because they're "rejecting technology", but to try and regain
+          some agency and space to express their own judgement.
+        </p>
+
+        <p>
+          Smartphones are losing trust because static optimisation replaced the
+          dynamic judgement that once made them useful, not because they've
+          become more capable.
+        </p>
+      </section>
+
+      <section>
+        <h2>Comparison to other things</h2>
+
+        <p>
+          That's probably enough examples to drive the theme home in general.
+          But feel free to take this same lens to other historical shifts
+          between dynamic and static quality that have occurred throughout
+          history and even more modern times.
+        </p>
+
+        <p>
+          <span class="marginnote">
+            My sense of "fun" might not be very good.
+          </span>
+          Aw heck, just to drive the point home, lets do a whirlwind tour of a
+          few more because it's fun:
+        </p>
+
+        <hr />
+        <h3>Scholasticism vs. Empirical Science</h3>
+        <dl class="dl-table">
+          <dt>Static value</dt>
+          <dd>Authoritative texts and inherited doctrine</dd>
+          <dt>Dynamic value</dt>
+          <dd>Observation, experiments, lived experience</dd>
+          <dt>Failure Mode</dt>
+          <dd>
+            Authority treated as truth, even when experience contradicts it.
+          </dd>
+          <dt>Outcome</dt>
+          <dd>Science routed around doctrine and kept on truckin'</dd>
+          <dt>Tension</dt>
+          <dd>Static Authority vs. Lived Evidence</dd>
+        </dl>
+        <hr />
+        <table>
+          <tr>
+            <th colspan="2">Scholasticism vs. Empirical Science</th>
+          </tr>
+          <tr>
+            <th>Static Value</th>
+            <td>Authoritative texts and ineherited doctrine</td>
+          </tr>
+          <tr>
+            <th>Dynamic Value</th>
+            <td>Observation, experiments, lived experience</td>
+          </tr>
+          <tr>
+            <th>Failure Mode</th>
+            <td>
+              Authority treated as truth, even when experience contradicts it.
+            </td>
+          </tr>
+          <tr>
+            <th>Outcome</th>
+            <td>Science routed around doctrine and kept on truckin'</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              Scholasticism failed when static authority outweighed lived
+              evidence.
+            </td>
+          </tr>
+          <tr>
+            <th colspan="2">Central Planning vs. Market Discovery</th>
+          </tr>
+          <tr>
+            <th>Static Value</th>
+            <td>Fixed plans, quotas, top-down certainty</td>
+          </tr>
+          <tr>
+            <th>Dynamic Value</th>
+            <td>Local knowledge, feedback, adaptation</td>
+          </tr>
+          <tr>
+            <th>Failure Mode</th>
+            <td>Plans froze assumptions that no longer matched reality</td>
+          </tr>
+          <tr>
+            <th>Outcome</th>
+            <td>Black markets, inefficiency, eventual collapse or reform</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              Central planning failed by replacing discovery with control
+            </td>
+          </tr>
+          <tr>
+            <th colspan="2">Academic Canon vs. Living Culture</th>
+          </tr>
+          <tr>
+            <th>Static Value</th>
+            <td>Approved works, fixed definitions of merit</td>
+          </tr>
+          <tr>
+            <th>Dynamic Value</th>
+            <td>New voices, evolving forms, lived expression</td>
+          </tr>
+          <tr>
+            <th>Failure Mode</th>
+            <td>The canon stopped listening while culture kept changing</td>
+          </tr>
+          <tr>
+            <th>Outcome</th>
+            <td>Culture moved on, the canon became optional</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              The canon failed by preserving taste instead of renewing it
+            </td>
+          </tr>
+          <tr>
+            <th colspan="2">Corporate Process Frameworks vs. Real Work</th>
+          </tr>
+          <tr>
+            <th>Static Value</th>
+            <td>Documented workflows, compliance, predictability</td>
+          </tr>
+          <tr>
+            <th>Dynamic Value</th>
+            <td>Judgement, adaptation, problem-solving under pressure</td>
+          </tr>
+          <tr>
+            <th>Failure Mode</th>
+            <td>Process replaced understanding</td>
+          </tr>
+          <tr>
+            <th>Outcome</th>
+            <td>Workarounds, shadow processes, quiet disengagement</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              Process failed when it tried to stand in for thinking
+            </td>
+          </tr>
+          <tr>
+            <th colspan="2">
+              SEO-Driven Content Farms vs. Human Knowledge Seeking
+            </th>
+          </tr>
+          <tr>
+            <th>Static Value</th>
+            <td>Keywords, ranking signals, volume</td>
+          </tr>
+          <tr>
+            <th>Dynamic Value</th>
+            <td>Insight, experience, explanation</td>
+          </tr>
+          <tr>
+            <th>Failure Mode</th>
+            <td>Content was written for machines, not people</td>
+          </tr>
+          <tr>
+            <th>Outcome</th>
+            <td>Search distrust and migration to forums and communities</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              SEO failed when optimization replaced understanding
+            </td>
+          </tr>
+          <tr>
+            <th colspan="2">Social Media Feeds vs. Human Social Interaction</th>
+          </tr>
+          <tr>
+            <th>Static Value</th>
+            <td>Engagement metrics, ranking algorithms</td>
+          </tr>
+          <tr>
+            <th>Dynamic Value</th>
+            <td>Conversation, trust, shared context</td>
+          </tr>
+          <tr>
+            <th>Failure Mode</th>
+            <td>Optimisation distorts how people relate to each other</td>
+          </tr>
+          <tr>
+            <th>Outcome</th>
+            <td>Fatique, distrust, retreat to smaller spaces</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              Feeds fail by optimizing attention instead of relationships
+            </td>
+          </tr>
+          <tr>
+            <th colspan="2">
+              Corporate Agile vs. Craft-Based Software Development
+            </th>
+          </tr>
+          <tr>
+            <th>Static Value</th>
+            <td>Ceremonies, velocity metrics, roles</td>
+          </tr>
+          <tr>
+            <th>Dynamic Value</th>
+            <td>Judgement, design sense, technical ownerhip</td>
+          </tr>
+          <tr>
+            <th>Failure Mode</th>
+            <td>Process theatre replacing adaptability</td>
+          </tr>
+          <tr>
+            <th>Outcome</th>
+            <td>Teams comply outwardly and ignore it inwardly</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              Agile fails because it becomes ritual instead of practice.
+            </td>
+          </tr>
+          <tr>
+            <th colspan="2">Learning Management Systems vs. Learning</th>
+          </tr>
+          <tr>
+            <th>Static Value</th>
+            <td>Completion rates, standard curricula</td>
+          </tr>
+          <tr>
+            <th>Dynamic Value</th>
+            <td>Curiosity, mentorship, struggle</td>
+          </tr>
+          <tr>
+            <th>Failure Mode</th>
+            <td>Education was reduced to compliance</td>
+          </tr>
+          <tr>
+            <th>Outcome</th>
+            <td>Parallel learning outside formal systems</td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              LMS fails when measurement replaces understanding
+            </td>
+          </tr>
+          <tr>
+            <th colspan="2">
+              Enterprise SaaS Monoculture vs. Local Problem Solving
+            </th>
+          </tr>
+          <tr>
+            <th>Static Value</th>
+            <td>Standardisation, vendor "best practices"</td>
+          </tr>
+          <tr>
+            <th>Dynamic Value</th>
+            <td>Domain knowledge, situational fit</td>
+          </tr>
+          <tr>
+            <th>Failure Mode</th>
+            <td>One size was forced into many contexts</td>
+          </tr>
+          <tr>
+            <th>Outcome</th>
+            <td>Shadow IT and brittle systems</td>
+          </tr>
+          <tr>
+            <td colspan="2">Monocultures fail by freezing choice.</td>
+          </tr>
+        </table>
+        <hr />
+
+        <p>It honestly just goes on and on, but across all cases:</p>
+
+        <ul>
+          <li>Tool captures a past understanding</li>
+          <li>Static value claims moral authority</li>
+          <li>Dynamic Quality withdraws participation</li>
+          <li>Society doesn't revolt, it bypasses</li>
+          <li>The static systems remain as ritual, compliance, or legacy.</li>
+        </ul>
+
+        <p>
+          Whenever static value demans obedience without lived Quality, culture
+          responds not with rebellion, but with indiffierence.
+        </p>
+      </section>
+
+      <section>
+        <h2>Warning Signs</h2>
+
+        <p>
+          We've seen these patterns play out over and over, with each new
+          technological expansion, as well as across less technological domains
+          like planning, and social media, politics and more. The patterns are
+          so prevalent you can diffuse them into a series of warning signs that
+          "something" is likely on the same path.
+        </p>
+
+        <ul>
+          <li>It replaces judgement instead of supporting it</li>
+          <li>It moralizes outputs ("Best", "Optimal", "Objective")</li>
+          <li>It removes struggle from meaning-making</li>
+          <li>Appeals to authority replace appeals to experience</li>
+          <li>Humans are accountable, but not in control</li>
+        </ul>
+
+        <p>If 3+ of these are true you can generally expect:</p>
+
+        <ul>
+          <li>Backlash</li>
+          <li>Hollow compliance</li>
+          <li>Eventual cultural bypass</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>A more realistic AI timeline</h2>
+
+        <p>
+          I'm sure you've read at least one of the doomsday, apocalyptic
+          narratives online about how AI is going to destroy the world and we'll
+          all be running around like peasants to billionaire tech fiefdoms
+          ruling over us from their bubbles on Mars.
+        </p>
+
+        <p>
+          I have a more realistic timeline based on historic reactions to
+          technological change.
+        </p>
+
+        <hr />
+
+        <h3>Phase 1 - Adoption (0-3 years)</h3>
+
+        <p>"This is magic"</p>
+
+        <ul>
+          <li>AI boost productivity, speed, and <i>surface competence</i></li>
+          <li>Static metrics (output, costs, scale) dominate</li>
+          <li>Early adopters gain advantage in markets</li>
+          <li>Cultural narraive ⇒ resistance ⇔ fear</li>
+        </ul>
+
+        <p>⇒ Dynamic quality is <i>outsourced</i>, not yet missed</p>
+
+        <hr />
+
+        <h3>Phase 2 - Saturation (3-6 years)</h3>
+        <p>"Everything sounds the same"</p>
+        <ul>
+          <li>AI output becomes ubiquitous and stylistically flat</li>
+          <li>Differenation <i>collapses</i></li>
+          <li>Human judgement is reduced to prompt tuning</li>
+          <li>Trust erodes in AI-generated artifacts</li>
+        </ul>
+
+        <p>⇒ Static value overwhelms peoples dynamic experience</p>
+
+        <hr />
+
+        <h3>Phase 3 - Alienation (6-10 years)</h3>
+        <p>"I didn't do this, the system did"</p>
+
+        <ul>
+          <li>Loss of authorship, pride, responsibility</li>
+          <li>Moral distancing ("the model decided")</li>
+          <li>Creative and intellectual roles feel hollow</li>
+          <li>First explicit cultural backlash</li>
+        </ul>
+        <p>⇒ People <i>feel</i> the loss of Dynamic Quality</p>
+
+        <hr />
+
+        <h3>Phase 4 - Bypass (10-15 years)</h3>
+        <p>"We don't use AI for that"</p>
+        <ul>
+          <li>
+            Informal norms emerge excluding AI from art, strategy, ethics,
+            leadership decisions
+          </li>
+          <li>"Human-only" spaces gain prestige</li>
+          <li>AI remains in infrastructure and operations</li>
+        </ul>
+        <p>⇒ Dynamic Quality reasserts moral priority</p>
+
+        <hr />
+
+        <h3>Phase 5 - Relegation (15-20 years)</h3>
+        <p>"It's just plumbing"</p>
+        <ul>
+          <li>AI becomes invisible background tooling</li>
+          <li>No longer aspirational or authoritative</li>
+          <li>
+            Like Victorian moral codes → still present, no longer believed
+          </li>
+        </ul>
+        <p>⇒ Static patterns stabilized under Dynamic control</p>
+
+        <hr />
+
+        <h3>Phase 6 - Irrelevance (20+ years)</h3>
+        <p>"Why did we think this mattered?"</p>
+        <ul>
+          <li>AI seen as overfit to a past value system</li>
+          <li>
+            Replaced or absorbed by tools that <i>preserve agency</i>,
+            <i>reintroduce struggle</i>, <i>reward judgement</i>
+          </li>
+        </ul>
+        <p>⇒ Dynamic Quality moves on but static AI patterns remain behind</p>
+
+        <hr />
+        <p>
+          AI doesn't fail because it's <i>wrong</i>, it fails because it answers
+          questions after culture has stopped caring about the answers.
+        </p>
+      </section>
+
+      <section>
+        <h2>A Standard Quality Trajectory</h2>
+
+        <p>
+          Whenever a technology optimizes behaviour without honouring lived
+          judgement, people don't fight it, people quiety stop caring and work
+          around it.
+        </p>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Phase</th>
+              <th>Past Tech.</th>
+              <th>AI</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Promise</td>
+              <td>"This will scale, standardize, optimize"</td>
+              <td>"This will think for you"</td>
+            </tr>
+            <tr>
+              <td>Static Capture</td>
+              <td>Metrics, Ranking, Frameworks harden</td>
+              <td>Models train on frozen past data</td>
+            </tr>
+            <tr>
+              <td>Moral Authority</td>
+              <td>The process says so</td>
+              <td>The models says so</td>
+            </tr>
+            <tr>
+              <td>Dynamic Loss</td>
+              <td>Judgement, Taste, Responsibility erode</td>
+              <td>Authorship, Meaning, Agency erode.</td>
+            </tr>
+            <tr>
+              <td>Bypass</td>
+              <td>Shadow systems, Human curation</td>
+              <td>Human-only spaces, AI Bans</td>
+            </tr>
+            <tr>
+              <td>Residue</td>
+              <td>Becomes background tooling</td>
+              <td>Becomes invisible infrastructure</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <ol>
+          <li>
+            AI is more volatile because it targets intellectual and creative
+            domains, not just coordination
+          </li>
+          <li>It removes the <i>felt act of thinking</i>, not just choice</li>
+          <li>
+            It scales static intellectual value faster than culture can absorb
+          </li>
+        </ol>
+
+        <p>
+          AI doesn't just optimize work, it full on short-circuits the formation
+          of Dynamic Quality altogether.
+        </p>
+
+        <p>
+          <strong>Past Systems</strong> ⇒ optimized <i>around</i> human
+          judgement<br />
+          <strong>AI</strong> ⇒ attempts to
+          <i>replace human judgement itself</i>
+        </p>
+
+        <p>
+          This creates a much more volatile, and potentially faster cultural
+          response, framing AI as a deep threat versus an annoying
+          inconvenience.
+        </p>
+      </section>
+
+      <section>
+        <h2>Implementations</h2>
+
+        <p>AI is primarily experienced as static intellectual pattern.</p>
+
+        <ul>
+          <li>formalized logic</li>
+          <li>codified knowledge</li>
+          <li>optimized outputs</li>
+          <li>reproducible decisions</li>
+        </ul>
+
+        <p>Humans experience their own work as partly dynamic quality.</p>
+
+        <ul>
+          <li>Judgement</li>
+          <li>Craft</li>
+          <li>Taste</li>
+          <li>Moral intuition</li>
+          <li>Competence bound to their identity</li>
+        </ul>
+
+        <p>
+          When we view AI through this lens, you realize that the backlash isn't
+          against the efficiency of AI itself. It's against the displacement of
+          Dynamic Quality. From the perspective of quality
+          <strong>Productivity is a static metric</strong> but
+          <strong>meaning comes from Dynamic Engagement </strong>.
+        </p>
+
+        <p>
+          AI improves static value (speed, scale, consistency) but at the cost
+          of removing the human from
+          <i>the moment when quality is actually felt</i>.
+        </p>
+
+        <p>"It works" is not equivalent to "I experienced Quality doing it"</p>
+
+        <p>
+          This arrangement creates <i>alienation</i>, not resistance to
+          technology itself. People don't fear the replacement of labour, they
+          fear replacement of <i>judgement</i>.
+        </p>
+
+        <p>
+          Dynamic quality requires <i>choice</i>, <i>responsibility</i>, and
+          <i>risk</i>. But AI introduces:
+        </p>
+        <ul>
+          <li>Plausible deniability ("the model said so")</li>
+          <li>Distance from consequences</li>
+          <li>Automation of judgement</li>
+        </ul>
+
+        <p>
+          This violates a deep quality intuition that Moral decisions should
+          <i>hurt</i> a little.
+        </p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Domain</th>
+              <th>Reaction</th>
+              <th>Why</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Art & Writing</td>
+              <td>Strong</td>
+              <td>DQ-heavy, identity-linked</td>
+            </tr>
+            <tr>
+              <td>Software</td>
+              <td>Mixed</td>
+              <td>Craft vs. Abstraction tension</td>
+            </tr>
+            <tr>
+              <td>Operations</td>
+              <td>Weak</td>
+              <td>Already static-dominated</td>
+            </tr>
+            <tr>
+              <td>Governance</td>
+              <td>Strong</td>
+              <td>moral authority challenged</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>
+          The more a role derives meaning from Dynamic Quality, the stronger the
+          resistance.
+        </p>
+      </section>
+
+      <section>
+        <h2>Down to the real underlying <strong>fear</strong></h2>
+
+        <p>AI freezes today's understanding and calls it best practices.</p>
+
+        <p>
+          This is static value claiming moral supremacy which is a classic
+          signal of <i>cultural stagnation</i>. People intuitively sense that AI
+          may optimize the past, while quietly suffocating the future.
+        </p>
+
+        <p>
+          People resist AI not because it lacks intelligence, but because it
+          threatens the fragile space where Dynamic Quality turns into meaning.
+        </p>
+      </section>
+
+      <section>
+        <h2>Circling Back</h2>
+
+        <p>
+          If we go back to the long litany of complaints that surface about AI,
+          we can potentially map them down to more specific moral issues where
+          there's unstable, or one-sided force in the static-dynamic balance of
+          tension.
+        </p>
+
+        <table>
+          <tr>
+            <th>Epistemic Fragility</th>
+            <td>Static correctness masquerading as understanding</td>
+          </tr>
+          <tr>
+            <th>Lack of System Context</th>
+            <td>Static local optimisation overriding holistic judgement</td>
+          </tr>
+          <tr>
+            <th>Energy-Value Imbalance</th>
+            <td>Static efficiency metrics crowding out lived value</td>
+          </tr>
+          <tr>
+            <th>Accountability Dilution</th>
+            <td>Static authority displacing personal responsibility</td>
+          </tr>
+          <tr>
+            <th>Cognitive Atrophy</th>
+            <td>Dynamic Quality starved by premature optimization</td>
+          </tr>
+          <tr>
+            <th>Psychological Alienation</th>
+            <td>Loss of dynamic meaning in the act of work</td>
+          </tr>
+          <tr>
+            <th>Homogenization of Outputs</th>
+            <td>Static pattern replication suppressing creative variation</td>
+          </tr>
+          <tr>
+            <th>Frozen past bias</th>
+            <td>Static historical norms resisting present judgement quality</td>
+          </tr>
+          <tr>
+            <th>False Authority</th>
+            <td>Static probability elevated above human discretion</td>
+          </tr>
+          <tr>
+            <th>Governance Lag</th>
+            <td>Static institutions unable to keep page with dynamic change</td>
+          </tr>
+          <tr>
+            <th>Tool-Role Confusion</th>
+            <td>Static tooling promoted to moral decision-maker</td>
+          </tr>
+          <tr>
+            <th>Inappropriate Workflows</th>
+            <td>Dynamic judgement reduced to mechanical signalling</td>
+          </tr>
+          <tr>
+            <th>Enshittification</th>
+            <td>Static optimisation overwhelming human-quality spaces</td>
+          </tr>
+        </table>
+
+        <p>
+          Each of these concerns appears different on the surface, but they all
+          describe the same failure mode: static value systems expanding into
+          spaces where dynamic judgement is essential.
+        </p>
+
+        <p>
+          Let's have a look at the pro-sides arguments through the lens of our
+          static-dynamic framework of thought and see how those arguments stand
+          up to the same treatment.
+        </p>
+
+        <hr />
+        <p><strong>Leverage of Expertise</strong></p>
+        <dl class="dl-table">
+          <dt>Static gain</dt>
+          <dd>Codifies past expert patterns at scale</dd>
+          <dt>Holds when</dt>
+          <dd>Expertise is stable, well-understood, and repeatable</dd>
+          <dt>Breaks when</dt>
+          <dd>Expertise requires situational judgement or moral trade-offs</dd>
+          <dt>Failure Mode</dt>
+          <dd>Static expertise replaces apprenticeship and growth</dd>
+        </dl>
+
+        <hr />
+
+        <p><strong>Acceleration of Iteration</strong></p>
+        <dl class="dl-table">
+          <dt>Static gain</dt>
+          <dd>Faster cycling through known solution spaces</dd>
+          <dt>Holds when</dt>
+          <dd>Iteration is exploratory but bounded</dd>
+          <dt>Breaks when</dt>
+          <dd>Speed substitutes for reflection</dd>
+          <dt>Failure mode</dt>
+          <dd>Velocity displaces learning</dd>
+        </dl>
+
+        <hr />
+
+        <p><strong>Reducton of Mechanical Load</strong></p>
+        <dl class="dl-table">
+          <dt>Static gain</dt>
+          <dd>Removes low-value cognitive friction</dd>
+          <dt>Holds when</dt>
+          <dd>Tasks are truly mechanical</dd>
+          <dt>Breaks when</dt>
+          <dd>"Mechanical" work is actually where understanding forms</dd>
+          <dt>Failure Mode</dt>
+          <dd>Premature abstraction starves out Dynamic Quality</dd>
+        </dl>
+
+        <hr />
+
+        <p><strong>Error Surface Reduction</strong></p>
+        <dl class="dl-table">
+          <dt>Static gain</dt>
+          <dd>Detects known error classes reliably</dd>
+          <dt>Holds when</dt>
+          <dd>Errors are formal and enumerable</dd>
+          <dt>Breaks when</dt>
+          <dd>Correctness depends on context or intent</dd>
+          <dt>Failure mode</dt>
+          <dd>False confidence replaces vigilance</dd>
+        </dl>
+
+        <hr />
+
+        <p><strong>Search and Recall at Scale</strong></p>
+        <dl class="dl-table">
+          <dt>Static gain</dt>
+          <dd>Compresses institutional memory</dd>
+          <dt>Holds when</dt>
+          <dd>Recall is a bottleneck</dd>
+          <dt>Breaks when</dt>
+          <dd>Synthesis is mistaken for understanding</dd>
+          <dt>Failure mode</dt>
+          <dd>Knowing <i>about</i> replaces knowing <i>why</i></dd>
+        </dl>
+
+        <hr />
+
+        <p><strong>Accessibility and Inclusion</strong></p>
+        <dl class="dl-table">
+          <dt>Static gain</dt>
+          <dd>Lowers entry barriers</dd>
+          <dt>Holds when</dt>
+          <dd>AI scaffolds learning</dd>
+          <dt>Breaks when</dt>
+          <dd>It substitutes for skill formation</dd>
+          <dt>Failure mode</dt>
+          <dd>Access without agency</dd>
+        </dl>
+
+        <hr />
+
+        <p><strong>Parallelism of Thought</strong></p>
+        <dl class="dl-table">
+          <dt>Static gain</dt>
+          <dd>Explore multiple known patterns quickly</dd>
+          <dt>Holds when</dt>
+          <dd>Options are evaluatied by humans</dd>
+          <dt>Breaks when</dt>
+          <dd>Selection is automated</dd>
+          <dt>Failure mode</dt>
+          <dd>Quantity replaces discernment</dd>
+        </dl>
+
+        <hr />
+
+        <p><strong>Standardization Where Variation Adds No Value</strong></p>
+        <dl class="dl-table">
+          <dt>Static gain</dt>
+          <dd>Reduces accidental complexity</dd>
+          <dt>Holds when</dt>
+          <dd>Variation truly adds no value</dd>
+          <dt>Breaks when</dt>
+          <dd>Standards encroach on judgement zones</dd>
+          <dt>Failure mode</dt>
+          <dd>Taylorism in cognitive work</dd>
+        </dl>
+
+        <hr />
+
+        <p><strong>Economic Efficiency</strong></p>
+        <dl class="dl-table">
+          <dt>Static gain</dt>
+          <dd>Lowers marginal cost of outputs</dd>
+          <dt>Holds when</dt>
+          <dd>Outputs are commodities</dd>
+          <dt>Breaks when</dt>
+          <dd>Meaning and responsibility matter</dd>
+          <dt>Failure mode</dt>
+          <dd>Cheap output, expensive disengagement</dd>
+        </dl>
+
+        <hr />
+
+        <p><strong>Human-in-the-loop Augmentation</strong></p>
+        <dl class="dl-table">
+          <dt>Static gain</dt>
+          <dd>Tool remains subordinate</dd>
+          <dt>Holds when</dt>
+          <dd>Human authority is explicit and real</dd>
+          <dt>Breaks when</dt>
+          <dd>The loop becomes ceremonial</dd>
+          <dt>Failure mode</dt>
+          <dd>Accountability theater</dd>
+        </dl>
+
+        <hr />
+
+        <p><strong>Shift from Recall to Judgement</strong></p>
+        <dl class="dl-table">
+          <dt>Static gain</dt>
+          <dd>Humans can "focus on judgement"</dd>
+          <dt>Holds when</dt>
+          <dd>Judgement is protected and exercised</dd>
+          <dt>Breaks when</dt>
+          <dd>Judgement is gradually automated</dd>
+          <dt>Failure mode</dt>
+          <dd>Deskilling disguised as empowerment</dd>
+        </dl>
+
+        <hr />
+
+        <p>
+          There's a pattern here to these as well, they can all become true
+          <i>so long as AI remains:</i>
+        </p>
+
+        <ol>
+          <li>Subordinate</li>
+          <li>Optional</li>
+          <li>Reversible</li>
+          <li>Visibly non-authoritative</li>
+        </ol>
+
+        <p>
+          Each and every one of these arguments breaks the moment when
+          <i>static value</i> claims reign over dynamic judgement. And pretty
+          well all these cases <i>economic incentives</i> will drive these items
+          firmly into a position where their breaking criteria are met or
+          exceeded.
+        </p>
+      </section>
+
+      <section>
+        <h2>Closing</h2>
+
+        <p>
+          Across the comparisons explored here the same pattern repeats. Each
+          begins with genuine insights, hardens into a system of static values,
+          and then overreaches by claiming moral or intellectual authority over
+          human judgement. What comes after isn't the immediate collapse of
+          society, it's the withdrawal of society through disengagement,
+          workarounds, loss of trust, and eventual cultural bypass. The systems
+          persist, but only as infrastructure, they're no longer the sources of
+          meaning or legitimacy. Like Victorian morals, they're still around,
+          just relegated to spaces where we can safely ignore them and not have
+          to interact with them.
+        </p>
+
+        <p>
+          Seen through this lens, resistance to AI isn't reactionary, and it's
+          not a replay of past technological fear. It's a response to a familiar
+          failure mode: the elevation of <i>frozen</i> understanding over lived
+          judgement. Hallucinations, accountability gaps, environmental cost,
+          mental health impacts, these aren't isolated flaws that you can patch
+          out. They're early signs of an extremely deep imbalance, where
+          optimisation displaces responsibility and efficiency crowds out
+          participation.
+        </p>
+
+        <p>
+          This also explains why AI's future is unlikely to be a clean story of
+          dominance or rejection no matter what Nvidia thinks. Like its
+          predecessors, AI will almost certainly survive, but not in the form
+          its advocates push. Systems that present themselves as authorities,
+          replacements, or moral arbiters will see growing resistance over time
+          as they're quietly routed around. Systems that are subordinate (tools
+          that can
+          <i>scaffold</i> judgement but don't replace it) will endure.
+          Acceptance will come through restraint, not persuasion or
+          inevitability.
+        </p>
+
+        <p>
+          The open question, then, isn't whether AI will improve, or whether its
+          costs can be reduced. Those issues are more or less irrelevant and are
+          at the same level as the pros and cons that are constantly
+          regurgitated. It's whether we are willing to keep judgement human,
+          responsibility local, and meaning intact. The outcome of that will
+          ultimately decide if the positives hold and the negatives are overcome
+          or become irrelevant.
+        </p>
+        <p>
+          History suggests that when technologies forget their place, society
+          doesn't argue them out of existence, it just moves on. There is
+          <i>nothing</i> so special about AI that it will be an exception to
+          that rule.
+        </p>
+      </section>
+    </article>
+  </body>
+</html>
