@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Idioms</title>
+
+    <link rel="stylesheet" href="static/css/tufte.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+
+  <body>
+    <article>
+      <h1>Idioms</h1>
+      <p class="subh2">Jeff Uren</p>
+      <section>
+        <p>
+          This is basically an evolving collection of idioms, principles, and
+          laws that I'm collecting up and parsing through to come up with some
+          concrete things to keep in the back of my head when engineering
+          solutions.
+        </p>
+      </section>
+      <section xml:id="_general">
+        <h2>General</h2>
+        <ol numeration="arabic">
+          <li>
+            <p>
+              Write the simplest thing that could possibly work first. Complex
+              algorithms might be faster in the limit, but often the limit is
+              never approached. Code clarity is almost always more important tha
+              that last 2% of performance.
+            </p>
+          </li>
+          <li>
+            <p>Avoid dynamic memory allocation.</p>
+          </li>
+          <li>
+            <p>
+              Don't re-invent the wheel. This is especially true of
+              infrastructure. Use what the OS gives you.
+            </p>
+          </li>
+          <li>
+            <p>
+              Like seatbelts, you want a type system to fit snugly but not
+              painfully.
+            </p>
+          </li>
+          <li>
+            <p>
+              If a tool has more options or features than I can easily remember,
+              it means those options effectively don't exist.
+            </p>
+          </li>
+          <li>
+            <p>Don't invent your own serialization format</p>
+          </li>
+          <li>
+            <p>
+              Exiting early and complaining loudly is a kind of error recovery
+            </p>
+          </li>
+          <li>
+            <p>
+              All queues are bounded, they just vary in how they deal with being
+              full.
+            </p>
+          </li>
+          <li>
+            <p>Make invalid states unrepresentable</p>
+          </li>
+          <li>
+            <p>
+              Be welcoming and friendly. No matter who much you think you made
+              it all on your own, it took a cast of thousands.
+            </p>
+          </li>
+          <li>
+            <p>Simplicity compounds towards complexity. KISS aggressively.</p>
+          </li>
+          <li>
+            <p>At the end of the dat, you're a programmer. Stay humble.</p>
+          </li>
+          <li>
+            <p>Functions are the ultimate abstraction.</p>
+          </li>
+          <li>
+            <p>
+              If you "just" understand it, everyone else is screwed. Even you in
+              six months time.
+            </p>
+          </li>
+          <li>
+            <p>Code is not documentation, it's a source of truth.</p>
+          </li>
+          <li>
+            <p>Use what's right for you in any context.</p>
+          </li>
+          <li>
+            <p>
+              All programming languages are children of lambda calculus and / or
+              turing machines. Learn them.
+            </p>
+          </li>
+          <li>
+            <p>Data commands code</p>
+          </li>
+          <li>
+            <p>Mental capacity is limited; don't fry your head computer.</p>
+          </li>
+          <li>
+            <p>Functional til it hurts; imperative until it works.</p>
+          </li>
+          <li>
+            <p>Before optimizing, profile. What you find might surprise you.</p>
+          </li>
+          <li>
+            <p>Adding complexity is not free.</p>
+          </li>
+        </ol>
+      </section>
+      <section xml:id="_on_just">
+        <h2>On "Just"</h2>
+        <blockquote>
+          <p>
+            "Just" is suggesting a solution someone might not have seriously
+            considered. "Just" suggests to get something done without spending
+            your time over-engineering or exaggerating it. Nike's famous "Just
+            do it." is a great example - just do it. don't overthink it, don't
+            make excuses, do the thing you want to do. If someone's telling you
+            to "just x" they think you have the capacity and ability to get x
+            done. If they didn't, they'd elaborate.
+          </p>
+        </blockquote>
+      </section>
+      <section xml:id="_conways_law">
+        <h2>Conways Law</h2>
+        <blockquote>
+          <attribution>
+            Melvin E. Conway
+            <citeh2>How Do Committees Invent?</citeh2>
+          </attribution>
+          <p>
+            [O]rganizations which design systems (in the broad sense used here)
+            are constrained to produce designs which are copies of the
+            communication structures of these organizations.
+          </p>
+        </blockquote>
+      </section>
+      <section xml:id="_galls_law">
+        <h2>Galls Law</h2>
+        <blockquote>
+          <attribution>
+            John Gall
+            <citeh2
+              >Systemantics: How Systems Really Work and How They Fail</citeh2
+            >
+          </attribution>
+          <p>
+            A complex system that works is invariably found to have evolved from
+            a simple system that worked. The inverse proposition also appears to
+            be true: A complex system designed from scratch never works and
+            cannot be made to work. You have to start over, beginning with a
+            working simple system.
+          </p>
+        </blockquote>
+      </section>
+    </article>
+  </body>
+</html>

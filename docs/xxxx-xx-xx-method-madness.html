@@ -1,0 +1,570 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Method Madness</title>
+    <link rel="stylesheet" href="static/css/tufte.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+
+  <body>
+    <article>
+      <h1 id="tufte-css">Method Madness</h1>
+      <p class="subtitle">Jeff Uren ★ XXXX-XX-XX</p>
+
+<section>
+
+
+<p>
+  <span class="marginnote">
+    NOTE: This was written a number of years ago as a primer to help some colleagues understand some basic programming concepts.
+  </span>
+</p>
+
+
+<p>Looking at this:</p>
+
+
+<pre>
+  <code>
+def apply_fn(x):
+    new_format = x
+
+    if x[1] != 0:
+         new_format = f"{x[0]}, ({x[1]})"
+    else:
+         new_format = x.type
+
+    return new_format
+
+df_pg_table['type_size'] = df_pg_table[['type','size']].apply(apply_fn , axis=1)
+  </code>
+</pre>
+
+
+<p>
+Its a bit janky to read and trying to understand basic programming concepts while mingled in with pandas concepts, probably muddies the water a little bit. So we'll refactor this to a similar concept using plainer python:
+</p>
+
+<pre>
+  <code>
+def apply_fn(x):
+    new_format = None
+
+    if x[1] != 0:
+        new_format = f"{x[0]}, ({x[1]})"
+    else:
+        new_format = x.type
+
+    return x + (new_format,)
+
+my_data = [
+   # (size, type)
+   (10, 'INT'),
+   (7, 'f64'),
+]
+
+my_data = map(apply_fn, my_data)
+  </code>
+</pre>
+
+<p>
+So above is a simplification of Lauras code using std (standard) python concepts. 
+</p>
+<p>
+We're declaring a method `apply_fn` and that methods signature is this line `def apply_fn(x)`
+</p>
+<p>
+So what's the significance of `x` here? It's a **variable**, it's in the **signature** but the method itself is not tied specifically to the `map` function, `map` doesn't state that there must be an `x`, and it's the same with pandas. So how does it know to use the name x for the data it passes in?
+</p>
+
+<p>
+It doesn't. The end. 
+</p>
+
+<p>
+(no not really)
+</p>
+
+<p>
+The `x` variable here is part of what's called the `local scope` "Oh frig now he's talkin' 'bout scopes" I hear you say. I know you love it :heart:.
+</p>
+
+<p>
+Scopes aren't too complicated, they're basically the context (i.e. what's available) for the code currently getting executed and they define the borders of what a block of code can access:
+</p>
+
+<pre>
+  <code>
+# this is a GLOBALLY scoped variable
+SOME_VAR = 0
+
+# this is a globally scoped function
+def some_func(x):
+    inner_var = 1
+    # x is a LOCALLY scoped variable, it's not accessible outside
+    # of this indented area
+    inner_var = x + SOME_VAR
+    # this local scope can access the GLOBAL scope, it's like a waterfall
+
+    def inner_func(y):
+        # because this function is declared INSIDE of `some_func` it can
+        # actually access variables declared in GLOBAL, inside `some_func`, 
+        # and inside itself
+        return x + y # notice we don't have to pass in `x`? it already has access to it from the outer scope
+
+    # This DOES NOT work in reverse though. `some_func` can not access the 
+    # `y` variable inside of `inner_func` you can't reach into inner scopes, 
+    # you can only reach UP out of the inner scope.
+
+    return inner_func(inner_var)
+
+# We can call some_func(x) here
+some_func(12)
+
+# But we can't call inner_func(y)
+inner_func(4) # ERROR, DOES NOT COMPUTE
+
+# We can print SOME_VAR
+print(SOME_VAR)
+
+# But we can't print y out here
+print(y) # ERROR! ERROR!
+  </code>
+</pre>
+
+<p>
+Stay with me now, we're laying some groundwork, so scopes basically save you from doing silly things, if we didn't have scopes, then you would be constantly overwriting variables all over your code in different places when you accidentally used the same name more than once. A variable named `my_var` nested somewhere deep inside of a function, inside a class, inside a loop could change the value of a variable somewhere way over on the other side of your code-base. We don't want that.
+</p>
+
+<p>
+But did you notice something else in the code above?
+</p>
+
+<p>
+We declared this function:
+</p>
+
+
+<pre>
+  <code>
+def inner_func(y):
+    return x + y
+  </code>
+</pre>
+
+<p>
+But when we called it we didn't pass it a variable named y 
+</p>
+
+<p>
+Shock, horror, notify his next of kin! A murder is afoot! Does this even run!?!?!?
+</p>
+
+<pre>
+  <code>
+return inner_func(inner_var)
+  </code>
+</pre>
+
+<p>
+What gives?
+</p>
+
+<p>
+Well it turns out there are TWO types of function "arguments" in python.
+</p>
+
+<p>* Positional Arguments</p>
+
+<pre><code>
+def my_func(x0, x1, x2):
+    print(x0, x1, x2)
+</code></pre>
+
+<p>
+* Keyword Arguments
+</p>
+
+<pre><code>
+def my_func(x0=None, x1=None, x2=None):
+    print(x0, x1, x1)
+</code></pre>
+
+<p>
+Python doesn't actually care about the names of positional arguments because python uses two different ways to pass around data:
+</p>
+
+<ul>
+<li>Pass by value (or copy on move) (used for "immutables" like int, float, string)</li>
+<li>Pass by reference (used for "mutables" like dict, list, class instances)</li>
+</ul>
+
+<p>
+You can google these, but I'll try and explain here. The gist of it, is that when you call a function with some variable:
+</p>
+
+<pre><code>
+my_var = 12
+my_func(my_var)
+</code></pre>
+
+<p>
+You're not actually sending that my_var into the function, it isn't a box containing the number 12. Depending on the type, you're either passing a "reference" to the location in memory where that data is held, or passing a reference to *a copy in memory of the data into the function*.
+</p>
+
+<p>
+`my_var` doesn't CONTAIN any data, it simply acts as a signpost to a place in your computers memory where that data lives. If it's something that's immutable (like an int, float, etc..) it will COPY that data. if it's something mutable (a dict, or list for instance), it will **pass a reference to the original data**.
+</p>
+
+<p>
+So we're not actually passing in the data itself, so the names, they actually don't matter.
+</p>
+
+<p>
+Think of variable names as an old-school library card index, if you've been really jonesin' to read the latest shades of grey or sumthin, it's in the library somewhere, but in order to find it you need something to "point" you to its location in the stacks. A code that correlates to an aisle, and a shelf. That's what a library index does.
+</p>
+
+<p>
+And that's what variables are, they tell you WHERE the book is, but they don't have much more than the title of the book themselves and a locator code. In systems languages like C++, and C these are called "pointers", in rust they're called "borrows", but in those languages you have OTHER options for passing around data, in python, you've sort of got the main pass-by-reference and pass-by-value ones, so they don't bother telling you that's what's happening under the hood, it's just. how. it. works.
+</p>
+
+<p>
+So when you do `my_func(my_var)` you're not copying the data into the functions inner scope, you're passing in an id that correlates to a location in memory, and depending on the type of data, it could be a copy of or the original data itself.
+</p>
+
+<p>
+You can actually see this:
+</p>
+
+<pre><code>
+my_var = 12
+
+print(id(my_var)) 
+# 140312941304464 <- its library code!!!
+</code></pre>
+
+        <p>
+
+When you declare (define) a function:
+        </p>
+
+        <pre><code>
+
+def my_func(x):
+    print(x)
+        </code></pre>
+
+        <p>
+What your code is effectively saying is this:
+          </p>
+
+        <ul>
+        <li>My function is called `my_func`</li>
+        <li>It accepts one positional argument which is a reference to some data in memory</li>
+        <li>You can use and modify that data in memory using a variable named `x` when executing code in my function body (my scope)</li>
+        </ul>
+
+        <p>
+So it doesn't care that the positional argument is called `x`, `plop`, `squiddledysplorch` or literally `whatever` so long as it's not a python keyword (i.e. `map`, `list` , `dict`, etc...). All it's doing, is when someone calls the function, is sending in an id locating some data, in the order they're passed in, and linking them to locally scoped variable names, the same order they're declared. 
+          </p>
+
+        <p>
+So you can actually do this:
+          </p>
+
+        <pre><code>
+def my_func(x, y):
+    print(x, y)
+
+x = 1
+y = 2
+
+my_func(x, y)
+# This will print: 1 2
+
+my_func(y, x)
+# this will print: 2 1
+
+x_plop = x
+y_plop = y
+my_func(x_plop, y_plop)
+# this will print: 1 2
+
+# If we could align it visually
+
+    my_func(y, x)    # Calling the function
+            |  |
+            ▼  ▼
+def my_func(x, y):   # Function declaration
+    print(x, y)
+        </code></pre>
+
+        <p>
+So again, much like the points in countdown, the names don't matter, they're there because remembering that you stored `12` at address `140312941304464` is a non-starter.
+          </p>
+
+        <p>
+So going back to our pythonized version of Lauras code
+          </p>
+
+        <pre><code>
+def apply_fn(x):
+    new_format = None
+
+    if x[1] != 0:
+        new_format = f"{x[0]}, ({x[1]})"
+    else:
+        new_format = x.type
+
+    return x + (new_format,)
+
+my_data = [
+   # (size, type)
+   (10, 'INT'),
+   (7, 'f64'),
+]
+
+my_data = map(apply_fn, my_data)
+        </code></pre>
+
+        <p>
+All `map` (or pandas `apply`) cares about is that the function being passed to it (in this case `apply_fn`) accepts one positional argument, `map` will call that function, passing a "reference" to the data item it's currently looping over in the iterable thing it's looping.
+          </p>
+
+        <p>
+To simplify this even more, we can take out `map` and show  you how this would work with just a plain old loop.
+          </p>
+
+        <pre><code>
+def apply_fn(x):
+    new_format = None
+    if x[1] != 0:
+        new_format = f"{x[0]}, ({x[1]})"
+    else:
+        new_format = x.type
+    return x + (new_format,)
+
+my_data = [
+   # (size, type)
+   (10, 'INT'),
+   (7, 'F64'),
+]
+
+my_new_data = []
+
+for item in my_data:
+    updated_record = apply_fn(item)
+    my_new_data.append(updated_record)
+        </code></pre>
+
+  <p>
+
+This and the previous `map` code accomplish the SAME thing. just `map` is optimized and faster under the hood.
+          </p>
+
+        <p>
+`map` and `apply`  just do the function call for you, passing a reference to the current item in its internal loop to the function as a positional argument (in this case position 0).
+          </p>
+
+</section>
+<section>
+        <h2>A gotcha</h2>
+
+        <p>
+Now, there's something to be VERY VERY clear about with pass-by-reference and pass-by-value, which you may not have caught. And python programmers actually manage to get through a significant bit of life before this bites them, I know a few who had been working with python for decades and didn't understand this. And it can be summed up like so:
+          </p>
+
+        <p>
+The data inside the function, can at times be the same data as outside the function when it's passed in by reference.
+          </p>
+
+        <p>
+That means that if you have code like this:
+          </p>
+
+        <pre><code>
+
+my_variable = {"Hello": 123} # dicts are mutable!!!
+
+def my_func(x):
+    x['Hello'] = 456
+    # notice we're not returning anything
+
+my_func(my_variable)
+
+print(my_variable)
+        </code></pre>
+
+        <p>
+You could be forgiven for assuming that the output of `print(my_variable)` would still  be:
+          </p>
+
+        <pre><code>
+{"Hello": 123}
+        </code></pre>
+
+        <p>
+But you would be **wrong**, and you should feel bad about that. Did you even read the stuff I wrote above!?!
+          </p>
+
+        <p>
+Remember that pass-by-reference means we're telling the scope inside of the function where to find the original data, **we're not making a copy of that data unless it's an immutable type** (int, float, string). We're allowing it to use the original data (and use in this case also means the ability to change).
+          </p>
+
+        <p>
+So `print(my_variable)` will output `{"Hello": 456}` even though the variable `x` is a different name, it "references" the same data in memory, even though we aren't returning or assigning the result back to `my_variable`.
+          </p>
+
+        <p>
+Through referencing, `x` and `my_variable` are linked as "pointers" to the same contiguous block of bytes of data in memory whenever `my_func` is called.
+        </p>
+
+        <p>
+To illustrate this simpler:
+          </p>
+
+        <pre><code>
+var_1 = [1] # list - mutable type
+var_2 = var_1
+var_3 = var_2
+
+# lets add 12 to the list in var_3!
+var_3.append(12)
+
+print(var_1)
+# [1, 12] wait whut?
+
+print(id(var_1))
+print(id(var_2))
+print(id(var_3))
+
+# 140197766227648
+# 140197766227648
+# 140197766227648
+        </code></pre>
+
+        <p>
+We're not copying the data here to other variables through assignment, these are all _referencing the SAME data in memory_. So when you edit ONE of them, the value accessible in all of them will be that same value as the edited one.
+          </p>
+
+        <p>
+If you're using an immutable type though, it's a different story:
+          </p>
+
+        <pre><code>
+var_1 = 12 # IMMUTABLE INT
+var_2 = var_1
+var_3 = var_2
+
+var_3 = 999
+
+print(var_1)
+# 12
+
+print(id(var_1))
+print(id(var_2))
+print(id(var_3))
+
+# 140359862360720 # var_1
+# 140359862360720 # var_2... same as var_1? WHUT?
+# 140359860206928 # var_3
+        </code></pre>
+
+        <p>
+What gives with the ids you might ask? `var_1` and `var_2` have the same id, but `var_3` has a totally different id. I thought you said immutable types make COPIES DAMMIT!
+          </p>
+
+        <p>
+Python is being very very clever here. Sneaky sneaky. It's because we edited `var_3 `'s value and didn't edit `var_2` .
+          </p>
+
+        <p>
+Python won't make a copy and update the reference to a new memory location until you try to _change the variables value_. So `var_1` and `var_2` are pointing to the same location in memory, the idea being that, if they both are supposed to have the value `12` what's the point of storing two copies of the same `12` and wasting space? So if you have multiple variables throughout your code that are `some_var = 12` they all might actually be pointing to the same `12` in memory!
+          </p>
+
+        <p>
+The moment we change `var_2` though, its id will change to a new location:
+          </p>
+
+        <pre><code>
+var_2 += 2
+
+print(var_2)
+# 14
+
+print(id(var_1))
+print(id(var_2))
+print(id(var_3))
+# 140359862360720
+# 140327892261584 <- New ID in memory
+# 140359860206928
+
+        </code></pre>
+
+        <p>
+So it's being "lazy", and the benefit of it's laziness, is that we use less memory for immutable types.
+          </p>
+
+        <p>
+
+Mind = Blown?
+        </p>
+
+</section>
+<section>
+<h2>It's just a list!</h2>
+
+        <p>
+A while back we talked about the `*` and `**` when you see them in function signatures. You can actually define a function like so:
+          </p>
+
+        <pre><code>
+
+def my_func(*args):
+    print(args)
+
+my_var = 298
+my_func(12, 16, my_var)
+# (12, 16, my_var)
+        </code></pre>
+
+        <p>
+is special, it basically tells python to collect up all the positional arguments into a tuple (an immutable list). The reason we have this, is so that we can have functions which accept varying numbers of arguments. 
+          </p>
+
+        <p>
+If we tried to do this without our special little friend `*`:
+          </p>
+
+        <pre><code>
+def my_func(args):
+    print(args)
+
+my_var = 298
+
+my_func(12, 16, my_var)
+        </code></pre>
+
+        <p>
+We would get an error:
+          </p>
+
+        <pre><code>
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: my_func() takes 1 positional argument but 3 were given
+        </code></pre>
+
+        <p>
+You might not find that all that useful, but it highlights that there's nothing special about the actual argument names here, they're just placeholders, for positions, literally. 
+          </p>
+
+        <p>
+Hopefully this has been helpful, if so, i'll do another one about classes for you guys!
+          </p>
+</section>
+</article>
+</body>
+</html>
