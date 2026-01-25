@@ -162,6 +162,10 @@ ul {
   line-height: 2rem;
 }
 
+dl > dt {
+  font-weight: bold;
+}
+
 p {
   margin-top: 1.4rem;
   margin-bottom: 1.4rem;
