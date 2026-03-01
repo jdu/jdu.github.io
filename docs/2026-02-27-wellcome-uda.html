@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Wellcome UDA</title>
+    <link rel="stylesheet" href="static/css/tufte.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+
+  <body>
+    <article>
+      <h1>Wellcome UDA</h1>
+      <p class="subtitle">Jeff Uren ★ 2026-02-26</p>
+      <p>
+        We have a weird problem at Wellcome. We have
+        <strong>too much</strong> data.
+      </p>
+
+      <section>
+        <p>
+          It's sprawling: Wellcome has a wide remit across a large number of
+          domains and undertakings that cross a lot of themes. Contrasted with a
+          product-oriented company, Wellcomes remit can feel frenetic and crazy
+          at times when you're trying to reconcile between different sources and
+          systems at play external, and internal to the organisation.
+        </p>
+
+        <p>
+          We have integrations, machine learning activities, "soft" processes
+          that revolve around spreadsheets, and more that all need
+          reconciliation.
+        </p>
+
+        <p>
+          With our remit spanning all the domains that we fund, investments,
+          finance, people management, portfolio management, and more.
+          <strong>Meaning</strong> can get lost, muddied or confused across
+          different teams and departments, and even between two people in the
+          same team.
+        </p>
+      </section>
+      <section>
+        <h2>The Lead-In</h2>
+
+        <p>
+          We've just come off of a good stretch of work to migrate our data
+          pipelines and infrastructure from a closed proprietary set of
+          platforms to something more modern and flexible. It's reduced our
+          overall cost massively in terms of licensing costs, and opened up
+          access to a lot more flexibility around using the appropriate tools
+          for any given situation and the ability to scale workloads in multiple
+          directions.
+        </p>
+        <p>
+          All of this while remaining maintainable for a small, very talented
+          team of software engineers.
+        </p>
+        <p>
+          We've made huge strides in bringing greater volumes of data, and
+          bringing new technical capabilities to our engineering team. That
+          included building custom tooling like our teams `ops-tool` that
+          smooths over some of the warts of setup and teardown of airflow
+          development environments with strong controls around access to data.
+        </p>
+
+        <p>
+          And we've made huge reductions in time to deliver data, and controls
+          and cost around that data. But we still have more to do around
+          performance improvements, governance controls, and all the other bits
+          that float around a modern data infrastructure.
+        </p>
+      </section>
+
+      <section>
+        <h2>Old Problems, Meet New Problems</h2>
+        <p>
+          We've seen significant speed-ups in our teams delivery speed, and more
+          room to focus on the hard problems. But that hasn't necessarily
+          translated up to teams that rely on the outputs of our team. Warehouse
+          tables, data products, integrations and more.
+        </p>
+
+        <p>
+          So we need to shift some of our internal focus, outwards, to create
+          tools, systems, and primitives that support Insights & Analytics
+          Teams, ML Engineers, Data Owners, Governance functions, and ultimately
+          the whole org itself to make sure that we can unlock the same speed
+          ups and agility we've unlocked for ourselves, for everyone else.
+        </p>
+
+        <p>Doing anything otherwise would be self-defeating.</p>
+      </section>
+
+      <section>
+        <h2>Enter Semantic Data</h2>
+        <p>
+          Modern data systems (data lakes, parquet files, iceberg, streaming
+          systems, worker-based parallelism) can end up sprawling really easily.
+          We have structures in place to guard against that, but for a long
+          time, governance consisted of documenting our controls with little
+          insight into the actual inner-workings of how we apply and manage it
+          for people like Data Owners.
+        </p>
+
+        <p>
+          Semantic Data has opened up a whole world of possibilities on that
+          front that currently require a lot of duct tape. As an smart, highly
+          technical team this is how we plan to tackle it all.
+        </p>
+      </section>
+      <section>
+        <h2>Unified Data Architecture (UDA)</h2>
+
+        <p>
+          This is not an <strong>enterprise data model</strong>. What we're
+          doing isn't modelling the data across all the systems and sources that
+          are at play in the organisation. That generally is a bit of a fools
+          errand where you're in a constant cycle of updates to the model to
+          keep up with change in the upstream systems.
+        </p>
+
+        <p>
+          For the purposes here, we don't particularly care how data is modeled
+          and managed in the systems upstream from us.
+        </p>
+      </section>
+      <hr />
+      <p>_ J</p>
+    </article>
+  </body>
+</html>
