@@ -1,3 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0">
+  <channel>
+    <title>JDU</title>
+
+    <link>https://jdu.github.io</link>
+    <description>Thoughts on software, systems, architecture, and experiences.</description>
+    <language>en-gb</language>
+    <lastBuildDate>Tue, 08 Apr 2026 12:00:00 GMT</lastBuildDate>
+
+    <item>
+      <title>`git` Worktrees</title>
+      <link>https://jdu.github.io/2022-git-worktrees-html</link>
+      <guid>https://jdu.github.io/2022-git-worktrees-html</guid>
+      <pubDate>Fri, 01 Jan 2021 00:00:00 GMT</pubDate>
+      <description>A run-down of using git worktress for concurrent working.</description>
+    </item>
+    <item>
+      <title>Method Madness</title>
+      <link>https://jdu.github.io/xxx-xx-xx-method-madneess.html</link>
+      <guid>https://jdu.github.io/xxx-xx-xx-method-madneess.html</guid>
+      <pubDate>Fri, 01 Jan 2021 00:00:00 GMT</pubDate>
+      <description>A rough rundown of classes and methods in python.</description>
+    </item>
+    <item>
+      <title>2020-03-16 - Working From Home</title>
+      <link>https://jdu.github.io/2020-03-16-working-from-home.html</link>
+      <guid>https://jdu.github.io/2020-03-16-working-from-home.html</guid>
+      <pubDate></pubDate>
+      <description>How to work from home by someone who has been doing it for over a decade.</description>
+    </item>
+  </channel>
 </rss>
