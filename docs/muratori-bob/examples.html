@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Operand-Primal vs Operation-Primal</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Georgia, 'Times New Roman', serif;
+      background: #1a1a2e; color: #e0ddd5;
+      font-size: 15px; line-height: 1.7;
+    }
+
+    .top-nav {
+      background: #0f3460; padding: 0.6rem 2rem;
+      font-size: 0.82rem; border-bottom: 1px solid #1a4a7a;
+    }
+    .top-nav a { color: #64ffda; text-decoration: none; }
+    .top-nav a:hover { text-decoration: underline; }
+
+    .page-header {
+      text-align: center; padding: 2.5rem 2rem 2rem;
+      background: #16213e; border-bottom: 2px solid #0f3460;
+    }
+    .page-header h1 { font-size: 1.6rem; font-weight: normal; color: #e94560; }
+    .page-header .sub {
+      color: #8892b0; font-size: 0.85rem; margin-top: 0.6rem;
+      max-width: 780px; margin-left: auto; margin-right: auto;
+    }
+
+    .content { max-width: 1600px; margin: 0 auto; padding: 2rem 2rem 4rem; }
+
+    /* ── Expression Problem intro ── */
+    .ep-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+      margin: 1.5rem 0 2.5rem;
+    }
+    .ep-card {
+      border-radius: 10px; padding: 1.2rem 1.4rem;
+      font-size: 0.84rem; line-height: 1.65;
+    }
+    .ep-card.bob   { background: #0f2a18; border: 1px solid #2a5a3a; }
+    .ep-card.casey { background: #0a1a30; border: 1px solid #1a3a6a; }
+    .ep-card h3 { font-size: 0.92rem; margin-bottom: 0.6rem; }
+    .ep-card.bob   h3 { color: #69db7c; }
+    .ep-card.casey h3 { color: #4dabf7; }
+    .ep-card ul { margin-left: 1.2rem; }
+    .ep-card li { margin: 0.25rem 0; }
+    .ep-card strong { color: #e0ddd5; }
+    .ep-card .good { color: #69db7c; }
+    .ep-card .bad  { color: #e94560; }
+    .ep-card code {
+      font-family: 'Courier New', monospace; font-size: 0.85em;
+      background: rgba(0,0,0,0.3); padding: 0.1em 0.35em; border-radius: 3px;
+    }
+
+    /* ── Matrix table ── */
+    .matrix-wrap { margin: 0 0 2.5rem; }
+    .matrix-title { font-size: 0.82rem; color: #64ffda; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.75rem; }
+    table.matrix { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    table.matrix th {
+      padding: 0.65rem 1rem; text-align: center;
+      background: #0f3460; color: #cdd9ea;
+      border-bottom: 2px solid #1a4a7a;
+    }
+    table.matrix th.row { text-align: left; }
+    table.matrix th.bob-h   { color: #69db7c; }
+    table.matrix th.casey-h { color: #4dabf7; }
+    table.matrix td {
+      padding: 0.6rem 1rem; border-bottom: 1px solid #1a2a3a;
+      vertical-align: top; line-height: 1.5; text-align: center;
+    }
+    table.matrix td.row-label { text-align: left; color: #8892b0; font-style: italic; }
+    table.matrix .good { color: #69db7c; font-weight: bold; }
+    table.matrix .bad  { color: #e94560; }
+    table.matrix tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+
+    /* ── Section heading ── */
+    .section-heading {
+      font-size: 1rem; color: #64ffda; letter-spacing: 0.06em;
+      text-transform: uppercase; margin: 2rem 0 1rem;
+      padding-bottom: 0.4rem; border-bottom: 1px solid #0f3460;
+    }
+
+    /* ── Side-by-side code ── */
+    .compare {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .code-panel { border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; }
+    .code-panel.bob   { border: 1px solid #2a5a3a; }
+    .code-panel.casey { border: 1px solid #1a3a6a; }
+    .code-panel-header {
+      padding: 0.7rem 1.2rem; display: flex; align-items: center; gap: 0.8rem;
+      font-size: 0.8rem; font-family: 'Courier New', monospace;
+      letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .bob   .code-panel-header { background: #1a3a2a; color: #69db7c; }
+    .casey .code-panel-header { background: #1a2a4a; color: #4dabf7; }
+    .code-panel-header .fname {
+      background: rgba(0,0,0,0.35); padding: 0.15rem 0.6rem;
+      border-radius: 4px; font-size: 0.76rem;
+    }
+    pre {
+      margin: 0; overflow: auto; max-height: 540px;
+      font-size: 0.76rem; line-height: 1.52;
+      font-family: 'Courier New', monospace; flex: 1;
+    }
+    .bob   pre { background: #0d1f14; padding: 1rem 1.2rem; }
+    .casey pre { background: #0a1520; padding: 1rem 1.2rem; }
+    pre code { background: none; padding: 0; }
+
+    /* ── Output blocks ── */
+    .output-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2.5rem; }
+    .output-block {
+      background: #0a0a1a; border-radius: 8px; padding: 1rem 1.2rem;
+      font-family: 'Courier New', monospace; font-size: 0.78rem;
+      line-height: 1.6; color: #a8c0d8; white-space: pre; overflow-x: auto;
+    }
+    .output-block.bob-out   { border-top: 3px solid #69db7c; }
+    .output-block.casey-out { border-top: 3px solid #4dabf7; }
+    .output-label { font-size: 0.72rem; color: #546e7a; margin-bottom: 0.5rem; display: block; }
+
+    /* ── Rust aside ── */
+    .rust-aside {
+      background: #1a1030; border: 1px solid #4a2a8a; border-radius: 10px;
+      padding: 1.2rem 1.4rem; margin-bottom: 2rem; font-size: 0.83rem; line-height: 1.65;
+    }
+    .rust-aside h3 { color: #ce9178; margin-bottom: 0.6rem; font-size: 0.9rem; }
+    .rust-aside code, .rust-aside pre {
+      font-family: 'Courier New', monospace; font-size: 0.82em;
+    }
+    .rust-aside pre {
+      background: #0d0920; border-radius: 6px; padding: 0.8rem 1rem;
+      margin: 0.6rem 0; overflow-x: auto; max-height: none;
+      color: #d4d4d4; font-size: 0.78rem;
+    }
+    .rust-aside p { margin: 0.4rem 0; }
+    .rust-aside strong { color: #e0ddd5; }
+
+    @media (max-width: 900px) {
+      .ep-grid, .compare, .output-grid { grid-template-columns: 1fr; }
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #2a4a6a; border-radius: 3px; }
+  </style>
+</head>
+<body>
+
+<div class="top-nav">
+  <a href="annotated-muratori-bob.html">← Back to Annotated Discussion</a>
+</div>
+
+<div class="page-header">
+  <h1>Operand-Primal vs Operation-Primal</h1>
+  <p class="sub">
+    The core design choice at the heart of the Martin–Muratori debate.
+    Both approaches solve the same problem — which direction of future
+    change you expect determines which one costs you less.
+  </p>
+</div>
+
+<div class="content">
+
+  <!-- ── The Expression Problem ── -->
+  <div class="section-heading">The Expression Problem</div>
+  <p style="color:#8892b0; font-size:0.85rem; margin-bottom:1.2rem; max-width:900px">
+    Every system with <em>n</em> types and <em>m</em> operations has to choose
+    one axis to optimise. You can't make both extensions free at the same time
+    in a conventional type system — this is Philip Wadler's <strong style="color:#cdd9ea">Expression Problem</strong> (1998).
+  </p>
+
+  <div class="ep-grid">
+    <div class="ep-card bob">
+      <h3>Operand-Primal &nbsp;(Bob's default)</h3>
+      <ul>
+        <li>Each <strong>type</strong> owns its own operations as methods</li>
+        <li>Interface declares the operations; every subclass implements them</li>
+        <li class="good">✓ Adding a new <strong>type</strong> — one new class, nothing else changes</li>
+        <li class="bad">✗ Adding a new <strong>operation</strong> — must open the interface <em>and</em> every existing class</li>
+      </ul>
+      <p style="margin-top:0.7rem;color:#8892b0;font-size:0.8rem">
+        Natural in OOP languages. Works best when the set of operations is
+        stable and the set of types grows over time (e.g. plugin systems).
+      </p>
+    </div>
+    <div class="ep-card casey">
+      <h3>Operation-Primal &nbsp;(Casey's default)</h3>
+      <ul>
+        <li>Types are plain <strong>data</strong> (enum tag + struct fields)</li>
+        <li>Operations are standalone functions that <code>match</code> on the tag</li>
+        <li class="good">✓ Adding a new <strong>operation</strong> — one new function, nothing else changes</li>
+        <li>★ Adding a new <strong>type</strong> — only update operations that need type-specific logic; <em>generic</em> operations (structural recursion, <code>default:</code> fallback) already work automatically</li>
+      </ul>
+      <p style="margin-top:0.7rem;color:#8892b0;font-size:0.8rem">
+        Natural in functional languages and Rust. Casey argues this works well
+        in <em>both</em> directions: generic operations degrade gracefully for
+        new types (like IO drivers returning "unsupported" for unknown opcodes),
+        so only operations with type-specific semantics need updating.
+      </p>
+    </div>
+  </div>
+
+  <!-- ── Matrix ── -->
+  <div class="matrix-wrap">
+    <div class="matrix-title">Extension cost at a glance</div>
+    <table class="matrix">
+      <tr>
+        <th class="row">Change</th>
+        <th class="bob-h">Operand-primal (OOP)</th>
+        <th class="casey-h">Operation-primal (data + functions)</th>
+      </tr>
+      <tr>
+        <td class="row-label">Add a new <strong>type</strong></td>
+        <td class="good">One new class</td>
+        <td>Update only operations with type-specific logic; generic operations (<code>case _:</code>, structural recursion) already work — like old IO drivers hitting <code>default: return UNSUPPORTED</code></td>
+      </tr>
+      <tr>
+        <td class="row-label">Add a new <strong>operation</strong></td>
+        <td class="bad">Add to the interface + implement in every class</td>
+        <td class="good">One new function</td>
+      </tr>
+      <tr>
+        <td class="row-label">Compile-time exhaustiveness check</td>
+        <td class="good">Missing method = TypeError at construction</td>
+        <td class="bad">Missing match branch = silent runtime gap</td>
+      </tr>
+      <tr>
+        <td class="row-label">Data layout control</td>
+        <td class="bad">Objects scattered across heap, vtable overhead</td>
+        <td class="good">Flat structs, cache-friendly, SIMD-amenable</td>
+      </tr>
+      <tr>
+        <td class="row-label">Batch processing / serialisation</td>
+        <td class="bad">Need Command Pattern or visitor to treat ops as data</td>
+        <td class="good">Operations are already data; trivially batchable</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- ── Rust aside ── -->
+  <div class="rust-aside">
+    <h3>🦀 &nbsp;Rust uses operation-primal as its default idiom</h3>
+    <p>
+      Rust's <code>enum</code> with pattern matching is exactly Casey's design,
+      and it is what the Rust ecosystem reaches for first. The compiler also
+      gives you exhaustiveness checking for free — a <code>match</code> that
+      misses a variant is a <strong>compile error</strong>, closing the main
+      weakness of the operation-primal approach.
+    </p>
+<pre>// Rust — operation-primal expression tree
+enum Expr {
+    Num(f64),
+    Var(String),
+    Add(Box&lt;Expr&gt;, Box&lt;Expr&gt;),
+    Mul(Box&lt;Expr&gt;, Box&lt;Expr&gt;),
+    Neg(Box&lt;Expr&gt;),
+}
+
+fn evaluate(expr: &amp;Expr, env: &amp;HashMap&lt;&amp;str, f64&gt;) -&gt; f64 {
+    match expr {
+        Expr::Num(v)      =&gt; *v,
+        Expr::Var(n)      =&gt; env[n.as_str()],
+        Expr::Add(l, r)   =&gt; evaluate(l, env) + evaluate(r, env),
+        Expr::Mul(l, r)   =&gt; evaluate(l, env) * evaluate(r, env),
+        Expr::Neg(e)      =&gt; -evaluate(e, env),
+        // miss a variant → compile error: "non-exhaustive patterns"
+    }
+}
+
+// Adding depth() costs one new function — nothing above changes:
+fn depth(expr: &amp;Expr) -&gt; usize {
+    match expr {
+        Expr::Num(_) | Expr::Var(_) =&gt; 0,
+        Expr::Add(l, r) | Expr::Mul(l, r) =&gt; 1 + depth(l).max(depth(r)),
+        Expr::Neg(e) =&gt; 1 + depth(e),
+    }
+}</pre>
+    <p>
+      Rust's <code>trait</code> system lets you opt in to operand-primal
+      selectively — implement a trait on a type to add operations to it
+      after the fact, even from external crates. This is the closest existing
+      language gets to solving the Expression Problem fully.
+    </p>
+  </div>
+
+  <!-- ── Code side-by-side ── -->
+  <div class="section-heading">Python implementations — same problem, both designs</div>
+  <p style="color:#8892b0; font-size:0.84rem; margin-bottom:1.2rem; max-width:900px">
+    Both files evaluate the same expression <code>((x * 2) + (-y))</code>
+    and produce identical output. Read the extension-test sections
+    (marked with <code>══</code> banners) to see the cost of each change.
+  </p>
+
+  <div class="compare">
+    <div class="code-panel bob">
+      <div class="code-panel-header">
+        <span>Operand-Primal</span>
+        <span class="fname">operand_primal.py</span>
+      </div>
+      <pre><code>&quot;&quot;&quot;
+Operand-Primal Design
+=====================
+The TYPE is the primary unit of organisation.
+Each type owns all the operations it will ever participate in.
+
+  Adding a new TYPE      →  cheap: one new class, nothing else changes   ✓
+  Adding a new OPERATION →  expensive: open every existing class          ✗
+
+This is Bob Martin&#x27;s preferred default.  In OOP languages it is also the
+natural grain of the language (inheritance, virtual dispatch, polymorphism).
+
+Domain: a simple expression tree.  The same problem is solved identically
+in operation_primal.py — compare the two to see the tradeoff directly.
+&quot;&quot;&quot;
+
+from __future__ import annotations
+from abc import ABC, abstractmethod
+from dataclasses import dataclass
+
+
+# ── The contract: every Expr supports these operations ───────────────────
+#    Adding an operation here forces a change in EVERY concrete class below.
+
+class Expr(ABC):
+    @abstractmethod
+    def evaluate(self, env: dict[str, float]) -&gt; float: ...
+
+    @abstractmethod
+    def pretty(self) -&gt; str: ...
+
+    @abstractmethod
+    def variables(self) -&gt; set[str]: ...
+
+
+# ── Concrete types ───────────────────────────────────────────────────────
+#    Each type is self-contained: it owns its own behaviour.
+
+@dataclass
+class Num(Expr):
+    value: float
+
+    def evaluate(self, env): return self.value
+    def pretty(self):        return str(int(self.value) if self.value == int(self.value) else self.value)
+    def variables(self):     return set()
+
+
+@dataclass
+class Var(Expr):
+    name: str
+
+    def evaluate(self, env): return env[self.name]
+    def pretty(self):        return self.name
+    def variables(self):     return {self.name}
+
+
+@dataclass
+class Add(Expr):
+    left:  Expr
+    right: Expr
+
+    def evaluate(self, env): return self.left.evaluate(env) + self.right.evaluate(env)
+    def pretty(self):        return f&quot;({self.left.pretty()} + {self.right.pretty()})&quot;
+    def variables(self):     return self.left.variables() | self.right.variables()
+
+
+@dataclass
+class Mul(Expr):
+    left:  Expr
+    right: Expr
+
+    def evaluate(self, env): return self.left.evaluate(env) * self.right.evaluate(env)
+    def pretty(self):        return f&quot;({self.left.pretty()} * {self.right.pretty()})&quot;
+    def variables(self):     return self.left.variables() | self.right.variables()
+
+
+@dataclass
+class Neg(Expr):
+    operand: Expr
+
+    def evaluate(self, env): return -self.operand.evaluate(env)
+    def pretty(self):        return f&quot;(-{self.operand.pretty()})&quot;
+    def variables(self):     return self.operand.variables()
+
+
+# ════════════════════════════════════════════════════════════════════════
+#  ADDING A NEW TYPE — the operand-primal sweet spot
+#
+#  Drop in one new class below.  evaluate(), pretty(), variables() are all
+#  implemented here.  The Expr base class and every other type are untouched.
+# ════════════════════════════════════════════════════════════════════════
+
+@dataclass
+class Pow(Expr):
+    base:     Expr
+    exponent: Expr
+
+    def evaluate(self, env): return self.base.evaluate(env) ** self.exponent.evaluate(env)
+    def pretty(self):        return f&quot;({self.base.pretty()} ^ {self.exponent.pretty()})&quot;
+    def variables(self):     return self.base.variables() | self.exponent.variables()
+
+
+# ════════════════════════════════════════════════════════════════════════
+#  ADDING A NEW OPERATION — the operand-primal pain point
+#
+#  Goal: add depth() — the maximum nesting level of an expression.
+#
+#  To do this cleanly you must:
+#    1. Add `def depth(self) -&gt; int: ...` to the Expr abstract base class
+#    2. Implement it in Num, Var, Add, Mul, Neg, AND Pow
+#
+#  That is 7 files touched for one new operation (in a real codebase, many more).
+#  Below we add it as a standalone function using isinstance matching as a
+#  workaround — but this bypasses the type system and doesn&#x27;t scale.
+# ════════════════════════════════════════════════════════════════════════
+
+def depth(expr: Expr) -&gt; int:
+    &quot;&quot;&quot;Standalone workaround — avoids opening every class, but is not OOP.&quot;&quot;&quot;
+    match expr:
+        case Num() | Var():                      return 0
+        case Add(l, r) | Mul(l, r) | Pow(l, r): return 1 + max(depth(l), depth(r))
+        case Neg(operand):                       return 1 + depth(operand)
+        case _:                                  raise TypeError(f&quot;Unknown expr: {type(expr)}&quot;)
+
+
+# ── Demo ─────────────────────────────────────────────────────────────────
+
+if __name__ == &quot;__main__&quot;:
+    # (x * 2 + (-y))  with x=3, y=1  →  5.0
+    expr = Add(Mul(Var(&quot;x&quot;), Num(2)), Neg(Var(&quot;y&quot;)))
+    env  = {&quot;x&quot;: 3.0, &quot;y&quot;: 1.0}
+
+    print(&quot;┌── Operand-Primal ─────────────────────────────┐&quot;)
+    print(f&quot;│  expr      = {expr.pretty():&lt;32} │&quot;)
+    print(f&quot;│  variables = {str(expr.variables()):&lt;32} │&quot;)
+    print(f&quot;│  evaluate  = {expr.evaluate(env):&lt;32} │&quot;)
+    print(f&quot;│  depth     = {depth(expr):&lt;32} │&quot;)
+    print(&quot;└───────────────────────────────────────────────┘&quot;)
+
+    # Extension: Pow was added for free — nothing else changed
+    expr2 = Pow(Var(&quot;x&quot;), Num(3))
+    print(f&quot;\n  New type Pow: {expr2.pretty()} = {expr2.evaluate(env)}&quot;)
+</code></pre>
+    </div>
+    <div class="code-panel casey">
+      <div class="code-panel-header">
+        <span>Operation-Primal</span>
+        <span class="fname">operation_primal.py</span>
+      </div>
+      <pre><code>&quot;&quot;&quot;
+Operation-Primal Design
+========================
+The OPERATION is the primary unit of organisation.
+Types are plain data (tagged structs); behaviour lives in standalone functions.
+
+  Adding a new OPERATION →  cheap: one new function, nothing else changes  ✓
+  Adding a new TYPE      →  only update functions that need specific logic  ★
+
+Casey&#x27;s key insight: operations divide into two kinds:
+
+  GENERIC operations work on any type via structural recursion or a
+  &#x60;case _:&#x60; fallback — adding a new type requires ZERO changes here.
+
+  TYPE-SPECIFIC operations have distinct logic per type — adding a new
+  type means one new branch in each of those functions, nothing else.
+
+  IO-driver analogy: add opcode RIO_trim to an OS IO subsystem.
+  Old drivers hit  default: return UNSUPPORTED  — zero recompilation.
+  In the vtable design every one of 1000+ drivers needs recompiling.
+&quot;&quot;&quot;
+
+from dataclasses import dataclass, field
+from enum import Enum, auto
+
+class ExprKind(Enum):
+    NUM = auto()
+    VAR = auto()
+    ADD = auto()
+    MUL = auto()
+    NEG = auto()
+    POW = auto()   # ← added in extension section
+
+@dataclass
+class Expr:
+    kind:     ExprKind
+    value:    float      = 0.0
+    name:     str        = &quot;&quot;
+    children: list       = field(default_factory=list)
+
+def num(v):          return Expr(ExprKind.NUM, value=v)
+def var(n):          return Expr(ExprKind.VAR, name=n)
+def add(l, r):       return Expr(ExprKind.ADD, children=[l, r])
+def mul(l, r):       return Expr(ExprKind.MUL, children=[l, r])
+def neg(e):          return Expr(ExprKind.NEG, children=[e])
+def pow_expr(b, e):  return Expr(ExprKind.POW, children=[b, e])
+
+
+# ── TYPE-SPECIFIC — one branch per type needed ───────────────────────────
+
+def evaluate(expr, env):
+    match expr.kind:
+        case ExprKind.NUM: return expr.value
+        case ExprKind.VAR: return env[expr.name]
+        case ExprKind.ADD: return evaluate(expr.children[0], env) + evaluate(expr.children[1], env)
+        case ExprKind.MUL: return evaluate(expr.children[0], env) * evaluate(expr.children[1], env)
+        case ExprKind.NEG: return -evaluate(expr.children[0], env)
+        case ExprKind.POW: return evaluate(expr.children[0], env) ** evaluate(expr.children[1], env)
+        # future unknown type: case _: return float(&quot;nan&quot;)  ← graceful degradation
+
+def pretty(expr):
+    match expr.kind:
+        case ExprKind.NUM:
+            v = expr.value; return str(int(v) if v == int(v) else v)
+        case ExprKind.VAR: return expr.name
+        case ExprKind.ADD: return f&quot;({pretty(expr.children[0])} + {pretty(expr.children[1])})&quot;
+        case ExprKind.MUL: return f&quot;({pretty(expr.children[0])} * {pretty(expr.children[1])})&quot;
+        case ExprKind.NEG: return f&quot;(-{pretty(expr.children[0])})&quot;
+        case ExprKind.POW: return f&quot;({pretty(expr.children[0])} ^ {pretty(expr.children[1])})&quot;
+        case _:            return f&quot;&lt;{expr.kind.name}&gt;&quot;  # ← graceful degradation
+
+
+# ── GENERIC — already work for ANY type, including POW ───────────────────
+
+def variables(expr):
+    # case _: recurse over children — handles any compound type automatically
+    match expr.kind:
+        case ExprKind.VAR: return {expr.name}
+        case ExprKind.NUM: return set()
+        case _:            return set().union(*(variables(c) for c in expr.children))
+
+
+# ════════════════════════════════════════════════════════════════════════
+#  ADDING A NEW OPERATION — the operation-primal sweet spot
+#  depth(): write one function. Everything above is untouched.
+# ════════════════════════════════════════════════════════════════════════
+
+def depth(expr):
+    # Structural recursion — works for any type, no cases needed.
+    # Adding POW required ZERO changes here.
+    if not expr.children: return 0
+    return 1 + max(depth(c) for c in expr.children)
+
+
+# ════════════════════════════════════════════════════════════════════════
+#  ADDING A NEW TYPE (POW) — what actually changed:
+#
+#    ExprKind.POW = auto()        in the enum           ← 1 line
+#    def pow_expr(b, e)           constructor            ← 1 line
+#    case ExprKind.POW:           in evaluate()          ← 1 line
+#    case ExprKind.POW:           in pretty()            ← 1 line
+#    variables()                  already worked         ← 0 changes
+#    depth()                      already worked         ← 0 changes
+#
+#  Compare operand-primal adding one OPERATION (e.g. depth()):
+#    abstract base + every concrete class = N+1 implementations
+# ════════════════════════════════════════════════════════════════════════
+
+
+if __name__ == &quot;__main__&quot;:
+    expr = add(mul(var(&quot;x&quot;), num(2)), neg(var(&quot;y&quot;)))
+    env  = {&quot;x&quot;: 3.0, &quot;y&quot;: 1.0}
+
+    print(&quot;┌── Operation-Primal ───────────────────────────┐&quot;)
+    print(f&quot;│  expr      = {pretty(expr):&lt;32} │&quot;)
+    print(f&quot;│  variables = {str(variables(expr)):&lt;32} │&quot;)
+    print(f&quot;│  evaluate  = {evaluate(expr, env):&lt;32} │&quot;)
+    print(f&quot;│  depth     = {depth(expr):&lt;32} │&quot;)
+    print(&quot;└───────────────────────────────────────────────┘&quot;)
+
+    print(&quot;\n  ── New OPERATION: depth() — added for free ──&quot;)
+    deep = add(add(add(var(&quot;x&quot;), num(1)), num(2)), num(3))
+    print(f&quot;  depth({pretty(deep)}) = {depth(deep)}&quot;)
+
+    print(&quot;\n  ── New TYPE: POW — what already worked without changes ──&quot;)
+    p = pow_expr(var(&quot;x&quot;), num(3))
+    print(f&quot;  pow_expr: {pretty(p)} = {evaluate(p, env)}&quot;)
+    print(f&quot;  variables({pretty(p)}) = {variables(p)}  ← generic, zero changes&quot;)
+    print(f&quot;  depth({pretty(p)})     = {depth(p)}         ← generic, zero changes&quot;)
+</code></pre>
+    </div>
+  </div>
+
+  <!-- ── Output ── -->
+  <div class="section-heading">Output</div>
+  <div class="output-grid">
+    <div class="output-block bob-out"><span class="output-label">$ python operand_primal.py</span>┌── Operand-Primal ─────────────────────────────┐
+│  expr      = ((x * 2) + (-y))                 │
+│  variables = {'x', 'y'}                       │
+│  evaluate  = 5.0                              │
+│  depth     = 2                                │
+└───────────────────────────────────────────────┘
+
+  New type Pow: (x ^ 3) = 27.0</div>
+    <div class="output-block casey-out"><span class="output-label">$ python operation_primal.py</span>┌── Operation-Primal ───────────────────────────┐
+│  expr      = ((x * 2) + (-y))                 │
+│  variables = {'x', 'y'}                       │
+│  evaluate  = 5.0                              │
+│  depth     = 2                                │
+└───────────────────────────────────────────────┘
+
+  ── New OPERATION: depth() — added for free ──
+  depth((((x + 1) + 2) + 3)) = 3
+
+  ── New TYPE: POW — what already worked without changes ──
+  pow_expr: (x ^ 3) = 27.0
+  variables((x ^ 3)) = {'x'}  ← generic, zero changes
+  depth((x ^ 3))     = 1         ← generic, zero changes</div>
+  </div>
+
+  <!-- ── Key insight callout ── -->
+  <div style="background:#16213e; border:1px solid #1a4a7a; border-left:4px solid #e94560;
+              border-radius:8px; padding:1.2rem 1.4rem; font-size:0.84rem; line-height:1.65;">
+    <strong style="color:#e94560">The debate in one sentence:</strong>
+    <span style="color:#cdd9ea"> Bob defaults to operand-primal because he expects types to proliferate;
+    Casey defaults to operation-primal because operations are flat data — directly serialisable,
+    batchable, and bufferable without any additional patterns.</span>
+    <br><br>
+    <strong style="color:#64ffda">Casey's nuance on the "adding types is hard" criticism:</strong>
+    <span style="color:#cdd9ea"> Only <em>type-specific</em> operations need a new branch.
+    Generic operations that recurse over structure, or that return a safe default for unknown types
+    (analogous to an IO driver's <code style="font-size:0.82em">default: return UNSUPPORTED</code>),
+    require <strong>zero changes</strong> when a new type is added.
+    The real asymmetry is in the vtable direction: adding a single new virtual method to an
+    interface forces <em>every existing class</em> to be updated or recompiled — including
+    a thousand device drivers that don't support the new operation at all.</span>
+    <br><br>
+    <span style="color:#8892b0; font-size:0.82rem">
+    Both agree the choice should be deliberate and context-dependent.
+    The disagreement is about which one to reach for <em>first</em> — and about
+    whether the traditional Expression Problem framing accurately captures the real-world costs.
+    </span>
+  </div>
+
+</div><!-- /content -->
+</body>
+</html>
