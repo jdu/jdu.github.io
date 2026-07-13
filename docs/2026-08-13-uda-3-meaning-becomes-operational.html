@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Data, Ontologies, and Data Architecture (UDA) - Part 1</title>
+    <link rel="stylesheet" href="static/css/tufte.css" />
+    <script src="static/js/theme.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="A deep dive into Upper Data Architecture — an operational ontology connecting organisational meaning to real data sources, fields, and pipelines."
+    />
+    <meta
+      property="og:title"
+      content="Data, Ontologies, and Data Architecture (UDA)"
+    />
+    <meta
+      property="og:description"
+      content="A deep dive into Upper Data Architecture — an operational ontology connecting organisational meaning to real data sources, fields, and pipelines."
+    />
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:url"
+      content="https://jdu.github.io/2026-07-06-wellcome-uda-ontologies.html"
+    />
+    <meta property="og:site_name" content="Frozen Insight in a Moving World" />
+    <meta name="twitter:card" content="summary" />
+    <meta
+      name="twitter:title"
+      content="Data, Ontologies, and Data Architecture (UDA)"
+    />
+    <meta
+      name="twitter:description"
+      content="A deep dive into Upper Data Architecture — an operational ontology connecting organisational meaning to real data sources, fields, and pipelines."
+    />
+  </head>
+
+  <body>
+    <article>
+      <nav class="back-link"><a href="index.html">← Jeff Uren</a></nav>
+      <h1>Part 3: When Meaning Becomes Operational</h1>
+      <p class="subtitle">Jeff Uren ★ 2026-07-06</p>
+
+      <section>
+        <p>
+          This is the third article in a series about building a shared
+          understanding of data, ontologies, and data architecture (UDA) in a
+          large organisation that struggles with meaning.
+        </p>
+
+        <ul>
+          <li>
+            <a href="2026-07-01-uda-001.html">Next: Part 2</a>
+          </li>
+          <li>
+            <a href="2026-07-01-uda-002.html">Next: Part 2</a>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <p>So far we've been talking about concepts.</p>
+
+        <ul>
+          <li>Applications</li>
+          <li>Funded Grants</li>
+          <li>Payments</li>
+          <li>People</li>
+          <li>Attributes</li>
+          <li>Relationships</li>
+          <li>Domains</li>
+        </ul>
+
+        <p>It's all very... <i>tidy</i>.</p>
+
+        <p>It's also, on it's own, absolutely, completely, useless.</p>
+
+        <p>
+          An ontology that exists only as a diagram isn't much different than
+          documentation. It might be beautifully designed, meticulously
+          maintained, and technically correct, but if nobody builds systems on
+          top of it, it's little more than an expensive glossary.
+        </p>
+
+        <p>
+          We've all seen these types of projects, business gloassries, metadata
+          catalogues, a beautifully modeled enterprise ontology.
+        </p>
+
+        <p>
+          Three months later it's already drifting away from reality because
+          reality kept moving while the documentation stood still.
+        </p>
+
+        <p>
+          The problem isn't that people don't care about it, it's that
+          documentation is optional. Operationally important software isn't.
+        </p>
+
+        <p>
+          That's where we decided to do something slightly different. Instead of
+          asking:
+        </p>
+
+        <blockquote>"How do we document the organisation?"</blockquote>
+
+        <p>We started asking:</p>
+
+        <blockquote>"How do we make the organisation executable?"</blockquote>
+      </section>
+
+      <section>
+        <h2>Meaning has to pay its rent</h2>
+
+        <p>
+          One of my favourite tests for any piece of architecture is a very
+          simple question.
+        </p>
+
+        <p>
+          <strong>If I deleted this tomorrow, what would stop working?</strong>
+        </p>
+
+        <p>
+          If the answer is "nothing", then you've probably built documentation,
+          if the answer is "half the platform", you've probably built
+          infrastructure.
+        </p>
+
+        <p>
+          The UDA only becomes valuable when software depends on it, that's the
+          threshold where meaning stops being descriptive and starts becoming
+          operational.
+        </p>
+      </section>
+
+      <section>
+        <h2>Crossing into the physical world</h2>
+
+        <p>Eventually every concept has to meet recorded data.</p>
+
+        <ul>
+          <li>Somewhere there really is an Awarded Amount</li>
+          <li>Somewhere there really is an Application Status</li>
+          <li>Somewhere there really is a Lead Organisation</li>
+        </ul>
+
+        <p>
+          They live in tables, Parquet files, APIs, CSV exports, and all the
+          other wonderfully awkward places operational systems like to hide
+          information.
+        </p>
+
+        <p>
+          That doesn't make those datasets sources of trust, they're just a
+          source of recorded values, and the meaning lives elsewhere.
+        </p>
+
+        <p>
+          To connect those two worlds we introduce a really simple idea:
+          Mappings
+        </p>
+
+        <p>A mapping says:</p>
+
+        <blockquote>This field represents this concept.</blockquote>
+
+        <p>
+          Not "looks like it a bit", or "probably corresponds to". Represents.
+        </p>
+
+        <p>
+          That's a super important difference, because it means we stop asking
+          databases what something means, and we star telling databases what the
+          values represent.
+        </p>
+      </section>
+
+      <section>
+        <h2>The bridge becomes the platform</h2>
+
+        <p>
+          Once those mappings exist something interesting starts to happen. You
+          can begin at either end.
+        </p>
+
+        <p>
+          Start with a field, follow it to the Attribute, and follow that to the
+          DirectClass it describes, and go further to the related concepts
+          across the organisation.
+        </p>
+
+        <p>
+          Or start from the other direction and begin with a Funded Grant, find
+          every Attribute that contributes information, then find every dataset
+          that contribues that information, and find every physical field, every
+          transformation, find every downstream consumer.
+        </p>
+
+        <p>
+          The meaning and storage stop being separate worlds and become one
+          connected graph and that's where the UDA stops feeling like an
+          ontology and starts feeling like critical infrastructure.
+        </p>
+      </section>
+
+      <section>
+        <h2>Building outputs from meaning</h2>
+
+        <p>People rarely want an ontology, they want some damn answers.</p>
+
+        <ul>
+          <li>Dahsboards</li>
+          <li>Reports</li>
+          <li>Applications</li>
+          <li>APIs</li>
+          <li>Extracts</li>
+        </ul>
+
+        <p>Traditionally we build those things from storage upwards.</p>
+
+        <p>
+          Somebody writes SQL, or dataframe operations, someone else writes
+          another version of the SQL, eventually everyone has slightly different
+          answerts to the same question.
+        </p>
+
+        <p>We turned that process upside down, and instead of asking:</p>
+
+        <blockquote>Which tables should I join?</blockquote>
+
+        <p>we ask,</p>
+
+        <blockquote>What concept am I trying to describe?</blockquote>
+
+        <p>
+          A Projection starts with meaning, it selects concepts, attributes,
+          relationhips and the platform works out where those values live.
+        </p>
+
+        <p>
+          All the joins, transformations, storage, anmmd final shape and
+          implementation just become consequences of the semantics which is
+          whole new way of building data products.
+        </p>
+      </section>
+
+      <section>
+        <h2>Lineage becomes obvious</h2>
+
+        <p>
+          Organisation inevitably decide they need lineage, then they buy
+          tooling to reconstruct it afterwards.
+        </p>
+
+        <p>
+          It's a bit like trying to work out where every brick in your house
+          came from after you've already built it.
+        </p>
+
+        <p>
+          When meaning drives the platform, lineage appears almost accidentally.
+          Every projection already knows:
+        </p>
+
+        <ul>
+          <li>which concepts represent it</li>
+          <li>which Attributes it selected</li>
+          <li>which Mappings it relied on</li>
+          <li>which Fields supplied values</li>
+          <li>which Sources contained those fields</li>
+        </ul>
+
+        <p>
+          You don't discover lineage, you generate it, because it was part of
+          the process from the beginning.
+        </p>
+      </section>
+
+      <section>
+        <h2>Governance follows meaning</h2>
+
+        <p>
+          Governance suffers from the same problem in that most governance
+          systems attach themselves to storage.
+        </p>
+
+        <ul>
+          <li>This table contains personal information</li>
+          <li>That bucket contains financial information</li>
+          <li>This report contains sensitive data</li>
+        </ul>
+
+        <p>
+          There's nothing inherently wrong with those statements, they're just
+          unbelievably fragile.
+        </p>
+
+        <p>
+          Move the data somewhere else and suddenly you've got to rediscover
+          everything.
+        </p>
+
+        <p>So instead we attach governance to meaning, we say:</p>
+
+        <ul>
+          <li>An Attribute can be sensitive</li>
+          <li>A Relationship can have restrictions</li>
+          <li>A Concept can require approval</li>
+        </ul>
+
+        <p>
+          Once those lead ideas exist, they naturally propagate. Every Mapping,
+          Projection, API, and Application inherits them and governance stops
+          chasing data around the platform.
+        </p>
+
+        <p>The platform carries governance wherever the meaning goes.</p>
+      </section>
+
+      <section>
+        <h2>Change becomes understandable</h2>
+
+        <p>Every engineer eventually hears the same quesiton:</p>
+
+        <blockquote>If we cahgne this... what breaks?</blockquote>
+
+        <p>
+          Normally that answer involves a fair bit of archaeology, searching
+          through repos, reading SQL, checking dashboards, guessing.
+        </p>
+
+        <p>
+          An operational ontology answers the question immediately and directly,
+          if a source field changes we already know:
+        </p>
+
+        <ul>
+          <li>Which mappings depend on it</li>
+          <li>Which concepts are affected</li>
+          <li>Which projections use those concepts</li>
+          <li>Which APIs expose them</li>
+          <li>Which applications consume those APIs</li>
+        </ul>
+
+        <p>
+          The interesting thing isn't that we can build dependency graphs, it's
+          that those dependency graphs exist because we modelled the meaning
+          first.
+        </p>
+      </section>
+
+      <section>
+        <h2>Quality becomes correspondence</h2>
+
+        <p>
+          Earlier in this series I described data quality as correspondence.
+        </p>
+
+        <p>
+          How closely does a recorded value match the piece of reality it claims
+          to describe?
+        </p>
+
+        <p>
+          Operational semantics finally lets us enforce that because Awarded
+          Amount should never be negative, and a Grant shouldn't finish before
+          it starts, and because an Application can't be AWarded if it was
+          Withdrawn.
+        </p>
+
+        <p>Those aren't really database rules, they're organisational rules.</p>
+
+        <p>The ontology gives them somewhere to live.</p>
+      </section>
+
+      <section>
+        <h2>This changes how software is written</h2>
+
+        <p>
+          This is probably the biggest shift in thinking here, because we're no
+          longer writing software that understands databases, we're writing
+          software that understands the organisation.
+        </p>
+
+        <p>
+          Things like databases, warehouses, and storage format are just
+          implementation details, the organisation itself is the interface.
+        </p>
+
+        <p>It's a point where things start to really accelerate.</p>
+
+        <p>
+          Once software understands meaning rather than storage, an enormous
+          amount of functionality stops needing to be hand-written because it
+          can be generated, derived, projected, traversed, and explored.
+        </p>
+
+        <p>That's what has started happening for us.</p>
+
+        <ul>
+          <li>GraphQL APIs</li>
+          <li>Warehouse projections</li>
+          <li>Semantic search</li>
+          <li>Change impact</li>
+          <li>Governance propagation</li>
+          <li>LIneage</li>
+        </ul>
+
+        <p>
+          None of this were separate projects, they were all consequences of the
+          same decision, model the organisation first.
+        </p>
+
+        <p>Let everything else follow.</p>
+      </section>
+
+      <hr />
+      <section>
+        <p>
+          In the final article we'll look at where all this ultimately leads,
+          which isn't just another dashboard, it actually takes us to some
+          really interesting places.
+        </p>
+        <a href="2026-07-01-uda-004.html">Next: Part 4</a>
+      </section>
+    </article>
+  </body>
+</html>

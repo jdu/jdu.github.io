@@ -128,7 +128,8 @@ hr {
   padding: 0;
 }
 
-p.subtitle {
+p.subtitle,
+p.subh2 {
   font-style: italic;
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -581,4 +582,101 @@ details {
   p {
     padding-left: 16px;
   }
+}
+
+nav.back-link {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+nav.back-link a {
+  opacity: 0.5;
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+
+nav.back-link a:hover {
+  opacity: 1;
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) body {
+    background-color: #1c1917;
+    color: #e2d8c8;
+  }
+
+  html:not([data-theme="light"]) hr {
+    border-top-color: #38322c;
+  }
+
+  html:not([data-theme="light"]) .marginnote,
+  html:not([data-theme="light"]) .sidenote,
+  html:not([data-theme="light"]) figcaption {
+    color: #9a8f80;
+  }
+
+  html:not([data-theme="light"]) section > table thead tr th {
+    border-bottom-color: #38322c;
+  }
+
+  html:not([data-theme="light"]) section > table tbody tr:nth-child(even) td,
+  html:not([data-theme="light"]) section > table tbody tr:nth-child(even) th {
+    background-color: #242018;
+  }
+
+  html:not([data-theme="light"]) .dl-table > dt,
+  html:not([data-theme="light"]) .dl-table > dd {
+    border-bottom-color: #38322c;
+  }
+}
+
+html[data-theme="dark"] body {
+  background-color: #1c1917;
+  color: #e2d8c8;
+}
+
+html[data-theme="dark"] hr {
+  border-top-color: #38322c;
+}
+
+html[data-theme="dark"] .marginnote,
+html[data-theme="dark"] .sidenote,
+html[data-theme="dark"] figcaption {
+  color: #9a8f80;
+}
+
+html[data-theme="dark"] section > table thead tr th {
+  border-bottom-color: #38322c;
+}
+
+html[data-theme="dark"] section > table tbody tr:nth-child(even) td,
+html[data-theme="dark"] section > table tbody tr:nth-child(even) th {
+  background-color: #242018;
+}
+
+html[data-theme="dark"] .dl-table > dt,
+html[data-theme="dark"] .dl-table > dd {
+  border-bottom-color: #38322c;
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  color: inherit;
+  opacity: 0.4;
+  padding: 0.25rem;
+  transition: opacity 0.15s;
+  z-index: 100;
+  line-height: 1;
+  font-family: et-book, Palatino, "Palatino Linotype", "Palatino LT STD",
+    "Book Antiqua", Georgia, serif;
+}
+
+.theme-toggle:hover {
+  opacity: 1;
 }

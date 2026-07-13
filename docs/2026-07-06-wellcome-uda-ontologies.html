@@ -1,0 +1,2588 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Data, Ontologies, and Data Architecture (UDA)</title>
+    <link rel="stylesheet" href="static/css/tufte.css" />
+    <script src="static/js/theme.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="A deep dive into Upper Data Architecture — an operational ontology connecting organisational meaning to real data sources, fields, and pipelines."
+    />
+    <meta
+      property="og:title"
+      content="Data, Ontologies, and Data Architecture (UDA)"
+    />
+    <meta
+      property="og:description"
+      content="A deep dive into Upper Data Architecture — an operational ontology connecting organisational meaning to real data sources, fields, and pipelines."
+    />
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:url"
+      content="https://jdu.github.io/2026-07-06-wellcome-uda-ontologies.html"
+    />
+    <meta property="og:site_name" content="Frozen Insight in a Moving World" />
+    <meta name="twitter:card" content="summary" />
+    <meta
+      name="twitter:title"
+      content="Data, Ontologies, and Data Architecture (UDA)"
+    />
+    <meta
+      name="twitter:description"
+      content="A deep dive into Upper Data Architecture — an operational ontology connecting organisational meaning to real data sources, fields, and pipelines."
+    />
+  </head>
+
+  <body>
+    <article>
+      <nav class="back-link"><a href="index.html">← Jeff Uren</a></nav>
+      <h1>Wellcome Data, Ontologies, and Data Architecture (UDA)</h1>
+      <p class="subtitle">Jeff Uren ★ 2026-07-06</p>
+
+      <section>
+        <p>
+          <strong>WARNING:</strong> This article contains some graphic
+          descriptions of human suffering. If you are sensitive to that, please
+          skip the "Some personal background" section. It adds weight to what
+          we're doing, but it's not wholly necessary to understand the technical
+          content herein.
+        </p>
+
+        <p>
+          This is gonna be a bit of a long post. I apologize for that up front,
+          but I'm going to take you on a bit of a journey (with pictures). The
+          important thing isn't necessarily the technical details, it's the
+          outcomes we're driving towards at the end, and what all this work, and
+          thought will enable for Wellcome around data as a whole and
+          potentially more widely.
+        </p>
+
+        <p>
+          I'm going to hold your hand through some gnarly things that will feel
+          a little simple at first, and then really complex complex fast, but I
+          promise you, they have purpose. We're going to get more and more
+          complicated, but hold out until the end for the big payouts. Let me
+          cook.
+        </p>
+
+        <p>
+          The thing I'm describing below isn't <strong>just</strong> a data
+          model, a metadata catalogue, or another diagram someone has to keep
+          alive for audit season. It's an attempt to build something more useful
+          than that: a shared, operational description of the concepts that
+          matter to Wellcome, how they hang together, and how real recorded
+          values in our data platform connect back to them.
+        </p>
+
+        <p>
+          At the start of DataOps (my team), we were trying to solve much more
+          <strong>immediate problems</strong> than described here. We needed
+          better orchestration, better pipelines, better primitives for rapidly
+          building and maintaining data pipelines, and better ways of turning
+          messy operational data into something people could actually use and
+          trust, all at a reasonable cost point.
+        </p>
+
+        <p>
+          Now that those things are stabilizing, there are a number of recurring
+          problems that are rooted in a fundamental, foundational problem that
+          Wellcome suffers from that we need to address: if we don't know what
+          our data means, then all the engineering and analysis in the world
+          only helps us <strong>move uncertainty around faster</strong>.
+        </p>
+      </section>
+
+      <section>
+        <h2>Some personal background</h2>
+
+        <p>
+          I don't particularly like talking about myself, but as I get older, I
+          find myself having to do it more and more in order to make myself
+          heard. People only <em>hear</em> you if you can claim experience
+          outright in a way that engages them and breaks through to their
+          conscious. In this case it's worth setting the stage for why I take
+          data as seriously as I do.
+        </p>
+
+        <p>
+          Years before this place, I spent a long time working in disease
+          surveillance and outbreak management systems with the WHO and UNHCR
+          across parts of Africa, the Middle East, and the Pacific. At the
+          height of it, I was coordinating data and work across ~20 countries,
+          dozens of organisations, and thousands of people on the ground.
+        </p>
+
+        <figure>
+          <img
+            src="static/img/uda-mingkaman-training.jpg.webp"
+            alt="Training aid workers in Mingkaman"
+            loading="lazy"
+          />
+          <figcaption>
+            Training aid workers in Mingkaman. Credit: J. Uren
+          </figcaption>
+        </figure>
+
+        <p>
+          That sort of work gives you a fairly low tolerance for data theatre,
+          you learn fast that a chart isn't automatically insight, form fields
+          aren't automatically truth, and sometimes it's easier to write the
+          numbers on a piece of paper and carry it across a river than to try
+          and get a mobile signal to submit a form. Easier to drive hours and
+          hours to transcribe a remote clinics paper records into a spreadsheet
+          than to spend months negotiating with the local telecom.
+        </p>
+
+        <p>
+          In that world, you also learn very quickly that the important
+          questions are usually super awkward and specific. Things like:
+        </p>
+
+        <ul>
+          <li>What does "suspected case" mean?</li>
+          <li>Who recorded it?</li>
+          <li>Where was it recorded?</li>
+          <li>What location does it refer to?</li>
+          <li>When did the symptoms start?</li>
+          <li>When was the case reported?</li>
+          <li>Has this person already been counted somewhere else?</li>
+        </ul>
+
+        <p>
+          <em>Is this an actual increase in cases?</em> Or did reporting just
+          improve because someone finally got mobile signal, a top-up on their
+          data plan, fuel, a laptop charger, or five quiet minutes in a tent?
+        </p>
+
+        <p>
+          That whole world makes something painfully clear:
+          <em>data is representation, not reality</em>. It's value is only
+          useful if you understand what piece of reality it claims to represent.
+          At it's most severe, a data point can't convey the anguish a man feels
+          having to push his heavily pregnant, bleeding wife in a wheelbarrow
+          for miles and miles, to get her to a clinic only to have her die half
+          a mile before they get there. It can't communicate the despair of a
+          mother watching her child wracked with pain from a wholly preventable
+          disease because the local clinic has no vaccines, or because the
+          supply chain has broken down, or because data didn't predict that a
+          vaccine shortage was coming, or that a disease outbreak was imminent,
+          or understand that a particular community was at risk because of a
+          combination of factors that no single data point could ever represent.
+        </p>
+
+        <p>
+          All of this isn't just a humanitarian or public health problem, it's a
+          data problem. It's the same class of problem that you'll see in any
+          organisation, just with a lot less dramatic consequences. For
+          Wellcome, the consequences are usually not life and death, but they're
+          still very real. They're the difference between a researcher getting
+          the funding they need to do their work, or not. They're the difference
+          between a patient getting the right treatment, or not. They're the
+          difference between a team being able to make a decision, or not.
+        </p>
+
+        <p>
+          Values on their own don't really <em>mean</em> a whole lot though.
+          They need to be tied back to something they claim to describe. A way
+          of making meaning explicit, so that when people query, analyse,
+          govern, build, automate, or question that data, they are standing on
+          something firmer than just column names, simple metadata, and
+          inherited assumptions.
+        </p>
+
+        <p>
+          I take data <strong>very seriously,</strong> as a byproduct of knowing
+          for years, every morning when I woke up, how many children had died
+          from preventable diseases in every little village, community, refugee
+          camp, and clinical position across some of the hardest hit places in
+          the world. I had alerts wired directly to my phone. That seriousness
+          comes from having slept on gurneys in war-torn clinics, while gunfire
+          is rattling the walls in order to get it. From standing in clinics
+          where the only way to get a child vaccinated was to carry them across
+          an infested river, or seen a child suffering from Measles in the
+          stifling heat of a refugee camp clinic. Meeting children whose bellies
+          are so full of worms that you can see them wriggling under their
+          distended skin. Watching people wade through disease-infested waters
+          to get to food, and seeing the consequences of not having the right
+          data to make the right decisions.
+        </p>
+
+        <figure>
+          <img
+            src="static/img/uda-mingkaman-food.jpg.webp"
+            alt="Food arriving in the Mingkaman refugee camp"
+            loading="lazy"
+          />
+          <figcaption>
+            Food arriving in the Mingkaman refugee camp. Credit: J. Uren
+          </figcaption>
+        </figure>
+      </section>
+
+      <section>
+        <h2>So what is data?</h2>
+
+        <p>
+          Before we can start down our wider journey, we need to establish a
+          <em>ground plane</em>. I've already done a lot of talking about
+          <em>data</em> in very emotional terms but I've not done a lot to agree
+          on what <em>data</em> actually is.
+        </p>
+
+        <p>
+          We're going to be coming at data from a few different perspectives, so
+          I want us all to be on the same page, speaking the same dialect before
+          we start into it. We have a tendency to label a lot of things "data"
+          that aren't, or to overload the term with so many different meanings
+          that it becomes almost useless.
+        </p>
+
+        <h3>1 — Data is representation, not the thing itself</h3>
+
+        <p>
+          It's a recorded value that stands in for some real-world fact, entity,
+          or event.
+        </p>
+
+        <h3>2 — Data requires three ingredients</h3>
+
+        <p>
+          Like fire (air, fuel, and heat), data requires three primary aspects
+          in order to exist:
+        </p>
+
+        <ul>
+          <li><strong>An attribute</strong> — what's being described</li>
+          <li><strong>An entity or event</strong> — what it belongs to</li>
+          <li>
+            <strong>A value</strong> — the recorded state (usually at some point
+            in time)
+          </li>
+        </ul>
+
+        <h3>3 — Data only has meaning in relation to reality</h3>
+
+        <p>
+          A number or symbol isn't "data" until it's tied to something it's
+          meant to represent.
+        </p>
+
+        <h3>4 — Quality</h3>
+
+        <p>
+          And finally, a good rule to remember is that
+          <em>data quality is really a question of correspondence</em>. It's how
+          well the recorded value matches the real-world state that it claims to
+          reflect.
+        </p>
+
+        <p>
+          That's our definition of data moving forward. You can use it too if
+          you want. I won't complain.
+        </p>
+      </section>
+
+      <section>
+        <h2>Things</h2>
+
+        <p>
+          If data is <strong>representation,</strong> then the next logical
+          question isn't "where is the table?" or "what is the column called?".
+        </p>
+
+        <p>It's:</p>
+
+        <blockquote>
+          <p>What is being represented?</p>
+        </blockquote>
+
+        <p>
+          Before we talk about sources, fields, mappings, projections, APIs,
+          query engines, governance, or AI, we need to start with the smallest
+          useful piece of the world that we're trying to build.
+        </p>
+
+        <p>A thing.</p>
+
+        <figure>
+          <img
+            src="static/img/uda-thing.png.webp"
+            alt="A thing."
+            loading="lazy"
+          />
+          <figcaption>A thing.</figcaption>
+        </figure>
+
+        <p>
+          Some part of reality that matters enough for the organisation to
+          <em>record</em> something about it.
+        </p>
+
+        <p>
+          That thing could be a funded grant. It might be an application. It
+          might be an organisation, transaction, a person, a project, a payment,
+          a scheme, an event, or any number of other things Wellcome needs to
+          understand.
+        </p>
+
+        <p>
+          We don't care where the data lives, or which system produces it,
+          whether it's in postgres, parquet, workday, oracle, or someone's
+          terrifying spreadsheet named
+          "final_final_v7_really_final-records-2026-07-04.xlsx".
+        </p>
+
+        <p>We need to ask a more basic question:</p>
+
+        <blockquote>
+          <p>What kind of thing is this, and what do we know about it?</p>
+        </blockquote>
+
+        <p>
+          That's our first <strong>doorway</strong>, we start with a thing, then
+          we ask what attributes describe that thing, then we ask how those
+          things relate to other things, on to what values, in which sources
+          claim to represent those attributes, driving towards how we map,
+          govern, query, project, and make those things <em>useful</em>.
+        </p>
+
+        <p>
+          So we start here at a "thing", a <strong>Concept</strong>. Some entity
+          or event, slightly amorphous at the moment.
+        </p>
+      </section>
+
+      <section>
+        <h2>Concepts &amp; Attributes</h2>
+
+        <p>
+          At first, that thing is deliberately vague. It's just a blob of
+          meaning. Something in the world that we care about.
+        </p>
+
+        <p>
+          But blobs are not very useful for long, so we need to give it a name.
+          In our system we named that thing a <strong>DirectClass</strong>.
+        </p>
+
+        <p>
+          A DirectClass represents a concept that matters to the organisation.
+          Something like:
+        </p>
+
+        <ul>
+          <li>Funded Grant</li>
+          <li>Application</li>
+          <li>Worker</li>
+          <li>Organisation</li>
+          <li>Payment</li>
+          <li>Funding Scheme</li>
+        </ul>
+
+        <p>
+          A DirectClass isn't a table, it's not a row, not a dashboard object,
+          not a source system entity, although it may be represented in one or
+          more source systems.
+        </p>
+
+        <p>
+          A DirectClass is our <em>agreed description</em> of a kind of thing
+          that exists in the world of Wellcome.
+        </p>
+
+        <p>So when we say `FundedGrant` we're not saying:</p>
+
+        <blockquote>
+          <p>"There is a table called funded_grants."</p>
+        </blockquote>
+
+        <p>We're saying:</p>
+
+        <blockquote>
+          <p>
+            "There is a meaningful organizational concept called Funded Grant,
+            and we need a way to describe it consistently."
+          </p>
+        </blockquote>
+
+        <p>Once we have a DirectClass, the next question is pretty obvious:</p>
+
+        <blockquote>
+          <p>What do we know about it?</p>
+        </blockquote>
+
+        <p>This is where <strong>Attributes</strong> come into play.</p>
+
+        <p>
+          An Attribute describes some property, characteristics, or recorded
+          state that can belong to a DirectClass.
+        </p>
+
+        <p>A Funded Grant might have:</p>
+
+        <ul>
+          <li>Awarded Amount</li>
+          <li>Grant Reference</li>
+          <li>Start Date</li>
+          <li>End Date</li>
+          <li>Application Status</li>
+          <li>Lead Organisation</li>
+          <li>Funding Scheme</li>
+          <li>Currency</li>
+          <li>Award Date</li>
+        </ul>
+
+        <p>Again, <strong>these are not columns</strong>.</p>
+
+        <p>
+          They might <em>eventually</em> map to columns. They might map to
+          fields in parquet files, JSON structures, APIs, documents, or computed
+          values. But at this point we're still not talking about physical
+          storage.
+        </p>
+
+        <p>We're talking about <em>meaning</em>.</p>
+
+        <p>An Attribute is a reusable concept in its own right.</p>
+
+        <p>
+          In a normal data model, you might end up with `grant_id`,
+          `application_grant_id`, `award_grant_id`, `finance_grant_reference`,
+          and three other versions of more or less the same thing scattered
+          across data tables.
+        </p>
+
+        <p>
+          Some of them could mean the same thing, some of them might not. Some
+          of them may look the same until they quietly ruin your analysis.
+        </p>
+
+        <p>We avoid that by making the Attribute <em>explicit</em>.</p>
+
+        <p>
+          If `Grant Reference` is a meaningful attribute, then we define it
+          once. We give it a name, a description, a type, ownership,
+          sensitivity, and whatever other semantic information we need.
+        </p>
+
+        <p>The DirectClasses can use it.</p>
+
+        <p>
+          But an Attribute does not just float around near a DirectClass hoping
+          someone understand the connection.
+        </p>
+
+        <p>
+          It's connected through a <strong>property relationship</strong>. The
+          property relationship says:
+        </p>
+
+        <blockquote>
+          <p>
+            "This DirectClass has this Attribute as one of the things that can
+            describe it."
+          </p>
+        </blockquote>
+
+        <p>So we could say:</p>
+
+        <pre><code>FundedGrant --hasProperty--> AwardedAmount
+FundedGrant --hasProperty--> GrantReference
+FundedGrant --hasProperty--> StartDate
+FundedGrant --hasProperty--> LeadOrganisation</code></pre>
+
+        <p>
+          It tells us that `Awarded Amount` is not just some general idea. It's
+          an Attribute that can describe a Funded Grant. It also means the same
+          Attribute can be reused elsewhere, where it makes sense.
+        </p>
+
+        <p>
+          For example `Start Date` might describe a Funded Grant, a Project, a
+          Contract, or an Employment Period. We don't need to invent a new
+          `Start Date` every single time.
+        </p>
+
+        <p>
+          We need to understand if the same concept applies in each context,
+          sometimes it will, sometimes it won't. That's exactly the type of
+          conversation that our system is meant to force out into the open.
+        </p>
+
+        <p>The property relationship gives us a clean structure:</p>
+
+        <pre><code>DirectClass -> hasProperty -> Attribute</code></pre>
+
+        <p>Or, in more human terms:</p>
+
+        <pre><code>A Funded Grant has an Awarded Amount.
+A Funded Grant has a Grant Reference.
+A Funded Grant has a Start Date.
+A Funded Grant has a Lead Organisation.</code></pre>
+
+        <figure>
+          <img
+            src="static/img/uda-class-and-attributes.png.webp"
+            alt="A DirectClass and its Attributes"
+            loading="lazy"
+          />
+          <figcaption>A DirectClass and Attributes</figcaption>
+        </figure>
+
+        <p>Still no values. At this stage we're <strong>not saying</strong>:</p>
+
+        <blockquote>
+          <p>"This grant was awarded £1,000,000"</p>
+        </blockquote>
+
+        <p>We are saying:</p>
+
+        <blockquote>
+          <p>
+            "A Funded Grant is the kind of thing that can have an Awarded
+            Amount"
+          </p>
+        </blockquote>
+
+        <p>
+          We're building a grammar of the world we care about, this might feel
+          very childish, but it's very important to have strong foundations.
+        </p>
+
+        <ul>
+          <li><strong>DirectClasses</strong> give us the nouns.</li>
+          <li><strong>Attributes</strong> give us the properties.</li>
+        </ul>
+
+        <p>
+          Property relationships tell us which Attributes can describe which
+          nouns.
+        </p>
+      </section>
+
+      <section>
+        <h2>Relationships</h2>
+
+        <p>Things don't exist in isolation.</p>
+
+        <p>
+          A Funded Grant may have a Lead Organisation, Transactions, Payments,
+          Applications, People associated with it, it may belong to a Scheme, it
+          may relate to Topics, Places, Partners, or any number of other
+          concepts that matter to Wellcome.
+        </p>
+
+        <p>That's where <strong>Relationships</strong> come in.</p>
+
+        <p>
+          A Relationship describes how one DirectClass can be connected to
+          another DirectClass.
+        </p>
+
+        <p>Again, we're not talking about <em>joins</em>. We're not saying:</p>
+
+        <blockquote>
+          <p>`funded_grant.grant_id == transaction.grant_id`</p>
+        </blockquote>
+
+        <p>
+          That comes later, right now we're saying something more conceptual:
+        </p>
+
+        <pre><code>FundedGrant --hasPayment--> Transaction
+FundedGrant --hasLeadOrganisation--> Organisation
+FundedGrant --originatedfrom--> Application
+FundedGrant --submittedBy--> Organisation</code></pre>
+
+        <p>
+          The relationship gives a name to the connection between two concepts,
+          that name is important.
+        </p>
+
+        <figure>
+          <img
+            src="static/img/uda-relationships.png.webp"
+            alt="Relationships in the UDA"
+            loading="lazy"
+          />
+          <figcaption>Relationships in the UDA</figcaption>
+        </figure>
+
+        <p>
+          A FundedGrant might relate to a Transaction in more than one way, one
+          relationship might be called `Payments` and another might be called
+          `Refunds`. Both could connect the same two DirectClasses, but they
+          <em>do not mean the same thing</em>.
+        </p>
+
+        <p>
+          So Relationships are a first-class citizen in our world. If we can
+          describe the Relationship, we can later decide how that relationship
+          is materialized from source data. A data model usually starts with
+          structure, our system differs in that it starts with <em>meaning</em>,
+          the structure comes after.
+        </p>
+      </section>
+
+      <section>
+        <h2>Enumerations</h2>
+
+        <p>
+          Some Attributes can take almost any value, an Awarded Amount might be
+          any valid monetary amount, a start date might be any valid date, a
+          grant reference might be any valid identifier.
+        </p>
+
+        <p>
+          We have to recognize that some Attributes are kind of different. A
+          good example is `Application Status`, which has a finite set of
+          discrete values:
+        </p>
+
+        <ul>
+          <li>Awarded</li>
+          <li>Rejected</li>
+          <li>Withdrawn</li>
+          <li>In Review</li>
+          <li>Draft</li>
+          <li>Submitted</li>
+        </ul>
+
+        <p>That controlled set is an <em>Enumeration</em>.</p>
+
+        <p>
+          An Enumeration defines the list of permitted values for a particular
+          kind of Attribute. This gives us a way to make meaning extremely
+          explicit. Without an Enumeration, status values tend to drift and
+          morph in weird ways:
+        </p>
+
+        <ul>
+          <li>One system says `Awarded`</li>
+          <li>another `AWARDED`</li>
+          <li>yet another `Successful`</li>
+          <li>and yet another `Approved`</li>
+          <li>still more just record `A`</li>
+          <li>the worst just have `1`</li>
+        </ul>
+
+        <p>
+          Everyone insists their version is obvious until someone tries to
+          combine them together. The Enumeration gives us a shared semantic set.
+          It says:
+        </p>
+
+        <blockquote>
+          <p>
+            "These are the meaningful values we recognize for this concept."
+          </p>
+        </blockquote>
+      </section>
+
+      <section>
+        <h2>Enumeration Values</h2>
+
+        <p>An <em>Enumeration Value</em> is one member of an Enumeration.</p>
+
+        <p>
+          So if `Application Status` is the Enumeration, then `Awarded`,
+          `Rejected`, and `Withdrawn` are Enumeration Values.
+        </p>
+
+        <p>That sounds simple, but it's doing really really useful work.</p>
+
+        <p>
+          Each Enumeration Value can have its own name, description, synonyms,
+          mappings, and governance rules. That lets us distinguish between the
+          value as it appears in the system it came from, and the value we
+          understand in the world.
+        </p>
+
+        <p>For example:</p>
+
+        <pre><code>Source value: SUCCESSFUL    World: Awarded
+Source value: WDRN          World: Withdrawn
+Source value: RE3           World: Rejected</code></pre>
+
+        <p>
+          The source system can keep its own codes, our system holds the agreed
+          meaning.
+        </p>
+
+        <p>
+          That means applications, query engines, generated APIs, projections,
+          and AI tools do not have to guess whether `SUCCESSFUL`, `Approved`,
+          and `Awarded` are the same thing. Our system can tell them, and it's
+          not just about tidying up <em>labels.</em> It's
+          <strong>preserving meaning</strong>. Something standard catalogues
+          can't do.
+        </p>
+      </section>
+
+      <section>
+        <h2>Domains</h2>
+
+        <p>We now have a few important pieces:</p>
+
+        <ul>
+          <li>DirectClass</li>
+          <li>Attribute</li>
+          <li>Property Relationship</li>
+          <li>Relationship</li>
+          <li>Enumeration</li>
+          <li>Enumeration Value</li>
+        </ul>
+
+        <p>
+          But we still need somewhere to organise them. That's where
+          <strong>Domains</strong> come forward. A Domain is a broad
+          organisational bucket of meaning. Something like:
+        </p>
+
+        <ul>
+          <li>Funding</li>
+          <li>Finance</li>
+          <li>People</li>
+          <li>Digital &amp; Technology</li>
+          <li>Investments</li>
+          <li>Climate &amp; Health</li>
+        </ul>
+
+        <p>
+          A Domain gives us a way to group the concepts, attributes,
+          relationships, and enumerations that belong to a particular part of
+          Wellcome's world.
+        </p>
+
+        <p>
+          So `Funded Grant`, `Application`, `Scheme`, `Awarded Amount`, and
+          `Application Status` might sit in the Funding Domain. Finance concepts
+          would sit in the Finance Domain.
+        </p>
+
+        <p>
+          You get the point, but the point isn't to create rigid little
+          kingdoms, the point is to give all of this meaning a home. These
+          Domains help with ownership, governance, and aide in discovery.
+        </p>
+
+        <p>
+          They help people understand where a concept came from, who probably
+          cares about it, and where to go when the definition needs to be
+          challenged or improved.
+        </p>
+
+        <p>
+          But Domains don't prevent re-use, an Attribute definition in one
+          Domain may still be useful in another. A DirectClass in one Domain may
+          still relate to a DirectClass in another Domain.
+        </p>
+
+        <p>
+          A Funded Grant might belong mainly in Funding, but it might relate to
+          Finance through Transactions, to Organisations through Lead
+          Organisation, and to People through roles and responsibilities.
+        </p>
+
+        <p>And that's OK.</p>
+
+        <p>
+          Our system isn't trying to pretend the organisation is neatly divided
+          into discrete little boxes. It's trying to give us a way to
+          <em>describe</em> the boxes, the things inside them, and the
+          relationships that cross between them.
+        </p>
+
+        <p>
+          So, at this point, the upper ontology has started to take shape. We
+          have:
+        </p>
+
+        <pre><code>Domain
+ │
+ ├── DirectClass
+ │   ├── hasProperty -> Attribute
+ │   └── hasRelationship -> DirectClass
+ │
+ ├── Attribute
+ │   └── may use -> Enumeration
+ │
+ └── Enumeration
+         └── hasValue -> Enumeration Value</code></pre>
+
+        <p>
+          There's still no recorded values, no source tables, no parquet files,
+          no warehouse projections. We're still describing the conceptual shape
+          of the world, but now we have enough structure to start to say useful
+          things.
+        </p>
+
+        <ul>
+          <li>We can say what kinds of things exist.</li>
+          <li>We can say what properties describe them.</li>
+          <li>We can say how they relate to each other.</li>
+          <li>
+            We can say which values are allowed for controlled attributes.
+          </li>
+          <li>
+            We can say which part of the organisation owns or understands them
+            best.
+          </li>
+        </ul>
+
+        <p>
+          That's a huge foundation, once it comes into existence, we can start
+          connecting it to real data.
+        </p>
+      </section>
+
+      <section>
+        <h2>DataMesh</h2>
+
+        <p>
+          We've been purposely avoiding value, and only talking about concepts.
+          These are all useful, all necessary, but still slightly floating above
+          the ground a bit.
+        </p>
+
+        <ul>
+          <li>No files</li>
+          <li>No tables</li>
+          <li>No rows</li>
+          <li>No columns</li>
+          <li>No source systems</li>
+          <li>
+            No awkward legacy exports with mysterious field names and three
+            different meanings hiding under one label.
+          </li>
+        </ul>
+
+        <p>
+          We need to link our conceptual world to the physical world of recorded
+          values and that's where the <strong>DataMesh</strong> comes in.
+        </p>
+
+        <p>
+          In our case, the DataMesh is the governed layer of real data produced
+          by our pipelines. These are concrete datasets that exist in the
+          platform: stored, versioned, typed, inspectable, and available for
+          use.
+        </p>
+
+        <p>
+          A DataMesh dataset might contain funding records, transactions, HR
+          records, finance records, application data, organisational data, or
+          any number of other useful sets of recorded values.
+        </p>
+
+        <p>
+          That data is not part of our world. They're not the conceptual model,
+          they're the <strong>physical evidence</strong>. They are where the
+          recorded values live.
+        </p>
+
+        <p>
+          Our upper ontology gives us the language of <em>meaning</em>, the
+          DataMesh gives us the stored values. Where it starts to get
+          interesting is where we <strong>connect the two.</strong>
+        </p>
+
+        <figure>
+          <img
+            src="static/img/uda-datamesh-app.png.webp"
+            alt="Screen shot of the DataMesh application"
+            loading="lazy"
+          />
+          <figcaption>
+            Screen shot of the DataMesh application. Credit: J. Uren
+          </figcaption>
+        </figure>
+      </section>
+
+      <section>
+        <h2>Sources</h2>
+
+        <p>
+          A Source in our upper ontology represents one of those concrete
+          datasets in the DataMesh. It's not a Domain concept, it doesn't
+          represent a meaningful organisational thing like a `Funded Grant` or
+          `Organisation`. It just represents a stored set of values.
+        </p>
+
+        <p>For example:</p>
+
+        <pre><code>urn:wellcome:uda:datamesh:funding_records_v1</code></pre>
+
+        <p>That URN identifies a real dataset in the platform.</p>
+
+        <ul>
+          <li>The dataset exists</li>
+          <li>It has a stable identifier</li>
+          <li>It has fields</li>
+          <li>It has types</li>
+          <li>It has structure</li>
+          <li>It has metadata</li>
+          <li>It can be inspected</li>
+          <li>
+            It can be <em>mapped</em> to the concepts in our upper ontology
+          </li>
+        </ul>
+
+        <p>
+          That's where the physical data platform starts to meet the ontology,
+          but the Source itself is still only a container. The useful details is
+          in the Fields.
+        </p>
+      </section>
+
+      <section>
+        <h2>Fields</h2>
+
+        <p>
+          A <strong>Field</strong> represents an individual value-bearing
+          element inside of a Source. If a Source is roughly equivalent to a
+          dataset, then a Field is roughly equivalent to a column, property, or
+          named value inside the dataset.
+        </p>
+
+        <p>For example:</p>
+
+        <pre><code>urn:wellcome:uda:datamesh:funding_records_v1:grant_reference
+urn:wellcome:uda:datamesh:funding_records_v1:awarded_amount
+urn:wellcome:uda:datamesh:funding_records_v1:application_status
+urn:wellcome:uda:datamesh:funding_records_v1:lead_organisation_id</code></pre>
+
+        <p>
+          A Field has technical information attached to it, things like it's
+          type, nullability, structure. Sometimes it has statistics, physical
+          locality, and some information about it's originating system or
+          pipeline.
+        </p>
+
+        <p>
+          Because we use storage formats like Parquet and Iceberg, a lot of this
+          can be discovered automatically from the data itself, without a lot of
+          complex, expensive processing or inference.
+        </p>
+
+        <p>
+          We're not asking someone to manually type out every field in a
+          catalogue and then slowly watch it rot, or asking an LLM to curate for
+          us because we can inspect the real datasets, read their schemas, and
+          we can generate Source and Field representations in our ontology
+          automatically which gives us a much stronger foundation than
+          handwritten metadata.
+        </p>
+
+        <p>
+          But a Field still doesn't tell us enough on its own. A field called
+          `amount` might be useful, but it's also might be a trap. Amount of
+          what? Awarded Amount? Paid Amount? Refunded Amount? Committed Amount?
+          Requested Amount? Local Currency? GBP? Original transaction currency?
+        </p>
+
+        <p>
+          A Field tells us where a recorded value lives, it doesn't tell us, by
+          itself, what that value means. For that we need a Mapping.
+        </p>
+      </section>
+
+      <section>
+        <h2>Mappings</h2>
+
+        <p>
+          A <strong>Mapping</strong> connects the physical world of Sources and
+          Fields to the conceptual world of DirectClasses, Attributes,
+          Relationships, and Enumeration Values. It's a huge hinge that the
+          whole system pivots on.
+        </p>
+
+        <p>Our Mappings say:</p>
+
+        <blockquote>
+          <p>This field, from this Source, represents this Attribute.</p>
+        </blockquote>
+
+        <p>For example:</p>
+
+        <pre><code>funding_records_v1:awarded_amount
+  maps to
+FundedGrant.hasProperty(AwardedAmount)
+
+funding_record_v1.application_status
+  maps to
+ApplicationStatus Enumeration
+
+funding_records_v1.lead_organisation_id
+  helps materialise
+FundedGrant --hasLeadOrganisation--> Organisation</code></pre>
+
+        <p>
+          This is where the system stops being a simple conceptual model and
+          starts becoming operational machinery. The Mapping tells the platform
+          how to interpret <strong>real data.</strong> It tells the query engine
+          how to materialize values for concepts, generated APIs how to expose
+          values, projections how to build analytical shapes, governance what
+          sensitive concepts are represented in physical data, impact analysis
+          what might break if a source field changes.
+        </p>
+
+        <p>
+          Without Mappings, the ontology and the data platform are two separate
+          worlds unrelated across a vast gulf of uncertainty. With mappings they
+          become one system.
+        </p>
+
+        <h3>Mapping is not just column labeling</h3>
+
+        <p>It's tempting to think of Mapping as simply saying:</p>
+
+        <blockquote>
+          <p>source_column = ontology_attribute</p>
+        </blockquote>
+
+        <p>
+          It's actually a lot more than that, because a DirectClass can be
+          represented across multiple Sources. An Attribute could be computed
+          from multiple different Fields, and a Relationship could be
+          materialized through a bridge table.
+        </p>
+
+        <p>
+          Sometimes a source value needs to be normalized into an Enumeration
+          Value.
+        </p>
+
+        <p>Sometimes the same Field contributes to more than one concept.</p>
+
+        <p>
+          Sometimes a Field looks useful but should not be mapped at all,
+          because its meaning is too ambiguous or too source-specific.
+        </p>
+
+        <p>
+          This is why Mappings need to be explicit. They capture the judgement
+          required to connect recorded values to organisational meaning. It's
+          the place where we say:
+        </p>
+
+        <blockquote>
+          <p>
+            This is what this value claims to represent.<br />
+            This is the concept it belongs to.<br />
+            This is how we should interpret it.<br />
+            This is how it participates in the wider context.
+          </p>
+        </blockquote>
+
+        <p>
+          What we end up with is something a million times more stronger than a
+          catalogue of columns, we end up with traceability from meaning to
+          storage, and from storage back to meaning.
+        </p>
+
+        <p>Our upper ontology has grown:</p>
+
+        <pre><code>UDA
+├── Domain
+│   ├── DirectClass
+│   │   ├── hasProperty -> Attribute
+│   │   └── hasRelationship -> DirectClass
+│   │
+│   ├── Attribute
+│   │    └── mayUse -> Enumeration
+│   │
+│   ├── Enumeration
+│   │    └── hasValue -> Enumeration Value
+│   │
+│   └── Relationship
+│        ├── from -> DirectClass
+│        └── to -> DirectClass
+│
+└── DataMesh
+    ├── Source
+    │   └── hasField -> Field
+    │
+    ├── Field
+    │   └── belongsTo -> Source
+    │
+    └── Mapping
+        ├── mapsFrom -> Source / Field
+        ├── mapsTo -> DirectClass / Attribute
+        ├── mayMaterialise -> Relationship
+        └── mayNormaliseTo -> Enumeration Value</code></pre>
+      </section>
+
+      <section>
+        <h2>Projections</h2>
+
+        <p>At this point we have the concepts.</p>
+
+        <p>
+          We have DirectClasses, Attributes, Relationships, Enumerations,
+          Domains, Sources, Fields, and Mappings. We have a way of saying what
+          something means, where the recorded value lives, and how those values
+          connect back to the meaning.
+        </p>
+
+        <p>
+          It's a really solid foundation, but foundations are not the thing you
+          came to see. Sooner or later, someone needs an output.
+        </p>
+
+        <p>
+          A table. A data mart. An API. A GraphQL endpoint. A file. A push to
+          another system. Some shape that another person, system, or application
+          can actually use.
+        </p>
+
+        <p>This is where <strong>Projections</strong> come in.</p>
+
+        <p>
+          A Projection is what happens when we take meaning from the ontology
+          and push it out into another shape.
+        </p>
+
+        <p>
+          We might start with a concept like `Funded Grant`. Then we might say
+          we want its awarded amount, start date, status, lead organisation, and
+          related transactions. We might want to follow relationships through
+          the ontology. We might want to apply some transformations. The final
+          result could be needed as a warehouse table, or as an endpoint for an
+          application, or as a data mart for analysis.
+        </p>
+
+        <p>
+          The important part is that we are not starting from the
+          <strong>storage</strong>. We're not starting with "which table do I
+          join to which other table?".
+        </p>
+
+        <p>We're starting with:</p>
+
+        <blockquote>
+          <p>What meaning do I want to project?</p>
+        </blockquote>
+
+        <p>
+          The projection builder takes that definition and works out the
+          machinery underneath. It uses the ontology, the mappings, the sources,
+          and the fields to compute the queries needed to produce the shape. It
+          runs those queries against the infrastructure, builds the output and
+          carries the meaning and metadata along with it.
+        </p>
+
+        <p>That last bit is really, really important.</p>
+
+        <p>
+          A Projection is itself part of the ontology. It's not just an output
+          sitting off to one side. It knows which DirectClasses it was built
+          from. It knows which Attributes were selected. It knows which
+          Relationships were followed. It knows which Sources and Fields
+          contributed values. It knows which transformations were applied.
+        </p>
+
+        <p>
+          So we get a line of sight from input to output, not just a technical
+          lineage, we can see how meaning moved through the system.
+        </p>
+
+        <p>
+          Projects become much more than generated tables, they become declared,
+          repeatable, inspect-able components of the platform.
+        </p>
+
+        <p>
+          A Projection can be rebuilt. It can be versioned, it can be tested. It
+          can be governed, it can be changed without losing the thread of what
+          it was meant to represent. That's the beating heart of it.
+        </p>
+
+        <p>The DirectClass is the thing we care about.</p>
+        <p>The Mapping connects that thing to real recorded values.</p>
+        <p>The Projection turns that meaning into a useful shape.</p>
+
+        <p>
+          And because the Projection is still connected to the ontology, the
+          shape doesn't become detached from the meaning that produced it.
+        </p>
+      </section>
+
+      <section>
+        <h2>Measures, Lenses, and Terms</h2>
+
+        <p>The last few pieces to explain are Lenses, Measures, and Terms.</p>
+
+        <p>
+          These aren't about bringing source data into the ontology. Sources,
+          Fields, Mappings, and Projections do that work.
+        </p>
+
+        <p>
+          Lenses, Measures, and Terms are about how people use the ontology once
+          the meaning is there.
+        </p>
+
+        <p>
+          They help us slice data, define metrics, and attach a wider
+          organisational language to the concepts in the ontology.
+        </p>
+
+        <h3>Lenses</h3>
+
+        <p>
+          A <strong>Lens</strong> is a predefined way of slicing or grouping
+          data.
+        </p>
+
+        <p>
+          A Lens doesn't belong to a Domain, it sits across the ontology and can
+          be reused where it makes sense.
+        </p>
+
+        <p>For example:</p>
+
+        <ul>
+          <li>By Geography</li>
+          <li>By Time</li>
+          <li>By Funding Scheme</li>
+          <li>By Funding Round</li>
+        </ul>
+
+        <p>A Lens can also drill into more specific Lenses.</p>
+
+        <pre><code>By Geography
+ └── By Region
+         └── By Country
+                 └── By Municipality</code></pre>
+
+        <p>And `By Time` might lead to:</p>
+
+        <pre><code>By Time
+ └── By Financial Year
+         └── By Quarter
+         └── By Month</code></pre>
+
+        <p>The Lens itself describes the slicing idea.</p>
+
+        <p>
+          It does not, on its own, explain how that slicing works for every
+          concept in the ontology. That's where
+          <strong>LensBindings</strong> come in.
+        </p>
+
+        <p>
+          A <strong>LensBinding</strong> connects a Lens to a specific
+          <strong>DirectClass</strong>.
+        </p>
+
+        <p>It says:</p>
+
+        <blockquote>
+          <p>
+            "When this Lens is used against this DirectClass, this is how it
+            should be materialized"
+          </p>
+        </blockquote>
+
+        <p>
+          For example, `By Geography` might be bound to `FundedGrant`. That
+          binding would describe which Attributes or Relationships are used to
+          work out the geography for a Funded Grant. Which is important because
+          the same Lens could mean slightly different things depending on the
+          concept they're attached to.
+        </p>
+
+        <p>For a Funded Grant, geography could mean:</p>
+
+        <ul>
+          <li>The administering organisation's location</li>
+          <li>The researcher's location</li>
+          <li>The location where the funding activity takes place</li>
+          <li>The address attached to the funded work</li>
+        </ul>
+
+        <p>
+          Those aren't interchangeable. So the LensBinding gives us somewhere to
+          be explicit.
+        </p>
+
+        <p>It can include disambiguation notes, things like:</p>
+
+        <blockquote>
+          <p>
+            For Funded Grants, geography may refer to the administering
+            organisations' location, researcher location, or funded activity
+            location.
+          </p>
+        </blockquote>
+
+        <p>
+          That means users can slice data in useful ways without pretending the
+          slicing is always simple.
+        </p>
+
+        <h3>Measures</h3>
+
+        <p>
+          A <strong>Measure</strong> is a concrete metric. Unlike a Lens, a
+          Measure belongs to a Domain.
+        </p>
+
+        <p>
+          For example, in the Funding Domain, we might define Measures like:
+        </p>
+
+        <ul>
+          <li>Applications</li>
+          <li>Funded Grants</li>
+          <li>Funding Spend</li>
+          <li>Awarded Amount</li>
+          <li>Number of Awards</li>
+        </ul>
+
+        <p>
+          A Measure describes something we want to count, sum, compare, trend,
+          or otherwise analyze. But, as with a Lens, the Measure itself isn't
+          really enough. We also need to know how that Measure is derived from
+          the concepts in the ontology.
+        </p>
+
+        <p>
+          That's the job of a MeasureBinding. These connect a Measure to a
+          DirectClass, and define how the Measure is derived from that
+          DirectClass and its Attributes.
+        </p>
+
+        <p>For example:</p>
+
+        <pre><code>Measure:      Funding Spend
+DirectClass:  Funded Grant
+Derived from: Funded Grant -> Transactions -> Payment Amount
+
+Measure:      Applications
+DirectClass:  Application
+Derived from: Count of Application instances</code></pre>
+
+        <p>
+          The Measure belongs to the Domain because the Domain is where the
+          meaning and ownership of that metric should live.
+        </p>
+
+        <p>
+          The <strong>MeasureBinding</strong> is what makes the metrics
+          operational.
+        </p>
+
+        <p>
+          It tells the system how to calculate or derive the Measure from the
+          ontology-backed data. Measures can also have caveats and
+          disambiguation notes because metrics are rarely as obvious as their
+          names suggest. `Funding Spend` might mean committed funding, awarded
+          funding, actual payments made, recognized expenditure, or something
+          else depending on the context.
+        </p>
+
+        <p>
+          The Measure definition describes the metric, the binding should
+          describe how its derived. The caveats and disambiguation notes should
+          explain the edges, assumptions, and traps.
+        </p>
+
+        <h3>Terms</h3>
+
+        <p>
+          Terms give us a way to attach a wider organisational language to the
+          ontology. A Term is a definition, it can include criteria for when
+          something is, or is not, covered by that term. These are hierarchical,
+          in that they can be broader or narrower than other Terms.
+        </p>
+
+        <p>For example:</p>
+
+        <pre><code>Research Funding
+ └── Biomedical Research Funding
+         └── Infectious Disease Funding
+
+Organisation
+ └── Administering Organisation
+ └── Partner Organisation
+ └── Research Organisation</code></pre>
+
+        <p>
+          This lets us build a <em>controlled vocabulary</em> around the
+          ontology that extend the available context around a concept.
+        </p>
+
+        <p>
+          A DirectClass might tell us that `FundedGrant` exists as a concept,
+          but a Term can help explain how the organisation talks about funded
+          grants, what related language is used, what broader or narrower ideas
+          exist, and what criteria apply when deciding whether something fits
+          that term.
+        </p>
+
+        <p>
+          That becomes super useful for discovery, documentation, governance,
+          and AI-assisted exploration and it gives people the opportunity to
+          connect the formal ontology components to the language that people
+          actually use day to day.
+        </p>
+      </section>
+
+      <section>
+        <h2>Our upper ontology as it stands</h2>
+
+        <p>Our baby has grown, exponentially, with types and relationships.</p>
+
+        <pre><code>UDA
+├── Conceptual Layer
+│   ├── Domain
+│   │    ├── owns -> DirectClass
+│   │    ├── owns -> Attribute
+│   │    ├── owns -> Enumeration
+│   │    ├── owns -> Relationship
+│   │    └── owns -> Measure
+│   │
+│   ├── DirectClass
+│   │    ├── belongsTo -> Domain
+│   │    ├── hasProperty -> Attribute
+│   │    ├── hasRelationship -> DirectClass
+│   │    ├── mayBeDescribedBy -> Term
+│   │    ├── mayBeMeasuredBy -> MeasureBinding
+│   │    └── mayBeSlicedBy -> LensBinding
+│   │
+│   ├── Attribute
+│   │    ├── belongsTo -> Domain
+│   │    ├── mayUse -> Enumeration
+│   │    └── mayBeDescribedBy -> Term
+│   │
+│   ├── Relationship
+│   │    ├── belongsTo -> Domain
+│   │    ├── from -> DirectClass
+│   │    ├── to -> DirectClass
+│   │    └── mayBeDescribedBy -> Term
+│   │
+│   ├── Enumeration
+│   │    ├── belongsTo -> Domain
+│   │    ├── hasValue -> EnumerationValue
+│   │    └── mayBeDescribedBy -> Term
+│   │
+│   └── EnumerationValue
+│        ├── belongsTo -> Enumeration
+│        └── mayBeDescribedBy -> Term
+│
+├── Physical Layer
+│   └── DataMesh
+│       ├── Source
+│       │   ├── hasField -> Field
+│       │   └── mayFeed -> Projection
+│       │
+│       └── Field
+│           ├── belongsTo -> Source
+│           └── mayMapTo -> DirectClass / Attribute / Relationship / EnumerationValue
+│
+├── Semantic Bridge
+│   └── Mapping
+│       ├── mapsFrom -> Source / Field
+│       ├── mapsTo -> DirectClass / Attribute
+│       ├── mayMaterialise -> Relationship
+│       ├── mayNormaliseTo -> EnumerationValue
+│       └── mayFeed -> Projection
+│
+├── Projection Layer
+│   └── Projection
+│       ├── selects -> DirectClass
+│       ├── selects -> Attribute
+│       ├── follows -> Relationship
+│       ├── uses -> Mapping
+│       ├── applies -> Transformation
+│       ├── produces -> Output
+│       └── carries -> Meaning / Metadata / Lineage
+│
+├── Analytical Layer
+│   ├── Lens
+│   │   ├── drillsTo -> Lens
+│   │   └── hasBinding -> LensBinding
+│   │
+│   ├── LensBinding
+│   │   ├── binds -> Lens
+│   │   ├── to -> DirectClass
+│   │   ├── materialisedBy -> Attribute / Relationship
+│   │   ├── mayHave -> Caveat
+│   │   └── mayHave -> DisambiguationNote
+│   │
+│   ├── Measure
+│   │   ├── belongsTo -> Domain
+│   │   ├── hasBinding -> MeasureBinding
+│   │   ├── mayHave -> Caveat
+│   │   └── mayHave -> DisambiguationNote
+│   │
+│   └── MeasureBinding
+│       ├── binds -> Measure
+│       ├── to -> DirectClass
+│       ├── derivedFrom -> Attribute / Relationship
+│       ├── mayUse -> Transformation
+│       ├── mayHave -> Caveat
+│       └── mayHave -> DisambiguationNote
+│
+└── Vocabulary Layer
+    └── Term
+        ├── broaderThan -> Term
+        ├── narrowerThan -> Term
+        ├── relatedTo -> Term
+        ├── describes -> DirectClass
+        ├── describes -> Attribute
+        ├── describes -> Relationship
+        ├── describes -> Enumeration
+        ├── describes -> EnumerationValue
+        └── mayDefine -> Criteria</code></pre>
+
+        <p>
+          Pretty crazy how fast it accumulates, and also how small it really is
+          conceptually, but enables an immense amount of capability.
+        </p>
+      </section>
+
+      <section>
+        <h2>Where does it go from there?</h2>
+
+        <p>
+          Once the UDA (Upper Data Architecture) becomes operational, it starts
+          unlocking capabilities that are very hard to build from ordinary
+          metadata alone. We load this entire ontology into a graph database,
+          and we can start to query it, inspect it, refine it, and update it to
+          align with Wellcomes meaning and it's needs.
+        </p>
+
+        <p>
+          That enables a <strong>whole host of things</strong> that are
+          currently operationally <strong>hard.</strong>
+        </p>
+
+        <h3>Discovery</h3>
+
+        <p>
+          People don't need to know the name of a table, bucket, file, or
+          database to find data. They can just start with the language of the
+          organisation.
+        </p>
+
+        <ul>
+          <li>"Funded Grants"</li>
+          <li>"Applications"</li>
+          <li>"Payments"</li>
+          <li>"People"</li>
+          <li>"Organisations"</li>
+          <li>"Climate and health funding"</li>
+        </ul>
+
+        <p>
+          The ontology gives us a way to navigate from human concepts to
+          physical data, instead of thinking databases, files, schemas and
+          tables first, you think about what you actually want, what meaning
+          you're looking for.
+        </p>
+
+        <h3>Governance</h3>
+
+        <p>
+          Governance becomes much stronger when it attaches to meaning rather
+          than storage.
+        </p>
+
+        <p>
+          If a field represents a person, a payment, a grant, a health-related
+          topic, or a sensitive organisational attribute, that should be known
+          at the semantic layer and because of the inter-connected graph nature
+          of the ontology, it can propagate outward from the meaning to the
+          physical data, and to every downstream projection, report, dashboard,
+          and API.
+        </p>
+
+        <p>
+          Otherwise every downstream table, extract, report, notebook, and
+          dashboard has to rediscover all the governance risk for itself and
+          that's not governance, that's hope with a spreadsheet.
+        </p>
+
+        <p>
+          We can roll up and out information and meaning, an Attribute marked as
+          highly sensitive will cause it's DirectClasses using it to be marked
+          as sensitive, and any projections using that Attribute will be
+          sensitive as well, and any source system data feeding that Attribute
+          will also be sensitive.
+        </p>
+
+        <p>
+          Same with permissions, ownership, and any other governance information
+          we want to attach to the ontology. It can propagate through the graph
+          and be used to inform and even enforce controls downstream and
+          upstream from the graph.
+        </p>
+
+        <h3>Change impact</h3>
+
+        <p>When a source changes, we can ask:</p>
+
+        <blockquote>
+          <p>"What does this break?"</p>
+        </blockquote>
+
+        <p>
+          Not in a vague emotional sense, though there's usually plenty of that.
+        </p>
+
+        <p>In a much more concrete sense:</p>
+
+        <ul>
+          <li>which Fields changed?</li>
+          <li>which Mappings depend on them?</li>
+          <li>which DirectClasses and Attributes are affected?</li>
+          <li>which Projections need to be regenerated?</li>
+          <li>which reports, dashboards, APIs, or users may be impacted?</li>
+        </ul>
+
+        <p>
+          When a change is coming we can immediately see the impact that change
+          will have across the rest of the platform, which is an immense amount
+          of planning capability for handling and mitigating the effects of
+          change in a sustainable way across data and the systems that rely on
+          it.
+        </p>
+
+        <p>
+          Without it, change impact analysis is basically archeology. Someone
+          goes digging through SQL, old tickets, Slack messages, dashboards, and
+          half-remembered conversations trying to work out why something exists.
+        </p>
+
+        <p>That's just a bad way to run a platform.</p>
+
+        <h3>Quality</h3>
+
+        <p>Earlier, I said quality is really a question of correspondence.</p>
+
+        <p>
+          How well does the recorded value match the real-world state it claims
+          to represent? The ontology helps us make that question explicit in
+          that we can attach data quality rules to the concepts in the ontology,
+          and those rules can be applied to the recorded values that are mapped
+          to those concepts. Everyone can contribute to this, and everyone can
+          see the rules and the results of those rules.
+        </p>
+
+        <p>
+          A value isn't just "wrong" in isolation. It's wrong relative to what
+          it claims to represent. If we know that a field represents Awarded
+          Amount for a Funded Grant, then we can define quality checks that make
+          sense for that concept.
+        </p>
+
+        <p>
+          We can ask whether the value is missing, stale, negative, inconsistent
+          with related transactions, inconsistent with application status,
+          inconsistent with finance records, or inconsistent with the lifecycle
+          of a grant.
+        </p>
+
+        <p>
+          That is way richer than simply checking whether a column is null-able
+          or numeric.
+        </p>
+
+        <h3>Consensus on meaning</h3>
+
+        <p>
+          The ontology gives us a place to build consensus around meaning, where
+          that meaning is actionable as a result.
+        </p>
+
+        <p>
+          Instead of a dictionary of terms and ideas collecting dust, slowly
+          drifting out of date, and becoming a source of confusion. The
+          operational nature of the ontology means that in order to understand
+          and analyse our organisation the meaning has to be understood, and to
+          keep understanding it that meaning has to be maintained.
+        </p>
+
+        <p>
+          This saves us from the critical failing of all documentation systems.
+          That is, that they're not <em>used,</em> and if they're not used, they
+          don't get maintained, and if they don't get maintained, they become
+          wrong, and if they're wrong, they become <strong>dangerous</strong>.
+        </p>
+
+        <figure>
+          <img
+            src="static/img/uda-browser-editor.png.webp"
+            alt="A screenshot of a DirectClass instance in the UDA management interface"
+            loading="lazy"
+          />
+          <figcaption>
+            A screenshot of a DirectClass instance in the UDA management
+            interface. Credit: Jeff Uren
+          </figcaption>
+        </figure>
+
+        <h3>Lineage as an axial point</h3>
+
+        <p>
+          The ontology gives us a way to connect meaning to recorded values, and
+          recorded values to meaning. That means we can trace the lineage of a
+          value from the physical data, up through our pipelines and
+          transformations, through to the DataMesh, through the Mappings,
+          through the DirectClasses and Attributes, and back to the meaning that
+          those values claim to represent.
+        </p>
+
+        <p>That's like a super-power.</p>
+
+        <figure>
+          <img
+            src="static/img/uda-lineage.png.webp"
+            alt="Screenshot of the lineage view of a DirectClass in the UDA"
+            loading="lazy"
+          />
+          <figcaption>
+            Screenshot of the lineage view of a DirectClass in the UDA. Credit:
+            J. Uren
+          </figcaption>
+        </figure>
+
+        <h3>Access and permissions</h3>
+
+        <p>
+          Coupled with an IAM system, the ontology gives us a way to attach
+          access and permissions to meaning rather than storage, but allows us
+          to propagate that access and those permissions through the graph up to
+          the physical data, and down to the projections, reports, dashboards,
+          and APIs that rely on that data.
+        </p>
+
+        <p>
+          From a governance perspective, you can literally visualize the
+          entirety of what a single person can touch in the platform, using the
+          URN-based identifiers of the ontology we can grant and restrict access
+          to concepts, attributes, relationships, enumerations, and projections
+          without having to know the name of the underlying tables, files, or
+          buckets.
+        </p>
+
+        <p>
+          We can use wildcard patterns to grant access to groups of concepts, or
+          to restrict access to a single concept, and we can propagate those
+          permissions through the graph to everywhere else.
+        </p>
+
+        <figure>
+          <img
+            src="static/img/uda-access-security.png.webp"
+            alt="A screen shot of the Access &amp; Security view of a UDA DirectClass concept"
+            loading="lazy"
+          />
+          <figcaption>
+            A screen shot of the Access &amp; Security view of a UDA DirectClass
+            concept. Credit: J. Uren
+          </figcaption>
+        </figure>
+
+        <h3>Reuse</h3>
+
+        <p>
+          When Attributes are defined once and reused across DirectClasses, we
+          avoid creating dozens of subtly different meanings for the same
+          organizational idea.
+        </p>
+
+        <p>
+          We don't need one Grant ID for every single table, we don't need ten
+          versions of Awarded Amount for every single table either, or for every
+          team to invent its own definition of Organisation, Person,
+          Application, Award, Project, or Payment.
+        </p>
+
+        <p>
+          The ontology gives us a shared <strong>semantic vocabulary</strong>.
+        </p>
+
+        <p>
+          That doesn't mean everything becomes centrally controlled or painfully
+          bureaucratic either, it should mean we have a place where meaning can
+          accumulate, get challenged, trigger arguments, be improved, and be
+          reused.
+        </p>
+
+        <h3>Self-Service Analytics</h3>
+
+        <p>
+          Because of Lenses, Metrics, and the way Projections can be generated,
+          we can give people, even non-technical people, the ability to explore
+          data in a way that's grounded in meaning rather than storage.
+        </p>
+
+        <p>You can answer questions like:</p>
+
+        <blockquote>
+          <p>
+            "How many Funded Grants were awarded in 2023, by Funding Scheme, and
+            how much was spent on them?"
+          </p>
+        </blockquote>
+
+        <blockquote>
+          <p>
+            "How many Applications were submitted by Research Organisations in
+            the last five years, and how many of those Applications were
+            successful?"
+          </p>
+        </blockquote>
+
+        <blockquote>
+          <p>
+            "How many Payments were made to Partner Organisations in the last
+            quarter, and how many of those Payments were related to Climate and
+            Health funding?"
+          </p>
+        </blockquote>
+
+        <p>
+          These become easy questions to answer, that don't require an analyst,
+          a data engineer, or a data scientist to go spelunking through the
+          warehouse. The ontology gives us a way to express the question in
+          terms of meaning, and the system can work out the storage, the joins,
+          the transformations, and the output shape needed to answer it.
+        </p>
+
+        <p>
+          That's a humongous shift in how people can interact with data, and it
+          opens up a lot of possibilities for self-service analytics,
+          exploration, and discovery.
+        </p>
+
+        <figure>
+          <img
+            src="static/img/uda-explore-slide.png.webp"
+            alt="Early version of the UDA Explore application"
+            loading="lazy"
+          />
+          <figcaption>
+            Early version of the UDA Explore application. Credit: J. Uren
+          </figcaption>
+        </figure>
+
+        <h3>Integration Spine</h3>
+
+        <p>
+          One of the quieter benefits of the ontology, datamesh and UDA is that
+          it gives us the beginning of an integration spine.
+        </p>
+
+        <p>
+          Most organisations accumulate point-to-point integrations over time.
+          One system talks directly to another system. Then another. Then
+          another. A report needs a feed, a finance process needs an export. A
+          workflow needs a synchronization job. Before long, the organization is
+          held together by a web of bespoke integrations, each with its own
+          assumptions, mappings, schedules, edge cases, and failure modes.
+          Wellcome is not immune to this.
+        </p>
+
+        <figure>
+          <img
+            src="static/img/uda-integration-spine.png.webp"
+            alt="Rendition of 1/100th of Wellcome integrations"
+            loading="lazy"
+          />
+          <figcaption>Rendition of 1/100th of Wellcome integrations</figcaption>
+        </figure>
+
+        <p>
+          That gets expensive. It takes time to change, it makes impact
+          difficult to understand, creates hidden dependencies between systems
+          that were never really designed to know about each other. And every
+          new integration has to rediscover the same questions: what does this
+          field mean, where should it go, what does this status represent, which
+          identifier is authoritative, what happens when the source changes?
+        </p>
+
+        <p>
+          The UDA and DataMesh gives us a better center of gravity. Because we
+          have stable, agreed concepts, and because we already map source system
+          data into those concepts, integration doesn't always need to mean
+          wiring one system directly to another. Systems can integrate through
+          meaning. A source system can feed the UDA, and a consuming system can
+          take what it needs from the UDA. The agreed concept sits in the middle
+          as the contract.
+        </p>
+
+        <p>
+          That doesn't remove the hard work of integration. It makes the hard
+          work more reusable, we stop solving the same semantic problems over
+          and over again at the edges of every system, and start solving them
+          once in the spine of the platform.
+        </p>
+
+        <figure>
+          <img
+            src="static/img/uda-nutshell.png.webp"
+            alt="UDA in a nutshell"
+            loading="lazy"
+          />
+          <figcaption>UDA in a nutshell. Credit: J. Uren</figcaption>
+        </figure>
+
+        <h3>Less Traumatic and Expensive Change</h3>
+
+        <p>This also makes change less traumatic.</p>
+
+        <figure>
+          <img
+            src="static/img/uda-lower-risk.png.webp"
+            alt="UDA reduces transformation risk and complexity"
+            loading="lazy"
+          />
+          <figcaption>
+            UDA reduces transformation risk and complexity
+          </figcaption>
+        </figure>
+
+        <p>
+          When integrations are point-to-point, replacing a system can become a
+          sprawling exercise in fear management. Every downstream feed, report,
+          process, dashboard, extract, and dependent system has to be
+          discovered, understood, rebuilt, tested, and moved. The old system is
+          not just a system anymore. It's part of the organisations nervous
+          system.
+        </p>
+
+        <p>
+          With the UDA acting as an integration spine, we get a useful layer of
+          abstraction. The concept does not have to change just because the
+          source system changes. A Funded Grant is still a Funded Grant. An
+          Organisation is still an Organisation. A Payment is still a Payment.
+          What changes is the thing feeding values into those concepts.
+        </p>
+
+        <p>
+          That means migration can become more incremental. We can move sources,
+          rebuild mappings, compare old and new feeds, run systems in parallel,
+          and shift consumers over without forcing every part of the
+          organisation to absorb the full blast of change at once. The UDA
+          becomes a bridging mechanism: stable meaning above, replaceable
+          machinery below.
+        </p>
+
+        <h3>AI</h3>
+
+        <p>This is where things get pretty interesting.</p>
+
+        <p>
+          The naive approach to AI is to throw a large language model at a
+          problem and hope it works. In a data system, that means wrangling
+          table schemas, and patching holes in the LLMs understanding to try and
+          get it to operationalize data correctly. AI can only really work well
+          with a strong foundation.
+        </p>
+
+        <p>
+          It might mean building custom MCPs where you load lots of context, but
+          that's no different than siloing knowledge into a model, or a
+          dashboard and hoping it works. The meaning is still disconnected from
+          the data, and the model is still free to invent meaning where meaning
+          has already been defined.
+        </p>
+
+        <p>
+          AI systems are very good at producing plausible answers, and that is
+          not the same thing as producing <strong>grounded</strong> answers.
+        </p>
+
+        <p>
+          If we want AI to help people explore organisational data, we can't
+          simply point it at a warehouse and hope for the best. That's naive at
+          best, extremely <strong>dangerous</strong> at worst.
+        </p>
+
+        <p>The model needs context.</p>
+
+        <p>
+          It needs to know what concepts exist, which attributes describe them,
+          where values come from, which joins are meaningful, which fields are
+          sensitive, which terms are synonyms, and which projections are safe to
+          use.
+        </p>
+
+        <p>
+          That's exactly the kind of context the ontology can provide, it
+          becomes a grounding layer for AI-assisted analysis.
+        </p>
+
+        <p>
+          It doesn't automatically (and magically) make AI correct, but it gives
+          AI less room to invent meaning where meaning has already been defined.
+        </p>
+
+        <h3>Graph of concepts</h3>
+
+        <p>
+          As part of this, we have a GraphQL API that exposes the ontology as a
+          graph of concepts. That means we can explore the ontology as a graph,
+          and we can use that graph to explore the relationships between
+          concepts, attributes, enumerations, and more.
+        </p>
+
+        <p>
+          This feeds us up into something even more interesting, which is the
+          ability to layer that ontology on top of the data mesh and explore it
+          in meaningful ways.
+        </p>
+
+        <h3>Graph of Wellcome</h3>
+
+        <p>
+          The ontology is not just a graph of concepts, it's a graph of
+          Wellcome. It connects the concepts to the real data, to the real
+          fields, to the real mappings.
+        </p>
+
+        <p>
+          That enables us to do things like look at a Funded Grant, see its
+          awarded amount, see the transactions that contributed to that amount,
+          see the lead organisation, drill to the applications that produced the
+          grant, and see the people involved in those applications.
+        </p>
+
+        <p>
+          Not only that, with slowly-changing dimensions we can view the
+          organisation at specific points in time. We can compare the world of
+          Wellcome as it was in 2020, to the world of Wellcome in 2026, and see
+          how we've changed, how our funding has changed, how our people,
+          organisation, and grant holders have changed.
+        </p>
+      </section>
+
+      <section>
+        <h2>The big take-away</h2>
+
+        <p>
+          The important thing about all this isn't that it's an ontology, or
+          that it was originally conceived in RDF, or that there's a graph
+          database behind it, or that it has a web interface, or that it can
+          generate projections. All of this is starting to come into reach,
+          through hard graft, a lot of research and experimentation to find
+          something that <strong>works for Wellcome</strong>. Not something that
+          we can necessarily buy off the shelf, or that puts us into a square
+          peg, round hole situation. But something purpose-built, that aligns
+          with our values, our mission and our needs, now, and 2, 3, 5, 10 years
+          from now. Something that we can evolve alongside us.
+        </p>
+
+        <p>The important bits are:</p>
+
+        <ul>
+          <li>It's connected to real sources</li>
+          <li>It's connected to real fields</li>
+          <li>It's connected to mappings</li>
+          <li>It's connected to generated projections</li>
+          <li>It's connected to governance</li>
+          <li>
+            It's connected to the way we actually build and run the data
+            platform
+          </li>
+        </ul>
+
+        <p>
+          That's what makes it valuable, otherwise it would just be another
+          diagram, and we've all seen enough diagrams at this point and I've
+          produced enough of them in this article alone.
+        </p>
+
+        <p>
+          For a long time, a lot of this work has looked like foundations, or
+          has been going on behind the scenes.
+        </p>
+
+        <ul>
+          <li>Ontology work</li>
+          <li>Mapping work</li>
+          <li>Storage formats</li>
+          <li>Source modelling</li>
+          <li>Query engines</li>
+          <li>Generated projections</li>
+          <li>APIs</li>
+          <li>Governance structures</li>
+        </ul>
+
+        <p>
+          All the un-glamorous stuff that sits below the waterline has been
+          happening, for over a year.
+        </p>
+
+        <p>
+          That's platform work though, If it's done properly, most people don't
+          see the awkward machinery underneath. They see the thing that becomes
+          possible because the machinery exists.
+        </p>
+
+        <p>We are now getting to that point.</p>
+
+        <p>
+          Applications are in active development that build directly on top of
+          the UDA (you've seen glimpses of the above), the query engine, and the
+          generated APIs. Those applications will soon start moving into
+          staging, where people will be able to see, test, challenge, and use
+          some of what this platform has been designed to make possible.
+        </p>
+
+        <p>This is a big moment. For our team, for Wellcome on the whole.</p>
+
+        <p>
+          It means this is no longer just an architectural idea, or just a
+          model, just something living in diagrams, code, mappings, and slightly
+          overlong explanations from me. It means the stacks of notebooks (12 to
+          be exact), and articles, and diagrams, and code, and mappings, and
+          hard discussions, arguments, and decisions are starting to produce
+          something that can be used, explored, and tested.
+        </p>
+
+        <p>
+          It's moving into position to become a working surface for the
+          organisation.
+        </p>
+
+        <p>But this is also the point where we need people to pile in.</p>
+
+        <p>
+          To make this all real, we need analysts, engineers, data specialists,
+          domain experts, product people, governance people, and curious
+          troublemakers to help shape it.
+        </p>
+
+        <ul>
+          <li>We need people to test the concepts.</li>
+          <li>We need people to challenge the definitions.</li>
+          <li>We need people to ask awkward questions.</li>
+          <li>
+            We need people to tell us where the model does not match reality.
+          </li>
+          <li>
+            We need people to help describe the concepts that matter in their
+            part of Wellcome.
+          </li>
+          <li>
+            We need people to help us work out which relationships are useful,
+            which attributes are missing, which terms are confusing, and which
+            projections would make actual work easier.
+          </li>
+        </ul>
+
+        <p>
+          The UDA only becomes valuable if it reflects the organisation well
+          enough to be useful and we can't do that alone.
+        </p>
+
+        <p>
+          Our main job is to build the machinery, keep it running, connect it to
+          real data, and make the concepts operational. But the meaning has to
+          come from the organisation.
+        </p>
+
+        <p>So this is the invitation.</p>
+
+        <p>
+          If you care about how Wellcome understands its data, how people find
+          it, how we govern it, how we query it, how we build applications on
+          top of it, or how we prepare ourselves for AI-assisted analysis, then
+          this is the moment to get involved.
+        </p>
+
+        <p>Come and <strong>kick the tyres</strong>.</p>
+        <p>Find the gaps.</p>
+        <p>Break the assumptions.</p>
+        <p>Tell us where the language is wrong.</p>
+        <p>Help us make it better.</p>
+        <p>
+          Because the foundations are now starting to do what foundations are
+          supposed to do.
+        </p>
+        <p>They are starting to <strong>hold something up</strong>.</p>
+      </section>
+
+      <section>
+        <h2>More Information</h2>
+
+        <p>
+          If all this stuff is really interesting to you, I've compiled a set of
+          resources and links to help you explore more of what the foundational
+          pieces of this are made up of. And if you have questions, my door is
+          always open!
+        </p>
+
+        <p><strong>W3C RDF / OWL &amp; Ontologies</strong></p>
+
+        <ul>
+          <li>
+            <a href="https://www.w3.org/RDF/" target="_blank"
+              >https://www.w3.org/RDF/</a
+            >
+            — RDF Spec
+          </li>
+          <li>
+            <a href="https://www.w3.org/TR/rdf12-concepts/" target="_blank"
+              >https://www.w3.org/TR/rdf12-concepts/</a
+            >
+            — RDF Concepts
+          </li>
+          <li>
+            <a href="https://www.w3.org/OWL/" target="_blank"
+              >https://www.w3.org/OWL/</a
+            >
+            — OWL Ontology
+          </li>
+          <li>
+            <a href="https://basic-formal-ontology.org/" target="_blank"
+              >https://basic-formal-ontology.org/</a
+            >
+            — BFO Ontology
+          </li>
+          <li>
+            <a href="https://iptc.org/thirdparty/foaf/" target="_blank"
+              >https://iptc.org/thirdparty/foaf/</a
+            >
+            — FOAF Ontology
+          </li>
+        </ul>
+
+        <p><strong>Concepts</strong></p>
+
+        <ul>
+          <li>
+            <a href="https://en.wikipedia.org/wiki/Metamodeling" target="_blank"
+              >https://en.wikipedia.org/wiki/Metamodeling</a
+            >
+            — Metamodeling
+          </li>
+          <li>
+            <a
+              href="https://en.wikipedia.org/wiki/Data_integration"
+              target="_blank"
+              >https://en.wikipedia.org/wiki/Data_integration</a
+            >
+            — Data Integration
+          </li>
+          <li>
+            <a
+              href="https://en.wikipedia.org/wiki/Semantic_integration"
+              target="_blank"
+              >https://en.wikipedia.org/wiki/Semantic_integration</a
+            >
+            — Semantic Integration
+          </li>
+          <li>
+            <a
+              href="https://en.wikipedia.org/wiki/Upper_ontology"
+              target="_blank"
+              >https://en.wikipedia.org/wiki/Upper_ontology</a
+            >
+            — Upper Ontologies
+          </li>
+          <li>
+            <a
+              href="https://en.wikipedia.org/wiki/Semantic_interoperability"
+              target="_blank"
+              >https://en.wikipedia.org/wiki/Semantic_interoperability</a
+            >
+            — Semantic Interoperability
+          </li>
+          <li>
+            <a
+              href="https://en.wikipedia.org/wiki/Conceptualization_(information_science)"
+              target="_blank"
+              >https://en.wikipedia.org/wiki/Conceptualization_(information_science)</a
+            >
+            — Conceptualization
+          </li>
+          <li>
+            <a
+              href="https://www.w3.org/2001/sw/wiki/Linking_patterns"
+              target="_blank"
+              >https://www.w3.org/2001/sw/wiki/Linking_patterns</a
+            >
+            — Linking Patterns
+          </li>
+          <li>
+            <a
+              href="https://tomgruber.org/writing/onto-design.pdf#page=4"
+              target="_blank"
+              >https://tomgruber.org/writing/onto-design.pdf#page=4</a
+            >
+            — Monotonic Contribution
+          </li>
+          <li>
+            <a
+              href="https://en.wikipedia.org/wiki/Conservative_extension"
+              target="_blank"
+              >https://en.wikipedia.org/wiki/Conservative_extension</a
+            >
+            — Law of Conservative Extension
+          </li>
+          <li>
+            <a
+              href="https://en.wikipedia.org/wiki/Knowledge_representation_and_reasoning"
+              target="_blank"
+              >https://en.wikipedia.org/wiki/Knowledge_representation_and_reasoning</a
+            >
+            — Knowledge representation and reasoning
+          </li>
+        </ul>
+
+        <h3>Core ontology / semantic data platform papers</h3>
+        <ul>
+          <li>
+            <a
+              href="https://www.diag.uniroma1.it/~lenzerin/home/files/main-3.pdf"
+              target="_blank"
+              >Ontology-Based Data Management</a
+            >
+            — Maurizio Lenzerini
+          </li>
+          <li>
+            <a
+              href="https://www.ijcai.org/proceedings/2018/0777.pdf"
+              target="_blank"
+              >Ontology-Based Data Access: A Survey</a
+            >
+            — Guohui Xiao et al.
+          </li>
+          <li>
+            <a
+              href="https://www.inf.unibz.it/~calvanese/papers/calv-etal-EDBS-2017.pdf"
+              target="_blank"
+              >Ontology-Based Data Access and Integration</a
+            >
+            — Diego Calvanese et al.
+          </li>
+          <li>
+            <a
+              href="https://www.semantic-web-journal.net/system/files/swj1278.pdf"
+              target="_blank"
+              >Answering SPARQL Queries over Relational Databases</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://research.bcgl.fr/pdfs/ontop-iswc20.pdf"
+              target="_blank"
+              >The Virtual Knowledge Graph System Ontop</a
+            >
+            — Guohui Xiao et al.
+          </li>
+          <li>
+            <a href="https://arxiv.org/abs/2012.01917" target="_blank"
+              >Mapping Patterns for Virtual Knowledge Graphs</a
+            >
+            — Diego Calvanese et al.
+          </li>
+          <li>
+            <a href="https://ceur-ws.org/Vol-929/paper9.pdf" target="_blank"
+              >Relational Database to RDF Mapping Patterns</a
+            >
+            — Juan Sequeda et al.
+          </li>
+          <li>
+            <a href="https://arxiv.org/abs/2005.06293" target="_blank"
+              >R2RML and RML Comparison for RDF Generation, Rules Validation and
+              Inconsistency Resolution</a
+            >
+            — Anastasia Dimou
+          </li>
+        </ul>
+
+        <h3>Knowledge graphs and semantic data management</h3>
+        <ul>
+          <li>
+            <a href="https://arxiv.org/abs/2003.02320" target="_blank"
+              >Knowledge Graphs</a
+            >
+            — Aidan Hogan et al.
+          </li>
+          <li>
+            <a href="https://arxiv.org/abs/2002.00388" target="_blank"
+              >A Survey on Knowledge Graphs: Representation, Acquisition and
+              Applications</a
+            >
+            — Shaoxiong Ji et al.
+          </li>
+          <li>
+            <a
+              href="https://iccl.inf.tu-dresden.de/w/images/4/4c/Ontologies-for-knowledge-graphs-kroetzsch-DL2017.pdf"
+              target="_blank"
+              >Ontologies for Knowledge Graphs?</a
+            >
+            — Markus Krötzsch
+          </li>
+          <li>
+            <a href="https://arxiv.org/abs/2310.15373" target="_blank"
+              >Semantic Data Management in Data Lakes</a
+            >
+            — Sayed Hoseini, Johannes Theissen-Lipp, Christoph Quix
+          </li>
+          <li>
+            <a
+              href="https://ceur-ws.org/Vol-2757/SSWS2020_paper5.pdf"
+              target="_blank"
+              >Using Semantic Technologies to Manage a Data Lake: Data Catalog,
+              Provenance and Access Control</a
+            >
+            — Hanna Dibowski et al.
+          </li>
+          <li>
+            <a
+              href="https://dl.gi.de/bitstreams/29f4d801-de6e-4af0-82cb-3dc58b134980/download"
+              target="_blank"
+              >Using Knowledge Graphs to Manage a Data Lake</a
+            >
+            — Hanna Dibowski et al.
+          </li>
+          <li>
+            <a
+              href="https://oro.open.ac.uk/83013/1/From_DataLake_to_KG%20%283%29.pdf"
+              target="_blank"
+              >Enriching Data Lakes with Knowledge Graphs</a
+            >
+            — Andrea Chessa et al.
+          </li>
+          <li>
+            <a href="https://arxiv.org/abs/1909.09377" target="_blank"
+              >Metadata Systems for Data Lakes: Models and Features</a
+            >
+            — Pegdwendé Sawadogo et al.
+          </li>
+        </ul>
+
+        <h2>FAIR, data mesh, and data platform governance</h2>
+        <ul>
+          <li>
+            <a
+              href="https://www.nature.com/articles/sdata201618"
+              target="_blank"
+              >The FAIR Guiding Principles for Scientific Data Management and
+              Stewardship</a
+            >
+            — Mark D. Wilkinson et al.
+          </li>
+          <li>
+            <a
+              href="https://www.sciencedirect.com/science/article/pii/S1877050921022365"
+              target="_blank"
+              >Data Mesh: Concepts and Principles of a Paradigm Shift in Data
+              Architectures</a
+            >
+            — Ivo A. Machado et al.
+          </li>
+          <li>
+            <a href="https://arxiv.org/abs/2304.01062" target="_blank"
+              >Data Mesh: A Systematic Gray Literature Review</a
+            >
+            — Abel Goedegebuure et al.
+          </li>
+          <li>
+            <a href="https://arxiv.org/abs/2411.05248" target="_blank"
+              >Ten Pillars for Data Meshes</a
+            >
+            — Robert L. Grossman et al.
+          </li>
+        </ul>
+
+        <h3>Biomedical / science-domain semantic platforms</h3>
+        <ul>
+          <li>
+            <a
+              href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3998127/"
+              target="_blank"
+              >The EBI RDF Platform: Linked Open Data for the Life Sciences</a
+            >
+            — Simon Jupp et al.
+          </li>
+          <li>
+            <a
+              href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5210543/"
+              target="_blank"
+              >Open Targets: A Platform for Therapeutic Target Identification
+              and Validation</a
+            >
+            — Gabriela Koscielny et al.
+          </li>
+          <li>
+            <a
+              href="https://academic.oup.com/nar/article/51/D1/D1353/6833237"
+              target="_blank"
+              >The Next-Generation Open Targets Platform: Reimagined,
+              Redesigned, Rebuilt</a
+            >
+            — David Ochoa et al.
+          </li>
+          <li>
+            <a href="https://arxiv.org/abs/2203.13906" target="_blank"
+              >Biolink Model: A Universal Schema for Knowledge Graphs in
+              Clinical, Biomedical, and Translational Science</a
+            >
+            — Deepak R. Unni et al.
+          </li>
+          <li>
+            <a href="https://arxiv.org/abs/2302.10800" target="_blank"
+              >KG-Hub: Building and Exchanging Biological Knowledge Graphs</a
+            >
+            — J. Harry Caufield et al.
+          </li>
+          <li>
+            <a
+              href="https://escholarship.org/content/qt9c43g8c7/qt9c43g8c7.pdf"
+              target="_blank"
+              >Announcing the Biomedical Data Translator: Initial Public
+              Release</a
+            >
+            — Karamarie Fecho et al.
+          </li>
+        </ul>
+
+        <h3>AI / knowledge graph grounding</h3>
+        <ul>
+          <li>
+            <a href="https://arxiv.org/abs/2005.11401" target="_blank"
+              >Retrieval-Augmented Generation for Knowledge-Intensive NLP
+              Tasks</a
+            >
+            — Patrick Lewis et al.
+          </li>
+          <li>
+            <a href="https://arxiv.org/abs/2404.16130" target="_blank"
+              >From Local to Global: A Graph RAG Approach to Query-Focused
+              Summarization</a
+            >
+            — Darren Edge et al.
+          </li>
+          <li>
+            <a href="https://arxiv.org/abs/2306.08302" target="_blank"
+              >Unifying Large Language Models and Knowledge Graphs: A Roadmap</a
+            >
+            — Shirui Pan et al.
+          </li>
+          <li>
+            <a href="https://arxiv.org/pdf/2501.13958" target="_blank"
+              >A Survey of Graph Retrieval-Augmented Generation for Customized
+              Large Language Models</a
+            >
+            — Qinggang Zhang et al.
+          </li>
+        </ul>
+      </section>
+
+      <hr />
+      <p>_ J</p>
+    </article>
+  </body>
+</html>

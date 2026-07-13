@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Data, Ontologies, and Data Architecture (UDA) - Part 1</title>
+    <link rel="stylesheet" href="static/css/tufte.css" />
+    <script src="static/js/theme.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="A deep dive into Upper Data Architecture — an operational ontology connecting organisational meaning to real data sources, fields, and pipelines."
+    />
+    <meta
+      property="og:title"
+      content="Data, Ontologies, and Data Architecture (UDA)"
+    />
+    <meta
+      property="og:description"
+      content="A deep dive into Upper Data Architecture — an operational ontology connecting organisational meaning to real data sources, fields, and pipelines."
+    />
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:url"
+      content="https://jdu.github.io/2026-07-06-wellcome-uda-ontologies.html"
+    />
+    <meta property="og:site_name" content="Frozen Insight in a Moving World" />
+    <meta name="twitter:card" content="summary" />
+    <meta
+      name="twitter:title"
+      content="Data, Ontologies, and Data Architecture (UDA)"
+    />
+    <meta
+      name="twitter:description"
+      content="A deep dive into Upper Data Architecture — an operational ontology connecting organisational meaning to real data sources, fields, and pipelines."
+    />
+  </head>
+
+  <body>
+    <article>
+      <nav class="back-link"><a href="index.html">← Jeff Uren</a></nav>
+      <h1>Part 1: Data Is Not Reality</h1>
+      <p class="subtitle">Jeff Uren ★ 2026-07-06</p>
+
+      <section>
+        <p>
+          I'm needler. I like to take an idea, then keep worrying at it from
+          different angles until it ultimately becomes obvious. In particulary,
+          needing to know how it fails, falls apart, or crumbles under pressure.
+          What it is and what it isn't.
+        </p>
+
+        <p>
+          This is a series of articles about building a shared understanding of
+          data, ontologies, and data architecture (UDA) in a large organisation
+          that struggles with meaning.
+        </p>
+      </section>
+
+      <section>
+        <blockquote>
+          All models are wrong, but some are useful. - Georg E. P. Box
+        </blockquote>
+
+        <p>There are ideas that seem so obvious we stop noticing them.</p>
+
+        <p>Data is one of those ideas.</p>
+
+        <p>
+          We spend our lives surrounded by it. We build databases, pipelines,
+          dashboards, reports, warehouses, lakes, marts, APIs, spreadsheets, and
+          machine learnin gmodels. We talk endlessly about "using the data",
+          "moving the data", "governing the data", and "making data-driven
+          decisions".
+        </p>
+
+        <p>
+          But no one every really stops and asks: <strong>What is data?</strong>
+        </p>
+
+        <p>
+          And I don't mean what format it's in, or where it's stored, or even
+          which system produced it.
+        </p>
+      </section>
+
+      <section>
+        <h2>What in tarnation are you on about?</h2>
+
+        <p>
+          I think we've accidentally trained ourselves to answer the wrong
+          question.
+        </p>
+
+        <p>
+          When most people talk about data, they picture tables, columns, files,
+          or dashboards. Engineers think about schemas. Analysts thing about
+          measures. Database admins think about indexes. AI companies think
+          about tokens.
+        </p>
+
+        <p>
+          They're all looking at the same <i>representation</i>, rather than
+          what is being represented.
+        </p>
+
+        <p>
+          That difference above is really important, and it's one I wanted to
+          pick away at.
+        </p>
+      </section>
+
+      <section>
+        <h2>A number isn't data</h2>
+
+        <p>
+          Imagine I write the number <strong>42</strong> on a piece of paper and
+          hand it to you.
+        </p>
+
+        <p>That isn't data, it's just a number, a value.</p>
+
+        <p>Now imagine I tell you it's someones age.</p>
+
+        <p>
+          Now it has meaning. Except it still doesn't really. Whose age? When?
+          Measured by whom? Estimated? Recorded yesterday? Recorded ten years
+          ago?
+        </p>
+
+        <p>
+          Already we've started asking questions that have nothing to do with
+          databases, but the number hasn't changed, the meaning has.
+        </p>
+
+        <p>
+          Data isn't simply a recorded value. A recorded value only become sdata
+          when it claims to describe something in the real world.
+        </p>
+      </section>
+
+      <section>
+        <h2>Representation, not reality</h2>
+
+        <p>
+          For a long time I worked on disease surveillance systems across parts
+          of Africa, the Middle East, and the Pacific. Every morning I would
+          wake up to reports showing outbreaks, mortality, vaccinations,
+          suspected cases, confirmed cases, supply shortages, and population
+          movements.
+        </p>
+
+        <p>Those numbers mattered, but the numbers wre never the disease.</p>
+
+        <p>
+          A reported case wasn't a child lying on a clinic bed, a mortality
+          statistic wasn't a family, a vaccination count wasn't someone carrying
+          their child for miles to reach the nearest clinic.
+        </p>
+
+        <p>
+          The data represented those things, sometimes accurately, sometimes
+          poorly, sometimes not at all.
+        </p>
+
+        <p>
+          The job was never simply collecting numbers. It was understanding what
+          those numbers claimed to represent, and how faithfully they reflected
+          reality.
+        </p>
+
+        <p>
+          There are a lot of hard lessons I learned out of that work, ones I
+          carry with me to this day. Only one of them is that data isn't
+          reality, it's a description of reality, and those are
+          <strong>very</strong> different things.
+        </p>
+      </section>
+
+      <section>
+        <h2>Meaning lives outside the database</h2>
+
+        <p>Suppose I show you a column called:</p>
+
+        <pre><code>amount</code></pre>
+
+        <p>What is it?</p>
+
+        <ul>
+          <li>Awarded amount?</li>
+          <li>Paid amount?</li>
+          <li>Requested amount?</li>
+          <li>Remaining budget?</li>
+          <li>Original currency?</li>
+          <li>GBP?</li>
+          <li>Millions?</li>
+          <li>Thousands?</li>
+        </ul>
+
+        <p>
+          A database can't answer those questions for you, and neither can SQL,
+          or parquet, or iceberg. Those systems are
+          <strong>excellent</strong> at storing <i>values</i>.
+        </p>
+
+        <p>
+          They are deliberately indifferent to what those values <i>mean</i>.
+        </p>
+
+        <p>
+          We've become so accustomed to treating storage as understanding that
+          we generally mistake the existence of data for the existence of
+          <i>knowledge</i>. And the trust is
+          <strong>they're not the same thing</strong>.
+        </p>
+      </section>
+
+      <section>
+        <h2>Every organisation has its own language</h2>
+
+        <p>
+          Walk into any organisation and you'll hear people using terms they all
+          seem to understand.
+        </p>
+
+        <ul>
+          <li>Grant</li>
+          <li>Application</li>
+          <li>Research Organisation</li>
+          <li>Project</li>
+          <li>Employee</li>
+          <li>Payment</li>
+          <li>Funding Round</li>
+          <li>Programme</li>
+        </ul>
+
+        <p>
+          They sound obvious until two departments use the same word
+          differently. Or worse, different words mean the same thing.
+        </p>
+
+        <p>
+          A lot of organisations don't really have a technology problem. They
+          have a language problem and Wellcome is no different.
+        </p>
+
+        <p>
+          Everyone agrees they're talking about "applications" but they don't
+          necessarily agree on what an application actually is.
+        </p>
+
+        <p>
+          When those disagreements stay in people's heads, software quietly
+          inherits them.
+        </p>
+
+        <p>
+          That's where inconsistent reports come from, or conflicting
+          dashboards, or AI confidently giving two different answers to the same
+          question.
+        </p>
+
+        <p>This all happens because meaning is never made explicit.</p>
+      </section>
+
+      <section>
+        <h2>AI makes this more important, not less</h2>
+
+        <p>
+          Large language models are astonishingly good at recognizing patterns.
+          They're also astonishingly willing to invent connections where none
+          exist.
+        </p>
+
+        <p>
+          If you point an AI model at a warehouse full of tables and ask
+          questions about your organisation, it has to infer meaning from names,
+          structures, examples, and statistical patterns.
+        </p>
+
+        <p>
+          Sometimes it gets it right, a lot more often it doesn't. We tried it,
+          and it was bad.
+        </p>
+
+        <p>
+          The dangerous part of that is that both answers sound equally
+          convincing, but that's not really an AI problem. It's a semantics
+          problem.
+        </p>
+
+        <p>
+          If we never tell our systems what our organisation means by "Grant",
+          "Application", or "Awarded Amount", we shouldn't be surprised when
+          they guess.
+        </p>
+
+        <p>
+          Humans have been guessing for years, guess what? Now the computers are
+          joining in on the fun.
+        </p>
+      </section>
+
+      <section>
+        <h2>Before we build anything...</h2>
+
+        <p>
+          This is where I think we've been looking at data in a backwards
+          horrible way, we ususally design things around storage, tables,
+          schemas, files, pipelines, warehouses. Only after the fact do we start
+          asking what everything actually measn.
+        </p>
+
+        <p>I'd argue the order should be reversed.</p>
+
+        <p>
+          Before we decide how to store information, we should first agree on
+          what exists.
+        </p>
+
+        <ul>
+          <li>What kinds of things matter?</li>
+          <li>What do we know about them?</li>
+          <li>How do they relate to one another?</li>
+          <li>What language do we use to describe them?</li>
+        </ul>
+
+        <p>
+          It's at that point we start to worry over where the values actually
+          live, the storage isn't the understanding, it's just somewhere we put
+          the evidence.
+        </p>
+      </section>
+
+      <hr />
+      <section>
+        <p>
+          In the next article we'll start building the language, but not for a
+          database, for the organisation itself.
+        </p>
+
+        <a href="2026-07-01-uda-002.html">Next: Part 2</a>
+      </section>
+    </article>
+  </body>
+</html>

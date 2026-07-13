@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Data, Ontologies, and Data Architecture (UDA) - Part 1</title>
+    <link rel="stylesheet" href="static/css/tufte.css" />
+    <script src="static/js/theme.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="A deep dive into Upper Data Architecture — an operational ontology connecting organisational meaning to real data sources, fields, and pipelines."
+    />
+    <meta
+      property="og:title"
+      content="Data, Ontologies, and Data Architecture (UDA)"
+    />
+    <meta
+      property="og:description"
+      content="A deep dive into Upper Data Architecture — an operational ontology connecting organisational meaning to real data sources, fields, and pipelines."
+    />
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:url"
+      content="https://jdu.github.io/2026-07-06-wellcome-uda-ontologies.html"
+    />
+    <meta property="og:site_name" content="Frozen Insight in a Moving World" />
+    <meta name="twitter:card" content="summary" />
+    <meta
+      name="twitter:title"
+      content="Data, Ontologies, and Data Architecture (UDA)"
+    />
+    <meta
+      name="twitter:description"
+      content="A deep dive into Upper Data Architecture — an operational ontology connecting organisational meaning to real data sources, fields, and pipelines."
+    />
+  </head>
+
+  <body>
+    <article>
+      <nav class="back-link"><a href="index.html">← Jeff Uren</a></nav>
+      <h1>Part 2: Building a Language for the Organisation</h1>
+      <p class="subtitle">Jeff Uren ★ 2026-07-06</p>
+
+      <section>
+        <p>
+          This is the second article in a series about building a shared
+          understanding of data, ontologies, and data architecture (UDA) in a
+          large organisation that struggles with meaning.
+        </p>
+      </section>
+
+      <section>
+        <p>
+          In the last article I argued that data isn't reality. It's a
+          representation.
+        </p>
+
+        <p>
+          A recorded value only becomes useful when we understand what piece of
+          reality it claims to describe.
+        </p>
+
+        <p>
+          <strong
+            >If data represents reality... what exactly are we
+            representing?</strong
+          >
+        </p>
+
+        <p>
+          Tables, files, systems? No. We need to represent the organisation
+          itself.
+        </p>
+      </section>
+
+      <section>
+        <h2>Forget database for a moment</h2>
+
+        <p>
+          Imagine, just for a few minutes, that every database in Wellcome or
+          your own organisation disappeared overnight.
+        </p>
+
+        <ul>
+          <li>Oracle</li>
+          <li>Workday</li>
+          <li>Salesforce</li>
+          <li>Monday</li>
+          <li>Postgres</li>
+          <li>Slack & Teams</li>
+          <li>Outlook Emails</li>
+        </ul>
+
+        <p>All of it, all the technology is gone. What survives?</p>
+
+        <p>The organisation itself.</p>
+
+        <p>
+          People are still applying for funding, researchers still need to
+          receive grants, and money still needs to move around. We still need to
+          collaborate with other organisations, some of those applications will
+          become awards, projects will still exist.
+        </p>
+
+        <p>
+          The things that matter don't disappear, only our way of recording them
+          has.
+        </p>
+
+        <p>
+          That thought experiment changes a lot of things, it suggests that
+          databases aren't actually the primary thing we're trying to model.
+          They're just one way of recording a world that already exists.
+        </p>
+      </section>
+
+      <section>
+        <h2>Start with nouns</h2>
+
+        <p>
+          If we're going to describe an organisation, the obvious place to start
+          isn't with tables. It's with nounds.
+        </p>
+
+        <p>What are the things that exist?</p>
+
+        <ul>
+          <li>Funded Grant</li>
+          <li>Application</li>
+          <li>Organisation</li>
+          <li>Person</li>
+          <li>Payment</li>
+          <li>Funding Scheme</li>
+          <li>Transaction</li>
+          <li>Project</li>
+        </ul>
+
+        <p>
+          These aren't database objects, they're concepts. They're things people
+          already talk about every day. If someone asks:
+        </p>
+
+        <blockquote>"How many grants did we award last year?"</blockquote>
+
+        <p>
+          They're not asking about rows. They're asking about something that
+          exists independently of whichever system happens to store it.
+        </p>
+
+        <p>In the UDA we call these <strong>DirectClasses</strong>.</p>
+
+        <p>
+          That's just our name for an organisational concept. You could call
+          them entities, concepts, business objects, or something else entirely.
+        </p>
+
+        <p>
+          The name isn't really the important part of this, the important part
+          is recognizing that they exist before the database ever does.
+        </p>
+      </section>
+
+      <section>
+        <h2>Then ask what we know</h2>
+
+        <p>Once we've agreed something exists, the next question is obvious.</p>
+
+        <blockquote>What do we know about it?</blockquote>
+
+        <p>A Funded Grant might have:</p>
+
+        <ul>
+          <li>an Awarded Amount</li>
+          <li>a Start Date</li>
+          <li>an End Date</li>
+          <li>a Lead Organisation</li>
+          <li>a Funding Scheme</li>
+          <li>a Grant Reference</li>
+        </ul>
+
+        <p>
+          Notice that we still haven't talke about "Columns". These aren't
+          columns, they're characteristics, properties, things that can be true
+          about a grant.
+        </p>
+
+        <p>
+          If tomorrow we moved every system from Oracle to something entirely
+          different, those properties wouldn't suddenly change. The storage
+          layer would, the meaning wouldn't.
+        </p>
+      </section>
+
+      <section>
+        <h2>Relationships are first-class citizens</h2>
+
+        <p>
+          Organisations aren't collections of isolated objects because
+          everything connets to everything else.
+        </p>
+
+        <ul>
+          <li>Applications become Grants</li>
+          <li>Grants produce Payments</li>
+          <li>Payments belong to Organisations</li>
+          <li>People submit Applications</li>
+          <li>Researcher work on Projects</li>
+        </ul>
+
+        <p>
+          Those relationships aren't implementation details, they're part of the
+          organisation itself.
+        </p>
+
+        <p>
+          Most databases treat relationships as something you infger from keys
+          but database systems aren't robust enough to confer the meaning behind
+          those relationships.
+        </p>
+
+        <p>
+          We need to make them explicit instead of hoping everyone understands
+          that two IDs happen to match. So we need to describe the relationship
+          itself.
+        </p>
+
+        <ul>
+          <li>A Grant has a Lead Organisation</li>
+          <li>A Grant originates from an Application</li>
+          <li>A Payment contributes towards a Grant</li>
+        </ul>
+
+        <p>
+          The relationships carry meaning, the join is just the implementation
+          of it.
+        </p>
+      </section>
+
+      <section>
+        <h2>Not every value is free text</h2>
+
+        <p>
+          Some things can take almost any value, things like Awarded Amount,
+          Grant Reference, Date, but other can't.
+        </p>
+
+        <p>Application Status might only ever be:</p>
+
+        <ul>
+          <li>Draft</li>
+          <li>Submitted</li>
+          <li>Awarded</li>
+          <li>Rejected</li>
+          <li>Withdrawn</li>
+        </ul>
+
+        <p>
+          Those aren't just strings, they're part of the language of the
+          organisation.
+        </p>
+
+        <p>
+          If one system records <code>SUCCESSFUL</code>, another records
+          <code>AWARDED</code>, and a third records <code>A</code>, we've
+          created three different dialects describing the same idea.
+        </p>
+
+        <p>
+          Instead of treating those differences as inevitable, we define the
+          concept once and let the systems map onto it.
+        </p>
+
+        <p>Again, we're modeling the meaning, rather than the storage.</p>
+      </section>
+
+      <section>
+        <h2>Domains give concepts a home</h2>
+
+        <p>As the model grows it needs some structure.</p>
+
+        <ul>
+          <li>Funding</li>
+          <li>Finance</li>
+          <li>People</li>
+          <li>Invesmtents</li>
+          <li>Digital & Technology</li>
+          <li>Climate & Health</li>
+        </ul>
+
+        <p>
+          These Domains aren't walled gardens though, they're more like
+          neighbourhoods. They help us undertstand ownership, discoverability,
+          and context.
+        </p>
+
+        <p>
+          A Grant primarily belongs to Funding, but it still relates to Finance,
+          Organisations, and People.
+        </p>
+
+        <p>
+          Reality doesn't divide itself neatly into departments, and neither
+          should our model.
+        </p>
+      </section>
+
+      <section>
+        <h2>So far we've ignored data</h2>
+
+        <p>
+          At this point we have something that feels suspiciously useful. We've
+          described:
+        </p>
+
+        <ul>
+          <li>the things that exist</li>
+          <li>what we know about them</li>
+          <li>how they relate</li>
+          <li>the language we use to describe them</li>
+        </ul>
+
+        <p>
+          We've done all of that without mentioning databases, and that isn't an
+          accident. To reiterate, the model isn't trying to describe storage,
+          it's trying to describe the organisation.
+        </p>
+
+        <p>
+          Only once we've agreed on meaning does it make sense to ask where the
+          recorded values actually live and that's where the second half of the
+          UDA kicks in.
+        </p>
+      </section>
+
+      <section>
+        <h2>Crossing the bridge</h2>
+
+        <p>
+          Eventually every concept has to meet up with reality, somewhere
+          there's a field that records the "Awarded Amount", and somewhere
+          there's a code representing "Application Status", and even somewhere
+          else there's an identifier that links a Grant to a specific
+          Organisation.
+        </p>
+
+        <p>
+          But those value only matter because we've already agreed what they
+          represent.
+        </p>
+
+        <p>
+          The UDA doesn't <i>replace</i> databaes, or warehouses, or our
+          DataMesh, it sits between them and the organisation.
+        </p>
+
+        <p>One side understands storage, the other understand meaning.</p>
+
+        <p>
+          The bridge between those two worlds is where the interesting work
+          happens. That's where the fields become attributes, rows become
+          instances of concepts, and system codes become shared organisational
+          language.
+        </p>
+
+        <p>
+          Where disconnected datasets begin to describe a single organisation
+          instead of a collection of software products.
+        </p>
+      </section>
+
+      <hr />
+      <section>
+        <p>
+          In the next article we'll cross that bridge. We'll connect the
+          conceptual world to real data, and look at what happens when meaning
+          stops being documentation and starts driving software.
+        </p>
+        <a href="2026-07-01-uda-003.html">Next: Part 2</a>
+      </section>
+    </article>
+  </body>
+</html>
