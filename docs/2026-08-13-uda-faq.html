@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>UDA Addendum: Frequently Asked Questions</title>
+    <link rel="stylesheet" href="static/css/tufte.css" />
+    <script src="static/js/theme.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="A collection of frequently asked questions about the UDA series."
+    />
+    <meta
+      property="og:title"
+      content="UDA Addendum: Frequently Asked Questions"
+    />
+    <meta
+      property="og:description"
+      content="A collection of frequently asked questions about the UDA series."
+    />
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:url"
+      content="https://jdu.github.io/2026-08-13-uda-faq.html"
+    />
+    <meta property="og:site_name" content="Frozen Insight in a Moving World" />
+    <meta name="twitter:card" content="summary" />
+    <meta
+      name="twitter:title"
+      content="UDA Addendum: Frequently Asked Questions"
+    />
+    <meta
+      name="twitter:description"
+      content="A collection of frequently asked questions about the UDA series."
+    />
+  </head>
+
+  <body>
+    <article>
+      <nav class="back-link"><a href="index.html">← Jeff Uren</a></nav>
+      <h1>UDA Addendum: Frequently Asked Questions</h1>
+      <p class="subtitle">Jeff Uren ★ 2026-08-15</p>
+
+      <section>
+        <p>
+          This is a follow-up addendum to the UDA article series on this site,
+          which you can find here:
+        </p>
+
+        <ul>
+          <li>
+            <a href="2026-08-13-uda-1-data-is-not-reality.html"
+              >Part 1: Data Isn't Reality</a
+            >
+          </li>
+          <li>
+            <a
+              href="2026-08-13-uda-2-building-a-language-for-the-organisation.html"
+              >Part 2: Building a Language for the Organisation</a
+            >
+          </li>
+          <li>
+            <a href="2026-08-13-uda-3-meaning-becomes-operational.html"
+              >Part 3: When Meaning Becomes Operational</a
+            >
+          </li>
+          <li>
+            <a href="2026-08-13-uda-4-once-meaning-exists.html"
+              >Part 4: Once Meaning Exists</a
+            >
+          </li>
+          <li>
+            <a href="2026-08-13-uda-5-the-organisation-as-a-graph.html"
+              >Part 5: The Organisation as a Graph</a
+            >
+          </li>
+          <li>
+            <a href="2026-08-13-uda-addendum.html">Addendum: Giving Thanks</a>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <p>
+          The ideas described throughout this series naturally raise a lot of
+          questions, especially around complexity, practicality, governance, and
+          whether this is simply reinventing capabilities that already exist
+          elsewhere. Those are exactly the kinds of questions we
+          <i>should</i> be asking.
+        </p>
+
+        <p>
+          This FAQ attempts to answer some of the more common, and sometimes
+          deliberately challenging, questions we've encountered while developing
+          the UDA. The intention isn't to claim we've solved every problem, but
+          to explain the reasoning behind the architectural decisions, the
+          trade-offs we've made, and where we believe this approach provides
+          genuine long-term value for Wellcome. YMMV.
+        </p>
+      </section>
+
+      <section>
+        <h2>Philosophy</h2>
+
+        <h3>Isn't this just another metadata catalogue?</h3>
+
+        <p>No</p>
+
+        <p>
+          A metadata catalogue describes where data <i>lives</i>. The UDA
+          describes what the data means. More importantly, the UDA is
+          operational. Applications, query engines, generated APIs, projections,
+          governance, lineage, and permissions are built from it. If you remove
+          the UDA, software stops working. If you remove a metadata catalogue,
+          it's just documentation disappearing.
+        </p>
+
+        <h3>Isn't this just an ontology?</h3>
+
+        <p>Technically yes, Practically no.</p>
+
+        <p>
+          The ontology is just the representation that we chose because it's
+          good at modeling concepts and relationships. The value comes from what
+          sites on top of. The executable mappings, generated projections,
+          semantic query planning, and operational systems.
+        </p>
+
+        <h3>Why not just improve our data model?</h3>
+
+        <p>
+          Because a data model describes <i>storage</i>, the UDA is designed to
+          describe the <i>organisation</i>. Our storage can change, and will,
+          rapidly at times, but the meaning changes much more slowly. Building
+          around meaning gives us a far more stable foundation for other work to
+          build on top of.
+        </p>
+
+        <h3>Why not start with the warehouse?</h3>
+
+        <p>
+          Warehouses answer today's questions, but the UDA is designed
+          essentially to answer tomorrows. A warehouse is an "output", they're
+          really just a single projection of the organisational meaning, but
+          their not the only one available to us.
+        </p>
+      </section>
+
+      <section>
+        <h2>Engineering</h2>
+
+        <h3>
+          Doesn't this duplicate information already stored in our data lake?
+        </h3>
+
+        <p>
+          No. The data lake remains the source of recorded value, the UDA just
+          stores the meaning, and those are two very different things.
+        </p>
+
+        <h3>Won't we have to model everything before we can use it?</h3>
+
+        <p>
+          Not necessarily, the ontology can grow incrementally one concept at a
+          time, with all the trimmings falling in line as the meaning gets
+          fleshed out. As the coverage increases, the platform will directly
+          become more useful and actionalble.
+        </p>
+
+        <h3>Isn't this just another layer of abstraction?</h3>
+
+        <p>
+          It absolutely is, 100%. On Purpose. It's not about whether the
+          abstraction represents something stable, storage is super unstable,
+          but organisational concepts, by comparison, are extremely stable, they
+          rarely change. An abstraction is worthwhile when it providex
+          <i>stability</i>.
+        </p>
+
+        <h3>Why not just use GraphQL?</h3>
+
+        <p>
+          GraphQL solves API composition, but it doesn't solve organisational
+          meaning, GraphQL is something we generate <i>from</i> the ontology,
+          not the other way around.
+        </p>
+
+        <h3>
+          Why not use a data catalogue like DataHub, Collibra, or Alation?
+        </h3>
+
+        <p>
+          Those are products that solve discovery and governance, but they
+          generally don't become the runtime for your application themselves.
+          The UDA is designed to drive the platform itself, they're
+          complementary rather than mutually exclusive.
+        </p>
+
+        <h3>Isn't this over-engineering?</h3>
+
+        <p>
+          If all you needed was reporting, absolutely. If you're building a
+          long-lived platform serving a wide, and varied set of domains,
+          changing source systems constantly, as well as applications, the
+          complexity already exists.
+        </p>
+
+        <p>
+          All the UDA is trying to do is simply centralize that complexity
+          instead of rediscovering it over and over.
+        </p>
+      </section>
+
+      <section>
+        <h2>Integration</h2>
+
+        <h3>Why not integrate systems directly?</h3>
+
+        <p>
+          Those systems will change, but the business concepts rarely do.
+          Replacing Oracle shouldn't precipitate every downstream application to
+          change. Mappings absorb those changes.
+        </p>
+
+        <h3>Why not just build another API?</h3>
+
+        <p>
+          You'll end up with hundreds of APIs, the actual difficult part here
+          isn't exposing the data, it's ensuring every API means the same thing.
+          We can build an API in minutes.
+        </p>
+
+        <h3>How does this help migration?</h3>
+
+        <p>
+          Instead of asking "What tables changed?" we can ask "What concepts
+          changed?" and the mappings isolate physical implementation from the
+          conceptual meaning.
+        </p>
+      </section>
+
+      <section>
+        <h2>Performance</h2>
+
+        <h3>Won't querying through an ontology be slow?</h3>
+
+        <p>
+          The ontology isn't queried instead of the data lake, it's used to plan
+          queries against the lakehouse itself and our operational systems. The
+          performance comes from the underlying storage engine, just the meaning
+          comes from the ontology.
+        </p>
+
+        <h3>Isn't graph technology slow?</h3>
+
+        <p>
+          Graphs are really, really good at relationships, warehouses are good
+          at aggregations, lakehouses are good at storage. Nothing we're doing
+          here replaces those things, or shifts the performance burden onto the
+          ontology, it just orchestrates the operations across them using the
+          right tool for the right job.
+        </p>
+      </section>
+
+      <section>
+        <h2>Governance</h2>
+
+        <h3>Why not keep governance in our IAM platform?</h3>
+
+        <p>
+          So an IAM identity system is good at answering "Who are you?", but the
+          UDA is designed for something different: "What does this data
+          represent?". Together, they allow permissions to follow meaning
+          instead of table names and storage.
+        </p>
+
+        <h3>What happens if two teams disagree on a definition?</h3>
+
+        <p>
+          Excellent, the disagreement already exists, the ontology and UDA just
+          forces it out into the open. The goal here isn't to eliminate
+          disagreements, it's to make the disagreements explicit, and trigger
+          those hard questions about what something actually means.
+        </p>
+      </section>
+    </article>
+  </body>
+</html>
