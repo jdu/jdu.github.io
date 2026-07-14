@@ -47,7 +47,25 @@
           understanding of data, ontologies, and data architecture (UDA) in a
           large organisation that struggles with meaning.
         </p>
+
+        <ul>
+          <li>
+            <a href="2026-07-01-uda-001.html">Part 1: Data is Not Reality</a>
+          </li>
+          <li>
+            <a href="2026-07-01-uda-002.html"
+              >Part 2: Buildin a Language for the Organisation</a
+            >
+          </li>
+          <li>
+            <a href="2026-07-01-uda-003.html"
+              >Part 3: The Organisational Graph</a
+            >
+          </li>
+        </ul>
       </section>
+
+      <hr />
 
       <section>
         <p>
@@ -74,7 +92,7 @@
       </section>
 
       <section>
-        <h2>Forget database for a moment</h2>
+        <h2>Forget the database for a moment</h2>
 
         <p>
           Imagine, just for a few minutes, that every database in Wellcome or
@@ -108,9 +126,10 @@
         </p>
 
         <p>
-          That thought experiment changes a lot of things, it suggests that
-          databases aren't actually the primary thing we're trying to model.
-          They're just one way of recording a world that already exists.
+          That thought experiment changes a lot of things, but one of the
+          primary things it suggests is that databases aren't actually the root
+          thing we're trying to model. They're just one way of recording a world
+          that already exists.
         </p>
       </section>
 
@@ -119,7 +138,8 @@
 
         <p>
           If we're going to describe an organisation, the obvious place to start
-          isn't with tables. It's with nounds.
+          isn't with tables. It's with nouns.
+          <span class="sidenote">I firmly believe "good" is a noun.</span>
         </p>
 
         <p>What are the things that exist?</p>
@@ -140,7 +160,9 @@
           already talk about every day. If someone asks:
         </p>
 
-        <blockquote>"How many grants did we award last year?"</blockquote>
+        <blockquote>
+          <p>"How many grants did we award last year?"</p>
+        </blockquote>
 
         <p>
           They're not asking about rows. They're asking about something that
@@ -156,7 +178,8 @@
 
         <p>
           The name isn't really the important part of this, the important part
-          is recognizing that they exist before the database ever does.
+          is recognizing that they exist <strong>before</strong> the database
+          ever does.
         </p>
       </section>
 
@@ -165,7 +188,7 @@
 
         <p>Once we've agreed something exists, the next question is obvious.</p>
 
-        <blockquote>What do we know about it?</blockquote>
+        <blockquote><p>What do we know about it?</p></blockquote>
 
         <p>A Funded Grant might have:</p>
 
@@ -179,7 +202,7 @@
         </ul>
 
         <p>
-          Notice that we still haven't talke about "Columns". These aren't
+          Notice that we still haven't talked about "columns". These aren't
           columns, they're characteristics, properties, things that can be true
           about a grant.
         </p>
@@ -195,8 +218,8 @@
         <h2>Relationships are first-class citizens</h2>
 
         <p>
-          Organisations aren't collections of isolated objects because
-          everything connets to everything else.
+          Organisations aren't collections of isolated objects, everything
+          connects to everything else.
         </p>
 
         <ul>
@@ -204,16 +227,16 @@
           <li>Grants produce Payments</li>
           <li>Payments belong to Organisations</li>
           <li>People submit Applications</li>
-          <li>Researcher work on Projects</li>
+          <li>Researchers work on Projects</li>
         </ul>
 
         <p>
-          Those relationships aren't implementation details, they're part of the
-          organisation itself.
+          Those relationships aren't technical implementation details, they're
+          actually part of the organisation itself.
         </p>
 
         <p>
-          Most databases treat relationships as something you infger from keys
+          Most databases treat relationships as something you infer from keys
           but database systems aren't robust enough to confer the meaning behind
           those relationships.
         </p>
@@ -241,7 +264,7 @@
 
         <p>
           Some things can take almost any value, things like Awarded Amount,
-          Grant Reference, Date, but other can't.
+          Grant Reference, Date, but others can't.
         </p>
 
         <p>Application Status might only ever be:</p>
@@ -270,7 +293,7 @@
           concept once and let the systems map onto it.
         </p>
 
-        <p>Again, we're modeling the meaning, rather than the storage.</p>
+        <p>Again, we're modeling the meaning, not the storage.</p>
       </section>
 
       <section>
@@ -289,7 +312,7 @@
 
         <p>
           These Domains aren't walled gardens though, they're more like
-          neighbourhoods. They help us undertstand ownership, discoverability,
+          neighbourhoods. They help us understand ownership, discoverability,
           and context.
         </p>
 
@@ -299,8 +322,9 @@
         </p>
 
         <p>
-          Reality doesn't divide itself neatly into departments, and neither
-          should our model.
+          Let's be honest, reality is never that clean, it doesn't segment
+          itself into nice little neat, self-contained boxes, so we shouldn't
+          try and impose that on our model of the organisation either.
         </p>
       </section>
 
@@ -344,16 +368,16 @@
         </p>
 
         <p>
-          But those value only matter because we've already agreed what they
+          But those values only matter because we've already agreed what they
           represent.
         </p>
 
         <p>
           The UDA doesn't <i>replace</i> databaes, or warehouses, or our
-          DataMesh, it sits between them and the organisation.
+          DataMesh, it sits between them and the rest of the organisation.
         </p>
 
-        <p>One side understands storage, the other understand meaning.</p>
+        <p>One side understands storage, the other understands meaning.</p>
 
         <p>
           The bridge between those two worlds is where the interesting work
@@ -363,19 +387,20 @@
         </p>
 
         <p>
-          Where disconnected datasets begin to describe a single organisation
-          instead of a collection of software products.
+          Disconnected datasets begin to describe a single organisation instead
+          of a collection of software products.
         </p>
       </section>
 
       <hr />
       <section>
         <p>
-          In the next article we'll cross that bridge. We'll connect the
-          conceptual world to real data, and look at what happens when meaning
-          stops being documentation and starts driving software.
+          In the next article we'll get into the nitty gritty of one specific
+          projection i'm excited about.
         </p>
-        <a href="2026-07-01-uda-003.html">Next: Part 2</a>
+        <a href="2026-08-13-uda-3-meaning-becomes-operational.html"
+          >Part 3: Meaning Becomes Operational</a
+        >
       </section>
     </article>
   </body>

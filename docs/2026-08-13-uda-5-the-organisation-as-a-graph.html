@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Data, Ontologies, and Data Architecture (UDA) - Part 1</title>
+    <link rel="stylesheet" href="static/css/tufte.css" />
+    <script src="static/js/theme.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="A deep dive into Upper Data Architecture — an operational ontology connecting organisational meaning to real data sources, fields, and pipelines."
+    />
+    <meta
+      property="og:title"
+      content="Data, Ontologies, and Data Architecture (UDA)"
+    />
+    <meta
+      property="og:description"
+      content="A deep dive into Upper Data Architecture — an operational ontology connecting organisational meaning to real data sources, fields, and pipelines."
+    />
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:url"
+      content="https://jdu.github.io/2026-07-06-wellcome-uda-ontologies.html"
+    />
+    <meta property="og:site_name" content="Frozen Insight in a Moving World" />
+    <meta name="twitter:card" content="summary" />
+    <meta
+      name="twitter:title"
+      content="Data, Ontologies, and Data Architecture (UDA)"
+    />
+    <meta
+      name="twitter:description"
+      content="A deep dive into Upper Data Architecture — an operational ontology connecting organisational meaning to real data sources, fields, and pipelines."
+    />
+  </head>
+
+  <body>
+    <article>
+      <nav class="back-link"><a href="index.html">← Jeff Uren</a></nav>
+      <h1>Part 4: The Organisation as a Graph</h1>
+      <p class="subtitle">Jeff Uren ★ 2026-07-06</p>
+
+      <section>
+        <p>
+          This is the fourth article in a series about building a shared
+          understanding of data, ontologies, and data architecture (UDA) in a
+          large organisation that struggles with meaning.
+        </p>
+
+        <ul>
+          <li>
+            <a href="2026-07-01-uda-001.html">Part 1: Data is Not Reality</a>
+          </li>
+          <li>
+            <a href="2026-07-01-uda-002.html"
+              >Part 2: Buildin a Language for the Organisation</a
+            >
+          </li>
+          <li>
+            <a href="2026-07-01-uda-003.html"
+              >Part 3: The Organisational Graph</a
+            >
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <p>
+          There comes a certain point where you stop thinking about databases,
+          not because SQL kind of stops being useful. It never will.
+        </p>
+
+        <p>
+          Databases start to be a bit meaningless because something more
+          interesting starts to emerge, the organisation itself starts to become
+          the thing you navigate.
+        </p>
+
+        <p>
+          For decades we've interacted with data through the lens of storage.
+        </p>
+
+        <ul>
+          <li>Which database?</li>
+          <li>Which schema?</li>
+          <li>Which table?</li>
+          <li>Which dashboard?</li>
+          <li>Which report?</li>
+        </ul>
+
+        <p>
+          We've become so accustomed to transalting our questions into the
+          language of databases that we've forgotten something prettry blatantly
+          obvious.
+        </p>
+
+        <p>No one actually thinks in tables.</p>
+      </section>
+
+      <section>
+        <h2>The wrong interface</h2>
+
+        <p>
+          Imagine walking into a library, and you ask a librarian for a book on
+          Arctic exploration.
+        </p>
+
+        <p>
+          Instead of taking you through the history section, they hand you a
+          floor plan of the building, then explain the shelving system, Dewey
+          Decimal classifications, shelf identifiers, storage density, and all
+          the structural engineering behind the building.
+        </p>
+
+        <p>Eventually they point you in the direction of the right aisle.</p>
+
+        <p>
+          You'd absolutely think they were completely insane, the storage system
+          exists to help the library operate, it isn't supposed to become the
+          interface. But that's exactly what we've done with data.
+        </p>
+
+        <p>
+          We've taught generations of analysts, engineers, and increasingly
+          business users that understanding the organisation means understanding
+          where the data happens to be stored.
+        </p>
+
+        <p>It never did.</p>
+      </section>
+
+      <section>
+        <h2>Navigating meaning</h2>
+
+        <p>Imagine asking a question like this:</p>
+
+        <blockquote>
+          Show me every funded grant related to antimicrobial resistance,
+          administered by organisations in East Africa, together with the
+          applications that produced those grants, the people involved, the
+          payments that have been made so far, and programmes they contribute
+          towards.
+        </blockquote>
+
+        <p>
+          That's not an unusual organisational question, but what is really
+          unusual is how we answer it.
+        </p>
+
+        <p>
+          Traditionally the first thing someone does is start looking for
+          tables, keys, working out joins, and generally reverse engineering
+          years of accumulated assumptions.
+        </p>
+
+        <p>
+          The storage <strong>is</strong> the problem here, so what if the
+          interface was us making the organisation navigable?
+        </p>
+
+        <p>
+          Instead of joining tables you traverse relationships, rather than
+          hunting through metadata you explore concepts, and instead of
+          discovering structure you follow meaning.
+        </p>
+
+        <p>
+          The question stays exactly as the person asked it, but the platform
+          works everything else out for you.
+        </p>
+      </section>
+
+      <section>
+        <h2>The Graph of Wellcome</h2>
+
+        <p>This is where the UDA quietly disappears into the background.</p>
+
+        <p>
+          Once concepts, relationships, mappings, and projections become
+          operational, something way bigger begins to appear.
+        </p>
+
+        <p>
+          It ends up not just being a graph of concepts, it's a graph of the
+          organisation itself and a Funded Grant isn't an isolated record
+          anymore, it's something you can actually explore. You camove to the
+          Application which it came from, the organisation that's administering
+          it, the people involved, internally and externally, the quality rules
+          that validate it, the pipelines that surface it, and the governance
+          policies that protect them.
+        </p>
+
+        <p>
+          None of those connections needs to be invented, it's all there
+          already, the graph just makes them visible.
+        </p>
+      </section>
+
+      <section>
+        <h2>Time becomes another dimension</h2>
+
+        <p>
+          One of the more interesting consequences of treating the organisation
+          as a graph is that it doesn't have to represent only today.
+        </p>
+
+        <p>
+          Organisations change constantly, and Wellcome especially, departments
+          can change rapidly, funding priorities evolve, projects begin and end,
+          and people move.
+        </p>
+
+        <p>
+          Traditional reporting usually flattens all of that into whatever
+          happens to be true now, but organisations aren't static, they're
+          living systems.
+        </p>
+
+        <p>
+          If the underlying concepts are versioned, the graph becomes something
+          you can explore through time as well as structure.
+        </p>
+
+        <p>So it's not simply:</p>
+
+        <blockquote>Show me our grants.</blockquote>
+
+        <p>But:</p>
+
+        <blockquote>
+          Show me how our understanding of grants changed between 2020 and 2026.
+        </blockquote>
+
+        <p>Or:</p>
+
+        <blockquote>
+          Show me the organisation as it existed before this programme was
+          created.
+        </blockquote>
+
+        <p>
+          History stops being something buried in old backups, and becomes
+          explorable.
+        </p>
+      </section>
+
+      <section>
+        <h2>AI finally has something to stand on</h2>
+
+        <p>
+          People have asked multiple times how AI fits into all this, and the
+          honest answer is that AI isn't really the intersting part at all.
+        </p>
+
+        <p>Grounding is the interesting part.</p>
+
+        <p>
+          Without context, an AI model sees tables, column names, sample values,
+          and statistical patterns, but it has no way to infer what everything
+          actually means.
+        </p>
+
+        <p>
+          It'll get it right sometimes, just enough to make you feel overly
+          confident in its answers, but it won't be able to explain why, and it
+          won't be able to tell you when it's wrong.
+        </p>
+
+        <p>
+          If the organisation has an explicit model of its concepts,
+          relationships, language, governance, then the conversation changes and
+          the AI doesn't have to invent meaning anymore because it can just ask
+          for it.
+        </p>
+
+        <p>
+          So the ontology doesn't really make the model intelligent, just like a
+          human being interrogating our organisation, it give everyone a
+          reliable place to begin.
+        </p>
+      </section>
+
+      <section>
+        <h2>Dashboards aren't the destination</h2>
+
+        <p>
+          For years we've treated dashboards as the natural endpoint of
+          anlaytics.
+        </p>
+
+        <p>
+          We collect data, transform it, build reports, repeat, over and over.
+        </p>
+
+        <p>
+          Dashboards are incredibly useful, they're also fundamentally answers
+          to questions someone already knew to ask.
+        </p>
+
+        <p>
+          Discovery doesn't really work like that, it starts with curiosity.
+        </p>
+
+        <ul>
+          <li>"I wonder why..."</li>
+          <li>"I wonder what connects..."</li>
+          <li>"I wonder what changes..."</li>
+        </ul>
+
+        <p>
+          These are exploratory questions, and I suspect the interfaces we build
+          over the next decade will look much less like collections of charts
+          and much more like conversations with an organisation.
+        </p>
+
+        <p>
+          Those conversations could be visual, textual, assisted by AI, graphs,
+          and maybe something we haven't invented yet.
+        </p>
+
+        <p>
+          The important part though is the interface is grounded in the same
+          shared understanding of meaning.
+        </p>
+      </section>
+
+      <section>
+        <h2>Building a memory</h2>
+
+        <p>There's another consequence that's easy to overlook.</p>
+
+        <p>
+          Organisations have a tendency to <strong>forget</strong>. People
+          leave, teams are reorganized, systems are replaces, consultants arrive
+          and depart, projects finish.
+        </p>
+
+        <p>
+          The reasons behind decisions across all that time, are summarily lost
+          and disappear.
+        </p>
+
+        <p>
+          Eventually nobody remembers why two reports disagree, why three
+          systems define "Application" differently, or why one field has behaved
+          strangely for the last eight years.
+        </p>
+
+        <p>
+          Meaning evaporates, and we usually call that institutional knowledge,
+          but it's more like organisational memory. Most organisations store
+          enormouse amounts of data, but very few out there store their actual
+          understanding. And those aren't even remotely the same things.
+        </p>
+
+        <p>
+          The UDA isn't just modelling today's organisation, it's preserving how
+          the organisation understands itself.
+        </p>
+      </section>
+
+      <section>
+        <h2>Foundations</h2>
+
+        <p>
+          So what's the end goal here? A semantic warehouse? Generated APIs?
+          GraphQL? AI? Governance? Lineage?
+        </p>
+
+        <p>
+          Those are all pretty useful things, but they're also just by-products
+          in our world now, the real goal we're chasing is actually a lot
+          simpler.
+        </p>
+
+        <p>
+          Build foundations strong enough that people stop thinking about
+          infrastructure altogether.
+        </p>
+
+        <p>
+          Just like how we don't think about TCP protocols when we browse the
+          web, or filesystems when we edit a document, I'd like us to reach a
+          point where nobody needs to think about schemas before they can
+          understand the organisation.
+        </p>
+
+        <p>
+          They just ask questions, explore, learn, build, challenge assumptions.
+        </p>
+
+        <p>
+          The machinery on the backend will do the rest for them, because that's
+          the job of good infrastructure, you shouldn't see it, and it should
+          make lots of other things possible.
+        </p>
+      </section>
+
+      <hr />
+      <section>
+        <p>
+          When I started this series I said that data isn't really reality. It's
+          representation.
+        </p>
+        <p>
+          All the gumpf that followed that is really just an attempt to answer a
+          really strong question.
+        </p>
+        <p>
+          If data represents the organization, how should the organisation
+          represent itself?
+        </p>
+        <p>
+          It feels like we're beginning to figure that out, and personally, I
+          think that's far more interesting that another unmaintainable data
+          catalog.
+        </p>
+        <a href="2026-07-01-uda-addendum.html">Addendum: Giving Thanks</a>
+      </section>
+    </article>
+  </body>
+</html>

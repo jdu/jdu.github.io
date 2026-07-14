@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Data, Ontologies, and Data Architecture (UDA) - Part 1</title>
+    <link rel="stylesheet" href="static/css/tufte.css" />
+    <script src="static/js/theme.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="A deep dive into Upper Data Architecture — an operational ontology connecting organisational meaning to real data sources, fields, and pipelines."
+    />
+    <meta
+      property="og:title"
+      content="Data, Ontologies, and Data Architecture (UDA)"
+    />
+    <meta
+      property="og:description"
+      content="A deep dive into Upper Data Architecture — an operational ontology connecting organisational meaning to real data sources, fields, and pipelines."
+    />
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:url"
+      content="https://jdu.github.io/2026-07-06-wellcome-uda-ontologies.html"
+    />
+    <meta property="og:site_name" content="Frozen Insight in a Moving World" />
+    <meta name="twitter:card" content="summary" />
+    <meta
+      name="twitter:title"
+      content="Data, Ontologies, and Data Architecture (UDA)"
+    />
+    <meta
+      name="twitter:description"
+      content="A deep dive into Upper Data Architecture — an operational ontology connecting organisational meaning to real data sources, fields, and pipelines."
+    />
+  </head>
+
+  <body>
+    <article>
+      <nav class="back-link"><a href="index.html">← Jeff Uren</a></nav>
+      <h1>Part 3: Once Meaning Exists</h1>
+      <p class="subtitle">Jeff Uren ★ 2026-07-06</p>
+
+      <section>
+        <p>
+          This is the third article in a series about building a shared
+          understanding of data, ontologies, and data architecture (UDA) in a
+          large organisation that struggles with meaning.
+        </p>
+
+        <ul>
+          <li>
+            <a href="2026-07-01-uda-001.html">Part 1: Data is Not Reality</a>
+          </li>
+          <li>
+            <a href="2026-07-01-uda-002.html"
+              >Part 2: Buildin a Language for the Organisation</a
+            >
+          </li>
+        </ul>
+      </section>
+
+      <hr />
+
+      <section>
+        <p>
+          The interesting thing about the UDA isn't the ontology, all told,
+          that's actually only about 500 lines of plaintext turtle code which is
+          used to compile the relationships and then more or less, discarded.
+        </p>
+
+        <p>
+          The thing that's really interesting is what stops needing to be
+          written by hand.
+        </p>
+
+        <p>
+          Once you've described the organisation well enough, an uncomfortable
+          amount of software starts becoming derivable.
+        </p>
+
+        <p>
+          That's not out of us building dozens of separate systems, it's because
+          they're all asking the same question:
+        </p>
+
+        <blockquote>
+          <p>
+            "Given this understanding of the organisation... what should I
+            build?"
+          </p>
+        </blockquote>
+      </section>
+
+      <section>
+        <h2>Graph of Concepts</h2>
+
+        <p>
+          The simplest output is the ontology itself, not diagrams, but a living
+          graph.
+        </p>
+
+        <p>
+          An application can browse the concepts, their relationships, domains,
+          attributes, terms, enumerations.
+        </p>
+
+        <p>Documentation at this point, is just a matter of exploring.</p>
+      </section>
+
+      <section>
+        <h2>A Graph of Wellcome</h2>
+
+        <p>
+          Then comes the interesting graph, because the ontology can connect to
+          reality through the mappings.
+        </p>
+
+        <p>
+          A Grant, it's attributes, the datasets that contribute to it, the
+          pipelines, lineage, and quality rules, and even the permissions.
+        </p>
+
+        <p>
+          Everything is discretely connected, so that it's no longer a graph of
+          <i>ideas</i>, it's a complete graph of Wellcome as it exists.
+        </p>
+      </section>
+
+      <section>
+        <h2>Generated GraphQL</h2>
+
+        <p>
+          GraphQL more or less becomes stupidly obvious because the ontology
+          knows the relationships, attributes, and even the underlying types.
+        </p>
+
+        <p>
+          Generating GraphQL becomes just a translation exercise, and we have
+          built a graphql service which can read in annotated graphqls
+          declarations and automatically spin up a graphql service with resolves
+          that can read from the underlying data sources.
+        </p>
+
+        <p>
+          So instead of writing APIs, we just describe concepts, everything else
+          is done for us. It doesn't even need AI to do it.
+        </p>
+      </section>
+
+      <section>
+        <h2>Generated REST APIs</h2>
+
+        <p>
+          The same applies to REST. Need an HTTP REST API to allow you to
+          integrate Wellcome data into your new application or system? Need an
+          aggregation endpoint, or a specific projection?
+        </p>
+
+        <p>
+          They're all describing different views over the same conceptual model.
+        </p>
+      </section>
+
+      <section>
+        <h2>Warehouse tables</h2>
+
+        <p>
+          One of my favourite examples, because people spend monhts designing
+          warehouse tables.
+        </p>
+
+        <p>
+          We get dimension tables, fact tables, big report-style tables, slowly
+          changing dimensions, conformed dimensions, star schemas, snowflakes.
+        </p>
+
+        <p>
+          The ontology already knows what entities exist, what relationships,
+          and measures, so building a warehouse is just another projection. The
+          warehouse is just an output of the UDA, and not the center of the
+          universe.
+        </p>
+      </section>
+
+      <section>
+        <h2>Query Engines</h2>
+
+        <p>
+          This is where I think things become actually very exciting. Because
+          instead of asking SQL questions we can ask semantic questions.
+        </p>
+
+        <ul>
+          <li>FundedGrant</li>
+          <li>AwardedAmount</li>
+          <li>LeadOrganisation</li>
+          <li>Payments</li>
+        </ul>
+
+        <p>The query engine decides:</p>
+
+        <ul>
+          <li>which datasets</li>
+          <li>which joins</li>
+          <li>which transformations</li>
+          <li>which mappings</li>
+        </ul>
+
+        <p>
+          should satisfy the request, but it isn't querying tables, it's just
+          materializing the concepts.
+        </p>
+      </section>
+
+      <section>
+        <h2>The Integration Spine</h2>
+
+        <p>
+          This is probably the least obvious one, but one of the more important
+          ones.
+        </p>
+
+        <p>
+          Organisations like to do a lot of point-to-point integrations, and
+          they end up with a spaghetti of data flows.
+        </p>
+
+        <p>
+          Every migration of one of these systems is a project, and every
+          replacement means rebuilding integrations.
+        </p>
+
+        <p>
+          The ontology changes that becaus eapplications don't integrate with
+          Oracle, or Workday, or Salesforce. They integrate with orgasinational
+          concepts. Behind the stable conceptual layer, mappings can change,
+          systems can be replaced, fields renamed, schemas redesigned, but the
+          interface does not move.
+        </p>
+
+        <p>
+          The ontology becomes an integration spin running through the middle of
+          the organisation and not just another integration platform, it's fully
+          semantic one with meaning baked in.
+        </p>
+      </section>
+
+      <section>
+        <h2>Change stops being terrifying and traumatic</h2>
+
+        <p>
+          Imagine replacing Oracle. Normally the first question you'll ask is:
+        </p>
+
+        <blockquote><p>What's this gonna break?</p></blockquote>
+
+        <p>
+          With semantic mappings we know exactly what Oracle contribues, which
+          concepts, attributes, projections, which APIs, warehouse tables, which
+          applciations.
+        </p>
+
+        <p>
+          Migration becomes substitution rather than archaeology, and it the UDA
+          unlocks the ability to take more reasoned, and phased approaches to
+          change, allowing you to replace systems without fear of breaking
+          everything.
+        </p>
+      </section>
+
+      <section>
+        <h2>Security</h2>
+
+        <p>Permissions, also, become semantic. So instead of:</p>
+
+        <pre><code>finance.transactions.amount</code></pre>
+
+        <p>we grant acces to:</p>
+
+        <pre><code>urn:wellcome:uda:finance:AwardedAmount</code></pre>
+
+        <p>or:</p>
+
+        <pre><code>urn:wellcome:uda:finance:Payments</code></pre>
+
+        <p>or:</p>
+
+        <pre><code>urn:wellcome:uda:funding:FundedGrant</code></pre>
+
+        <p>
+          The physical implementation can move, but the permissions will always
+          stay meaningful.
+        </p>
+      </section>
+
+      <section>
+        <h2>AI</h2>
+
+        <p>
+          People assume that AI is the destination across all of this, but I
+          don't really see that.
+        </p>
+
+        <p>
+          I think AI is simply just another consumer, yet another application
+          that happens to ask questions in natural language.
+        </p>
+
+        <p>
+          It uses the exact same concepts, exactly the same query engine, same
+          governance, and same permissions.
+        </p>
+
+        <p>
+          The ontology doesn't exist for AI, but AI benefits from it's existence
+          because it already exists.
+        </p>
+      </section>
+
+      <section>
+        <h2>The surprising part</h2>
+
+        <p>
+          Looking at all these outpus individually makes them seem like separate
+          things, separate projects, that will need product roadmaps,
+          engineering teams, and maintenance burden.
+        </p>
+
+        <ul>
+          <li>GraphQL</li>
+          <li>REST</li>
+          <li>Warehouse generation</li>
+          <li>Semantic search</li>
+          <li>Graph exploration</li>
+          <li>Governance</li>
+          <li>Lineage</li>
+          <li>Permissions</li>
+          <li>AI</li>
+        </ul>
+
+        <p>
+          The truth is, they're not. They're all just Projections, configurable
+          and in some cases automatically deployable. They're just different
+          views of the exact same understanding of the organisation.
+        </p>
+
+        <p>
+          That's is one the main things that I hope people take away from this,
+          the UDA isn't trying to solve dozens of problems, it's trying to solve
+          one problem well enough that dozens of solutions actually just
+          naturally fall out of it.
+        </p>
+      </section>
+
+      <hr />
+      <section>
+        <p>
+          In the next article we'll get into the nitty gritty of one specific
+          projection i'm excited about.
+        </p>
+        <a href="2026-08-13-uda-3-once-meaning-exists.html"
+          >Part 3: Once Meaning Exists</a
+        >
+      </section>
+    </article>
+  </body>
+</html>
+
+      <hr />
+      <section>
+        <p>
+          In the final article we'll look at where all this ultimately leads,
+          which isn't just another dashboard, it actually takes us to some
+          really interesting places.
+        </p>
+        <a href="2026-07-01-uda-5-the-organisation-as-a-graph.html"
+          >Part 5: The Organisation as a Graph</a
+        >
+      </section>
+    </article>
+  </body>
+</html>

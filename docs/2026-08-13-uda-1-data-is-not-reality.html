@@ -38,15 +38,16 @@
   <body>
     <article>
       <nav class="back-link"><a href="index.html">← Jeff Uren</a></nav>
-      <h1>Part 1: Data Is Not Reality</h1>
+      <h1>Part 1: Data Isn't Reality</h1>
       <p class="subtitle">Jeff Uren ★ 2026-07-06</p>
 
       <section>
         <p>
-          I'm needler. I like to take an idea, then keep worrying at it from
-          different angles until it ultimately becomes obvious. In particulary,
-          needing to know how it fails, falls apart, or crumbles under pressure.
-          What it is and what it isn't.
+          I'm a needler. I like to take an idea, then keep worrying at it from
+          different angles with a pin until it ultimately becomes obvious, gives
+          up all it's little secrets to me. In particular, I need to know how
+          things fail, fall apart, or crumble under pressure. What it
+          fundamentally is and what it isn't.
         </p>
 
         <p>
@@ -56,25 +57,28 @@
         </p>
       </section>
 
-      <section>
+      <div class="epigraph">
         <blockquote>
-          All models are wrong, but some are useful. - Georg E. P. Box
+          <p>All models are wrong, but some are useful.</p>
+          <footer>~ George E. P. Box</footer>
         </blockquote>
-
-        <p>There are ideas that seem so obvious we stop noticing them.</p>
-
-        <p>Data is one of those ideas.</p>
+      </div>
+      <section>
+        <p>
+          There are ideas that seem so obvious we stop noticing them and the
+          notion of "data" is one of those ideas.
+        </p>
 
         <p>
           We spend our lives surrounded by it. We build databases, pipelines,
           dashboards, reports, warehouses, lakes, marts, APIs, spreadsheets, and
-          machine learnin gmodels. We talk endlessly about "using the data",
+          machine learning models. We talk endlessly about "using the data",
           "moving the data", "governing the data", and "making data-driven
           decisions".
         </p>
 
         <p>
-          But no one every really stops and asks: <strong>What is data?</strong>
+          But no one ever really stops and asks: <strong>What is data?</strong>
         </p>
 
         <p>
@@ -93,20 +97,17 @@
 
         <p>
           When most people talk about data, they picture tables, columns, files,
-          or dashboards. Engineers think about schemas. Analysts thing about
-          measures. Database admins think about indexes. AI companies think
-          about tokens.
+          or dashboards. Engineers think about schemas. Analysts think about
+          measures. Database admins think about indexes.
+          <span class="sidenote">AI companies think about tokens</span>
         </p>
 
         <p>
           They're all looking at the same <i>representation</i>, rather than
-          what is being represented.
+          what's being represented.
         </p>
 
-        <p>
-          That difference above is really important, and it's one I wanted to
-          pick away at.
-        </p>
+        <p>We need to pick away at that difference.</p>
       </section>
 
       <section>
@@ -133,8 +134,8 @@
         </p>
 
         <p>
-          Data isn't simply a recorded value. A recorded value only become sdata
-          when it claims to describe something in the real world.
+          Data isn't just a recorded value. A recorded value only becomes data
+          when it <i>claims</i> to describe something in the real world.
         </p>
       </section>
 
@@ -148,8 +149,6 @@
           suspected cases, confirmed cases, supply shortages, and population
           movements.
         </p>
-
-        <p>Those numbers mattered, but the numbers wre never the disease.</p>
 
         <p>
           A reported case wasn't a child lying on a clinic bed, a mortality
@@ -173,6 +172,68 @@
           carry with me to this day. Only one of them is that data isn't
           reality, it's a description of reality, and those are
           <strong>very</strong> different things.
+        </p>
+      </section>
+
+      <section>
+        <h2>A more deliberate definition</h2>
+
+        <p>
+          Before we can start down our wider journey, we need to establish a
+          groundplane. I've already done a lot of talking about data in very
+          emotional terms but I've not done a lot to agree on what data actually
+          is.
+        </p>
+
+        <p>
+          We're going to be coming at data from a few different perspectives, so
+          I want us all to be on the same page, speaking the same dialect before
+          we start into it.We have a tendency to label a lot of things "data"
+          that aren't, or to overload the term with so many different meanings
+          that it becomes almost useless.
+        </p>
+
+        <h3>Data is representation, not the thing itself</h3>
+
+        <p>
+          It's a recorded value that stands in for some real-world fact, entity,
+          or event.
+        </p>
+
+        <h3>Data requires three ingredients</h3>
+
+        <p>
+          Like fire (air, fuel, and heat), data requires three primary aspects
+          in order to exist:
+        </p>
+
+        <ul>
+          <li><strong>An attribute</strong> - what's being described</li>
+          <li><strong>An entity or event</strong> - what it belongs to</li>
+          <li>
+            <strong>A value</strong> - the recorded state (usually at some point
+            in time)
+          </li>
+        </ul>
+
+        <p>Data only has meaning in relation to reality</p>
+
+        <p>
+          A number or symbol isn't "data" until it's tied to something it's
+          meant to represent.
+        </p>
+
+        <h3>Quality</h3>
+
+        <p>
+          And finally, a good rule to remember is that data quality is really a
+          question of correspondence. It's how well the recorded value matches
+          the real-world state that it claims to reflect.
+        </p>
+
+        <p>
+          That's our definition of data moving forward. You can use it too if
+          you want. I won't complain.
         </p>
       </section>
 
@@ -207,9 +268,9 @@
         </p>
 
         <p>
-          We've become so accustomed to treating storage as understanding that
-          we generally mistake the existence of data for the existence of
-          <i>knowledge</i>. And the trust is
+          We've become so accustomed to treating storage as
+          <i>understanding</i> that we generally mistake the existence of data
+          for the existence of <i>knowledge</i>. And the truth is
           <strong>they're not the same thing</strong>.
         </p>
       </section>
@@ -249,7 +310,7 @@
         </p>
 
         <p>
-          When those disagreements stay in people's heads, software quietly
+          When those disagreements stay in people's heads, our software quietly
           inherits them.
         </p>
 
@@ -259,7 +320,10 @@
           question.
         </p>
 
-        <p>This all happens because meaning is never made explicit.</p>
+        <p>
+          This all happens because meaning is just, never made explicit,
+          anywhere.
+        </p>
       </section>
 
       <section>
@@ -279,7 +343,7 @@
 
         <p>
           Sometimes it gets it right, a lot more often it doesn't. We tried it,
-          and it was bad.
+          and it was bad. Really bad.
         </p>
 
         <p>
@@ -305,15 +369,18 @@
 
         <p>
           This is where I think we've been looking at data in a backwards
-          horrible way, we ususally design things around storage, tables,
+          horrible way, we usually design things around storage, tables,
           schemas, files, pipelines, warehouses. Only after the fact do we start
-          asking what everything actually measn.
+          asking what everything actually means.
         </p>
 
-        <p>I'd argue the order should be reversed.</p>
+        <p>
+          I'm going to argue across these articles, the order should be
+          reversed.
+        </p>
 
         <p>
-          Before we decide how to store information, we should first agree on
+          Before we decide how to store information, we first need to agree on
           what exists.
         </p>
 
@@ -338,7 +405,9 @@
           database, for the organisation itself.
         </p>
 
-        <a href="2026-07-01-uda-002.html">Next: Part 2</a>
+        <a href="2026-08-13-uda-2-building-a-language-for-the-organisation.html"
+          >Part 2: Building a Language for the Organisation</a
+        >
       </section>
     </article>
   </body>

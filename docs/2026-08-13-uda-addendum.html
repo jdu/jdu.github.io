@@ -1,0 +1,704 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Data, Ontologies, and Data Architecture (UDA) - Part 1</title>
+    <link rel="stylesheet" href="static/css/tufte.css" />
+    <script src="static/js/theme.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="A deep dive into Upper Data Architecture — an operational ontology connecting organisational meaning to real data sources, fields, and pipelines."
+    />
+    <meta
+      property="og:title"
+      content="Data, Ontologies, and Data Architecture (UDA)"
+    />
+    <meta
+      property="og:description"
+      content="A deep dive into Upper Data Architecture — an operational ontology connecting organisational meaning to real data sources, fields, and pipelines."
+    />
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:url"
+      content="https://jdu.github.io/2026-07-06-wellcome-uda-ontologies.html"
+    />
+    <meta property="og:site_name" content="Frozen Insight in a Moving World" />
+    <meta name="twitter:card" content="summary" />
+    <meta
+      name="twitter:title"
+      content="Data, Ontologies, and Data Architecture (UDA)"
+    />
+    <meta
+      name="twitter:description"
+      content="A deep dive into Upper Data Architecture — an operational ontology connecting organisational meaning to real data sources, fields, and pipelines."
+    />
+  </head>
+
+  <body>
+    <article>
+      <nav class="back-link"><a href="index.html">← Jeff Uren</a></nav>
+      <h1>UDA Addendum: Giving Thanks</h1>
+      <p class="subtitle">Jeff Uren ★ 2026-08-14</p>
+
+      <section>
+        <p>
+          This is an addendum, or follow-up to the UDA article seris on this
+          site, which you can find here:
+        </p>
+
+        <ul>
+          <li>
+            <a href="2026-07-01-uda-001.html">Part 1: Data is Not Reality</a>
+          </li>
+          <li>
+            <a href="2026-07-01-uda-002.html"
+              >Part 2: Buildin a Language for the Organisation</a
+            >
+          </li>
+          <li>
+            <a href="2026-07-01-uda-003.html"
+              >Part 3: The Organisational Graph</a
+            >
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <p>
+          Before finishing this series, I wanted to take a moment to acknowledge
+          something that is easy to lose sight of when talking about
+          architecture.
+        </p>
+
+        <p>Almost none of these ideas began with us.</p>
+
+        <p>
+          Like most engineering, what we've built stands on the shoulders of an
+          extraordinary number of people who spent decades exploring problems
+          that many organisations are only now beginning to encounter.
+        </p>
+
+        <p>
+          The Upper Data Architecture, DataMesh, the query engine, the generated
+          projections, the semantic APIs, the integration spine, and many of the
+          surrounding ideas are our implementation of a much broader body of
+          work. They represent a year of reading papers, building prototypes,
+          throwing ideas away, arguing, and learning from organisations that
+          were generous enough to publish what they had discovered and in some
+          instances, lending us their own time to help us form our own
+          understanding.
+        </p>
+
+        <p>
+          In particular I'd like to thank the engineers, architects, and
+          researcers at organisations like Netflix, NASA, Bosch, NHS, and many
+          others who have consistently chosen to publish their work rather than
+          keep it hidden behind organisational walls.
+        </p>
+
+        <p>
+          Many of the ideas explored throughout this series (knowledge graphs,
+          semantic modeling, metadata-driven systems, ontology engineering,
+          graph-based reasoning, data lineage, federated data platforms, schema
+          evolution, and executable metadata) exist today because those
+          communities were willing to document both their successes and their
+          failures.
+        </p>
+
+        <p>
+          Perhaps more importantly, the academic community has spent decades
+          laying the theoretical foundations that make systems like this
+          possible. Work around ontologies, RDF, OWL, SKOS, semantic
+          interoperability, knowledge representation, and linked data has often
+          been viewed as niche or overly academic. Increasingly, however, those
+          ideas are proving remarkably practical as organisations struggle to
+          make sense of a rapidly growing and increasingly inter-connected data
+          landscapes.
+        </p>
+
+        <p>
+          The implementation described throughout these articles should
+          therefore be viewed for what it really is: another step and some
+          synthesis in a much longer journey.
+        </p>
+
+        <p>
+          Our hope was never to to invent an entirely new way of thinking about
+          data.
+        </p>
+
+        <p>
+          Our hope <i>is</i> to take the remarkable work that has already been
+          done, combine it with the practical realities of building and
+          operating a modern data platform, and make those ideas useful within
+          Wellcome, and hopefully, in the future, the broader funding and
+          research community through example.
+        </p>
+
+        <p>If we succeed, the real beneficiaries won't be the platform team.</p>
+
+        <p>
+          They'll be the analysts who spend less time hunting for data, the
+          engineers who spend less time rebuilding integrations, the domain
+          experts who can finally describe their part of the organisation in a
+          way that software can understand, the governance teams who gain
+          clearer visibility into how data moves, the reasearchers who receive
+          answers more quickly and with greater confidence, and ultimately, the
+          scientific work that Wellcome exists to support.
+        </p>
+
+        <p>
+          There's still an enormous amount to build, ther are undoubtedly ideas
+          in this series that will prove naive, others that will need refining,
+          and some that may turn out entirely wrong.
+        </p>
+
+        <p>That's part of engineering though.</p>
+
+        <p>
+          But if these articles encourage even a handful of people to think
+          about organisational meaning before storage, concepts before schemas,
+          and semantics before implementation, then they've achieved exactly
+          what I hoped they would.
+        </p>
+      </section>
+
+      <section>
+        <h2>Suggested Reading</h2>
+
+        <p>
+          Finally, for anyone interested in exploring these ideas further, I'd
+          strongly encourage reading the work of the people who came before us.
+          They deserve far more credit than we do, and without them, very little
+          of what we've built would have been possible.
+        </p>
+
+        <h3>Foundations of the Semantic Web</h3>
+
+        <ul>
+          <li>
+            Gruber, T. - A Translation Approach to Portable Ontology
+            Specifications (1993)
+          </li>
+          <li>
+            Berners-Lee, Henlder & Lassila - The Semantic Web (Scientific
+            American, 2001)
+          </li>
+          <li>Antoniou & van Harmelen - A Semantic Web Primer</li>
+          <li>
+            Deam Allemang & James Hendler - Semantic Web for the Working
+            Ontologist
+          </li>
+        </ul>
+
+        <h3>RDF / OWL / SOS</h3>
+
+        <ul>
+          <li>RDF 1.1. Concepts and Abstract Syntax</li>
+          <li>OWL 2 Web Ontology Language</li>
+          <li>SKOS Simple Knowledge Organisation System Reference</li>
+          <li>SPARQL 1.1 Specification</li>
+        </ul>
+
+        <h3>Knowledge Graphs</h3>
+
+        <ul>
+          <li>Knowledge Graphs - Hogan et al. (2021 survey)</li>
+          <li>Building Knowledge Grapsh - Oracle</li>
+          <li>Google's Knowledge Graph Papers</li>
+          <li>Microsofts Satori publications</li>
+        </ul>
+
+        <h3>Enterprise Knowledge Graphs</h3>
+
+        <ul>
+          <li>NASA JPL knowledge graph work</li>
+          <li>Bosch Research - Enterprise knowledge graph papers</li>
+          <li>Siemens industrial knowledge graph work</li>
+          <li>Stardog whitepapers</li>
+          <li>Ontotext publications</li>
+        </ul>
+
+        <h3>Metadata & Data Platforms</h3>
+
+        <ul>
+          <li>Martin Kleppmann - Designing Data-Intensive Applications</li>
+          <li>Maxime Beauchemin - The Data Mesh</li>
+          <li>Zhamak Dehgani - Data Mesh</li>
+          <li>Joe Reis & Matt Housley - Fundamentals of Data Engineering</li>
+        </ul>
+
+        <h3>data Lineage & Metadata</h3>
+
+        <ul>
+          <li>Netflix Metacat</li>
+          <li>Netflix Data Discovery Platform</li>
+          <li>LinkedIn DataHub</li>
+          <li>OpenMetadata</li>
+          <li>Apache Atlas</li>
+        </ul>
+
+        <h3>Query Engines</h3>
+
+        <ul>
+          <li>Apache Calcite</li>
+          <li>Apache Arrow</li>
+          <li>Apache DataFusion</li>
+          <li>DuckDB papers</li>
+        </ul>
+
+        <h3>W3C RDF / OWL & Ontologies</h3>
+
+        <ul>
+          <li>
+            <a href="https://www.w3.org/RDF/" target="_blank"
+              >https://www.w3.org/RDF/</a
+            >
+            — RDF Spec
+          </li>
+          <li>
+            <a href="https://www.w3.org/TR/rdf12-concepts/" target="_blank"
+              >https://www.w3.org/TR/rdf12-concepts/</a
+            >
+            — RDF Concepts
+          </li>
+          <li>
+            <a href="https://www.w3.org/OWL/" target="_blank"
+              >https://www.w3.org/OWL/</a
+            >
+            — OWL Ontology
+          </li>
+          <li>
+            <a href="https://basic-formal-ontology.org/" target="_blank"
+              >https://basic-formal-ontology.org/</a
+            >
+            — BFO Ontology
+          </li>
+          <li>
+            <a href="https://iptc.org/thirdparty/foaf/" target="_blank"
+              >https://iptc.org/thirdparty/foaf/</a
+            >
+            — FOAF Ontology
+          </li>
+        </ul>
+
+        <h3>General Concepts</h3>
+
+        <ul>
+          <li>
+            <a href="https://en.wikipedia.org/wiki/Metamodeling" target="_blank"
+              >https://en.wikipedia.org/wiki/Metamodeling</a
+            >
+            — Metamodeling
+          </li>
+          <li>
+            <a
+              href="https://en.wikipedia.org/wiki/Data_integration"
+              target="_blank"
+              >https://en.wikipedia.org/wiki/Data_integration</a
+            >
+            — Data Integration
+          </li>
+          <li>
+            <a
+              href="https://en.wikipedia.org/wiki/Semantic_integration"
+              target="_blank"
+              >https://en.wikipedia.org/wiki/Semantic_integration</a
+            >
+            — Semantic Integration
+          </li>
+          <li>
+            <a
+              href="https://en.wikipedia.org/wiki/Upper_ontology"
+              target="_blank"
+              >https://en.wikipedia.org/wiki/Upper_ontology</a
+            >
+            — Upper Ontologies
+          </li>
+          <li>
+            <a
+              href="https://en.wikipedia.org/wiki/Semantic_interoperability"
+              target="_blank"
+              >https://en.wikipedia.org/wiki/Semantic_interoperability</a
+            >
+            — Semantic Interoperability
+          </li>
+          <li>
+            <a
+              href="https://en.wikipedia.org/wiki/Conceptualization_(information_science)"
+              target="_blank"
+              >https://en.wikipedia.org/wiki/Conceptualization_(information_science)</a
+            >
+            — Conceptualization
+          </li>
+          <li>
+            <a
+              href="https://www.w3.org/2001/sw/wiki/Linking_patterns"
+              target="_blank"
+              >https://www.w3.org/2001/sw/wiki/Linking_patterns</a
+            >
+            — Linking Patterns
+          </li>
+          <li>
+            <a
+              href="https://tomgruber.org/writing/onto-design.pdf#page=4"
+              target="_blank"
+              >https://tomgruber.org/writing/onto-design.pdf#page=4</a
+            >
+            — Monotonic Contribution
+          </li>
+          <li>
+            <a
+              href="https://en.wikipedia.org/wiki/Conservative_extension"
+              target="_blank"
+              >https://en.wikipedia.org/wiki/Conservative_extension</a
+            >
+            — Law of Conservative Extension
+          </li>
+          <li>
+            <a
+              href="https://en.wikipedia.org/wiki/Knowledge_representation_and_reasoning"
+              target="_blank"
+              >https://en.wikipedia.org/wiki/Knowledge_representation_and_reasoning</a
+            >
+            — Knowledge representation and reasoning
+          </li>
+        </ul>
+
+        <h3>The Bosch Papers</h3>
+
+        <ul>
+          <li>
+            <a
+              href="https://link.springer.com/chapter/10.1007/978-3-030-62466-8_29"
+            >
+              Semantic Integration of Bosch Manufacturing Data Using Virtual
+              Knowledge Graphs
+            </a>
+            — Kalaycı et al., 2020
+          </li>
+
+          <li>
+            <a
+              href="https://link.springer.com/chapter/10.1007/978-3-030-62466-8_33"
+            >
+              Ontology-Enhanced Machine Learning: A Bosch Use Case of Welding
+              Quality Monitoring
+            </a>
+            — Svetashova et al., 2020
+          </li>
+
+          <li>
+            <a
+              href="https://2022.eswc-conferences.org/wp-content/uploads/2022/05/industry_Zhou_et_al_paper_244.pdf"
+            >
+              The Data Value Quest: A Holistic Semantic Approach at Bosch
+            </a>
+            — Zhou et al., 2022
+          </li>
+
+          <li>
+            <a
+              href="https://2022.eswc-conferences.org/wp-content/uploads/2022/05/industry_Zhou_et_al_paper_210.pdf"
+            >
+              Enhancing Knowledge Graph Generation with Ontology Reshaping —
+              Bosch Case
+            </a>
+            — Zhou et al., 2022
+          </li>
+
+          <li>
+            <a href="https://arxiv.org/abs/2209.11067">
+              Towards Ontology Reshaping for Knowledge Graph Generation with
+              User-in-the-Loop: Applied to Bosch Welding
+            </a>
+            — Zhou et al., 2022
+          </li>
+
+          <li>
+            <a href="https://arxiv.org/abs/2209.11089">
+              Query-Based Industrial Analytics over Knowledge Graphs with
+              Ontology Reshaping
+            </a>
+            — Zheng et al., 2022
+          </li>
+
+          <li>
+            <a href="https://openaccess.city.ac.uk/id/eprint/29099/">
+              Ontology Reshaping for Knowledge Graph Construction: Applied on
+              Bosch Welding Case
+            </a>
+            — Zhou et al., 2022
+          </li>
+
+          <li>
+            <a href="https://arxiv.org/abs/2308.01105">
+              Literal-Aware Knowledge Graph Embedding for Welding Quality
+              Monitoring: A Bosch Case
+            </a>
+            — Tan et al., 2023
+          </li>
+
+          <li>
+            <a href="https://arxiv.org/pdf/2012.09049">
+              Knowledge Graphs in Manufacturing and Production: A Systematic
+              Literature Review
+            </a>
+            — Buchgeher et al., 2020
+          </li>
+
+          <li>
+            <a href="https://arxiv.org/pdf/2308.15168">
+              Ontologies in Digital Twins: A Systematic Literature Review
+            </a>
+            — Karabulut et al., 2023
+          </li>
+        </ul>
+
+        <h3>Core ontology / semantic data platform papers</h3>
+        <ul>
+          <li>
+            <a
+              href="https://www.diag.uniroma1.it/~lenzerin/home/files/main-3.pdf"
+              target="_blank"
+              >Ontology-Based Data Management</a
+            >
+            — Maurizio Lenzerini
+          </li>
+          <li>
+            <a
+              href="https://www.ijcai.org/proceedings/2018/0777.pdf"
+              target="_blank"
+              >Ontology-Based Data Access: A Survey</a
+            >
+            — Guohui Xiao et al.
+          </li>
+          <li>
+            <a
+              href="https://www.inf.unibz.it/~calvanese/papers/calv-etal-EDBS-2017.pdf"
+              target="_blank"
+              >Ontology-Based Data Access and Integration</a
+            >
+            — Diego Calvanese et al.
+          </li>
+          <li>
+            <a
+              href="https://www.semantic-web-journal.net/system/files/swj1278.pdf"
+              target="_blank"
+              >Answering SPARQL Queries over Relational Databases</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://research.bcgl.fr/pdfs/ontop-iswc20.pdf"
+              target="_blank"
+              >The Virtual Knowledge Graph System Ontop</a
+            >
+            — Guohui Xiao et al.
+          </li>
+          <li>
+            <a href="https://arxiv.org/abs/2012.01917" target="_blank"
+              >Mapping Patterns for Virtual Knowledge Graphs</a
+            >
+            — Diego Calvanese et al.
+          </li>
+          <li>
+            <a href="https://ceur-ws.org/Vol-929/paper9.pdf" target="_blank"
+              >Relational Database to RDF Mapping Patterns</a
+            >
+            — Juan Sequeda et al.
+          </li>
+          <li>
+            <a href="https://arxiv.org/abs/2005.06293" target="_blank"
+              >R2RML and RML Comparison for RDF Generation, Rules Validation and
+              Inconsistency Resolution</a
+            >
+            — Anastasia Dimou
+          </li>
+        </ul>
+
+        <h3>Knowledge graphs and semantic data management</h3>
+        <ul>
+          <li>
+            <a href="https://arxiv.org/abs/2003.02320" target="_blank"
+              >Knowledge Graphs</a
+            >
+            — Aidan Hogan et al.
+          </li>
+          <li>
+            <a href="https://arxiv.org/abs/2002.00388" target="_blank"
+              >A Survey on Knowledge Graphs: Representation, Acquisition and
+              Applications</a
+            >
+            — Shaoxiong Ji et al.
+          </li>
+          <li>
+            <a
+              href="https://iccl.inf.tu-dresden.de/w/images/4/4c/Ontologies-for-knowledge-graphs-kroetzsch-DL2017.pdf"
+              target="_blank"
+              >Ontologies for Knowledge Graphs?</a
+            >
+            — Markus Krötzsch
+          </li>
+          <li>
+            <a href="https://arxiv.org/abs/2310.15373" target="_blank"
+              >Semantic Data Management in Data Lakes</a
+            >
+            — Sayed Hoseini, Johannes Theissen-Lipp, Christoph Quix
+          </li>
+          <li>
+            <a
+              href="https://ceur-ws.org/Vol-2757/SSWS2020_paper5.pdf"
+              target="_blank"
+              >Using Semantic Technologies to Manage a Data Lake: Data Catalog,
+              Provenance and Access Control</a
+            >
+            — Hanna Dibowski et al.
+          </li>
+          <li>
+            <a
+              href="https://dl.gi.de/bitstreams/29f4d801-de6e-4af0-82cb-3dc58b134980/download"
+              target="_blank"
+              >Using Knowledge Graphs to Manage a Data Lake</a
+            >
+            — Hanna Dibowski et al.
+          </li>
+          <li>
+            <a
+              href="https://oro.open.ac.uk/83013/1/From_DataLake_to_KG%20%283%29.pdf"
+              target="_blank"
+              >Enriching Data Lakes with Knowledge Graphs</a
+            >
+            — Andrea Chessa et al.
+          </li>
+          <li>
+            <a href="https://arxiv.org/abs/1909.09377" target="_blank"
+              >Metadata Systems for Data Lakes: Models and Features</a
+            >
+            — Pegdwendé Sawadogo et al.
+          </li>
+        </ul>
+
+        <h2>FAIR, data mesh, and data platform governance</h2>
+        <ul>
+          <li>
+            <a
+              href="https://www.nature.com/articles/sdata201618"
+              target="_blank"
+              >The FAIR Guiding Principles for Scientific Data Management and
+              Stewardship</a
+            >
+            — Mark D. Wilkinson et al.
+          </li>
+          <li>
+            <a
+              href="https://www.sciencedirect.com/science/article/pii/S1877050921022365"
+              target="_blank"
+              >Data Mesh: Concepts and Principles of a Paradigm Shift in Data
+              Architectures</a
+            >
+            — Ivo A. Machado et al.
+          </li>
+          <li>
+            <a href="https://arxiv.org/abs/2304.01062" target="_blank"
+              >Data Mesh: A Systematic Gray Literature Review</a
+            >
+            — Abel Goedegebuure et al.
+          </li>
+          <li>
+            <a href="https://arxiv.org/abs/2411.05248" target="_blank"
+              >Ten Pillars for Data Meshes</a
+            >
+            — Robert L. Grossman et al.
+          </li>
+        </ul>
+
+        <h3>Biomedical / science-domain semantic platforms</h3>
+        <ul>
+          <li>
+            <a
+              href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3998127/"
+              target="_blank"
+              >The EBI RDF Platform: Linked Open Data for the Life Sciences</a
+            >
+            — Simon Jupp et al.
+          </li>
+          <li>
+            <a
+              href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5210543/"
+              target="_blank"
+              >Open Targets: A Platform for Therapeutic Target Identification
+              and Validation</a
+            >
+            — Gabriela Koscielny et al.
+          </li>
+          <li>
+            <a
+              href="https://academic.oup.com/nar/article/51/D1/D1353/6833237"
+              target="_blank"
+              >The Next-Generation Open Targets Platform: Reimagined,
+              Redesigned, Rebuilt</a
+            >
+            — David Ochoa et al.
+          </li>
+          <li>
+            <a href="https://arxiv.org/abs/2203.13906" target="_blank"
+              >Biolink Model: A Universal Schema for Knowledge Graphs in
+              Clinical, Biomedical, and Translational Science</a
+            >
+            — Deepak R. Unni et al.
+          </li>
+          <li>
+            <a href="https://arxiv.org/abs/2302.10800" target="_blank"
+              >KG-Hub: Building and Exchanging Biological Knowledge Graphs</a
+            >
+            — J. Harry Caufield et al.
+          </li>
+          <li>
+            <a
+              href="https://escholarship.org/content/qt9c43g8c7/qt9c43g8c7.pdf"
+              target="_blank"
+              >Announcing the Biomedical Data Translator: Initial Public
+              Release</a
+            >
+            — Karamarie Fecho et al.
+          </li>
+        </ul>
+
+        <h3>AI / knowledge graph grounding</h3>
+        <ul>
+          <li>
+            <a href="https://arxiv.org/abs/2005.11401" target="_blank"
+              >Retrieval-Augmented Generation for Knowledge-Intensive NLP
+              Tasks</a
+            >
+            — Patrick Lewis et al.
+          </li>
+          <li>
+            <a href="https://arxiv.org/abs/2404.16130" target="_blank"
+              >From Local to Global: A Graph RAG Approach to Query-Focused
+              Summarization</a
+            >
+            — Darren Edge et al.
+          </li>
+          <li>
+            <a href="https://arxiv.org/abs/2306.08302" target="_blank"
+              >Unifying Large Language Models and Knowledge Graphs: A Roadmap</a
+            >
+            — Shirui Pan et al.
+          </li>
+          <li>
+            <a href="https://arxiv.org/pdf/2501.13958" target="_blank"
+              >A Survey of Graph Retrieval-Augmented Generation for Customized
+              Large Language Models</a
+            >
+            — Qinggang Zhang et al.
+          </li>
+        </ul>
+      </section>
+
+      <p>_J</p>
+    </article>
+  </body>
+</html>
