@@ -72,11 +72,6 @@
         </p>
 
         <p>
-          The thing that's really interesting is what stops needing to be
-          written by hand.
-        </p>
-
-        <p>
           Once you've described the organisation well enough, an uncomfortable
           amount of software starts becoming derivable.
         </p>
@@ -86,12 +81,16 @@
           they're all asking the same question:
         </p>
 
-        <blockquote>
-          <p>
-            "Given this understanding of the organisation... what should I
-            build?"
-          </p>
-        </blockquote>
+        <hr />
+        <div class="epigraph">
+          <blockquote>
+            <p>
+              "Given this understanding of the organisation... what can I
+              build?"
+            </p>
+          </blockquote>
+        </div>
+        <hr />
       </section>
 
       <section>
@@ -99,7 +98,8 @@
 
         <p>
           The simplest output is the ontology itself, not diagrams, but a living
-          graph.
+          explorable and traversable graph of what's important to the
+          organisation.
         </p>
 
         <p>
@@ -114,8 +114,12 @@
         <h2>A Graph of Wellcome</h2>
 
         <p>
-          Then comes the interesting graph, because the ontology can connect to
-          reality through the mappings.
+          <span class="marginnote">
+            <strong>Aside:</strong> I'll talk about this in a later article in
+            more depth, because it's something really interesting.
+          </span>
+          Then comes an even more interesting graph, because the ontology can
+          connect to reality through the mappings.
         </p>
 
         <p>
@@ -216,7 +220,7 @@
       </section>
 
       <section>
-        <h2>The Integration Spine</h2>
+        <h2>Integration Spine</h2>
 
         <p>
           This is probably the least obvious one, but one of the more important
@@ -252,33 +256,56 @@
         <h2>Change stops being terrifying and traumatic</h2>
 
         <p>
-          Imagine replacing Oracle. Normally the first question you'll ask is:
+          Imagine replacing Oracle, Salesforce, or Workday. Normally one of the
+          first questions you'd ask is:
         </p>
 
         <blockquote><p>What's this gonna break?</p></blockquote>
 
         <p>
-          With semantic mappings we know exactly what Oracle contributes, which
-          concepts, attributes, projections, which APIs, warehouse tables, which
-          applications.
+          With semantic mappings we know exactly what these applications
+          contribute, which concepts, attributes, projections, which APIs,
+          warehouse tables, which applications.
         </p>
 
         <p>
-          Migration becomes substitution rather than archaeology, and it the UDA
+          Coupled with the integration spine, we can replace systems without
+          fear of breaking everything, interrupting operations, or losing data.
+          We can take more reasoned, and phased approaches to change, and we can
+          even run multiple systems in parallel while we migrate, because the
+          UDA knows how to combine the outputs of multiple systems into a single
+          conceptual view.
+        </p>
+
+        <p>
+          So migration becomes substitution rather than archaeology, and the UDA
           unlocks the ability to take more reasoned, and phased approaches to
-          change, allowing you to replace systems without fear of breaking
-          everything.
+          change, allowing you to replace systems with less fear and much less
+          trauma, cost, and stress.
         </p>
       </section>
 
       <section>
         <h2>Security</h2>
 
-        <p>Permissions, also, become semantic. So instead of:</p>
+        <p>
+          Permissions, also become semantic. So instead of granting access to
+          data across multiple systems in different ways:
+        </p>
 
-        <pre><code>finance.transactions.amount</code></pre>
+        <pre><code>
+- (Warehouse) finance.transactions.amount
+- (Data Lake) s3://data-lake/finance/transactions.parquet
+- (Oracle) Transactions API permissions
+- (Tableau) Finance theme permissions
+</code></pre>
 
-        <p>we grant access to:</p>
+        <p>
+          With each of these systems needing individual management of
+          permissions in vastly different ways, creating a massive burden on IT
+          and security teams. Instead we can grant access to individual
+          concepts, addressable by a <i>single unified identifier</i>:
+        </p>
 
         <pre><code>urn:wellcome:uda:finance:AwardedAmount</code></pre>
 
@@ -291,8 +318,15 @@
         <pre><code>urn:wellcome:uda:funding:FundedGrant</code></pre>
 
         <p>
-          The physical implementation can move, but the permissions will always
-          stay meaningful.
+          We can broker access through our own query engine, or the system can
+          <i>push</i> and translate those permissions down the underlying
+          systems through a central point, reducing overall complexity and risk.
+        </p>
+
+        <p>
+          Because these identifiers are mapped through the graph of the
+          ontology, the physical implementation can move, but the
+          <strong>permissions will always stay meaningful</strong>.
         </p>
       </section>
 
@@ -300,8 +334,8 @@
         <h2>AI</h2>
 
         <p>
-          People assume that AI is the destination across all of this, but I
-          don't really see that.
+          People automatically assume that AI is the destination across all of
+          this, but I don't really see that.
         </p>
 
         <p>
@@ -363,8 +397,8 @@
           really interesting places.
         </p>
         <p class="next-link">
-          <a href="2026-08-13-uda-5-the-organisation-as-a-graph.html"
-            >Part 5: The Organisation as a Graph</a
+          <a href="2026-08-15-uda-5-bringing-it-to-people.html"
+            >Part 5: Bringing It to People</a
           >
         </p>
       </section>

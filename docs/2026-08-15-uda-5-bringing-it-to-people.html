@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Part 5: Bringing It to People</title>
+    <link rel="stylesheet" href="static/css/tufte.css" />
+    <script src="static/js/theme.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Part 5 of the UDA series — on the tools being built to operationalize the system and bring it to the people who use it."
+    />
+    <meta property="og:title" content="Part 5: Bringing It to People" />
+    <meta
+      property="og:description"
+      content="Part 5 of the UDA series — on the tools being built to operationalize the system and bring it to the people who use it."
+    />
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:url"
+      content="https://jdu.github.io/2026-08-15-uda-5-bringing-it-to-people.html"
+    />
+    <meta property="og:site_name" content="JDU" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Part 5: Bringing It to People" />
+    <meta
+      name="twitter:description"
+      content="Part 5 of the UDA series — on the tools being built to operationalize the system and bring it to the people who use it."
+    />
+  </head>
+
+  <body>
+    <article>
+      <nav class="back-link"><a href="index.html">← Jeff Uren</a></nav>
+      <h1>Part 5: Bringing It to People</h1>
+      <p class="subtitle">Jeff Uren ★ 2026-08-15</p>
+
+      <section>
+        <p>
+          This is the fifth article in a series about building a shared
+          understanding of data, ontologies, and data architecture (UDA) in a
+          large organisation that struggles with meaning.
+        </p>
+
+        <ul>
+          <li>
+            <a href="2026-08-13-uda-1-data-is-not-reality.html"
+              >Part 1: Data Isn't Reality</a
+            >
+          </li>
+          <li>
+            <a
+              href="2026-08-13-uda-2-building-a-language-for-the-organisation.html"
+              >Part 2: Building a Language for the Organisation</a
+            >
+          </li>
+          <li>
+            <a href="2026-08-13-uda-3-meaning-becomes-operational.html"
+              >Part 3: When Meaning Becomes Operational</a
+            >
+          </li>
+          <li>
+            <a href="2026-08-13-uda-4-once-meaning-exists.html"
+              >Part 4: Once Meaning Exists</a
+            >
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <p>
+          Throughout these articles I've spent a lot of time talking about
+          concepts, semantics, mappings, projections and graphs. That's all well
+          and good, but none of it matters if people can't actually
+          <i>use it</i>.
+        </p>
+
+        <div class="epigraph">
+          <blockquote>
+            <p>
+              "The purpose of abstraction is not to be vague, but to create a
+              new semantic level in which one can be absolutely precise."
+            </p>
+            <footer>~ Edsger W. Dijkstra</footer>
+          </blockquote>
+        </div>
+
+        <p>
+          One of our goals from the very beginning wasn't just to build an
+          ontology, it was to build an environment where analysts, engineers,
+          architects, and domain experts could work with organisationa meaning
+          as naturally as developers work with source code.
+        </p>
+
+        <p>
+          The UDA was never really the destination we were heading for here,
+          it's just a bit of foundational modeling, that allows us to build
+          really cool things on top of it.
+        </p>
+      </section>
+
+      <section>
+        <h2>The UDA Browser</h2>
+
+        <p>
+          The first tool we built was the UDA Browser, a web application that
+          allows people to explore the UDA and
+          <strong>contribute to it</strong>. Meaning is spread across so many
+          places in an organisation, and the UDA is a way to bring it all
+          together.
+        </p>
+
+        <figure>
+          <img src="static/img/uda-browser.png" />
+        </figure>
+
+        <p>
+          Meaning has to be driven by consensus, and where there's disagreement
+          about what something means, we need to drive that disagreement out
+          into the open, and push it towards a resolution. The UDA Browser
+          allows people to do that.
+        </p>
+
+        <p>
+          It acts as the <strong>Codex</strong> of what's important to the
+          organisation, and the main point that everything else hangs off of.
+        </p>
+
+        <p>
+          Not only that, it acts as a jumping off point for other tools, and a
+          central place to view extended information about the concepts in the
+          UDA, their propagated properties, and things like Data Quality &
+          Trust, lineage, and permissions.
+        </p>
+      </section>
+
+      <section>
+        <h2>DataMesh Application</h2>
+
+        <p>
+          Next, to represent the lower levels of the our ontology, we built a
+          tool called the DataMesh app.
+        </p>
+
+        <figure>
+          <img src="static/img/uda-datamesh-editor.png" />
+        </figure>
+
+        <p>
+          This tools predominantly targeted at our Data Engineering and
+          Infrastructure team, when new meaning is added to the UDA by people
+          across the organisation, or upstream systems change, it gives our
+          engineering resource a way to rapidly update the mappings which link
+          the meaning in the UDA to the recorded values.
+        </p>
+      </section>
+
+      <section>
+        <h2>Lenses & Measures</h2>
+
+        <p>
+          We extended our UDA ontology to incorporate four additional concepts:
+          Lenses, Measures, LenseBindings, and MeasureBindings.
+        </p>
+
+        <p>
+          These codify how concepts can be "sliced", and how we calculate
+          specific metrics across the concepts in the UDA system, allowing us to
+          build a library of reusable metrics that can be utilized to perform
+          analysis without needing to know how to calcualte them from the lower
+          level sources.
+        </p>
+
+        <figure>
+          <img src="static/img/uda-lenses-measures.png" />
+        </figure>
+      </section>
+
+      <section>
+        <h2>Explore</h2>
+
+        <p>
+          Because we codify the meaning of the organisation, the measures,
+          lenses, and other metadata like disambiguation rules, caveats,
+          annotations and lineage, we can build tools that allow people to
+          explore the organisation in a way that wasn't possible before.
+        </p>
+
+        <figure>
+          <img src="static/img/uda-explore.png" />
+        </figure>
+
+        <p>
+          Users can rapidly build up their own analysis, using agreed measure,
+          metrics and meaning. Safely, without needing to know the underlying
+          data sources, or how to calculate specific metrics, and all the
+          extended meaning from th UDA is at their fingertips including
+          disambiguation rules, caveats, definitions, annotations, and
+          everything they need.
+        </p>
+      </section>
+
+      <section>
+        <h2>Projection Editor</h2>
+
+        <p>
+          Our projection editor, which is still in the early stages of
+          development, allows people to step beyond the constraints of the
+          Explore application and start to create outputs that are more tailored
+          to their needs.
+        </p>
+
+        <p>
+          Users can build APIs, data marts, warehouse tables, exports, reports,
+          all from the same underlying, consensus-driven meaning. There's a lot
+          of work here to do still, but we're excited about the potential of
+          this tool, and the possibilities it opens up for people to
+          operationalize the UDA in their own work.
+        </p>
+
+        <figure>
+          <img src="static/img/uda-projection-editor.png" />
+        </figure>
+      </section>
+
+      <section>
+        <h2>IAM Permissions</h2>
+
+        <p>
+          Across all of this, permissions are baked in, the UDA URN addressing
+          system lends itself heavily towards an IAM, RBAC and policy-drive
+          permissions model really well. We can control a user or services
+          access to specific concepts, including operations within the uda based
+          on individual actions.
+        </p>
+
+        <figure>
+          <img src="static/img/uda-permissions.png" />
+        </figure>
+      </section>
+
+      <section>
+        <h2>These are just highlights</h2>
+
+        <p>
+          These aren't exhaustive lists of the tools we've built, there are a
+          number of other applications which are in the early stages of coming
+          together. The wonderful thing about the UDA is that once you codify
+          things this way, the use-cases sort of just "fall out" of the system,
+          and building them (with a little bit of architectural prowess) is
+          relatively straightforward and in some instances fairly trivial.
+        </p>
+
+        <p>Some of the other user-oriented apps ruminating or in spiking:</p>
+
+        <ul>
+          <li>Dashboarding and Reporting tools that preserve meaning</li>
+          <li>Data Quality and Quality reporting application</li>
+          <li>Auditing and Access Analysis application</li>
+          <li>
+            UDA Integrity App (show us where we're missing mappings,
+            descriptions)
+          </li>
+        </ul>
+
+        <p>
+          In terms of applications, we're targeting the base-cases at the
+          moment, the things we
+          <strong>know</strong>
+          that we need to operationalize the system and to bring people into it.
+          Once we've addressed those cases, we can start to explore the more
+          interesting and complex use-cases, start to challenge old assumptions
+          about what insights are, the old mode dashboard paradigm, and start to
+          build newer ways of exploring and understanding the organisation, and
+          the data that represents it.
+        </p>
+
+        <p>
+          Beyond that, there are a whole host of lower-level components and
+          services that make all of this possible.
+        </p>
+      </section>
+
+      <hr />
+      <section>
+        <p>
+          Finally (you've almost made it), one piece that we're
+          <strong>really</strong> interested in exploring is one that was
+          mentioned in the previous article, the Organisational Data Graph.
+          There's a high amount of potential there, and we'll dive a bit into
+          that in the next and final article.
+        </p>
+
+        <p class="next-link">
+          <a href="2026-08-13-uda-6-the-organisation-as-a-graph.html"
+            >Part 6: The Organisation as a Graph</a
+          >
+        </p>
+      </section>
+    </article>
+  </body>
+</html>
