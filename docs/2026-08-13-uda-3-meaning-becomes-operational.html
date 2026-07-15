@@ -95,7 +95,7 @@
           An ontology that exists only as a diagram isn't much different than
           documentation. It might be beautifully designed, meticulously
           maintained, and technically correct, but if nobody builds systems on
-          top of it, it's little more than an expensive glossary.
+          top of it, it's little more than an expensive <i>glossary</i>.
         </p>
 
         <p>
@@ -121,7 +121,7 @@
 
         <blockquote><p>"How do we document the organisation?"</p></blockquote>
 
-        <p>We started asking:</p>
+        <p>We asked:</p>
 
         <blockquote>
           <p>"How do we make the organisation executable?"</p>
@@ -132,8 +132,8 @@
         <h2>Meaning has to pay its rent</h2>
 
         <p>
-          One of my favourite tests for any piece of architecture is a very
-          simple question.
+          One of my favourite tests for any piece of architecture is a really
+          stupid simple question.
         </p>
 
         <p>
@@ -142,7 +142,7 @@
 
         <p>
           If the answer is "nothing", then you've probably built documentation,
-          if the answer is "half the platform", you've probably built
+          if the answer is "lots of things", you've probably built
           infrastructure.
         </p>
 
@@ -171,27 +171,44 @@
         </p>
 
         <p>
-          That doesn't make those datasets sources of trust, they're just a
-          source of recorded values, and the meaning lives elsewhere.
+          These datasets aren't necessarily sources of trust, they're just a
+          source of recorded values, the meaning lives elsewhere in our
+          ontology.
         </p>
 
         <p>
-          To connect those two worlds we introduce a really simple idea:
-          Mappings
+          But we need to connect those two worlds, and to do that we introduce a
+          really simple idea: <strong>Mappings</strong>
         </p>
 
-        <p>A mapping says:</p>
+        <figure>
+          <img src="static/img/uda-mapping.png" />
+        </figure>
 
-        <blockquote>This field represents this concept.</blockquote>
+        <p>A Mapping says:</p>
+
+        <blockquote><p>This field represents this concept.</p></blockquote>
 
         <p>
           Not "looks like it a bit", or "probably corresponds to". Represents.
         </p>
 
         <p>
-          That's a super important difference, because it means we stop asking
-          databases what something means, and we start telling databases what
-          the values represent.
+          This means we stop asking databases what something means, and we start
+          <i>telling</i> databases what the values represent.
+        </p>
+
+        <p>
+          <span class="marginnote">
+            <strong>Aside:</strong> We're keeping this intentionally simply, but
+            in reality the relationships across all of these items is moderately
+            more complex, the focus here isn't on the complexity of the
+            implementation though, it's on what the overarching outcomes we're
+            driving towards are.
+          </span>
+          These mappings get slightly more complex, in that they also represent
+          how relationships defined in our world are actually materialized in
+          the physical world.
         </p>
       </section>
 
@@ -215,7 +232,6 @@
           that contributes that information, and find every physical field,
           every transformation, find every downstream consumer.
         </p>
-
         <p>
           The meaning and storage stop being separate worlds and become one
           connected graph and that's where the UDA stops feeling like an
@@ -226,7 +242,10 @@
       <section>
         <h2>Building outputs from meaning</h2>
 
-        <p>People rarely want an ontology, they want some damn answers.</p>
+        <p>
+          People rarely want an ontology in and of itself, they want some damn
+          answers.
+        </p>
 
         <ul>
           <li>Dashboards</li>
@@ -246,11 +265,11 @@
 
         <p>We turned that process upside down, and instead of asking:</p>
 
-        <blockquote>Which tables should I join?</blockquote>
+        <blockquote><p>Which tables should I join?</p></blockquote>
 
         <p>we ask,</p>
 
-        <blockquote>What concept am I trying to describe?</blockquote>
+        <blockquote><p>What concept am I trying to describe?</p></blockquote>
 
         <p>
           A Projection starts with meaning, it selects concepts, attributes,
@@ -258,10 +277,21 @@
         </p>
 
         <p>
+          <span class="marginnote">
+            <strong>Aside:</strong> A <strong>Projection</strong> doesn't have
+            to be a single table, it can be an API endpoint (GraphQL or REST),
+            an interval-based report, a data mart, a push to another system on a
+            schedule, or any other output that can be derived from the
+            underlying meaning and relationships.
+          </span>
           All the joins, transformations, storage, and final shape and
           implementation just become consequences of the semantics which is
           whole new way of building data products.
         </p>
+
+        <figure>
+          <img src="static/img/uda-projection.png" />
+        </figure>
       </section>
 
       <section>
@@ -289,6 +319,10 @@
           <li>which Fields supplied values</li>
           <li>which Sources contained those fields</li>
         </ul>
+
+        <figure>
+          <img src="static/img/uda-linkages.png" />
+        </figure>
 
         <p>
           You don't discover lineage, you generate it, because it was part of
@@ -335,6 +369,32 @@
         </p>
 
         <p>The platform carries governance wherever the meaning goes.</p>
+
+        <figure>
+          <img src="static/img/uda-sensitivity.png" />
+        </figure>
+
+        <p>
+          A good example is properties like sensitivity which naturally flow
+          outwards from where they're declared to the ends of the system where
+          higher-level concepts and products adopt the highest level sensitivity
+          of their components.
+        </p>
+
+        <p>
+          Because of the nature of the graph, and the connections inherent to
+          it, we can even compute the sensitivity of a <i>Projection</i> which
+          mixes, joins, transforms, renames, and otherwise maniulates concepts
+          and attributes based on the sensitivity of the underlying selected
+          attributes.
+        </p>
+
+        <p>
+          Don't let this sound like a trivial thing, it turns governance into
+          something that can be easliy reasoned about, and automatically
+          enforced, rather than something that has to be manually discovered,
+          documented, and enforced.
+        </p>
       </section>
 
       <section>
