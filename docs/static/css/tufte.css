@@ -293,6 +293,20 @@ li:not(:first-child) {
   margin-top: 0.25rem;
 }
 
+li.heading {
+  list-style: none;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 1;
+  margin-top: 2.5rem;
+  margin-bottom: 0.6rem;
+}
+
+li.heading:first-child {
+  margin-top: 0;
+}
+
 figure {
   padding: 0;
   border: 0;
@@ -347,6 +361,11 @@ a:visited {
 /* Sidenotes, margin notes, figures, captions */
 img {
   max-width: 100%;
+}
+
+figure img {
+  border: 1px solid #ccc;
+  border-radius: 2px;
 }
 
 .sidenote,
@@ -530,29 +549,14 @@ label.margin-toggle:not(.sidenote-number) {
     width: 100%;
   }
 
-  label.margin-toggle:not(.sidenote-number) {
-    display: inline;
-  }
-
   .sidenote,
   .marginnote {
-    display: none;
-  }
-
-  .margin-toggle:checked + .sidenote,
-  .margin-toggle:checked + .marginnote {
     display: block;
-    float: left;
-    left: 1rem;
+    float: none;
     clear: both;
     width: 95%;
     margin: 1rem 2.5%;
-    vertical-align: baseline;
-    position: relative;
-  }
-
-  label {
-    cursor: pointer;
+    position: static;
   }
 
   div.table-wrapper,
@@ -641,6 +645,10 @@ p.next-link a::after {
     border-top-color: #38322c;
   }
 
+  html:not([data-theme="light"]) figure img {
+    border-color: #38322c;
+  }
+
   html:not([data-theme="light"]) .marginnote,
   html:not([data-theme="light"]) .sidenote,
   html:not([data-theme="light"]) figcaption {
@@ -669,6 +677,10 @@ html[data-theme="dark"] body {
 
 html[data-theme="dark"] hr {
   border-top-color: #38322c;
+}
+
+html[data-theme="dark"] figure img {
+  border-color: #38322c;
 }
 
 html[data-theme="dark"] .marginnote,
