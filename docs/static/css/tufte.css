@@ -116,6 +116,7 @@ h3 {
   margin-top: 2rem;
   margin-bottom: 1.4rem;
   line-height: 1;
+  color: #7a4a2f;
 }
 
 hr {
@@ -199,7 +200,10 @@ div.epigraph > blockquote > footer > cite {
 /* end chapter epigraphs styles */
 
 blockquote {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
+  font-style: italic;
+  border-left: 3px solid #7a4a2f;
+  padding-left: 1.5rem;
 }
 
 blockquote p {
@@ -210,6 +214,7 @@ blockquote p {
 blockquote footer {
   width: 55%;
   font-size: 1.1rem;
+  font-style: normal;
   text-align: right;
 }
 
@@ -655,6 +660,14 @@ p.next-link a::after {
     color: #9a8f80;
   }
 
+  html:not([data-theme="light"]) h3 {
+    color: #e0b872;
+  }
+
+  html:not([data-theme="light"]) blockquote {
+    border-left-color: #e0b872;
+  }
+
   html:not([data-theme="light"]) section > table thead tr th {
     border-bottom-color: #38322c;
   }
@@ -687,6 +700,14 @@ html[data-theme="dark"] .marginnote,
 html[data-theme="dark"] .sidenote,
 html[data-theme="dark"] figcaption {
   color: #9a8f80;
+}
+
+html[data-theme="dark"] h3 {
+  color: #e0b872;
+}
+
+html[data-theme="dark"] blockquote {
+  border-left-color: #e0b872;
 }
 
 html[data-theme="dark"] section > table thead tr th {

@@ -1,0 +1,1042 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Evolving</title>
+    <link rel="stylesheet" href="static/css/tufte.css" />
+    <script src="static/js/theme.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="A collection of frequently asked questions about the UDA series."
+    />
+    <meta property="og:title" content="Evolving" />
+    <meta
+      property="og:description"
+      content="A collection of frequently asked questions about the UDA series."
+    />
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:url"
+      content="https://jdu.github.io/2026-08-13-uda-faq.html"
+    />
+    <meta property="og:site_name" content="JDU" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Evolving" />
+    <meta
+      name="twitter:description"
+      content="A collection of frequently asked questions about the UDA series."
+    />
+  </head>
+
+  <body>
+    <article>
+      <nav class="back-link"><a href="index.html">← Jeff Uren</a></nav>
+      <h1>Evolving</h1>
+      <p class="subtitle">Jeff Uren ★ 2026-09-01</p>
+
+      <section>
+        <p>
+          When I first started out working in larger organisations I assumed
+          that technology became difficult because there was essentially
+          <u>more of it</u>. More people, more applications, more integrations,
+          more process. Complexity was just a consequence of scale.
+        </p>
+
+        <p>
+          Some of the most technically complicated systems I've worked on have
+          been surprisingly straightforward to evolve. Everyone undersood
+          roughly what the organisation was trying to do, and even though the
+          implementation might have been difficult, the destination or outcome
+          was usually pretty clear. The technology had something stable to
+          organise itself around.
+        </p>
+
+        <p>
+          The opposite has often been true in organisations whose purpose is
+          research, public good, or humanitarian work. They rarely stand still
+          for long enough that yesterday's picture of the organisation remains
+          entirely accurate. New programmes appear because new opportunities
+          emerge. Teams form around problems that barely existed a year ago.
+          Funding changes, partnership changes. Sometimes even the language
+          people use changes, because they're trying to describe work that
+          nobody anticipated.
+        </p>
+
+        <p>
+          Someone from a more straightforward organisation would look at that
+          and immediately label it "dysfunction", but in a lot of ways, that
+          chaos is exactly what these organisation
+          <strong>are supposed to do.</strong>
+        </p>
+
+        <p>
+          The really uncomfortable part is that a lot of enterprise architecture
+          just sort of assumes the opposite. It assumes that if we spend enough
+          time understanding today's organisation, we can produce a lasting
+          picture of it, and that applications, data models, and integrations
+          can gradually converge on that picture. That's a perfectly sensible
+          approach if the organisation itself changes slowly. Personally, I'm
+          not sure it's the right starting point when the organisation is
+          expected to reinvent parts of itself every few years, or even every
+          few quarters.
+        </p>
+
+        <p>
+          I've stopped thinking about architecture as the process of describing
+          an organisation, and started asking myself whether in an organisation
+          like one of these, if it's job was more to make it safe for the
+          organisation to change.
+        </p>
+
+        <p>
+          That doesn't sound earth-shattering, but if you pick away at it, it
+          takes you somewhere very different to TOGAF.
+        </p>
+      </section>
+
+      <section>
+        <h2>Embalming your organisation</h2>
+
+        <p>
+          One of the things that I'm keenly aware of at the moment is how
+          technology can end up preserving a version of the organisation that
+          actually doesn't really exist anymore and very quickly converts into
+          baggage the organisations drags around behind it.
+        </p>
+
+        <p>
+          Nobody sets out to actually do that, most of the actual people
+          involved are usually trying to make things simpler. Some new
+          application promises to replace three older ones, or a shared platform
+          reduces duplication between teams. Some common process means everyone
+          works in roughly the same way. All of those decision make sense when
+          you look at them all alone, in isolation.
+        </p>
+
+        <p>
+          The difficulty kind of rears it's head years later, sometimes even
+          just a month later, when someone says something like:
+        </p>
+
+        <blockquote>
+          <p>"We'd like to start doing this."</p>
+        </blockquote>
+
+        <p>
+          Could be a new funding model, or partnership that didn't exist when
+          the systems were designed. It could be a whole host of things really.
+        </p>
+
+        <p>
+          It's not uncommon to find out that the question, doesn't fit
+          particularly well anywhere. There's no application that can really
+          accomodate it, or existing workflows that match it. The data exists,
+          but only after being bent into shapes that made sense for decisions
+          taken a couple years ago.
+        </p>
+
+        <p>
+          Someone will "make it work" though. A lot of software is really
+          accomodating if enough people are willing to push it around and poke
+          it. That usually looks something like adding another field to a form,
+          more charts in a report, more exceptions in an integration, or some
+          team somewhere that writes a script that translates between two worlds
+          that are accreting change at different rates.
+        </p>
+
+        <p>
+          A concrete example that came up recently was that we have an
+          orgasinational reporting "dashboard" in Tableau that was designed to
+          give a holistic view of operations across the organisation. What was
+          built, wasn't what tableau was built to do, it's a weird little
+          microcosm inside of tableau, a microsite, that has bent tableau to do
+          things that it wasn't really designed for.
+        </p>
+
+        <p>
+          It's not really a <i>technical problem</i>, not in the way we normally
+          use the term in any case. It's the result of an older decision
+          mistaking the needs of the organisation at that specific point in time
+          as something that was permanent.
+        </p>
+      </section>
+
+      <section>
+        <p>
+          There's some irony here, in that the organisations most likely to find
+          themselves in this kind of position not uncoincidentally are the same
+          ones least able to change.
+        </p>
+
+        <p>
+          If your purpose is to sell the same product like, a little more
+          efficiently than you did last quarter, then stability is a full on
+          asset. Your technology needs to reinforce habits that are probably
+          already working well.
+        </p>
+
+        <p>
+          If, however, your purpose is to fund research, respond to humanitarian
+          crises, improve public health or support scientific discovery, then
+          instability isn't really something that you can eliminate.
+          <strong
+            >It's actually solid evidence that the whole organisation is
+            actually acutely paying attention</strong
+          >.
+        </p>
+
+        <p>World changes fast man, these organisations follow those changes.</p>
+      </section>
+
+      <section>
+        <p>
+          Technology has to find a way of following too, without demanding that
+          everyone stop and wait for it to catch up.
+        </p>
+
+        <p>
+          When people talk about architecture they focus on systems as
+          purchases. Which applications should we buy? Which cloud provider
+          should we use? Should we consolidate these databases? Should this
+          service become an API?
+        </p>
+
+        <p>
+          Those are alright questions, but technology actually isn't where most
+          of the complexit actually <i>lives</i>. We like to pretend it's
+          complex, and a lot of the time, yes, there are multiple ways to solve
+          for any given problem, but the reality is those solutions are usually
+          well-trodden ground, or straightforward from an engineering
+          perspective.
+        </p>
+      </section>
+
+      <section>
+        <h2>A Tangent: Friction & consequences</h2>
+
+        <p>
+          Most complexity I've encountered is in the spaces
+          <i>between</i> people. In the hand-offs between teams, or places where
+          one group has to wait for another before they finish some critical
+          work.
+        </p>
+
+        <p>
+          After a while you realize that waiting is every bit as much a part of
+          the architecture as databases and APIs are.
+        </p>
+
+        <p>
+          Maybe we should be drawing service ticket queues as part of our
+          architecture diagrams?
+        </p>
+
+        <p>
+          If it takes six weeks for a team to get a new field in a shared
+          system, that delay isn't just a process problem. It shapes what the
+          organisation is actually capable of attempting. Over time, people stop
+          proposing ideas that they know will spend months working their way
+          through governance and ticket queues. They look for problems that fit
+          the machinery instead. They self-select.
+        </p>
+
+        <p>
+          A lot of organisations slowly move more and more engineering and
+          specialism behind those ticket queues to fight that. And that creates
+          a whole host of other problems. People interacting with the system
+          have to wait for experts to pick up and run with tickets, but their
+          interface isn't the person, it's a system, so they become frustrated,
+          the system becomes a bottleneck, and the people behind the queue
+          become dehumanized because the axial point is a ticket. When we're
+          talking about an abstract concept, (ticket), it's really easy to get
+          angry at it, and even more easier to vocalize that anger and
+          frustration. On the other side, it's easy to take that anger and
+          internalize it about yourself.
+        </p>
+
+        <p>
+          <span class="marginnote">
+            Some people will call this system "accountability", but it's really
+            just a way of making sure that the people who are supposed to be
+            helping the organisation adapt, are instead spending their time
+            defending themselves.
+          </span>
+          Behind those queues, the people who are supposed to be helping the
+          organisation adapt, become demoralized, these people are built for
+          collaboration, they want to interact, they want to have a laugh, get
+          into the nitty-gritty details with you and figure out a solution that
+          works. Through a ticket queue, they become faceless, disconnected from
+          the mission, and their work becomes a series of transactions that they
+          have to process. Ultimately, they become less effective at helping the
+          organisation adapt, because the system they're working in isn't
+          designed to help them do that. It erodes their judgement and autonomy.
+        </p>
+
+        <p>
+          They start to build protective walls around themselves, tight
+          standards, overly constrained processes, and heavy governance
+          processes. These are the language of defense. This is how you defend
+          yourself against continual criticism, because you can point to these
+          things as a way of deflecting the ire of the people who are frustrated
+          with you.
+        </p>
+        <p>
+          But the irony is that you're just defending a bad system, you're
+          defending the ticket queue when you should be defending your users.
+          The system puts you in this position.
+        </p>
+
+        <p>
+          Users get angry at the people behind the tickets, not realizing that
+          the whole ticket system is the thing you should be ticked off with.
+        </p>
+      </section>
+
+      <section>
+        <h2>Back to architecture</h2>
+
+        <p>
+          Without any one person intending it, the architecture starts
+          influencing strategy, rather than just, supporting it.
+        </p>
+
+        <hr />
+        <div class="epigraph">
+          <blockquote>
+            <p>
+              Technology can end up preserving an organisation that has already
+              disappeared.
+            </p>
+            <footer>
+              ~ me after too much free time, and a second read of Lila
+            </footer>
+          </blockquote>
+        </div>
+        <hr />
+
+        <p>
+          Can technology allow an organisation to become something else? That's
+          not a very tangible question, and it's pretty uncomfortable. I'm
+          asking if we can think about architecture less as a description of the
+          organisations current state, but as a way of making some future state
+          less expensive than it would have otherwise been.
+        </p>
+
+        <p>
+          A lot of the difficult stuff organisations attribute to technology are
+          actually only kind of indirectly technical. Delays, negotiations, and
+          dependencies. A team can't begin until another teams done, new
+          programmes wait for changes to the grants platform, some new useful
+          idea spends months moving through approvals before anyone has written
+          a line of code, or even just paid for a license seat. None of that
+          shows up in an architecture diagram still. Problem is they shape the
+          organisation just as much as a database, network setup, or app do.
+        </p>
+
+        <p>
+          Systems absolutely matter, but they're just part of the picture. The
+          architecture is made up of everything that <u>constrains movement</u>.
+          Every dependency between teams, or piece of knowledge that's only in
+          one place. Shared platforms to avoid duplication, governance boards
+          set up to improve consistency. Some standard integration prevents
+          teams from solving the same problem twice.
+        </p>
+
+        <p>All that stuff accumulates, faster than you realize.</p>
+      </section>
+
+      <section>
+        <h2>Knee-jerk reaction - Centralisation</h2>
+
+        <p>
+          Let's look at Geology. It's kind of a useful metaphor, and I like
+          metaphors. A landscape doesn't come into existence all at once for
+          example, it's the result of aeons of small deposits, new growth
+          replacing old, erosion, rivers changing course, tectonic activity, and
+          the occasional natural disaster.
+        </p>
+
+        <p>
+          Organisations calcify constraints like this, layer by layer, like
+          sediment building up. A few years later people find themselves working
+          around hills that weren't there before.
+        </p>
+
+        <p>
+          Centralization has similar issues too though because it's easy to
+          understand when you propose a central team. Maybe some capabilities
+          actually benefit from that, from being shared. We really shouldn't
+          reinvent security for every single project that comes along. There's
+          definitely real value in collective experience, and there are problems
+          that really should only ever be solved once and only once.
+        </p>
+
+        <p>
+          The problem with centralization is that it just sort of changes where
+          complexity lives rather than actually addressing it head on. A lot of
+          decisions that were decentralized become concentrated, and the
+          expertise follows. Responsibility follows after that.
+        </p>
+
+        <p>
+          Essentially, eventually, every meaningful change ends up going through
+          the same handful of teams, and those teams end up carrying the
+          accumulated needs of the entire organisation. They become
+          indispensible, but so does their <strong>availability</strong>.
+        </p>
+
+        <p>
+          Your org becomes coordinated at the cost of independence and autonomy.
+        </p>
+
+        <p>
+          So maybe we're mistaking consistency for simplicity? They're
+          definitely not the same thing. An org where everyone uses the same
+          tools could still be really difficult to change if every change
+          depends on the same small group of people. Uniformity reduces
+          variation, but it absolutely increases inertia.
+        </p>
+
+        <p>
+          All that work sure does <i>look</i> tidy, but it doesn't seem to be
+          moving forward, or going anywhere anymore.
+        </p>
+      </section>
+
+      <section>
+        <h2>Apps, apps, more apps</h2>
+        <p>
+          I think Applications need to be viewed with a heavy dose of
+          criticality too though. "Enterprise software" has a concrete habit of
+          becoming more important than anyone really meant it to in the first
+          place. Systems arrive to solve a particular problem, but over time it
+          becomes the place where the organisation actually understands that
+          part of itself.
+        </p>
+
+        <p>
+          Projects start to look like project management systems, relationships
+          become whatever the CRM is capable of expressing, financial structures
+          gradually inherit the assumptions of the ERP.
+          <span class="marginnote">
+            If all you have is a hammer, everything starts to look like a nail.
+          </span>
+          None of that happens because the software is really opinionated, it
+          happens because people just naturally adopt the language of the tools
+          they use every day.
+        </p>
+
+        <p>
+          Replacing those systems gets extremely hard. The challenge isn't even
+          just moving the data, it's disentangling the organisation's own
+          <u>understanding</u> of itself from the assumptions embedded within
+          the software.
+          <span class="marginnote">
+            Part of the problem here is that moving away from a system is
+            considered something that we shouldn't think about for years, which
+            is fine in a stable organisation, but in a rapidly changing one,
+            it's a huge risk.
+          </span>
+
+          We can off-handedly say "we'll just replace X with Y", but we more
+          often build as though they're going to be there forever. Even though
+          our cumulative experience is that someone up top is going to decide to
+          change it.
+        </p>
+
+        <p>
+          The other side of this is that software changes, rapidly. Even more so
+          now that LLMs are being used. But they go the other way too, they can
+          stagnate, and their licensing models can change and shift. You can
+          also massively outgrow a system that you used to consider
+          transformative. Applications really are just temporary things, and
+          they should be viewed that way more heavily and if they don't align
+          with your actual organisation, removed and replaced.
+        </p>
+      </section>
+
+      <section>
+        <h2>"Technology choices"</h2>
+
+        <p>
+          Maybe that's why I'm so sceptical of architectural discussions that
+          start out with a technology choice. All that stuff matters, but they
+          rarely determine whether an organisation remains capable of
+          <u>adapting</u>. More commonly, they reflect decisions that have
+          already been made somewhere else. So does architecture just assume
+          that tomorrow will look almost exactly the same as today? Or just
+          quietly accept that the organisation may eventually need to become
+          something that no one currently anticipates?
+        </p>
+
+        <p>
+          That might actually be a more useful measure of the appropriateness of
+          a design. A better measure of quality than the measures we usually
+          talk about. Who cares if the system is elegant, or whether every team
+          follows the same patterns. What matters more is whether the
+          organisaton can change direction without completely dismantling all
+          the machinery that supports it every time.
+        </p>
+
+        <p>
+          I guess some organisations can afford to optimize for efficiency
+          because efficiency is really just their enduring advantage. I think a
+          lot of others exist precisely because they need to keep learning. In
+          either case the technology should probably reflect the difference.
+        </p>
+      </section>
+
+      <section>
+        <h2>What architecture should actually be</h2>
+        <p>
+          Architecture (real architecture) isn't really about preserving order.
+          An organisation is going to create order for itself whenever it finds
+          something that's worth doing. Architecture should be more modest than
+          that.
+        </p>
+        <p>
+          It's real task should be to ensure that when the world changes, and
+          the organsiation changes with it, technology doesn't become the thing
+          asking everyone to <i>wait</i>. Carry enough of yesterday to stay
+          useful, while holding it lightly enough that tomorrow still has
+          somewhere to actually exist.
+        </p>
+
+        <p>
+          I think maybe our question has changed, just over the course of this
+          rant:
+        </p>
+
+        <hr />
+        <div class="epigraph">
+          <blockquote>
+            <p>
+              What should architecture optimize for when the organisation itself
+              is the thing that's changing?
+            </p>
+            <footer>~ Jeff after even more free time</footer>
+          </blockquote>
+        </div>
+        <hr />
+      </section>
+
+      <section>
+        <p>
+          Traditional Enterprise Architecture is implicitly trying to minimise
+          <i>variation</i>. It creates standards, common platforms, approved
+          technologies, canonical processes and governance because variation is
+          basically treated as waste.
+        </p>
+
+        <p>
+          That's sensible if your organisation is trying to execute the same
+          business slightly better ever year.
+        </p>
+
+        <p>
+          I'm not really convinced that it's the optimisation function for a
+          place like Wellcome, I think the optimisation function changes pretty
+          much completely.
+        </p>
+      </section>
+
+      <section>
+        <h2>Architecture should stop describing the organisation</h2>
+
+        <p>
+          One thought I've got is that architecture has become too interested in
+          describing the organisation.
+        </p>
+
+        <p>
+          It's current state, target state, business capability maps,
+          application landscapes, process maps. They're all just frozen
+          snapshots, useful, but still just snapshots.
+        </p>
+
+        <p>
+          If the subject keeps moving, the value of the snapshot decays pretty
+          much immediately.
+        </p>
+
+        <p>
+          So let's stop having architecture describe the organisation, and let's
+          have it describe
+          <strong
+            >the rules under which the organisation is free to evolve</strong
+          >
+          instead.
+        </p>
+
+        <p>So instead of saying something like:</p>
+
+        <blockquote>
+          <p>These are applications</p>
+        </blockquote>
+
+        <p>we say:</p>
+
+        <blockquote>
+          <p>
+            Applications can come and go, but they must expose their data in
+            this specific way.
+          </p>
+        </blockquote>
+
+        <p>Instead of:</p>
+
+        <blockquote>
+          <p>There is one approved CRM</p>
+        </blockquote>
+
+        <p>We say:</p>
+
+        <blockquote>
+          <p>
+            Customer relationshipss are represented consistently regardless of
+            which CRM exists.
+          </p>
+        </blockquote>
+
+        <p>
+          So instead of freezing implementations, you stabilize the behaviour.
+        </p>
+      </section>
+
+      <section>
+        <h2>Architecture should optimize for replacing things</h2>
+
+        <p>
+          This isn't talked about much, because architecture diagrams show how
+          things slot together, I've never seen an architecture diagram that
+          tells you how things com apart.
+        </p>
+
+        <p>
+          I like knowing how things come apart, I took apart my dads Honda
+          Goldwing when I was a little kid. It was a great time. I've carried on
+          taking things apart ever since, and I think it's made me a better
+          engineer.
+        </p>
+
+        <p>
+          It just seems kind of weird that as organisations, we constantly
+          replace stuff:
+        </p>
+
+        <ul>
+          <li>SaaS products</li>
+          <li>ERPs</li>
+          <li>HR platforms</li>
+          <li>Reporting tools</li>
+          <li>Identity providers</li>
+        </ul>
+
+        <p>
+          All of that stuff is disappearing all the time, so good architecture
+          should make replacement a routine engineering activity instead of an
+          organisational crisis.
+        </p>
+
+        <p>
+          Stop asking "how will I integrate this?" and start asking "how the
+          hell do I remove it?".
+        </p>
+      </section>
+
+      <section>
+        <h2>Architecture should define invariants</h2>
+
+        <p>
+          This isn't that contentious (for me anyway; it's common sense). We
+          have things like the conservation laws in Physics, we can probably
+          have something similar in architecture, a set of rules that works for
+          the organisation.
+        </p>
+
+        <ul>
+          <li>Identity exists</li>
+          <li>People exist</li>
+          <li>Organisations exist</li>
+          <li>Money exists</li>
+          <li>Relationships exist</li>
+          <li>Authority exists</li>
+          <li>Provenance exists</li>
+          <li>Audit exists</li>
+        </ul>
+
+        <p>Everything else after all that is basically just implementation.</p>
+
+        <p>
+          Once you know what your invariants are, you can let almost everything
+          else evolve independently.
+        </p>
+      </section>
+
+      <section>
+        <h2>Architecture should minimise coupling across time</h2>
+
+        <p>
+          We talk constantly about coupling between systems, but we don't seem
+          to consider coupling across <i>time</i>.
+        </p>
+
+        <p>
+          If changing today's organisation requires changing decisions made
+          fifteen years ago your architecture is then coupled to history.
+        </p>
+
+        <p>
+          That's a crazy dangerous coupling if you think about it. You really
+          want today's engineers to <strong>inherit</strong> knowledge, not a
+          bunch of aged constraints that barely apply anymore.
+        </p>
+      </section>
+
+      <section>
+        <h2>Think in rates of change</h2>
+
+        <p>
+          I'm a big fan of Pirsigs writing, I feel like he'd be asking this
+          question:
+        </p>
+
+        <blockquote>
+          <p>
+            Why are we modeling everything as though it changes at the same
+            speed?
+          </p>
+          <footer>~ Robert M. Pirsig maybe</footer>
+        </blockquote>
+
+        <p>
+          Almost nothing does, missions change slowly, meaning changes slowly,
+          policy changes pretty slowly, teams change faster, processes change
+          faster, applications change faster than that, and technology changes
+          at the fastest rate of all of it.
+        </p>
+
+        <p>
+          But we drop all of that into a single diagram, when we should probably
+          be explicitly recognizing that different things actually evolve at
+          totally different rates.
+        </p>
+
+        <p>
+          This shows up in Praxeme, which separates concersn according to how
+          quickly they evolve, allowing long-lived business concepts to remain
+          independent of rapidly changing technology.
+        </p>
+      </section>
+
+      <section>
+        <h2>Optimise for flow, not order</h2>
+
+        <p>
+          I kind of feel like this is where EA butts hard up against reality. EA
+          tries to reduce entropy, instead of actively optimising for flow.
+        </p>
+
+        <ul>
+          <li>How long does it take an idea to become software?</li>
+          <li>How long does a partnership take to become data?</li>
+          <li>How long before a team can answer a new question?</li>
+          <li>
+            How long before a researcher can explore something nobody
+            anticipated?
+          </li>
+        </ul>
+
+        <p>That's real architecture, your systems should support that.</p>
+
+        <p>
+          That perspettive is becoming more reflected in socio-technical
+          architecture work, where architecture is treated as an enabler of
+          continuous flow and adaptation rather than simply a static technical
+          blueprint.
+        </p>
+      </section>
+
+      <section>
+        <h2>Where have we gotten to?</h2>
+
+        <p>Traditional enterprise architecture optimises for:</p>
+
+        <ul>
+          <li>consistency</li>
+          <li>reuse</li>
+          <li>governance</li>
+          <li>standardisation</li>
+          <li>traceability</li>
+        </ul>
+
+        <p>I think we need some different aspirations:</p>
+
+        <ul>
+          <li>Reduce cost of change</li>
+          <li>Standardise interfaces and principles</li>
+          <li>Preserve freedom to evolve</li>
+          <li>Enable local optimisation</li>
+          <li>Minimise organisational coupling</li>
+          <li>Govern constraints</li>
+          <li>Optimise organisational flow</li>
+        </ul>
+
+        <p>So instead of something like:</p>
+
+        <p>
+          Business Architecture -> Application Architecture -> Technology
+          Architecture
+        </p>
+
+        <p>We need something more like this:</p>
+
+        <p>
+          Mission -> Adaptive Architecture -> Business -> Applications ->
+          Technology
+        </p>
+
+        <p>
+          That Adaptive Architecture wouldn't describe systems, it would define
+          lots of things like:
+        </p>
+
+        <ul>
+          <li>What is allowed to change independently?</li>
+          <li>What must remain stable?</li>
+          <li>What are our architectural invariants?</li>
+          <li>How do we replace capabilities?</li>
+          <li>How do teams discover one another?</li>
+          <li>How does knowledge flow?</li>
+          <li>Where are we allowed to duplicate?</li>
+          <li>Where do we have to standardise?</li>
+          <li>How do we prevent organisational bottlenecks?</li>
+          <li>What is the maximum acceptable cost of changing direction?</li>
+        </ul>
+
+        <p>
+          None of those questions are about kubernetes, Oracle, Salesforce.
+          They're just about the
+          <i>physics</i> of organisational change.
+        </p>
+      </section>
+
+      <section>
+        <p>
+          I've just stumbled across Jean Lapalme and
+          <strong>Enterprise Ecosystem Adaptation</strong>. What we're talking
+          about is pretty in line with that but with more emphasis on
+          engineering. Lapalmes EEA approach is there to improve an enterprise's
+          ability to learn and co-evolve with its environment, rather than
+          simply align IT with the business.
+        </p>
+      </section>
+
+      <hr />
+
+      <section>
+        <div class="epigraph">
+          <blockquote>
+            <p>
+              The quality of an architecture is proportional to how little
+              effort it takes for the organisation to become something it wasn't
+              designed to be.
+            </p>
+          </blockquote>
+        </div>
+        <p>
+          That honestly, about sums it up. <strong>That</strong> should be the
+          gauge of whether a design is appropriate.
+        </p>
+        <p>
+          Enterprise architecture ought to spend less effort describing what an
+          organisation actually is, and pour it's effort into preserving what it
+          should always remain free to <i>become</i>.
+        </p>
+      </section>
+
+      <section></section>
+
+      <section>
+        <h2>Papers</h2>
+
+        <ul>
+          <li></li>
+        </ul>
+      </section>
+
+      <hr />
+
+      <section>
+        <p>Most companies don't change all that much.</p>
+
+        <p>
+          They have products, customers, supply chains, sales teams,
+          manufacturing, marketing. They do evolve, absolutely, but the shape of
+          the business more or less stays relatively stable.
+        </p>
+
+        <p>
+          A lot of technological architecture <i>assumes</i> that stability is
+          uniform across all organisations.
+        </p>
+
+        <p>
+          Large, mission-oriented organisations, aren't uniform, not even
+          remotely.
+        </p>
+
+        <p>
+          Wellcome may spend decades funding biomedical science before suddenly
+          finding itself coordinating international pandemic research. The WHO
+          may pivot from eradication campaigns to emergency humanitarian
+          response. The UNHCR may go from supporing one regional crisis to
+          managing the largest displacement of people since the Second World
+          War.
+        </p>
+
+        <p>
+          Missions change, programmes change, funding changes, organisational
+          structures can change, sometimes multiple times in a single year.
+        </p>
+
+        <p>
+          How do you build technology, and <i>technology teams</i> that survive
+          that.
+        </p>
+      </section>
+
+      <section>
+        <h2>The mistakes we keep making</h2>
+
+        <p>
+          When organisations modernise technology, they usually ask some
+          questions along the lines of:
+        </p>
+
+        <ul>
+          <li>Which cloud provider?</li>
+          <li>Which ERP?</li>
+          <li>Which CRM?</li>
+          <li>Which warehouse?</li>
+          <li>Which reporting tool?</li>
+        </ul>
+
+        <p>
+          Those are really important questions, but they're just not the right
+          questions to ask first.
+        </p>
+
+        <p>Their first question should be something more like:</p>
+
+        <blockquote>
+          <p>
+            What is the thing about this organisation that almost certainly
+            <strong>won't</strong> change?
+          </p>
+        </blockquote>
+
+        <p>
+          For a place like Amazon it'll probably be customers and orders. For a
+          bank, it'll look something like accounts and transactions.
+        </p>
+
+        <p>But for Wellcome?</p>
+
+        <p>
+          That questions a lot harder, because Wellcome doesn't just exist to
+          administer grants. It's overriding mission is improve health, the
+          mechanisms that it pursues that mission through, are constantly, and
+          insistently changing.
+        </p>
+      </section>
+
+      <section>
+        <h2>Mission lasts longer than structure</h2>
+
+        <p>
+          Organisation charts are temporary things, even the departments,
+          projects, and programmes are all more or less temporary. All of those
+          things can likely disappear, be reconstituted, but the mission itself
+          will still be sitting there.
+        </p>
+
+        <p>
+          Building good architecture in these contexts, means recognizing that,
+          and realizing that the mission is really the only thing that's likely
+          to be here next year.
+        </p>
+
+        <p>
+          So instead of coupling technology to today's organisational chart, you
+          have to model the enduring concepts that exist regardless of how the
+          organisation chooses to arrange itself this year.
+        </p>
+
+        <ul>
+          <li>People</li>
+          <li>Organisations</li>
+          <li>Funding</li>
+          <li>Projects</li>
+          <li>Research</li>
+          <li>Locations</li>
+          <li>Assets</li>
+          <li>Outcomes</li>
+          <li>Relationships</li>
+        </ul>
+
+        <p>
+          All of this stuff generally survives a restructure, the thing that
+          rarely does, is applications.
+        </p>
+      </section>
+
+      <section>
+        <h2>Reaching for Conway's Law</h2>
+
+        <p>
+          I'd imagine most people reading this are familiary with Conway's Law.
+        </p>
+
+        <blockquote>
+          <p>
+            Organisations design systems that mirror their communication
+            structures.
+          </p>
+        </blockquote>
+
+        <p>
+          It's the doomsday cry of inevitability. You can take that law, give it
+          a twirl, and look at it from a different angle though.
+        </p>
+
+        <p>
+          If your organisation changes frequently, sometimes violently, your
+          software is going to inherit, and slowly accrete that instability over
+          time.
+        </p>
+
+        <p>
+          You have to deliberately build places that are stable for the
+          organisation to stand on so that your architecture becomes a sort of
+          shock absorber.
+        </p>
+
+        <p>
+          It can absorb organisational change instead of transmitting it
+          directly into every database, API, dashboard, and report.
+        </p>
+      </section>
+
+      <hr />
+      <section>
+        <h2>Ingredients</h2>
+      </section>
+
+      <section>
+        <h2>Orchestration</h2>
+      </section>
+    </article>
+  </body>
+</html>
