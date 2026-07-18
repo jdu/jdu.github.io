@@ -91,8 +91,24 @@
         </p>
 
         <p>
-          That doesn't sound particularly earth-shattering, but if you pick away
-          at it, it takes you somewhere absolutely different than TOGAF.
+          This probably doesn't sound all that earth-shattering, but you can sum
+          up the difference in architecture parlance this way:
+        </p>
+
+        <div class="epigraph">
+          <blockquote>
+            <p>
+              The quality of an architecture is proportional to how little
+              effort it takes for the organisation to become something it wasn't
+              designed to be.
+            </p>
+          </blockquote>
+        </div>
+
+        <p>
+          Through the rest of this spiehl, we're going to lay the foundations
+          for what that means, and how you adjust to support that kind of
+          capability.
         </p>
       </section>
 
@@ -102,8 +118,8 @@
         <p>
           Org charts are temporary things, even the departments, projects, and
           programmes are all more or less temporary. All of those things can
-          likely disappear, and be reconstituted. But the mission itself will
-          still be sitting there.
+          disappear, and be reconstituted. But the mission itself will still be
+          sitting there.
         </p>
 
         <p>
@@ -128,28 +144,41 @@
           <li>Outcomes</li>
         </ul>
 
-        <p>All of this stuff generally survives a restructure.</p>
+        <p>All of this stuff will generally survive a restructure.</p>
       </section>
 
       <section>
         <h2>Embalming your organisation</h2>
 
         <p>
-          One of the things that I'm keenly aware of at the moment is how
-          technology can end up preserving a version of the organisation that
-          actually doesn't really <i>exist</i> anymore. That can very quickly
-          convert into baggage the organisation drags around behind it.
+          I'm keenly aware that technology can end up preserving a version of
+          the organisation that actually doesn't really <i>exist</i> anymore.
+          That can very quickly convert into baggage the organisation drags
+          around behind it.
         </p>
 
         <p>
           As things change, the organisation leaves a long trail of detritus
-          behind it. Old processes, abandoned sharepoint sites, unwatched
-          mailboxes, teams channels from completed projects, orphaned services
-          accounts, dashboards, reports, old decision logs, automation rules,
-          duplicated glossaries. Eventually someone inherits the job of working
-          out what can be deleted, what still matters, what's still part of some
-          dependency chain, and what's basically residue of a decision made
-          three reorgs ago.
+          behind it.
+        </p>
+
+        <ul>
+          <li>Old processes</li>
+          <li>abandoned sharepoint sites</li>
+          <li>unwatched mailboxes</li>
+          <li>teams channels from completed projects</li>
+          <li>orphaned service accounts</li>
+          <li>dashboards</li>
+          <li>reportsd</li>
+          <li>old decision logs</li>
+          <li>automation rules</li>
+          <li>duplicated glossaries</li>
+        </ul>
+        <p>
+          Eventually someone inherits the job of working out what can be
+          deleted, what still matters, what's still part of some dependency
+          chain, and what's basically residue of a decision made three reorgs
+          ago.
         </p>
 
         <p>
@@ -236,7 +265,7 @@
           instability isn't really something that you can eliminate.
           <strong
             >It's actually solid evidence that the whole organisation is acutely
-            paying attention</strong
+            paying attention and doing what it's <i>supposed</i> to</strong
           >.
         </p>
       </section>
@@ -285,15 +314,16 @@
         <h2>A Tangent: Friction & consequences</h2>
 
         <p>
-          Most complexity I've encountered is in the spaces
+          Most real complexity I've encountered is in the spaces
           <i>between</i> people. In the hand-offs between teams, or places where
           one group has to wait for another before they finish some critical
           work.
         </p>
 
         <p>
-          After a while you realize that waiting is every bit as much a part of
-          the architecture as databases and APIs are.
+          After you start noticing these things more you realize that "waiting"
+          is every bit as much a part of the architecture as databases and APIs
+          are.
         </p>
 
         <p>
@@ -374,8 +404,8 @@
         <h2>Back to architecture</h2>
 
         <p>
-          Without any one person intending it, the architecture starts
-          influencing strategy, rather than just, supporting it.
+          Without any one person intending it, architecture starts influencing
+          strategy, rather than just, supporting it.
         </p>
 
         <hr />
@@ -823,6 +853,67 @@
       </section>
 
       <section>
+        <h3>Architecture should build trust</h3>
+
+        <p>
+          Good architecture shouldn't just tolerate trust; it should actively
+          engender it.
+        </p>
+
+        <p>
+          Shared models, clear interfaces, strong provenance, auditablity,
+          transparent ownership, and observable systems all make it easier for
+          teams to trust one another without needing constant oversight. Teams
+          can make decisions locally because everyone can see how those
+          decisions effect the wider organisation.
+        </p>
+
+        <p>
+          The goal isn't to remove accountability, it's to make accountabiliy
+          inexpensive enough that autonomy becomes safe.
+        </p>
+
+        <p>
+          One of the easiest mistakes organisations make is replacing trust with
+          <i>permission</i>.
+        </p>
+
+        <p>
+          Instead of building systems that allow teams to act safely, we build
+          systems that require teams to ask first. Every approval becomes
+          another dependency, every dependency another queue. In the worst
+          cases, the organisations starts to mistake the act of waiting for
+          governance..
+        </p>
+
+        <p>
+          Trust changes the relationship completed, instead of asking "who needs
+          to approve this?", the question becomes "what evidence do we need that
+          this is safe?".
+        </p>
+
+        <p>
+          Decentralisation is kind of described as distributing authority, but
+          authority without trust just creates centralisation somewhere else.
+        </p>
+
+        <p>
+          Mission command in the military only works because commanders trust
+          subordinate units to make local decisions within a shared intent, and
+          subordinate units trust the organisation to support them when
+          conditions change. Doctrine, logistics, communications and training
+          all exist to reinforce the trust.
+        </p>
+
+        <p>
+          The same is true of enterprise architecture. Shared principles, common
+          interfaces, and architectural invariants should exist not to control
+          every decisoni, but to give teams enough confidence in one another tha
+          they don't need to.
+        </p>
+      </section>
+
+      <section>
         <h3>Architecture should define invariants</h3>
 
         <p>
@@ -1128,6 +1219,14 @@
         <p>
           If you cam't describe how to replace it, you either haven't finished
           integrating it, or it might not be the right tool choice at all.
+        </p>
+
+        <h3>Build Trust</h3>
+
+        <p>
+          Build systems that reduce the amount of trust an organisation has to
+          <i>verify</i>, not the amount of trust it can <i>afford</i>.
+          Architecture should make trust cheaper than control.
         </p>
 
         <h3>Measure waiting as architecture</h3>
