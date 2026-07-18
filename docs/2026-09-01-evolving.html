@@ -40,17 +40,17 @@
           When I first started out working in larger organisations I assumed
           that technology became difficult because there was essentially
           <u>more of it</u>. More people, more applications, more integrations,
-          more process.
-          <strong>Complexity was just a consequence of scale </strong>.
+          more process. I internalized that
+          <strong>complexity is just a consequence of scale </strong>.
         </p>
 
         <p>
-          Some of the most technically complicated systems I've worked on have
-          been surprisingly straightforward to evolve. Everyone understood
-          roughly what the organisation was trying to do, and even though the
-          implementation might have been difficult, the destination or outcome
-          was usually pretty clear. The technology had something stable to
-          organise itself around.
+          Some of the most technically complicated systems I've worked on
+          though, have been surprisingly straightforward to evolve. Everyone
+          understood roughly what the organisation or team was trying to do, and
+          even though the implementation might have been difficult, the
+          destination or outcome was usually pretty clear. The technology had
+          something stable to organise itself around.
         </p>
 
         <p>
@@ -67,7 +67,7 @@
         <p>
           Someone from a more straightforward organisation would look at that
           and immediately label it "dysfunction", but in a lot of ways, that
-          chaos is
+          <i>perceived</i> chaos is
           <strong>exactly what these organisations are supposed to do.</strong>
         </p>
 
@@ -84,10 +84,11 @@
         </p>
 
         <p>
-          You really need to ask yourself whether the process of architecture
-          should only ever really be an act of description, and taxonomizing
-          things. It's job should really ought to be to make it safe for the
-          organisation to actually change, change often, and change safely.
+          In these types of orgs, you really need to ask yourself whether the
+          process of architecture should only ever really be an act of
+          description, and taxonomizing things. It's job really ought to be to
+          make it safe for the organisation to actually change, change often,
+          and change safely.
         </p>
 
         <p>
@@ -112,9 +113,9 @@
           document, we're going to lay the foundations for what the above means,
           and how you adjust to support that kind of capability. I'm sorry up
           front , because we're going to confront some very harsh truths here
-          that challenge not just peoples generaly understanding of technology,
-          but C-suite and directorial teams understandings of how to support
-          their organisations.
+          that challenge not just peoples general understanding of technology,
+          but C-suite and directorial teams understanding of how to support
+          their organisation.
         </p>
       </section>
 
@@ -269,9 +270,9 @@
 
         <p>
           When people talk about architecture they focus on systems as
-          purchases. Which applications should we buy? Which cloud provider
-          should we use? Should we consolidate these databases? Should this
-          service become an API?
+          <i>purchases</i>. Which applications should we buy? Which cloud
+          provider should we use? Should we consolidate these databases? Should
+          this service become an API?
         </p>
 
         <p>
@@ -284,24 +285,32 @@
         </p>
 
         <p>
-          <span class="marginnote">
-            Talking about this always reminds me of an older horror comic by
-            Junji Ito titled "The Enigma of Amigara Fault". In that story people
-            are drawn to holes in a mountainside that are shaped just like them.
-            Each person has a hole that fits them perfectly, and they feel
-            compelled to enter them. Once they're inside, the tunnels twist and
-            deform, forcing the people deeper while gradually reshaping their
-            bodies. When they finally come out the other end they're these
-            grotesque, elongated, and horrifyingly distorted versions of
-            themselves. Completely broken from the journey.
-          </span>
           The real complexity lives in the organisation, and that complexity
           compounds when you try and bend a tool to the organisational problem,
           or worse, try and shove organisational complexity into a hole that
           isn't really designed for it.
         </p>
 
-        <p>Complexity accretes over time.</p>
+        <p>
+          <span class="marginnote">
+            <strong>Warning:</strong> this comic is pretty brutal and not for
+            the feint of heart. I'm not even going to link to it.
+          </span>
+          Talking about this always reminds me of an older horror comic by Junji
+          Ito titled "The Enigma of Amigara Fault". In that story people are
+          drawn to holes in a mountainside that are shaped just like them. Each
+          person has a hole that fits them perfectly, and they feel compelled to
+          enter them. Once they're inside, the tunnels twist and deform, forcing
+          the people deeper while gradually reshaping their bodies. When they
+          finally come out the other end they're these grotesque, elongated, and
+          horrifyingly distorted versions of themselves. Completely broken from
+          the journey.
+        </p>
+
+        <p>
+          Complexity accretes over time, and you might not even notice your
+          organisation being reshaped by it until it's too late.
+        </p>
       </section>
 
       <section>
@@ -989,6 +998,46 @@ async fn main() {
       </section>
 
       <section>
+        <h2>About incentives</h2>
+
+        <p>
+          We've gone over a lot of ground here, there's a lot of observations
+          and information floating here, but we haven't really answered the
+          question of <strong>how</strong> an organisation accretes all these
+          things.
+        </p>
+
+        <p>
+          We need to know so that we can avoid it, organisationally, and
+          architecturally. And it's kind of complex, and points some fingers.
+          You arrive here more or less through a series of diametrically opposed
+          incentives:
+        </p>
+
+        <ul>
+          <li>Consultants are rewarded for transformation</li>
+          <li>Vendors are rewarded for selling products</li>
+          <li>Procurement is rewarded for buying established products</li>
+          <li>Management is rewarded for reducing perceived risk</li>
+          <li>Boards are rewarded for visible governance</li>
+        </ul>
+
+        <p>And finally.</p>
+
+        <p>
+          <strong>No one</strong> is rewarded for quietly building internal
+          capability over time.
+        </p>
+
+        <p>
+          The incentives are all aligned to make sure that the organisation is
+          <i>always</i> in motion, and that the people who are supposed to be
+          helping it adapt, are instead spending their time
+          <i>defending themselves</i>.
+        </p>
+      </section>
+
+      <section>
         <h2>What architecture should actually be</h2>
         <p>
           Architecture (real architecture) isn't really about preserving order.
@@ -1154,6 +1203,71 @@ async fn main() {
         <p>
           So instead of freezing <i>implementations</i>, you stabilize the
           <strong>behaviour</strong>.
+        </p>
+      </section>
+
+      <section>
+        <h3>Buy <strong>commodity</strong> capability</h3>
+
+        <p>
+          Reading through all the above, you would think I want you to have your
+          organisation and teams build every last thing from scratch every time.
+          Or for you to rewrite Salesforce. That's not actually where I'm at,
+          and I've been accused of that in the past, and I need to step
+          carefully here to avoid that being peoples assumption about my
+          position moving forward.
+        </p>
+
+        <p>What's a commodity capability?</p>
+
+        <p>
+          It's a capability that provides little or not strategic
+          differentiation because almost every organisation performs that
+          function in broadly the same way.
+        </p>
+
+        <p>
+          Commodify capabilities are the things the organsiation needs simply to
+          exist. Email, identity management, payroll, accounting, endpoint
+          management, office productivity, HR administration. They matter
+          enormously, but they rarely distinguish one organisation from another.
+          If another organisation has solved these problems <i>well</i> there's
+          little value in solving them again yourself.
+        </p>
+
+        <p>
+          Strategic capabilities are different. They're the activities through
+          which an organisation fulfils its mission and creates values that
+          other organisations can potentially reproduce. Those capabilities are
+          unique precisely because they are shaped by the organisations people,
+          history, goals, culture, and operation environment. They're where
+          understanding becomes an advantage.
+        </p>
+
+        <p>
+          The whole distinction here isn't between buying some software and
+          building it.
+        </p>
+
+        <p>
+          The distinct is buying capability that everybody shares and building
+          capability that makes your organisation unique. Then positionining the
+          bought capability in ways that it doesn't constrain, block, or
+          otherwise interfere with the uniquer capability.
+        </p>
+
+        <p>
+          It means placing abstractions so that your bought capability can be
+          replaced without disrupting your organisations operations.
+        </p>
+
+        <p>
+          Every technology choice should be asked:
+          <strong
+            >Is this capability generic enough that we should inherit someone
+            else's understanding, or fundamental enough that we should cultivate
+            our own?
+          </strong>
         </p>
       </section>
 
@@ -1621,6 +1735,14 @@ async fn main() {
       <hr />
 
       <section>
+        <p>Organisations survive because they learn.</p>
+
+        <p>
+          Architecture shouldn't be judged by the systems it preserves. It
+          should be judged by the learning it permits, the trust it creates, and
+          how little effort it takes for the organisation to become something it
+          hasn't been before.
+        </p>
         <div class="epigraph">
           <blockquote>
             <p>
@@ -1630,14 +1752,10 @@ async fn main() {
             </p>
           </blockquote>
         </div>
+
         <p>
           That honestly, about sums it up. <strong>That</strong> should be the
           gauge of whether a design is appropriate.
-        </p>
-        <p>
-          Enterprise architecture ought to spend less effort describing what an
-          organisation actually is, right now, and pour it's effort into
-          preserving what it should always remain free to <i>become</i>.
         </p>
       </section>
     </article>
