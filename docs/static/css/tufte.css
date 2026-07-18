@@ -119,6 +119,23 @@ h3 {
   color: #7a4a2f;
 }
 
+h4 {
+  display: flex;
+  align-items: center;
+  font-weight: 400;
+  font-size: 1.6rem;
+  margin-top: 1.8rem;
+  margin-bottom: 1rem;
+  line-height: 1;
+}
+
+h4::after {
+  content: "";
+  flex: 1 1 auto;
+  margin-left: 1rem;
+  border-bottom: 1px solid #7a4a2f;
+}
+
 hr {
   display: block;
   height: 1px;
@@ -668,6 +685,10 @@ p.next-link a::after {
     border-left-color: #e0b872;
   }
 
+  html:not([data-theme="light"]) h4::after {
+    border-bottom-color: #e0b872;
+  }
+
   html:not([data-theme="light"]) section > table thead tr th {
     border-bottom-color: #38322c;
   }
@@ -708,6 +729,10 @@ html[data-theme="dark"] h3 {
 
 html[data-theme="dark"] blockquote {
   border-left-color: #e0b872;
+}
+
+html[data-theme="dark"] h4::after {
+  border-bottom-color: #e0b872;
 }
 
 html[data-theme="dark"] section > table thead tr th {
