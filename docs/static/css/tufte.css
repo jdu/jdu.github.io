@@ -123,10 +123,19 @@ h4 {
   display: flex;
   align-items: center;
   font-weight: 400;
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   margin-top: 1.8rem;
   margin-bottom: 1rem;
   line-height: 1;
+  padding-left: 1rem;
+  color: #7a4a2f;
+}
+
+h4::before {
+  content: "";
+  flex: 0 0 1rem;
+  margin-right: 1rem;
+  border-bottom: 1px solid #7a4a2f;
 }
 
 h4::after {
@@ -237,7 +246,8 @@ blockquote footer {
 
 section > p,
 section > footer,
-section > table {
+section > table,
+section > h4 {
   width: 55%;
   thead {
     tr {
@@ -390,6 +400,24 @@ figure img {
   border-radius: 2px;
 }
 
+figure.diagram {
+  max-width: 90%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+figure.diagram svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+figure.diagram .diagram-accent {
+  stroke: #7a4a2f;
+}
+
 .sidenote,
 .marginnote {
   float: right;
@@ -537,7 +565,8 @@ label.margin-toggle:not(.sidenote-number) {
   hr,
   section > p,
   section > footer,
-  section > table {
+  section > table,
+  section > h4 {
     width: 100%;
   }
 
@@ -671,6 +700,14 @@ p.next-link a::after {
     border-color: #38322c;
   }
 
+  html:not([data-theme="light"]) figure.diagram {
+    border-color: #38322c;
+  }
+
+  html:not([data-theme="light"]) figure.diagram .diagram-accent {
+    stroke: #e0b872;
+  }
+
   html:not([data-theme="light"]) .marginnote,
   html:not([data-theme="light"]) .sidenote,
   html:not([data-theme="light"]) figcaption {
@@ -681,10 +718,15 @@ p.next-link a::after {
     color: #e0b872;
   }
 
+  html:not([data-theme="light"]) h4 {
+    color: #e0b872;
+  }
+
   html:not([data-theme="light"]) blockquote {
     border-left-color: #e0b872;
   }
 
+  html:not([data-theme="light"]) h4::before,
   html:not([data-theme="light"]) h4::after {
     border-bottom-color: #e0b872;
   }
@@ -717,6 +759,14 @@ html[data-theme="dark"] figure img {
   border-color: #38322c;
 }
 
+html[data-theme="dark"] figure.diagram {
+  border-color: #38322c;
+}
+
+html[data-theme="dark"] figure.diagram .diagram-accent {
+  stroke: #e0b872;
+}
+
 html[data-theme="dark"] .marginnote,
 html[data-theme="dark"] .sidenote,
 html[data-theme="dark"] figcaption {
@@ -727,10 +777,15 @@ html[data-theme="dark"] h3 {
   color: #e0b872;
 }
 
+html[data-theme="dark"] h4 {
+  color: #e0b872;
+}
+
 html[data-theme="dark"] blockquote {
   border-left-color: #e0b872;
 }
 
+html[data-theme="dark"] h4::before,
 html[data-theme="dark"] h4::after {
   border-bottom-color: #e0b872;
 }

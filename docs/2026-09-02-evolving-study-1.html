@@ -1,0 +1,821 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Evolving: Study 1 - Grants Management Platform</title>
+    <link rel="stylesheet" href="static/css/tufte.css" />
+    <script src="static/js/theme.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="A case study in a grants management platform currently running on Salesforce, technology-first, and how each reasonable workaround since has layered into the setup someone is living with today — judged against adaptive enterprise architecture and Praxeme."
+    />
+    <meta
+      property="og:title"
+      content="Evolving: Study 1 - Grants Management Platform"
+    />
+    <meta
+      property="og:description"
+      content="A case study in a grants management platform currently running on Salesforce, technology-first, and how each reasonable workaround since has layered into the setup someone is living with today — judged against adaptive enterprise architecture and Praxeme."
+    />
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:url"
+      content="https://jdu.github.io/2026-09-02-evolving-study-1.html"
+    />
+    <meta property="og:site_name" content="JDU" />
+    <meta name="twitter:card" content="summary" />
+    <meta
+      name="twitter:title"
+      content="Evolving: Study 1 - Grants Management Platform"
+    />
+    <meta
+      name="twitter:description"
+      content="A case study in a grants management platform currently running on Salesforce, technology-first, and how each reasonable workaround since has layered into the setup someone is living with today — judged against adaptive enterprise architecture and Praxeme."
+    />
+  </head>
+
+  <body>
+    <article>
+      <nav class="back-link"><a href="index.html">← Jeff Uren</a></nav>
+      <h1>Evolving: Study 1 - Grants Management Platform</h1>
+      <p class="subtitle">Jeff Uren ★ 2026-09-02</p>
+
+      <section>
+        <p>
+          This is a follow-up to
+          <a href="2026-09-01-evolving.html">Evolving</a>, where I spent a very
+          long time arguing that architecture should be judged by how little
+          effort it takes for an organisation to become something it wasn't
+          designed to be.
+        </p>
+
+        <p>
+          That's a nice sentence to write. It's a much less comfortable thing
+          to hold up against something that's still running in production.
+          This isn't a postmortem. Nobody's cleaned this up yet. Someone is
+          logged into this system today, working around exactly the things
+          I'm about to describe.
+        </p>
+      </section>
+
+      <section>
+        <h2>Where it started</h2>
+
+        <p>
+          The original platform was a custom-built system called Grant
+          Tracker. It had been built to manage and track grant applications,
+          funding, contacts, and organisations, and in some cases it handled
+          genuinely extreme complexity without falling over.
+        </p>
+
+        <p>
+          It wasn't the whole picture though. A lot of process lived outside
+          of it entirely, regranting, contracts, and reporting were all
+          handled adjacent to the platform rather than inside it. So the
+          starting point wasn't "one bad system", it was one reasonably
+          capable system surrounded by a halo of manual and semi-manual
+          process that never quite got pulled in. That's the system that got
+          replaced.
+        </p>
+      </section>
+
+      <section>
+        <h2>How you actually arrive at a setup like this</h2>
+
+        <p>
+          <span class="marginnote">
+            Nobody sits down and designs a system with an unauditable god
+            object at the centre of it. You arrive there one reasonable
+            answer at a time.
+          </span>
+          It's tempting to describe this as one bad decision. It wasn't. It
+          was a short sequence of individually defensible decisions, each one
+          made inside the constraints the previous one left behind, until
+          nobody in the room had the option of going back and questioning the
+          first one anymore.
+        </p>
+
+        <p>
+          The technology came first. Salesforce, a widely used customer
+          relationship management platform, was decided on before the shape
+          of the actual problem was. That's not an unreasonable instinct.
+          "Widely used" reduces perceived procurement risk, it's a known
+          quantity, and nobody gets asked hard questions in a steering
+          committee for picking the popular platform.
+        </p>
+
+        <p>
+          Once that decision existed, a vendor was brought in to implement
+          <i>on</i> Salesforce. Notice what's already happened to the brief
+          by this point: it's no longer "design the right system for managing
+          a grants portfolio", it's "make Salesforce do it." That's a
+          narrower question, and it's the only one the vendor was actually
+          being paid to answer.
+        </p>
+
+        <p>
+          The vendor then ran into Salesforce's real shape. It doesn't hold
+          onto a single customer's identity cleanly as they move between
+          organisations over time. It isn't a business process engine. Its
+          document handling wasn't built for the volume and complexity a
+          grants portfolio produces, so a third-party tool got bolted on for
+          that, at extra cost, and moved on from. None of these constraints
+          got escalated back into "maybe this is the wrong foundation",
+          because by that point the contract was signed and the technology
+          choice wasn't really a live question for anyone in the room
+          anymore.
+        </p>
+
+        <p>
+          So each constraint got solved locally instead. No process engine?
+          Build the process as forms and workflows, centred on a single
+          Salesforce object. No formal way to record a transition from one
+          state to another? Infer the current stage from combinations of
+          field values, because that's what the object model actually let
+          you query. Every one of those was a reasonable answer to the
+          question actually sitting in front of the person answering it.
+        </p>
+
+        <p>
+          That's the layering. Each workaround became the foundation the next
+          requirement had to be built on top of. A new funding scheme doesn't
+          get modelled as a new concept, it gets modelled as more branches on
+          the same object, because that object is the only surface anyone
+          still has access to. The system didn't accumulate one bad decision.
+          It accumulated a sequence of reasonable ones, each shaped by the one
+          before it.
+        </p>
+
+        <figure class="diagram">
+          <svg viewBox="0 0 640 300" xmlns="http://www.w3.org/2000/svg">
+            <rect
+              x="30"
+              y="30"
+              width="580"
+              height="240"
+              fill="none"
+              stroke="currentColor"
+            />
+            <text
+              x="50"
+              y="58"
+              font-family="'Gill Sans', 'Gill Sans MT', Calibri, sans-serif"
+              font-size="15"
+              fill="currentColor"
+            >
+              Salesforce
+            </text>
+
+            <rect
+              x="60"
+              y="80"
+              width="240"
+              height="80"
+              fill="none"
+              stroke="currentColor"
+            />
+            <text
+              x="180"
+              y="125"
+              text-anchor="middle"
+              font-family="'Gill Sans', 'Gill Sans MT', Calibri, sans-serif"
+              font-size="14"
+              fill="currentColor"
+            >
+              Customers &amp; Contacts
+            </text>
+
+            <rect
+              x="320"
+              y="80"
+              width="240"
+              height="80"
+              fill="none"
+              stroke="currentColor"
+            />
+            <text
+              x="440"
+              y="125"
+              text-anchor="middle"
+              font-family="'Gill Sans', 'Gill Sans MT', Calibri, sans-serif"
+              font-size="14"
+              fill="currentColor"
+            >
+              Applications
+            </text>
+
+            <rect
+              x="60"
+              y="180"
+              width="240"
+              height="70"
+              fill="none"
+              stroke="currentColor"
+            />
+            <text
+              x="180"
+              y="212"
+              text-anchor="middle"
+              font-family="'Gill Sans', 'Gill Sans MT', Calibri, sans-serif"
+              font-size="14"
+              fill="currentColor"
+            >
+              Progress Reports
+            </text>
+            <text
+              x="180"
+              y="230"
+              text-anchor="middle"
+              font-family="'Gill Sans', 'Gill Sans MT', Calibri, sans-serif"
+              font-size="14"
+              fill="currentColor"
+            >
+              &amp; Outputs
+            </text>
+
+            <rect
+              x="320"
+              y="180"
+              width="240"
+              height="70"
+              class="diagram-accent"
+              fill="none"
+              stroke-width="2"
+            />
+            <text
+              x="440"
+              y="212"
+              text-anchor="middle"
+              font-family="'Gill Sans', 'Gill Sans MT', Calibri, sans-serif"
+              font-size="14"
+              fill="currentColor"
+            >
+              State
+            </text>
+            <text
+              x="440"
+              y="230"
+              text-anchor="middle"
+              font-family="'Gill Sans', 'Gill Sans MT', Calibri, sans-serif"
+              font-size="14"
+              fill="currentColor"
+            >
+              (inferred from fields)
+            </text>
+          </svg>
+          <figcaption>
+            Customers, applications, progress reports, outputs, and state, all
+            living inside one Salesforce object, on one release cycle, owned
+            by one vendor.
+          </figcaption>
+        </figure>
+      </section>
+
+      <section>
+        <h2>The gap that matters most</h2>
+
+        <p>
+          Of everything layered into that object, the costliest gap is this:
+          the Salesforce object model isn't suitable for recording the state
+          of the application process over time.
+        </p>
+
+        <p>
+          There's no transition model. No explicit record of "this
+          application moved from Under Review to Awarded, on this date, by
+          this action." The current workflow stage has to be
+          <i>inferred</i> from combinations of field values scattered across
+          the object, which makes it genuinely difficult to answer two
+          questions a grants system should be able to answer without
+          thinking: what state is this application in right now, and how did
+          it get there.
+        </p>
+
+        <blockquote>
+          <p>
+            If you can't ask a system how it got somewhere, you don't have a
+            state model. You have a snapshot with a lot of confidence behind
+            it.
+          </p>
+        </blockquote>
+      </section>
+
+      <section>
+        <h2>One ordinary Tuesday</h2>
+
+        <p>
+          A programme officer needs to answer a simple question before a
+          funding panel meets: is this application still live, or has a
+          decision already been made? They open the record.
+        </p>
+
+        <p>
+          The Stage field says "Pending Decision." That could mean the panel
+          hasn't sat yet, or it could mean the panel met, approved it, and
+          Finance hasn't processed the award. Which one it is depends on a
+          checkbox two screens away, and a date field that's sometimes set by
+          Finance and sometimes by the case team. Both are populated. They
+          disagree, one says the panel met three weeks ago, the other says it
+          hasn't sat at all this cycle. Neither field records who set it, or
+          when, so there's no way to tell which one is stale.
+        </p>
+
+        <p>
+          They pick up the phone instead, because it's faster than trusting
+          the record. That's the actual state model, on a system that's
+          supposed to be the system of record.
+        </p>
+
+        <p>
+          The same week, a different question comes in about a researcher
+          who changed institutions partway through their application. Their
+          historic awards still sit against the old organisation. Their live
+          application sits against the new one. Nothing formally connects the
+          two, because Salesforce never had anywhere to put "this is the same
+          person, at a different point in time." When Finance goes looking
+          for that researcher's funding history at the new institution, they
+          find one application, and a research career that appears to have
+          started three months ago.
+        </p>
+
+        <p>
+          Neither of those is a bug. That's the state model and the identity
+          model doing exactly what they were built to do, infer, not record.
+        </p>
+      </section>
+
+      <section>
+        <h2>The interface wasn't built for this either</h2>
+
+        <p>
+          The data model isn't the only thing absorbing the accretion. The
+          screen someone actually works in absorbs it too, and it's a lot
+          harder to hide clutter on a screen than in a schema.
+        </p>
+
+        <p>
+          It's not just the one central object growing either. Progress
+          reports, outputs, and everything else the grant lifecycle needs to
+          track have been added as related objects hanging off it, and every
+          one of those shows up as another related list on the same page.
+          Salesforce's interface, the page layout, the related lists, the
+          whole visual language of the thing, was built to accommodate
+          customers: a contact, an opportunity, a case, with a handful of
+          related activities underneath. It was never built to be the working
+          view for a complex, long-running process with its own state and a
+          growing web of dependent records.
+        </p>
+
+        <p>
+          So every field that got added to solve a modelling problem also got
+          added to the page a case manager has to scroll through to do their
+          job. Every new related object is another section to expand, another
+          list to page through. None of it was designed to be navigated as
+          one coherent case, because the object underneath was never designed
+          to represent one coherent case, it was designed to represent a
+          customer with things attached to them.
+        </p>
+
+        <p>
+          The result is exactly what you'd expect: an interface that's
+          cluttered, slow to load, and hard to use, for the people who have
+          to sit in it all day. The workarounds didn't just compound in the
+          schema. They compound in the screen too, because the screen and the
+          schema were never separated to begin with.
+        </p>
+      </section>
+
+      <section>
+        <h2>Who benefits from the complexity</h2>
+
+        <p>
+          None of this is static, and the same third-party implementer that
+          built it is still the one extending it. Every new requirement that
+          comes in is still easier to sell, and easier to deliver, as one
+          more branch of configuration on the object they already understand
+          intimately than as a genuine redesign. That's not a coincidence,
+          it's an incentive.
+        </p>
+
+        <p>
+          The more that object grows, the more the organisation depends on
+          the implementer's tacit knowledge of exactly which field
+          combinations mean what. That dependency is leverage. Nobody
+          involved has to be acting in bad faith for this to be true, the
+          commercial relationship simply rewards depth of entanglement over
+          simplicity. A simpler system is a system that needs the vendor
+          less, and nobody bills more hours for making themselves
+          unnecessary.
+        </p>
+
+        <p>
+          So the complexity doesn't level off the way you'd want a maturing
+          platform's complexity to. It keeps compounding, because the party
+          best positioned to simplify it currently has the least commercial
+          reason to.
+        </p>
+      </section>
+
+      <section>
+        <h2>Where that leaves the owners, right now</h2>
+
+        <p>
+          The team living with this system today doesn't get to be
+          custodians of the organisation's understanding of grants,
+          applicants, or organisations. They're custodians of one
+          increasingly overloaded Salesforce object, and the specific
+          combinations of field values required to interpret it correctly on
+          any given day.
+        </p>
+
+        <p>
+          Cost keeps climbing rather than levelling off. Understanding of the
+          object concentrates further into a small number of people, plus
+          whichever consultants the vendor supplies. Every extension arrives
+          with longer delays and development costs that no longer scale in
+          any straightforward, linear way, because touching any small thing
+          now requires understanding a disproportionately large amount of
+          accumulated field logic first.
+        </p>
+
+        <p>
+          The halo hasn't gone anywhere either. Regranting, contracts, and
+          reporting still live largely outside the core object today, the
+          same way they lived outside Grant Tracker before it. Pulling an
+          entire new domain into an object that was already this
+          overloaded would have meant admitting the foundation couldn't hold
+          what was already sitting on it, so nobody did. The platform that
+          was meant to bring the grant lifecycle under one roof brought part
+          of it under one roof, and left the rest exactly where it started,
+          just orbiting a more expensive, more brittle centre than before.
+        </p>
+      </section>
+
+      <section>
+        <h2>Judged against adaptive architecture</h2>
+
+        <p>
+          None of this is a failure of the people involved. It's a failure to
+          separate the things that change slowly from the things that change
+          quickly, and that's exactly the failure adaptive architecture and
+          Praxeme both exist to catch.
+        </p>
+
+        <h3>Invariants that were never defined</h3>
+
+        <p>
+          Identity, people, organisations, provenance, audit. A researcher's
+          identity should be an invariant, stable and continuous regardless
+          of which organisation they're affiliated with this year. Provenance
+          and audit should be invariants too, the ability to say how an
+          application arrived at its current state. Neither was ever defined
+          as a first-class concept the organisation owns. Both were left to
+          Salesforce's object model to imply, and it can't.
+        </p>
+
+        <h3>Praxeme, and collapsing the layers</h3>
+
+        <p>
+          Praxeme separates concerns by how quickly they evolve, semantics at
+          the slow end, technology at the fast end. Here, the technology
+          layer was chosen before the semantic layer was ever written down.
+          There was no independent definition of what an applicant, an
+          organisation, or a grant application actually were, so all of it
+          collapsed straight into Salesforce's own object model, and
+          inherited Salesforce's shape rather than the organisation's.
+        </p>
+
+        <h3>No exit path</h3>
+
+        <p>
+          Ask the honest question from the first article: if I deleted this
+          tomorrow, what would stop working? The answer here is
+          <i>everything</i>, and worse, nobody can fully reconstruct the
+          current or historic state of an application without that object's
+          specific field combinations, because that state was never modelled
+          anywhere else.
+        </p>
+      </section>
+
+      <section>
+        <h2>The knee-jerk fixes</h2>
+
+        <p>
+          Before getting to what adaptive architecture would say about any of
+          this, it's worth naming what actually happens in an organisation
+          that isn't practising architecture at all, adaptive or otherwise.
+          None of what follows is a failure of adaptive thinking specifically.
+          It's just the default human response to a system that's getting
+          slower and more expensive, applied by people reacting to the
+          symptom directly in front of them.
+        </p>
+
+        <ul>
+          <li>
+            Add more governance. More approval steps, more sign-offs, another
+            ticket queue in front of the team that maintains the object,
+            because "control" feels like the responsible answer to
+            brittleness. It isn't, it just adds friction on top of a system
+            that was already too slow to change.
+          </li>
+          <li>
+            Throw more people at it. Add headcount to interpret the god
+            object and its field combinations, rather than simplify what
+            they're being asked to interpret. Understanding narrows into
+            more tribal knowledge, not less, it just costs more to keep
+            narrow.
+          </li>
+          <li>
+            Bolt on another third-party tool for whatever the platform can't
+            do this quarter. It worked, sort of, for documents. So it gets
+            reached for again for reporting, again for workflow, again for
+            whatever the next gap turns out to be, and every bolt-on is
+            another integration surface nobody separately owns.
+          </li>
+          <li>
+            Add more custom fields and validation rules to "handle" each new
+            edge case as it's discovered, because that's the fastest visible
+            progress available. It's also exactly the pattern that created
+            the god object in the first place, just continuing.
+          </li>
+          <li>
+            Write more documentation. A wiki page explaining what each field
+            combination actually means, maintained by hand, alongside a
+            system that still can't explain its own state to anyone who
+            hasn't read the wiki. That's translation, not a fix.
+          </li>
+          <li>
+            Eventually, propose replacing the whole thing with a different
+            CRM. Same technology-first move, same vendor-first sequencing,
+            just a different logo on the same mistake.
+          </li>
+        </ul>
+
+        <p>
+          Every one of those feels like doing something. None of them touch
+          the actual gap, that the semantics were never defined independently
+          of the technology. They're what you get when there's no
+          architecture practice in the room at all, not even the traditional
+          kind, just a system getting slower and people responding to
+          whichever part of it is currently on fire.
+        </p>
+      </section>
+
+      <section>
+        <h2>What would actually change this</h2>
+
+        <p>
+          None of this required not buying Salesforce. It required using
+          Salesforce for what it's actually good at, and refusing to let it
+          quietly become the foundation for everything else.
+        </p>
+
+        <p>
+          Salesforce is good at customers and relationships. Contacts,
+          organisations, the connections between them, that's commodity
+          capability, and there's no advantage in rebuilding it. The mistake
+          wasn't buying a CRM. The mistake was asking a CRM to also be the
+          system of record for a domain it was never built to represent.
+        </p>
+
+        <ul>
+          <li>
+            Use Salesforce for what it's good at, customers and
+            relationships, and stop there. Don't ask it to also carry the
+            grants domain on top.
+          </li>
+          <li>
+            Move the domain-specific pieces, applications, progress reports,
+            outputs, and the state model that governs them, into their own
+            system, purpose-built for that complexity, and able to change and
+            evolve independently and a lot more safely than anything living
+            inside a CRM vendor's object model and release cycle.
+          </li>
+          <li>
+            Layer APIs and user interfaces over the top of both, presenting a
+            single, holistic system to the people actually doing the work,
+            and buffering them from changes occurring in the CRM underneath.
+            Nobody doing casework should need to know or care which system
+            holds which field.
+          </li>
+          <li>
+            Define Applicant, Organisation, Grant, and Application as
+            concepts the organisation owns outright, independent of any
+            single system's object model. This is precisely the gap the
+            <a href="2026-08-13-uda-1-data-is-not-reality.html"
+              >UDA series</a
+            >
+            was eventually built to close.
+          </li>
+          <li>
+            Model a person's affiliation with an organisation as a
+            first-class, time-bound relationship, so identity survives a
+            researcher moving institutions instead of quietly losing
+            integrity.
+          </li>
+          <li>
+            Give the application process an explicit state and transition
+            model inside the domain system, so "what state is this in, and
+            how did it get there" is a direct question, not an inference
+            exercise reconstructed from CRM fields.
+          </li>
+          <li>
+            Separate the incentive from the implementation, whoever extends
+            the system shouldn't be the same party whose leverage grows with
+            its complexity.
+          </li>
+        </ul>
+
+        <figure class="diagram">
+          <svg viewBox="0 0 640 340" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <marker
+                id="study1-arrow"
+                markerWidth="8"
+                markerHeight="8"
+                refX="4"
+                refY="4"
+                orient="auto"
+              >
+                <path d="M0,0 L8,4 L0,8 Z" fill="currentColor" />
+              </marker>
+            </defs>
+            <rect
+              x="270"
+              y="20"
+              width="100"
+              height="45"
+              fill="none"
+              stroke="currentColor"
+            />
+            <text
+              x="320"
+              y="48"
+              text-anchor="middle"
+              font-family="'Gill Sans', 'Gill Sans MT', Calibri, sans-serif"
+              font-size="14"
+              fill="currentColor"
+            >
+              Users
+            </text>
+
+            <line
+              x1="320"
+              y1="65"
+              x2="320"
+              y2="100"
+              stroke="currentColor"
+              marker-end="url(#study1-arrow)"
+            />
+
+            <rect
+              x="70"
+              y="100"
+              width="500"
+              height="70"
+              class="diagram-accent"
+              fill="none"
+              stroke-width="2"
+            />
+            <text
+              x="320"
+              y="130"
+              text-anchor="middle"
+              font-family="'Gill Sans', 'Gill Sans MT', Calibri, sans-serif"
+              font-size="14"
+              fill="currentColor"
+            >
+              API &amp; Interface Layer
+            </text>
+            <text
+              x="320"
+              y="150"
+              text-anchor="middle"
+              font-family="'Gill Sans', 'Gill Sans MT', Calibri, sans-serif"
+              font-size="12"
+              fill="currentColor"
+            >
+              one holistic system, buffers changes underneath
+            </text>
+
+            <line
+              x1="185"
+              y1="170"
+              x2="185"
+              y2="210"
+              stroke="currentColor"
+              marker-end="url(#study1-arrow)"
+            />
+            <line
+              x1="455"
+              y1="170"
+              x2="455"
+              y2="210"
+              stroke="currentColor"
+              marker-end="url(#study1-arrow)"
+            />
+
+            <rect
+              x="70"
+              y="210"
+              width="230"
+              height="100"
+              fill="none"
+              stroke="currentColor"
+            />
+            <text
+              x="185"
+              y="255"
+              text-anchor="middle"
+              font-family="'Gill Sans', 'Gill Sans MT', Calibri, sans-serif"
+              font-size="14"
+              fill="currentColor"
+            >
+              Salesforce
+            </text>
+            <text
+              x="185"
+              y="275"
+              text-anchor="middle"
+              font-family="'Gill Sans', 'Gill Sans MT', Calibri, sans-serif"
+              font-size="12"
+              fill="currentColor"
+            >
+              Customers &amp; Relationships
+            </text>
+
+            <rect
+              x="340"
+              y="210"
+              width="230"
+              height="100"
+              fill="none"
+              stroke="currentColor"
+            />
+            <text
+              x="455"
+              y="245"
+              text-anchor="middle"
+              font-family="'Gill Sans', 'Gill Sans MT', Calibri, sans-serif"
+              font-size="14"
+              fill="currentColor"
+            >
+              Domain System
+            </text>
+            <text
+              x="455"
+              y="265"
+              text-anchor="middle"
+              font-family="'Gill Sans', 'Gill Sans MT', Calibri, sans-serif"
+              font-size="12"
+              fill="currentColor"
+            >
+              Applications, Progress Reports,
+            </text>
+            <text
+              x="455"
+              y="282"
+              text-anchor="middle"
+              font-family="'Gill Sans', 'Gill Sans MT', Calibri, sans-serif"
+              font-size="12"
+              fill="currentColor"
+            >
+              Outputs, State
+            </text>
+          </svg>
+          <figcaption>
+            Salesforce kept to customers and relationships, the grants domain
+            pulled out into its own system, and an API and interface layer on
+            top presenting one holistic system to users while buffering them
+            from changes underneath.
+          </figcaption>
+        </figure>
+
+        <p>
+          Do that, and Salesforce goes back to being what it's good at,
+          holding customer and organisation relationships, while the grants
+          domain lives somewhere built for it, changing on its own schedule
+          instead of the vendor's. The API and interface layer is what makes
+          it feel like one coherent system to the people using it, even
+          though underneath, it's finally been allowed to not be. A
+          researcher changing institutions becomes an update to a
+          relationship, not a referential integrity problem. An
+          application's state becomes something you can ask for, not
+          something you reconstruct.
+        </p>
+      </section>
+
+      <hr />
+      <section>
+        <p>
+          None of that is retrospective genius, and none of it has happened
+          yet. The system is still running, the vendor is still extending it,
+          and the cost curve hasn't bent. The technology choice wasn't the
+          mistake. Making it first was, and the bill for that keeps arriving
+          monthly.
+        </p>
+      </section>
+    </article>
+  </body>
+</html>
