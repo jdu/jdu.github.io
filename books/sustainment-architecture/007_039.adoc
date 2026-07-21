@@ -1,0 +1,6 @@
+= Triage a portfolio
+
+
+* Chapter 35 covers migrating one system. A struggling function usually has a dozen systems in roughly the same state, and the mistake is applying that same playbook everywhere at once, with a team that's already stretched thin.
+* Triage here looks less like picking the system costing you most, chapter 33's metrics still apply, and more like picking the system where a visible win is actually achievable with the trust and capacity you currently have. An ambitious fix that fails publicly does more damage to a struggling function than a modest fix that visibly works.
+* The test: rank your systems by pain and by achievability separately, then start with whichever one scores highest on achievability, not pain. Chapter 35's method still applies once you've picked the target, this chapter is about picking it differently when capacity and trust are both already scarce.

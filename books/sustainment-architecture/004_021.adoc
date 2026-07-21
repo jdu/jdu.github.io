@@ -1,0 +1,6 @@
+= Why architecture loses
+
+
+* Architecture should be judged by how little effort it takes for an organisation to become something it wasn't designed to be, not by how well it describes what already exists.
+* Field changes take months, every reorg breaks the approval chain, and nobody can say what "Awarded" actually means, that's usually an organisational problem wearing a technology costume.
+* The test: pick one system and ask, if I deleted this tomorrow, what would stop working, and could I explain why. If that stings, the rest of the book is the fix, and you don't need to fix it all at once.

@@ -1,0 +1,8 @@
+= Define invariants
+
+
+* Signal: nobody can agree what "Grant" or "Awarded" means without pointing at a specific field in a specific system
+* Principle: identity, people, organisations, money, relationships, authority, provenance, and audit change slowly; everything else is implementation
+* Practice: write down, in one page, your organisation's five to eight invariants, in plain language, independent of any system
+* Pitfall: confusing an invariant with a current process or org chart, both of which will change
+* Takeaway: do this chapter before any other move, everything after it assumes you've named these

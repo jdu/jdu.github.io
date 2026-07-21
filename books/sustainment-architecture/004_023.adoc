@@ -1,0 +1,6 @@
+= How you arrive here
+
+
+* Nobody designs a system with an unauditable centre of gravity on purpose. You arrive there one reasonable decision at a time, each one made inside the constraints the last one left behind, until nobody in the room can question the first decision anymore.
+* Blaming the vendor or the last team misses this, the layering is the actual cause, and it compounds quietly for years before anyone notices.
+* The exercise: trace one painful system back through its last five significant changes, and name the constraint each one was working around. Part V is a sequence of counter-moves for exactly this reason, not one redesign.

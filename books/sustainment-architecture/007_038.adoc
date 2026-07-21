@@ -1,0 +1,6 @@
+= Trust comes before method
+
+
+* Part II argued that culture and trust have to exist before the moves in Part V land. In a struggling function, that's not a sequencing note, it's the entire first phase of work, and skipping it is the single most common way transformation attempts fail twice in the same organisation.
+* You cannot credibly ask a team to name invariants, or admit where the god objects are, if the last person who asked those questions used the answers to justify a reorganisation. Rebuilding that trust looks unglamorous, showing up, following through on small commitments, removing one piece of friction without asking for anything in return, and it has to happen before you introduce a single concept from Part V.
+* The test: pick the smallest possible improvement you can make and deliver without asking the team for anything in return, then watch whether people start volunteering information afterwards. If they don't, trust isn't back yet, and neither Part IV's diagnosis nor Part V's moves will get an honest answer.

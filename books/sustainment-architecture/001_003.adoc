@@ -1,0 +1,7 @@
+= Two kinds of organisations
+
+
+* Some organisations succeed by executing the same thing more efficiently each year, and for them stability is a genuine asset. Others, funders, humanitarian responders, universities, succeed by continually becoming something they weren't before, and treating that as dysfunction misreads what the organisation is actually for.
+* Most architecture practice was built inside the first kind of organisation and imported wholesale into the second, without anyone checking whether the assumptions travelled. Worth working out, honestly, which kind of organisation you're actually in before adopting anyone's playbook, including this book's.
+
+== What kind of organisation are you?

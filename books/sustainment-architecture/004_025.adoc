@@ -1,0 +1,6 @@
+= Complexity is borrowed
+
+
+* Nobody creates complexity deliberately, they borrow it. From vendors, whose products carry years of other customers' requirements. From regulation, which encodes constraints nobody in the room actually negotiated. From history, decisions made for an organisation that no longer exists, chapter 26 covers that specifically. From previous systems, which leave behind integrations that only make sense because of a product retired years ago. From other organisations, whose approach gets adopted wholesale because it's safer than justifying something different.
+* None of those sources are avoidable, an organisation that borrows no complexity at all isn't doing anything interesting. The actual job of architecture is deciding which complexity is worth borrowing, and being honest that every yes is a debt, not a gift.
+* The test: for your most complicated system, trace its complexity back to a source, vendor, regulation, history, a previous decision, another organisation's pattern, and ask whether that borrowing was ever actually evaluated, or just inherited by default.

@@ -1,0 +1,5 @@
+= Let teams form around work
+
+
+* Every new initiative typically needs a charter, a sponsor, and a headcount request before anyone can start, and the opportunity has often moved on by the time it's approved. Valve describes an alternative it calls cabals, self-organising groups that form because people choose the work, not because an org chart assigned it, and dissolve once the work is done.
+* Self-organising isn't the same as unmanaged, a cabal still needs a clear owner and shared intent. For your next piece of cross-team work, try forming a temporary, named group of volunteers with an explicit end condition instead of requesting a permanent team.

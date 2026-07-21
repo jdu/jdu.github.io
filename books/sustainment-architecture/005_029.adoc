@@ -1,0 +1,8 @@
+= Make meaning operational
+
+
+* Signal: the glossary from chapter 28 is three months old and already drifting, because nothing actually depends on it
+* Principle: an ontology nothing depends on is documentation; it becomes architecture once real software is built on the mapping between a concept and where its values actually live. Every abstraction you create, a database, an API, a process, a concept, is a promise that the thing means something and will keep meaning it, and breaking that promise later is never cheap
+* Practice: pick one concept, map each of its attributes to the physical field holding its value today, and build one small thing, a report, an API, a permission, from that mapping instead of from the raw table
+* Pitfall: treating the mapping as a one-off migration exercise instead of the thing every future schema change has to update
+* Takeaway: apply chapter 21's test to the mapping itself, if you deleted it tomorrow and nothing broke, it isn't operational yet

@@ -1,0 +1,51 @@
+= Why meaning has to come first
+
+People talk about _Applications, Grants, Awards, Employees, Projects, Customers_ and _Partners_ as though
+the meaning of those words were absolutely obvious. Most of the time they're obvious. Right up until someone
+from another department joins the conversation. Suddenly the same word means something slightly different
+depending on who's speaking, or two different words turn out to describe the exact same thing.
+
+These disagreements rarely announce themselves as disagreements about language. They arrive disguised as reporting
+problems, failed integrations, awkward meetings and endless debates about which system is correct. By the time 
+technology becomes invovled, the misunderstanding has usually exited for years if not decades.
+
+Most organisations that believe they have a technology problem are actually dealing with a language problem.
+
+Technology can't solve that ambiguity because technology has no opinin about meaning. A database happily stores
+two records labelled "Grant" without caring whether they represent the same concept. An API will faithfully return
+whatever values it was given. A reporting platform aggregates numbers regardless of whether the people reading them
+agree on what htose numbers actually mean. Storage systems are designed to preserve data, not understanding.
+
+Data isn't reality, it's a representation of reality.
+
+A customer record isn't a customer. A grant record isn't a grant. They're observations made by a particular system, for a
+particular purpose, at an even more particular point in time. Mistaking the existence of data for the existence
+of shared understanding is where many architectural problems start.
+
+The orgasnisation itself exists independently of whatever system happens to be recording it this year.
+
+Long before a CRM existed there were customers, long after today's ERP is replaced there will still be invoices,
+budgets, and suppliers. Systems come and go because they're tools. The organisation is the thing those tools are attempting
+to describe.
+
+That means the most valuable thing an organisation possesses isn't its software, or databases, or even the information
+stored inside of them.
+
+It's the shared understanding that allows thousands of people to look at the same thing, same word, and mean the same thing.
+
+Everything else changes. Everything else is replaced, or reorganised, rewritten. Vendors disappear, technology evolves. Shared 
+meaning is the one thing that has to survive every one of those changes, because without it the organisation
+gradually loses the ability to describe itself consistently.
+
+Archiecture really begins much earlier than the technology.
+
+Before deciding how information should be stored, transferred, or secured, and organisation has to decide what the informaiton
+actually means. That understanding can't remain implicit, living in conversations and institutional memory. It has to become
+something the organisation can point to, discuss, refine and preserve.
+
+Only then can technology begin to faithfully representing the organisation instead of continually redefining it.
+
+
+* Every organisation has its own language, "Grant," "Application," "Employee," and it sounds obvious until two departments turn out to mean different things by the same word, or use different words for the same thing. Most organisations that think they have a technology problem actually have a language problem, and the technology just inherits whatever ambiguity was already there.
+* Data isn't reality, it's a representation, and storage systems are deliberately indifferent to what the values they hold actually mean; mistaking the existence of data for the existence of shared understanding is where most of this goes wrong. Consensus has to be built deliberately and drawn out into the open, because software, and increasingly AI, will confidently guess at meaning the moment nobody's agreed on it; chapters 28 and 29 turn this into a concrete method.
+* Meaning is the only real asset in any of this, everything else, the org chart, the technology, the process, changes constantly; meaning is the thing you're actually trying to preserve across all of that change. The organisation itself exists independently of whatever systems happen to be recording it this year, the systems are temporary observations of something real, not the real thing.

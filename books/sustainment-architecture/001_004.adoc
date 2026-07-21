@@ -1,0 +1,4 @@
+= Where traditional architecture fits
+
+* Traditional EA optimises for consistency, reuse, governance, standardisation, and traceability, exactly the right list for an organisation executing the same business slightly better each year. Organisations like Wellcome, UNHCR, WHO, and universities have a different dominant constraint, they need to keep changing without their technology choices making that change unaffordable.
+* EA isn't wrong here, it's answering a question the organisation never quite asked, which is why its scorecards keep rewarding stability in places that actually need motion. Read your architecture function's current scorecard next to your organisation's mission statement and see where they pull apart.

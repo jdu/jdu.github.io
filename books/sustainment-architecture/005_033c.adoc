@@ -1,0 +1,31 @@
+= Remove more than you add
+
+One of the themes throughout your outline is that organisations become buried beneath accumulated decisions.
+
+Yet none of the Core Moves explicitly says
+
+Delete things.
+
+Imagine a chapter like this.
+
+Signal:
+
+Every project leaves behind more than it removes.
+
+Principle:
+
+The highest leverage architectural work is often subtraction.
+
+Practice:
+
+For every system, process, integration, report or concept you introduce, identify one that should disappear.
+
+Pitfall:
+
+Treating architecture as continual construction.
+
+Takeaway:
+
+Healthy organisations don't just accumulate capability.
+
+They continuously shed obsolete understanding.

@@ -1,0 +1,38 @@
+= Architecture is Stewardship
+
+
+My formal title doesn't include the term "architect", take from that what you will. Although I don't
+have the title, I've been doing the work of an architect for a long time, and through that time, and the longer
+period of being in software engineering, design, and operations, I've come to a few conclusions about what
+architecture really is, what people think it is, and what it should actually be.
+
+Live long enough in engineering and eventually you'll become involved with various architects, and 
+leading roles that are often described as "architectural". You'll see people with those titles treated with 
+a kind of reverence, and in some cases even a certain amount of fear.
+
+But as the architect in any organisation, your job isn't really to be the smartest guy in the room at 
+all times. Architects aren't there to be a font of wisdom and knowledge, the purveyors of some infinite
+wisdom that only they have ascended to levels capable of tapping from the wider cosmos.
+
+== Stewardship
+
+Being an architect is a stewardship operation. The architect is the custodian of the organisation's understanding of itself,
+and of the systems built to express that understanding. Their responsibility isn't just to design technology, but to
+ensure that the organisation's identity, language, and accumulated knowledge survive the departure of individuals,
+teh replacement of systems, organisational upheaval, and the passage of time itself.
+
+You're not here to produce diagrams or approve technology choices. You're here to preserve the organisation's ability
+to understand itself.
+
+== Responsibility
+
+This kind of reframing matters before anything else in this book, because every chapter that's
+going to follow assumes the reader is acting as a steward. Not just an implementer. Chapther 9
+explores exaclty why that stewardship is hard, organisations are remarkably good at forgetting, 
+and the resto of the book is really just a long answer to waht a steward does about that.
+
+Architecture is the practice of helping an organisation remember who it is while it become something new.
+
+Every organisation eventually forgets who i tis. Architecture exists beacuse forgetting is inevitable.
+
+

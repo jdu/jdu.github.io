@@ -1,0 +1,5 @@
+= Identity
+
+
+* Ask most organisations what they have, and you'll get an inventory, systems, data, headcount, budget. Ask what they are, and the answer is much harder, and much more durable. The mission survives reorganisations, technology migrations, and complete turnover of staff, in a way no system or dataset ever does; identity is the most permanent thing an organisation has.
+* That's why the question worth asking, constantly, is "what are we", not "what data do we have". Meaning, from chapter 5, explains what that identity actually consists of, the concepts, the language, the things that matter. Time, from chapter 8, explains how that identity persists and changes, state tracked over time is really identity being observed as it moves. Identity survives change, but only if something is actually tracking what changed and why.

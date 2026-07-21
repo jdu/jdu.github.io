@@ -1,0 +1,6 @@
+= The cost of changing your mind
+
+
+* We talk endlessly about coupling between systems, and almost never about coupling across time. If changing today's organisation requires re-litigating decisions made fifteen years ago, for reasons nobody currently working there was present for, your architecture is coupled to history just as tightly as it could ever be coupled to another system.
+* Every architectural decision is made in a context, a set of priorities, a technology landscape, a set of assumptions about the future, that was reasonable when it was made. The problem isn't that those decisions were wrong, it's that organisations keep negotiating with their own past long after the context that justified it has gone; chapter 9 covered why the reasons behind those decisions get forgotten, this is what that forgetting costs architecturally.
+* The test: for your most painful system, ask how much it would cost to change your mind about one foundational decision made when it was built, not to patch around it, to actually reverse it. Great architecture is measured by how cheap that answer is, because the alternative is an organisation that can only ever move in the direction its old decisions already committed it to.

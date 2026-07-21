@@ -1,0 +1,6 @@
+= Migrate an existing system
+
+
+* Most organisations reading this book already have an embalmed system, not a blank page, and migration has its own sequencing, separate from designing something fresh.
+* Name the invariants hiding inside the current system (chapter 27), give them a language (chapter 28), map them onto what already exists (chapter 29), put an interface in front of it (chapter 32), then plan the exit (chapter 31), in that order. Replacing one vendor with another and calling it a migration skips all of this.
+* You don't need to fix everything at once, pick the one system costing you most on chapter 33's metrics, and start there.

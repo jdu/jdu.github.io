@@ -1,0 +1,8 @@
+= Design the exit
+
+
+* Signal: nobody can describe how you'd remove a system without describing a crisis
+* Principle: if you can't describe how to replace something, you haven't finished designing it
+* Practice: for every major system, write down what data you'd keep, what would break, and how long it would take to leave
+* Pitfall: treating the exit path as a someday-document instead of a go-live requirement
+* Takeaway: no exit path, no go-live, make it a checklist item, not an aspiration

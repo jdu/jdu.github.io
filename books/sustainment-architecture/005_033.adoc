@@ -1,0 +1,8 @@
+= Measure waiting
+
+
+* Signal: your dashboards track uptime and incidents; nobody tracks how long a routine change actually takes
+* Principle: queue time, lead time for change, and dependency count are architectural signals, not just operational ones
+* Practice: pick three metrics from this chapter and start tracking them this quarter, even by hand
+* Pitfall: measuring team velocity instead of organisational lead time, they are not the same number
+* Takeaway: you can't fix what you don't measure, and most organisations aren't measuring the thing that's actually hurting them

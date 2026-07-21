@@ -1,0 +1,5 @@
+= Let engineers drive capability
+
+
+* People outside software engineering have largely been sold the idea that writing code is the expensive, difficult part. It usually isn't anymore, understanding the organisation is. Treating engineering purely as a delivery arm for someone else's fully-specified requirements outsources the one part that was actually valuable.
+* Product-oriented teams, durable teams that own a capability instead of time-boxed projects, are the right shape, but only if engineering sits inside that ownership instead of underneath it. Worth checking how many capabilities your organisation has shipped that didn't start as someone else's requirement.

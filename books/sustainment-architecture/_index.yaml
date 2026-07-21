@@ -1,0 +1,123 @@
+title: Architecture for Living Organisations
+author: Jeff Uren
+edition: First Edition 2026
+
+dedication: |
+  For everyone still trying to explain the org chart to someone new.
+
+acknowledgements: |
+  I can't really not start out by thanking my family. My kids, and partner Gemma, who have put up with
+  a lot of late-night scribbling in notebooks, staring at screens, raging at the world, and generally being
+  a bit of a pain in the ass.
+
+  In addition, I'd like to thank all the lovely people I've worked with over the years, and all the people
+  I look forward to working with in the future. Over time, I've tried to say it as plainly as I possibly could,
+  and as straightly as I could, that I appreciate you, and everything you've done.
+
+bibliography:
+  - author: "TBD"
+    title: "TBD"
+    year: 2026
+    publisher: "TBD"
+
+parts:
+  - title: Welcome
+    summary: |
+      This is a book about a lot of things. But at the heart of it, it's a
+      culmination of decades of working within organisations that have a huge,
+      wide, varied, and constantly changing remit that doesn't always align
+      with the needs of the people who work within them.
+
+    chapters:
+      - 000_001.adoc
+    recommended_reading:
+      - title: "TBD"
+        author: "TBD"
+        note: "Still to be written."
+  - title: Organisations
+    summary: |
+      We're going to talk about organisations, what they are, how they work, and
+      how they don't work. How organisations forget, and struggle to learn
+      lessons from past experience.
+    chapters:
+      - 001_002.adoc
+      - 001_003.adoc
+      - 001_004.adoc
+      - 001_005.adoc
+      - 001_006.adoc
+      - 001_007.adoc
+      - 001_008.adoc
+      - 001_009.adoc
+      - 001_010.adoc
+      - 001_011.adoc
+  - title: Culture
+    summary: |
+      Socio-technical concerns aren't a soft add-on to architecture, they're
+      increasingly recognised as part of it. Get this Part right and the moves in
+      Part V land easily; get it wrong and no move will save you.
+    chapters:
+      - 002_012.adoc
+      - 002_013.adoc
+      - 002_014.adoc
+      - 002_015.adoc
+      - 002_016.adoc
+      - 002_017.adoc
+  - title: Teams
+    summary: |
+      Chapter 17 was about where team boundaries should sit. This Part is about
+      how teams actually form and change once boundaries exist. Valve's employee
+      handbook, one of the few management documents ever made fully public, is
+      the clearest working example of the ideas below, and it's worth reading in
+      full alongside this Part.
+    chapters:
+      - 003_018.adoc
+      - 003_019.adoc
+      - 003_020.adoc
+  - title: The Problem
+    summary: |
+      Still to be written.
+    chapters:
+      - 004_021.adoc
+      - 004_022.adoc
+      - 004_023.adoc
+      - 004_024.adoc
+      - 004_025.adoc
+      - 004_026.adoc
+  - title: The Core Moves
+    summary: |
+      Do these in order the first time. Each one is independently useful even if
+      you stop after one.
+    chapters:
+      - 005_027.adoc
+      - 005_028.adoc
+      - 005_029.adoc
+      - 005_030.adoc
+      - 005_031.adoc
+      - 005_032.adoc
+      - 005_033.adoc
+      - 005_033a.adoc
+      - 005_033b.adoc
+      - 005_033c.adoc
+  - title: Applying It
+    summary: |
+      Still to be written.
+    chapters:
+      - 006_034.adoc
+      - 006_035.adoc
+      - 006_036.adoc
+  - title: Recovering a lost function
+    summary: |
+      Everything so far assumes a reader with some capacity to act. Most
+      organisations picking up this book don't have that yet, they have an
+      engineering function that's already exhausted, already distrusted, and
+      already carrying the accumulated weight of every chapter in Part IV. This
+      Part is about that starting condition specifically.
+    chapters:
+      - 007_037.adoc
+      - 007_038.adoc
+      - 007_039.adoc
+  - title: Conclusions
+    summary: |
+      Still to be written.
+    chapters:
+      - 008_040.adoc

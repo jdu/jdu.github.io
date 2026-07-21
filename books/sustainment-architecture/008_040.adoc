@@ -1,0 +1,8 @@
+= Where to start
+
+
+* This week: run the ten-minute test from chapter 21 on your most painful system, unless your function is already struggling, in which case start with Part VII instead, the test assumes a team that can afford to answer it honestly
+* This quarter: pick one move from Part V and finish it
+* This year: use the diagnostic in chapter 34 to decide what's next
+* The one-page summary of the whole book, for handing to someone else
+* Closing thesis: architecture judged by the learning it permits, the trust it creates, and how little effort it takes for an organisation to become something it hasn't been before

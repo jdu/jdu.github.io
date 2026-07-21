@@ -1,0 +1,20 @@
+= Leave it better than you found it
+
+Every architect inherits an organisation they didn't create.
+
+Every architect leaves one behind.
+
+The measure isn't whether the architecture is complete.
+
+It's whether the next steward inherits something that's easier to understand than you inherited.
+
+It ties together:
+
+* Invariants
+* Meaning
+* Operational meaning
+* Exit strategies
+* Interfaces
+* Waiting
+* Stewardship
+

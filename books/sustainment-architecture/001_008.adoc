@@ -1,0 +1,143 @@
+= Time is architectures real material
+
+Building are made of steel and concrete. Software is made of code. Architecture, 
+the kind this book is actually about, is made of time.
+
+Every architectural decision _spends_ tomorrow.
+
+Sometimes deliberately, more often than not, accidentally.
+
+The systems we inherit are less a snapshot of engineering than a fossil record of 
+every compromise, assumption, and shortcut that survived long enough to become normal.
+What we call architecture is really the accumulated relationships between an organisation
+and time itself.
+
+This chapter argues that time is architecture's true material. Everything else is
+simply the medium through which it acts.
+
+
+[margin: We often describe arhciecture as "structure"]
+
+// Diagram
+
+== Buildings stand still, organisations don't
+
+A bridge does not wake up one morning and decide it's not a hospital.
+
+An organisation can.
+
+Hospitals become research institutes, universities become global charities, companies 
+discover new markets, governments change policy, and crises appear without
+any sort of formal invitation.
+
+Architecture is therefore can't simply describe what exists.
+
+It needs to allow the organisation to become something that doesn't exist yet.
+
+That's why architecture is measured less by how well today's systems fit totday's
+organisation, and more by how cheaply tomorrow's organisation can emerge.
+
+== Every decision purchases a future
+
+Architectural decisions are often described as "investments".
+
+They're closer to a mortgage than anything else. Every choice commits future
+engineers to living with its consequences.
+
+Some of those decision will make tomorrow cheaper, others though will quietly make
+every future change slightly more expensive until nobody remembers where the 
+cost came from.
+
+[[sidenote:tech_debt]]
+--
+Technical debt is only one form of debt.
+
+Organisations also accumulate semantic debt, organisational debt, governance debt, 
+and historical debt.
+--
+
+Good architecture isn't the absence of future work, it's choosing which future work you're
+willing to pay for [[ref:tech_debt]].
+
+// Diagram, brancing timline
+
+== Stat is time made explicit
+
+Most systems never model state, they infer it, a checkbox, status field, date. Maybe three 
+booleans that are supposed to agree.
+
+Somebody writes documentation explaining how to recontruct the real state from the combination 
+of values.
+
+That documentation immediately begins to age.
+
+State isn't simply a field, it's identity observed through time. Every meaningful thing in an organisaiton
+moves through recognizable states. 
+
+* An Application is drafted
+* Submitted
+* Reviewed
+* Awarded
+* Closed
+
+The transitions between those states are important, just as important as the states themselves. Without
+explicit transitions, two people can legitimately disagree abhout what is happening
+while looking at the exact same record.
+
+[[margin:disagree]]
+--
+If two ssytesm disagree about state, ask which transition they disagree about.
+
+The answer is usually more revealing than comparing the data itself.
+
+--
+
+[[ref:disagree]]That disagreement is fundamentally architectural, not technical.
+
+// Diagram
+
+== The cost of yesterday
+
+One of the strangest properties of organisations is that they negotiate with people who 
+are no longer actually in the organisation.
+
+A schema exists because sombody once chose it, and approval exisets because somebnody once worried.
+
+An integration exists because two products once needed to co-exist.
+
+Years latery, none of those contexts actually remain. Only the decision has survived, so the architecture
+in these places isn't coupled just to the systems which implement it, it's coupled to the history of
+the organisation itself.
+
+Changing today's organisation often requries renegotiating decisions made by people whose names people 
+don't even remember, and that's an extraordinarily expensive way to carry institutional memory.
+
+== Architecture is deciding how expensive tomorrow becomes
+
+== A different way to measure architecture
+
+== Looking ahead
+
+The next chapters expplain why organisations becom increasingly unable to answer these questions. And it doesn't
+come down to lack of engineering, or lack of technology. It's because they gradually lose the understanding that made 
+yesterday's decision sensible in the first place.
+
+== End of Chapter Reflection
+
+Choose one important system.
+
+List three decisions made when it was built that you would not make today.
+
+Then ask a different question:
+
+*How much would it cost to change your mind?*
+
+That number, more than the age of the technology or the elegance of the code, tells you how your
+architecture has behaved over time.
+
+== Notes
+
+* Buildings are made of steel and concrete. Software is made of code. Architecture, the kind this book is actually about, is made of time. Every decision either spends it, defers it, or borrows against it, and the material you're actually shaping is how a system behaves as time passes through it, not how it looks the day it ships.
+* Most systems never model that material, they infer it: a status flag combined with a checkbox and a date field that don't always agree, and the actual condition of the thing has to be reconstructed by whoever looks hard enough. Nobody designed it that way on purpose, it's just what's left over once nobody stopped to ask what states a thing actually moves through, and what moves it from one to the next.
+* Identity, from chapter 7, survives change, but only because something tracks what changed and when. State is identity's condition at a given moment, and a transition between states is time made explicit instead of left to be guessed at; without that, two people can look at the same record and disagree about what's actually happening, and neither can prove they're right. Chapter 28 covers modelling it explicitly, and the case study in chapter 36 shows exactly what happens when nobody does.
+** Architecture is deciding how expensive tomorrow becomes.

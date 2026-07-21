@@ -1,0 +1,214 @@
+= Knowledge decay
+
+In the previous chapter we looked at how organisations forget.
+
+People leave.
+
+Teams reorganise.
+
+Systems are replaced.
+
+Knowledge disappears because the people carrying it disappear.
+
+Knowledge decay is a different problem.
+
+Nobody has to leave.
+
+The organisation can lose understanding while every member of the team remains exactly where they are.
+
+The system changes.
+
+The organisation changes.
+
+Reality changes.
+
+The knowledge stays exactly where it was.
+
+== Knowledge Has a Half-Life
+
+We often talk about documentation as though it were permanent.
+
+It isn't.
+
+A runbook is accurate on Tuesday.
+
+An engineer improves the deployment on Wednesday.
+
+By Thursday the runbook is slightly wrong.
+
+Nobody notices.
+
+Multiply that process by years rather than days and almost every organisation accumulates documentation that is technically still present but no longer describes the systems people actually operate.
+
+Knowledge ages.
+
+The only question is whether anyone notices before somebody depends on it.
+
+== Reality Keeps Moving
+
+Knowledge decays because reality refuses to stand still.
+
+A team changes its process.
+
+A regulation changes.
+
+A supplier introduces a new product.
+
+An API gains another field.
+
+A definition evolves.
+
+A business starts operating in another country.
+
+Every one of those changes is perfectly reasonable.
+
+Collectively they mean that every document describing "how things currently work" immediately begins drifting away from reality.
+
+The organisation changes continuously.
+
+The documentation changes occasionally.
+
+The gap between the two is where decay lives.
+
+== Authority Outlives Accuracy
+
+One of the dangerous properties of written knowledge is that it continues looking authoritative long after it stops being correct.
+
+A wiki page written five years ago looks exactly like one written yesterday.
+
+A process diagram gives no indication that half the systems it references have already been replaced.
+
+A glossary still defines concepts nobody uses.
+
+Nothing announces the moment a document becomes misleading.
+
+It simply sits there, accumulating confidence it no longer deserves.
+
+The appearance of certainty often survives accuracy by years.
+
+== The Silent Failure
+
+Most failures announce themselves.
+
+Systems crash.
+
+Reports fail.
+
+Applications throw errors.
+
+Knowledge decay is quieter.
+
+People stop using documentation because they no longer trust it.
+
+Instead they ask whoever sits nearby.
+
+Then whoever has been there longest.
+
+Eventually the organisation develops an informal understanding that the documentation cannot be relied upon.
+
+Nobody declares this officially.
+
+It simply becomes the culture.
+
+Ironically, organisations often respond by writing more documentation.
+
+The problem was rarely the quantity.
+
+It was that nobody was responsible for keeping it alive.
+
+== Knowledge Without Use Dies
+
+There is another reason knowledge decays.
+
+Unused knowledge isn't exercised.
+
+A disaster recovery plan that has never been rehearsed.
+
+A runbook that nobody follows.
+
+A glossary that nobody references.
+
+An architecture document that no system depends upon.
+
+These things become historical artefacts rather than operational knowledge.
+
+The fastest way for knowledge to become outdated is for it to stop being part of everyday work.
+
+Knowledge survives through use far more reliably than through storage.
+
+== Treat Knowledge Like Food
+
+Organisations treat documentation like concrete.
+
+They should treat it like food.
+
+Every description of "how things currently work" has an expiry date.
+
+Some knowledge lasts decades.
+
+A mission statement may remain valid for generations.
+
+Other knowledge has a lifetime measured in weeks.
+
+Deployment procedures.
+
+Integration instructions.
+
+API contracts.
+
+Operational playbooks.
+
+The mistake is assuming they all age at the same rate.
+
+Healthy organisations expect knowledge to expire.
+
+They build review, revision and replacement into the work itself.
+
+== Stewardship Includes Maintenance
+
+Architecture is often associated with creation.
+
+Designing systems.
+
+Producing models.
+
+Writing standards.
+
+Stewardship is equally concerned with maintenance.
+
+Not simply maintaining software.
+
+Maintaining understanding.
+
+Every description of the organisation should be assumed to be drifting unless there is active evidence that it is not.
+
+That applies equally to glossaries, architectural diagrams, process maps, ontologies and operational documentation.
+
+The question is never
+
+"Was this correct?"
+
+The more useful question is
+
+"Why should we believe it is still correct today?"
+
+== Decay Is Inevitable
+
+Knowledge does not decay because people are careless.
+
+It decays because organisations are alive.
+
+Living things change.
+
+Every change leaves yesterday's understanding slightly less complete than it was before.
+
+The answer is not to document everything.
+
+Nor is it to endlessly rewrite documentation.
+
+It is to build architecture that keeps knowledge connected to the systems, decisions and work it describes, so that changes naturally pull understanding along with them instead of leaving it behind.
+
+Because knowledge that can only become older is already beginning to disappear.
+
+* Losing people is only half the problem, chapter 9 covers that. The other half is that knowledge decays even when nobody leaves: a wiki page, a glossary entry, a runbook, all correct the day they were written, and all silently wrong a year later because the system or the organisation around them kept moving and nobody's job was to notice.
+* Nothing announces the moment written knowledge crosses from true to false, it just sits there looking exactly as authoritative as it did when it was accurate. Worth treating anything that describes "how this currently works" the same way you'd treat a perishable good, with an expectation of when it needs checking, not an assumption that it's still true because it was true once.

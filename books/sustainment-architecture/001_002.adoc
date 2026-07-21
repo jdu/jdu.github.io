@@ -1,0 +1,29 @@
+= What is an Organisation?
+
+Organisations are funny things. You can call just about anything an organisation these days. A group
+of people who get together to play a game, even a book club is an organisation. But when we talk
+about organisations in the context of business, we're talking about something a bit more specific.
+
+== Stripping it back
+
+When we strip away all the bits that we commonly, and misguidedly, think of as an organisation:
+
+* A building
+* Tax Status
+* Legal structures
+* the org chart
+
+you're left with a collection of people maintining a shared understanding while pursuing a 
+shared purpose. All these other pieces that orbit around that, are really only support structures
+put into place to help the people in the orgaqnisation achieve that shared purpose.
+
+== Defining an Organisation
+
+We need to take the definition of an organisation seriously, because most of what this book argues
+over it's many parts and chapters follows on from how we define the organisation.
+
+Because if an organisation is fundamentally a shared understanding, then losing that understanding is 
+essentially losing the organisation itself, not just its documentation, and protecting it it becomes
+the actual job of architecture, not a side effect of it.
+
+

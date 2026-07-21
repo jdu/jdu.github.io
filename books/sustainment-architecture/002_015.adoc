@@ -1,0 +1,5 @@
+= Build Trust
+
+
+* Advanced militaries learned decades ago that complex operations can't wait for every decision to flow back through a central command post, so the centre's job changed to providing intent, doctrine, and support rather than control. Good architecture works the same way, sustaining movement instead of directing every movement.
+* Architecture defaults to permission because permission is easy to audit and trust is not, so approval steps accumulate quietly until decisions need sign-off from people who aren't accountable for the outcome. Somewhere in your organisation, an approval step is standing in for evidence nobody's bothered to collect.

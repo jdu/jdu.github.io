@@ -1,0 +1,5 @@
+= Fix the incentives
+
+
+* Consultants are rewarded for recommending transformation, vendors for selling, procurement for buying established products, management for reducing perceived risk, boards for visible governance, and nobody is rewarded for quietly building internal capability. None of that is malice, it's incentives aimed at something other than the organisation's actual interest.
+* Worth asking plainly, for any system that's become complicated, who benefits if it stays that way, and checking whether that's the same party currently extending it.

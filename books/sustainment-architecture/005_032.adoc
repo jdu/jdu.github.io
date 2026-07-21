@@ -1,0 +1,8 @@
+= Build the interface layer
+
+
+* Signal: users know, and complain about, which specific system underneath is slow this week
+* Principle: an interface should present one coherent system and buffer people from whatever is changing underneath it
+* Practice: take your highest-traffic user journey and check whether it touches the underlying system's schema directly, or through an interface; where chapter 29's mapping already exists, check whether the interface can be generated from it instead of hand-built
+* Pitfall: bolting the interface on after the system is already load-bearing, instead of designing it in from day one
+* Takeaway: once meaning is mapped, a surprising amount of interface, APIs, reports, permissions, stops being hand-written and starts being derived

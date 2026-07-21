@@ -1,0 +1,5 @@
+= Recognize the failure modes
+
+
+* The failure modes repeat across organisations. The classic vendor arguments, "don't reinvent the wheel," "it's industry standard," "it's more secure," "thousands of organisations already use it," "it's cheaper," "nobody gets fired for buying it," and the classic knee-jerk fixes, more governance, more headcount, another bolted-on tool, more custom fields, more documentation, eventually a full replatform, are both recognisable in advance.
+* Score your own organisation against each pattern with a one-page diagnostic. This chapter is a mirror, not a fix, the fix is chapters 12 to 20 and chapters 27 to 33.

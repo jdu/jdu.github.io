@@ -1,0 +1,5 @@
+= Structure teams
+
+
+* Organisations calcify constraints layer by layer, the way sediment builds a landscape. Centralising a capability looks sensible from a risk perspective, and for some capabilities genuinely is, but for most it just relocates the complexity until a handful of teams carry the accumulated needs of the whole organisation, indispensable and a bottleneck in the same breath.
+* Scaling those teams to relieve the pressure usually adds coordination overhead faster than it adds capacity. Worth checking whether your platform team's boundaries were drawn around a stable concept, or around whichever system happens to need the most help this quarter.

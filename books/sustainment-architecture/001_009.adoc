@@ -1,0 +1,189 @@
+= Why organisations forget
+
+
+Organisations don't forget because the people inside of them are careless, or because sombody failed to write
+enough documentation. They forget because organisations are constantly changing while their understanding of
+themselves is carried by people, systems, and habits that are all _temporary_.
+
+A decade after a major decision has been made, the decision often remains long after the reasons behind it have 
+disappeared. Systems still behave in peculiar ways. Reports will disagree. Approval processes still exist. Integrations
+still run every night.
+
+Aks why, and the answer is usually the same: "We've always done it this way".
+
+That's rarely an explanation, and it's evidence that the explanation has more or less already been lost to time.
+
+Institutional memory doesn't disappear in one dramatic event. It erodes slowly through dozens of different mechanisms,
+each of them individually reasonable.
+
+
+* People leave, teams get reorganised, systems get replaced, consultants arrive and depart, and the reasons behind old decisions leave with them. A few years later nobody remembers why two reports disagree, why three systems define "Application" differently, or why one field has behaved strangely for the last eight years, the context evaporated along with whoever used to carry it.
+* That's why the same mistakes get repeated, not because anyone's careless, but because the lesson was only ever stored in people, and every reorganisation disperses the people who held it. Most organisations store enormous amounts of data, and very little of their actual understanding, which is a different thing, and losing the second is what makes losing the first so expensive; chapter 26 picks this up as an architectural problem, not just an organisational one.
+
+
+== People leave
+
+The most obvious form of forgetting is also the simplest. 
+
+* People retire
+* People resign
+* Consultants finish their contracts
+* Contractors hand over their laptops
+
+Along with all these people goes a remarkable amount of understanding that was never written down, more often than not
+because no one realised it needed to be. 
+
+* Strange validation rules
+* The reason two systems can't be merged
+* Why one report deliberately excludes a particular department
+* Why an interface retries exactly three times
+
+None of these decisions seem important until the person who understood them is gone. The major mistake here is believing
+that knowledge belongs to the individuals themselves. In healthy organisations, individuals discover understanding, and then 
+the organisation preserves it in some meaningful way.
+
+== Teams change shape
+
+Organisations reorganise constantly, departments merge, functions split, repsonsibilities move, reporting lines change. Each 
+reorganisation breaks small chains of communication that nobofy realised existed. 
+
+People who once solved problems together now sit in different floors with different incentives, different managers, 
+and different piorities. Nothing has been forgotten deliberately.
+
+Yet the organisation's understanding becomes fragmented just because the conversations that sustained it are no longer
+happening naturall through some course of operations.
+
+== Systems replace systems
+
+The technology inside of an organisation invariably changes faster than the organisation itself. 
+
+* CRMs are replaced
+* ERPs are upgraded
+* Data warehouses are rebuilt
+
+
+All the data mostly survives all this change, but the meaning mostly doesn't. A migration faithfully copies every 
+field out of a system while leaving behind the reasons those fields existed in the first place, or the years of 
+decisions which accreted into that schema.
+
+Years later the new system contains every value from the old one, but nobody remembers why three nearly identical 
+statuses survived the migration.
+
+The organisation preserved the information, but it wholly lost the meaning.
+
+== Documentation ages
+
+Documentation always feels permanent, but it isn't.
+
+You need to see things like wiki pages, as kicking off a slow descent into rot from the moment that they're saved. They
+age extremely rapidly.
+
+The organisation changes, the work changes, systems are modified, processes evolve, exceptions accumulate and the document remains 
+exactly where it was, looking just as authoritative as it did when it was actually correct. 
+
+Written knowledge doesn't really have a way to announce when it's wrong. It just becomes increasingly
+incomplete until people stop trusting it, and it's ultimately deleted.
+
+== Success makes assumptions invisible
+
+Some of the most dangerous knowledge disappears precisely because nothing has gone wrong. Weird though huh?
+
+You've built some process that works, or an extremely stable and depdendable integration. But when something is 
+successful no one tends to ask _why_ it was successful. It's enough that it works.
+
+Eventually everyone just assumes that it's simply how things are supposed to work. Any original trade-offs disappear
+from memory, constraints become invisible, temporary decisions and workarounds become permanent.
+
+Success has a way of hiding the assumptions that made it possible.
+
+== Language drifts
+
+Your organisation will more or less continue on using the same words through time, but their meanins may slowly change
+and drift from the original intent. 
+
+One department might use "Application" to mean the funding request, and another might treat the entire lifecycle of
+that request as an "Application". A third can even inherit both meanings and not even realize they have.
+
+No single person suddenly decides that they're going to redefine a word, it's shaped, by the systems, the processes,
+by misuse, and by incentives. 
+
+It drifts slowly enough that no one really notices, as people arrive and leave, and old contexts disappear.
+
+The problem is that every discussion starts out with a an apparent agreement about what language means, but 
+hides a lot of subtle disagreements in the corners.
+
+We all still speak, and we manage to lumber along, but the organisation at a higher level stops being able to understand itself.Z
+
+== Incentives rewrite history
+
+Not all forgetting is accidental.
+
+Sometimes organisations slowly edit their own memories.
+
+Projects that overran become success stories.
+
+Metrics that once exposed problems quietly disappear.
+
+Reports change definitions because the previous definition produced uncomfortable numbers.
+
+Nobody sets out to falsify history.
+
+People simply respond to incentives.
+
+Over time the organisation remembers the version of events that was easiest to live with rather than the one that was most useful to learn from.
+
+That is a particularly dangerous form of forgetting because it feels like certainty.
+
+== Layers hide intent
+
+Every architectural decision solves a problem.
+
+Eventually another decision solves the problems created by the first.
+
+Then another.
+
+And another.
+
+Years later the organisation sees only the accumulated layers.
+
+The original intention has disappeared beneath them.
+
+The architecture survives.
+
+The reasoning does not.
+
+Eventually nobody knows which parts of the system are fundamental and which exist only to support decisions made long ago.
+
+== Forgetting is the default mode
+
+None of these failure modes require incompetence.
+
+In fact, they are often the consequence of perfectly healthy behaviour.
+
+People move on.
+
+Technology improves.
+
+Teams reorganise.
+
+Businesses change.
+
+Documentation ages.
+
+Language evolves.
+
+The remarkable thing is not that organisations forget.
+
+It is that they remember anything at all.
+
+That is why stewardship matters.
+
+The role of architecture is not simply to design systems.
+
+It is to preserve understanding against all of the forces that naturally erase it.
+
+Because organisations store vast amounts of information.
+
+What they struggle to preserve is the understanding that gives that information meaning.
+
+The chapters that follow build on this idea. If meaning is worth preserving, and forgetting is inevitable, then architecture cannot be judged solely by the systems it produces. It must also be judged by how effectively it allows an organisation to remember itself through change.

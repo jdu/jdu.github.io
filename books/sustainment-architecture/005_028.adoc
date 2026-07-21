@@ -1,0 +1,8 @@
+= Give meaning a language
+
+
+* Signal: everyone agrees they're talking about "applications," but two departments already define the word differently, and neither definition is written down
+* Principle: describe the organisation as concepts, attributes, and relationships before you describe a single table; the concepts exist before whatever system stores them does. A CRM, an ERP, a database are all just maps, imperfect ones, full of trade-offs, and the map is not the territory; you build an ontology in the first place because maps change constantly and the reality underneath them mostly doesn't
+* Practice: for each invariant from chapter 27, list its attributes, name its relationships to the other invariants explicitly instead of leaving them to be inferred from a foreign key, and turn any field that should only hold a fixed set of values into a controlled vocabulary; group related concepts into a handful of named domains so the model has somewhere to grow
+* Pitfall: modelling columns instead of concepts, and letting whichever system was built first quietly become the definition everyone else has to match
+* Takeaway: a one-page glossary of concepts, attributes, and relationships is worth more than a data dictionary generated from a database; one version of this, run in production, calls a concept a DirectClass, but the name matters less than doing it

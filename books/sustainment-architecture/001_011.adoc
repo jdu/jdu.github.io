@@ -1,0 +1,6 @@
+= Anatomy not civil engineering
+
+
+* Organisations are living things, not structures, they heal, learn, forget, adapt, scar, and compensate, the way a body does. Architecture for an organisation that mostly repeats itself can behave like civil engineering, build it once, keep it standing. Architecture for an organisation built to keep becoming something else has to behave more like anatomy, understanding something that's alive, self-repairing, and constantly renegotiating its own shape.
+* Identity, from chapter 7, is what holds a body together while every cell in it turns over, the thing that's still recognisably the same organism a decade later. Meaning, from chapter 5, is what that identity actually consists of. Time, from chapter 8, is how a body tracks its own condition well enough to heal correctly instead of scarring over the wrong thing. Forgetting, from chapter 9, and decay, from chapter 10, are just what a body does when nobody maintains the systems that keep it healthy, not failures, just neglect.
+* None of this is a metaphor you can fully formalise, and that's the point. Civil engineers ask whether it will stand. Anatomists ask whether it's healthy, and whether it can heal. The rest of this book is mostly the second question, asked about an organisation instead of a body.

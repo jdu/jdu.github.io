@@ -1,0 +1,83 @@
+= Truth
+
+In the previous chapter we argued that architecture begins with meaning. Before an organisation can
+build software, integrate systems or produce reports, it first has to agree on waht the things inside
+it actually are.
+
+Truth is an important problem.
+
+Meaning asks whether everyone is talking about the same thing.
+
+Trust asks whether what they are saying about it is still honest.
+
+Those two ideas are often confused beacuse they fail in similar ways. An organisation might agree
+perfectly on waht an _Application_ or a _Grant_ is while slowly losing the ability to describe
+what's actually happening to eithe of them. The language remains stable, but reality quietly drifts
+away from the story being told about it.
+
+That separation rarely happens deliberately, and usually not all at once, but it does begin with 
+small incentives.
+
+A metric becomes a target, and the moment it does people begin optimising for the number
+instead of the thing the number was supposed to measure. Reports become political because poor results
+have consequences for whoever owns them. Dashboards stop asking what is happening and start presenting
+whichever version of events is least likely to cause uncomfortable conversations.
+
+Definitions drift for similar reasons. A report that once measured one thing gradually measures something
+slightly different ebcasue the old definition no longer tells a flattering story. Exceptions accumulate.
+Caveats multiple. Eventually two reports disagree, not because either contains incorrect data, but because they're
+no longer attempting to describe the same reality.
+
+Absolutely none of this requires people to be _dishonest_ or to have done this wholly out of _malice_.
+
+Most of this emerges from perfectly reasonable people responding perfectly understandable incentives. That's 
+precisely why it's so difficult to notive it while it's happening. There's usually moments though when it all
+becomes visible. Generally when your meetings start with "Which numbers are right?". 
+
+Again, it's easy to chock this up as a technical problem, but it's really not.
+
+People stop trusting data long before they stop collecting it. Once confidence has been lost, every report
+becomes negotiable, every dahboard becomes suspect, and every decision begins with an argument about evidence
+rather than a decision itself. An organsisation can continue functioning like this for years, even decades, but it's 
+no longer navigating by observation. It's navigating by competing interpretations of reality.
+
+There's a profound lesson hiding inside that pattern, and it's that our architecture isn't just how we 
+organise our systems. 
+
+It's the discipline of preserbing an honest description of reality, even when that reality is _inconvenient_ or unflattering.
+
+LIneage, provenance, audit trails, semantic models, and goverance are often justified in terms of compliance, regulation,
+and operational efficiency. Those are worthwhile outcomes, but they're secondary. Their deeper purpose is much
+simpler: they help an organisation remain capable of telling itself the truth.
+
+That truth will sometimes be uncomfortable.
+
+* A programme is failing.
+* A migration is behind schedule
+* A process no longer works
+* A metric was measuring the wrong thing all along
+
+An architecture that can't represent those realities is honeslty not protecting the organisation. It's protecting
+the organisation from itself. Every organisation eventually becomes separated from reality.
+
+Processes become ritual. Metrics become performance. Systems become assumptions. Documentation becomes mythology.
+
+The distance grows slowly enough that nobody notices from one month to the next, yet over years it becomes enormous.
+
+The work of architecture is not to eliminate that distance completely—that is impossible.
+
+It is to shorten it.
+
+To build systems that make reality visible again.
+
+To preserve not only shared meaning, but shared truth.
+
+Because an organisation that can no longer describe itself honestly has already lost something far more valuable than accurate reports.
+
+It has lost the ability to learn.
+
+
+* Meaning, from chapter 5, is agreeing what something means. Truth is a separate problem, whether what gets reported about it is still honest, and organisations eventually stop describing reality even when the meaning was never in question. It rarely happens all at once.
+* Metrics become targets, and the moment they do, people optimise for the number instead of the thing the number was supposed to represent. Reports become political, because admitting a number is bad has consequences for whoever owns it. Dashboards stop showing what's happening and start telling whichever story is safest to tell, and definitions get renegotiated, not because anyone's understanding improved, but because the old definition made someone look bad.
+* People stop trusting data long before anyone admits it out loud, and you can watch the exact moment it happens, every meeting starts with "which numbers are right" instead of what the numbers actually mean. There's a deep architectural point hiding in that pattern, architecture isn't a compliance exercise, it's the discipline of preserving an honest description of reality even when it's inconvenient to. The organisation that can't tell you an unflattering truth about itself has already lost something architecture was supposed to protect, and no governance process recovers it once trust in the numbers is gone.
+* Every organisation eventually becomes separated from reality. Architecture exists to shorten that distance.

@@ -1,0 +1,281 @@
+= Architecture for Living Organisations
+
+Parts I to III build up the ground: what kind of organisation you're in, and
+the culture and team dynamics underneath it, told through the problems and
+how they actually form rather than a fixed template. Part IV names the
+problem directly and is more actionable than I to III, though still told in
+less formal terms. Part V, the core moves, is the one section built as a
+strict playbook, a signal, a principle, a practice, a pitfall, and a
+takeaway, read in order the first time. Part VI applies all of it, a
+diagnostic, a migration path, and a worked case, and is actionable in the
+same register as Part V.
+
+== Notes
+
+=== Stories
+
+- NASA losing Mars Climate Orbiter because units carried different meaning -> Meaning
+- Goodhart's law -> Turth
+- Grant platforms inferring state -> Trust
+- An SAP implementation -> Borrowed Complexity
+- Mission Command -> Trust
+
+=== Thesis
+
+Architecture isn't the design of systems, it's the stewardship of an organisation's identity, meaning,
+and capacity to change through time.
+
+== Introduction
+
+* xref:./_001_architecture_is_stewardship.adoc[Architecture Is a Stewardship Operation]
+** Architecture is fundamentally a stewardship operation, not a technical one. The architect isn't 
+required to be the smartest engineer in the room, they're the custodian of whatever understanding 
+the organisation has managed to accumulate, and the job is making sure that understanding 
+outlives the people who currently happen to hold it.
+** That reframing matters before anything else in this book, because every chapter that follows assumes the reader is 
+acting as a steward, not just an implementer. Chapter 9 explores exactly why that stewardship is hard, 
+organisations are remarkably good at forgetting, and the rest of the book is really just a long answer 
+to what a steward does about that.
+** Architecture is the practice of helping an organisation remember who it is while it becomes something new.
+** Every organisation eventually forgets who it is. Architecture exists because forgetting is inevitable.
+
+== Part I: Organisations
+
+* xref:./_002_what_is_an_organisation.adoc[What Is an Organisation]
+** Not the legal structure, the tax status, or the org chart, those are just paperwork. An 
+   organisation is a collection of people maintaining a shared understanding while pursuing a 
+   shared purpose, and everything else, the systems, the teams, the technology, exists only to support that.
+** Take that definition seriously and most of what this book argues follows from it directly. 
+   If an organisation is fundamentally a shared understanding, then losing that understanding is 
+   losing the organisation itself, not just its documentation, and protecting it becomes the actual 
+   job of architecture, not a side effect of it.
+
+* xref:./_003_two_kinds_of_organisation.adoc[Two Kinds of Organisation]
+** Some organisations succeed by executing the same thing more efficiently each year, and for them stability is a genuine asset. Others, funders, humanitarian responders, universities, succeed by continually becoming something they weren't before, and treating that as dysfunction misreads what the organisation is actually for.
+** Most architecture practice was built inside the first kind of organisation and imported wholesale into the second, without anyone checking whether the assumptions travelled. Worth working out, honestly, which kind of organisation you're actually in before adopting anyone's playbook, including this book's.
+
+* xref:./_004_where_traditional_ea_fits.adoc[Where Traditional Enterprise Architecture Fits, and Where It Doesn't]
+** Traditional EA optimises for consistency, reuse, governance, standardisation, and traceability, exactly the right list for an organisation executing the same business slightly better each year. Organisations like Wellcome, UNHCR, WHO, and universities have a different dominant constraint, they need to keep changing without their technology choices making that change unaffordable.
+** EA isn't wrong here, it's answering a question the organisation never quite asked, which is why its scorecards keep rewarding stability in places that actually need motion. Read your architecture function's current scorecard next to your organisation's mission statement and see where they pull apart.
+
+* xref:./_005_why_meaning_comes_first.adoc[Why Meaning Has to Come First]
+** Every organisation has its own language, "Grant," "Application," "Employee," and it sounds obvious until two departments turn out to mean different things by the same word, or use different words for the same thing. Most organisations that think they have a technology problem actually have a language problem, and the technology just inherits whatever ambiguity was already there.
+** Data isn't reality, it's a representation, and storage systems are deliberately indifferent to what the values they hold actually mean; mistaking the existence of data for the existence of shared understanding is where most of this goes wrong. Consensus has to be built deliberately and drawn out into the open, because software, and increasingly AI, will confidently guess at meaning the moment nobody's agreed on it; chapters 28 and 29 turn this into a concrete method.
+** Meaning is the only real asset in any of this, everything else, the org chart, the technology, the process, changes constantly; meaning is the thing you're actually trying to preserve across all of that change. The organisation itself exists independently of whatever systems happen to be recording it this year, the systems are temporary observations of something real, not the real thing.
+
+* xref:./_006_truth.adoc[Truth]
+** Meaning, from chapter 5, is agreeing what something means. Truth is a separate problem, whether what gets reported about it is still honest, and organisations eventually stop describing reality even when the meaning was never in question. It rarely happens all at once.
+** Metrics become targets, and the moment they do, people optimise for the number instead of the thing the number was supposed to represent. Reports become political, because admitting a number is bad has consequences for whoever owns it. Dashboards stop showing what's happening and start telling whichever story is safest to tell, and definitions get renegotiated, not because anyone's understanding improved, but because the old definition made someone look bad.
+** People stop trusting data long before anyone admits it out loud, and you can watch the exact moment it happens, every meeting starts with "which numbers are right" instead of what the numbers actually mean. There's a deep architectural point hiding in that pattern, architecture isn't a compliance exercise, it's the discipline of preserving an honest description of reality even when it's inconvenient to. The organisation that can't tell you an unflattering truth about itself has already lost something architecture was supposed to protect, and no governance process recovers it once trust in the numbers is gone.
+** Every organisation eventually becomes separated from reality. Architecture exists to shorten that distance.
+
+* xref:./_007_identity.adoc[Identity]
+** Ask most organisations what they have, and you'll get an inventory, systems, data, headcount, budget. Ask what they are, and the answer is much harder, and much more durable. The mission survives reorganisations, technology migrations, and complete turnover of staff, in a way no system or dataset ever does; identity is the most permanent thing an organisation has.
+** That's why the question worth asking, constantly, is "what are we", not "what data do we have". Meaning, from chapter 5, explains what that identity actually consists of, the concepts, the language, the things that matter. Time, from chapter 8, explains how that identity persists and changes, state tracked over time is really identity being observed as it moves. Identity survives change, but only if something is actually tracking what changed and why.
+
+* xref:./_008_time_is_architectures_real_material.adoc[Time Is Architecture's Real Material]
+** Buildings are made of steel and concrete. Software is made of code. Architecture, the kind this book is actually about, is made of time. Every decision either spends it, defers it, or borrows against it, and the material you're actually shaping is how a system behaves as time passes through it, not how it looks the day it ships.
+** Most systems never model that material, they infer it: a status flag combined with a checkbox and a date field that don't always agree, and the actual condition of the thing has to be reconstructed by whoever looks hard enough. Nobody designed it that way on purpose, it's just what's left over once nobody stopped to ask what states a thing actually moves through, and what moves it from one to the next.
+** Identity, from chapter 7, survives change, but only because something tracks what changed and when. State is identity's condition at a given moment, and a transition between states is time made explicit instead of left to be guessed at; without that, two people can look at the same record and disagree about what's actually happening, and neither can prove they're right. Chapter 28 covers modelling it explicitly, and the case study in chapter 36 shows exactly what happens when nobody does.
+** Architecture is deciding how expensive tomorrow becomes.
+
+* xref:./_009_why_organisations_forget.adoc[Why Organisations Forget]
+** People leave, teams get reorganised, systems get replaced, consultants arrive and depart, and the reasons behind old decisions leave with them. A few years later nobody remembers why two reports disagree, why three systems define "Application" differently, or why one field has behaved strangely for the last eight years, the context evaporated along with whoever used to carry it.
+** That's why the same mistakes get repeated, not because anyone's careless, but because the lesson was only ever stored in people, and every reorganisation disperses the people who held it. Most organisations store enormous amounts of data, and very little of their actual understanding, which is a different thing, and losing the second is what makes losing the first so expensive; chapter 26 picks this up as an architectural problem, not just an organisational one.
+
+* xref:./_010_knowledge_decay.adoc[Knowledge Decay]
+** Losing people is only half the problem, chapter 9 covers that. The other half is that knowledge decays even when nobody leaves: a wiki page, a glossary entry, a runbook, all correct the day they were written, and all silently wrong a year later because the system or the organisation around them kept moving and nobody's job was to notice.
+** Nothing announces the moment written knowledge crosses from true to false, it just sits there looking exactly as authoritative as it did when it was accurate. Worth treating anything that describes "how this currently works" the same way you'd treat a perishable good, with an expectation of when it needs checking, not an assumption that it's still true because it was true once.
+
+* xref:./_011_anatomy_not_civil_engineering.adoc[Anatomy, Not Civil Engineering]
+** Organisations are living things, not structures, they heal, learn, forget, adapt, scar, and compensate, the way a body does. Architecture for an organisation that mostly repeats itself can behave like civil engineering, build it once, keep it standing. Architecture for an organisation built to keep becoming something else has to behave more like anatomy, understanding something that's alive, self-repairing, and constantly renegotiating its own shape.
+** Identity, from chapter 7, is what holds a body together while every cell in it turns over, the thing that's still recognisably the same organism a decade later. Meaning, from chapter 5, is what that identity actually consists of. Time, from chapter 8, is how a body tracks its own condition well enough to heal correctly instead of scarring over the wrong thing. Forgetting, from chapter 9, and decay, from chapter 10, are just what a body does when nobody maintains the systems that keep it healthy, not failures, just neglect.
+** None of this is a metaphor you can fully formalise, and that's the point. Civil engineers ask whether it will stand. Anatomists ask whether it's healthy, and whether it can heal. The rest of this book is mostly the second question, asked about an organisation instead of a body.
+
+== Part II: Culture
+
+Socio-technical concerns aren't a soft add-on to architecture, they're
+increasingly recognised as part of it. Get this Part right and the moves in
+Part V land easily; get it wrong and no move will save you.
+
+* xref:./_012_build_a_culture.adoc[Build a Culture of Local Judgement]
+** Autonomy doesn't survive on an org chart or a values statement, it survives on whether people feel like genuine members with a stake, with peers they trust and are judged by, rather than employees waiting on permission from someone above them.
+** The moment "who's your team" narrows to "who's your manager," judgement narrows with it. Worth noticing, quietly, what people actually believe would happen to them if they made a reasonable call and it went wrong, that answer is the real culture, whatever the values statement says.
+** Local knowledge is sacred for the same reason, no central planner, however capable, can ever know as much about a specific problem as the people closest to it. Architecture's job isn't to centralise that knowledge, it's to maximise how much of it survives and gets acted on.
+
+* xref:./_013_borrowing_complexity.adoc[Borrowing Complexity]
+** Deliberately choosing the complexity we want to inherit.
+
+* xref:./_014_humility.adoc[Humility]
+** Reality is always richer than any model of it, and every model, however careful, is incomplete by construction; an ontology is a set of promises about what matters enough to name, not a claim to have captured everything that exists. Chapter 28 already puts it as the map is not the territory, humility is what happens when you actually let that sentence change how you build, instead of just agreeing with it as an aphorism.
+** The temptation, once a model is built, is to start treating it as reality itself, arguing with a customer about whether they're really a "Lead" or an "Opportunity" instead of asking what they actually need. That's not a training problem, it's a structural one, every abstraction quietly invites people to forget it was ever a choice, and the organisations that stay honest are the ones that keep asking what the model is leaving out, not just whether it's internally consistent.
+** Humility, here, isn't a virtue you cultivate in people, it's a discipline you build into the architecture itself: version your ontology instead of treating it as finished, leave room for concepts you haven't named yet, and treat every "that doesn't fit the model" moment as information about reality, not a data quality problem to be coerced away. Truth, from chapter 6, is about whether your reporting stays honest, this is the same commitment aimed one level up, at whether your model of the world stays honest about how much of the world it doesn't yet describe. Worth asking, of any model your organisation depends on, what's the last thing reality did that didn't fit, and whether anyone noticed.
+
+* xref:./_015_build_trust.adoc[Build Trust, Not Permission]
+** Advanced militaries learned decades ago that complex operations can't wait for every decision to flow back through a central command post, so the centre's job changed to providing intent, doctrine, and support rather than control. Good architecture works the same way, sustaining movement instead of directing every movement.
+** Architecture defaults to permission because permission is easy to audit and trust is not, so approval steps accumulate quietly until decisions need sign-off from people who aren't accountable for the outcome. Somewhere in your organisation, an approval step is standing in for evidence nobody's bothered to collect.
+
+* xref:./_016_fix_the_incentives.adoc[Fix the Incentives]
+** Consultants are rewarded for recommending transformation, vendors for selling, procurement for buying established products, management for reducing perceived risk, boards for visible governance, and nobody is rewarded for quietly building internal capability. None of that is malice, it's incentives aimed at something other than the organisation's actual interest.
+** Worth asking plainly, for any system that's become complicated, who benefits if it stays that way, and checking whether that's the same party currently extending it.
+
+* xref:./_017_structure_teams.adoc[Structure Teams Around Invariants]
+** Organisations calcify constraints layer by layer, the way sediment builds a landscape. Centralising a capability looks sensible from a risk perspective, and for some capabilities genuinely is, but for most it just relocates the complexity until a handful of teams carry the accumulated needs of the whole organisation, indispensable and a bottleneck in the same breath.
+** Scaling those teams to relieve the pressure usually adds coordination overhead faster than it adds capacity. Worth checking whether your platform team's boundaries were drawn around a stable concept, or around whichever system happens to need the most help this quarter.
+
+== Part III: Teams
+
+Chapter 17 was about where team boundaries should sit. This Part is about
+how teams actually form and change once boundaries exist. Valve's employee
+handbook, one of the few management documents ever made fully public, is
+the clearest working example of the ideas below, and it's worth reading in
+full alongside this Part.
+
+* xref:./_018_let_teams_form_around_work.adoc[Let Teams Form Around Work, Not Org Charts]
+** Every new initiative typically needs a charter, a sponsor, and a headcount request before anyone can start, and the opportunity has often moved on by the time it's approved. Valve describes an alternative it calls cabals, self-organising groups that form because people choose the work, not because an org chart assigned it, and dissolve once the work is done.
+** Self-organising isn't the same as unmanaged, a cabal still needs a clear owner and shared intent. For your next piece of cross-team work, try forming a temporary, named group of volunteers with an explicit end condition instead of requesting a permanent team.
+
+* xref:./_019_let_people_move.adoc[Let People Move to Where the Work Is]
+** Someone who wants to work on a different problem usually has to go through a formal transfer, or simply can't, because headcount belongs to a team rather than a person. Valve made mobility literal with desks on wheels, people move toward the work that has momentum by default, and that movement is itself a live signal of where energy and value actually sit.
+** Treat long stretches where nobody moves at all as a warning sign rather than evidence of stability, and treat people who do move around as reporting something useful, not as being disloyal.
+
+* xref:./_020_let_engineering_drive_capability.adoc[Let Engineering Drive Capability, Not Just Deliver It]
+** People outside software engineering have largely been sold the idea that writing code is the expensive, difficult part. It usually isn't anymore, understanding the organisation is. Treating engineering purely as a delivery arm for someone else's fully-specified requirements outsources the one part that was actually valuable.
+** Product-oriented teams, durable teams that own a capability instead of time-boxed projects, are the right shape, but only if engineering sits inside that ownership instead of underneath it. Worth checking how many capabilities your organisation has shipped that didn't start as someone else's requirement.
+
+== Part IV: The Problem
+
+* xref:./_021_why_architecture_loses.adoc[Why Architecture Keeps Losing to Change]
+** Architecture should be judged by how little effort it takes for an organisation to become something it wasn't designed to be, not by how well it describes what already exists.
+** Field changes take months, every reorg breaks the approval chain, and nobody can say what "Awarded" actually means, that's usually an organisational problem wearing a technology costume.
+** The test: pick one system and ask, if I deleted this tomorrow, what would stop working, and could I explain why. If that stings, the rest of the book is the fix, and you don't need to fix it all at once.
+
+* xref:./_022_entropy_is_the_default.adoc[Entropy Is the Default]
+** Everything drifts toward disorder unless energy is actively spent resisting it, and organisations, and every system inside them, are no exception. Traditional EA tries to fight this head on by reducing entropy directly, standardising everything into stillness, but stillness was never actually available to an organisation whose job is to keep changing.
+** The honest failure mode isn't that entropy wins, it always does eventually, the failure is designing as though it won't, and then being surprised when maintenance, cleanup, and simplification never get funded because none of it looks like new capability.
+** The test: look at whatever "keeps the lights on" work is currently unfunded or perpetually deprioritised in your organisation. That list is entropy's invoice, arriving on schedule.
+
+* xref:./_023_how_you_arrive_here.adoc[How You Actually Arrive at a Bad Setup]
+** Nobody designs a system with an unauditable centre of gravity on purpose. You arrive there one reasonable decision at a time, each one made inside the constraints the last one left behind, until nobody in the room can question the first decision anymore.
+** Blaming the vendor or the last team misses this, the layering is the actual cause, and it compounds quietly for years before anyone notices.
+** The exercise: trace one painful system back through its last five significant changes, and name the constraint each one was working around. Part V is a sequence of counter-moves for exactly this reason, not one redesign.
+
+* xref:./_024_the_accumulation_no_one_caused.adoc[The Accumulation No One Caused]
+** Chapter 23 traced this for one system. It's the same pattern at the scale of the whole organisation: exceptions, temporary fixes, duplicated glossaries, local optimisations, abandoned dashboards and service accounts, all of it accretes quietly, and almost never through a single decision anyone could point to and call a mistake.
+** Every one of those additions was reasonable at the time, to the person adding it. Nobody sets out to embalm the organisation in yesterday's decisions, they're just trying to ship something, and the trail of detritus behind them becomes somebody else's problem to notice, eventually.
+** The exercise: list everything that exists in your organisation because it was easier to add than to remove, old processes, unwatched mailboxes, orphaned automation rules, dashboards nobody reads. Nobody owns that list, which is exactly why it keeps growing.
+
+* xref:./_025_complexity_is_borrowed.adoc[Complexity Is Borrowed, Not Created]
+** Nobody creates complexity deliberately, they borrow it. From vendors, whose products carry years of other customers' requirements. From regulation, which encodes constraints nobody in the room actually negotiated. From history, decisions made for an organisation that no longer exists, chapter 26 covers that specifically. From previous systems, which leave behind integrations that only make sense because of a product retired years ago. From other organisations, whose approach gets adopted wholesale because it's safer than justifying something different.
+** None of those sources are avoidable, an organisation that borrows no complexity at all isn't doing anything interesting. The actual job of architecture is deciding which complexity is worth borrowing, and being honest that every yes is a debt, not a gift.
+** The test: for your most complicated system, trace its complexity back to a source, vendor, regulation, history, a previous decision, another organisation's pattern, and ask whether that borrowing was ever actually evaluated, or just inherited by default.
+
+* xref:./_026_the_cost_of_changing_your_mind.adoc[The Cost of Changing Your Mind]
+** We talk endlessly about coupling between systems, and almost never about coupling across time. If changing today's organisation requires re-litigating decisions made fifteen years ago, for reasons nobody currently working there was present for, your architecture is coupled to history just as tightly as it could ever be coupled to another system.
+** Every architectural decision is made in a context, a set of priorities, a technology landscape, a set of assumptions about the future, that was reasonable when it was made. The problem isn't that those decisions were wrong, it's that organisations keep negotiating with their own past long after the context that justified it has gone; chapter 9 covered why the reasons behind those decisions get forgotten, this is what that forgetting costs architecturally.
+** The test: for your most painful system, ask how much it would cost to change your mind about one foundational decision made when it was built, not to patch around it, to actually reverse it. Great architecture is measured by how cheap that answer is, because the alternative is an organisation that can only ever move in the direction its old decisions already committed it to.
+
+== Part V: The Core Moves
+
+Do these in order the first time. Each one is independently useful even if
+you stop after one.
+
+* xref:./_027_define_invariants.adoc[Define Your Invariants]
+** Signal: nobody can agree what "Grant" or "Awarded" means without pointing at a specific field in a specific system
+** Principle: identity, people, organisations, money, relationships, authority, provenance, and audit change slowly; everything else is implementation
+** Practice: write down, in one page, your organisation's five to eight invariants, in plain language, independent of any system
+** Pitfall: confusing an invariant with a current process or org chart, both of which will change
+** Takeaway: do this chapter before any other move, everything after it assumes you've named these
+
+* xref:./_028_give_meaning_a_language.adoc[Give Meaning a Language]
+** Signal: everyone agrees they're talking about "applications," but two departments already define the word differently, and neither definition is written down
+** Principle: describe the organisation as concepts, attributes, and relationships before you describe a single table; the concepts exist before whatever system stores them does. A CRM, an ERP, a database are all just maps, imperfect ones, full of trade-offs, and the map is not the territory; you build an ontology in the first place because maps change constantly and the reality underneath them mostly doesn't
+** Practice: for each invariant from chapter 27, list its attributes, name its relationships to the other invariants explicitly instead of leaving them to be inferred from a foreign key, and turn any field that should only hold a fixed set of values into a controlled vocabulary; group related concepts into a handful of named domains so the model has somewhere to grow
+** Pitfall: modelling columns instead of concepts, and letting whichever system was built first quietly become the definition everyone else has to match
+** Takeaway: a one-page glossary of concepts, attributes, and relationships is worth more than a data dictionary generated from a database; one version of this, run in production, calls a concept a DirectClass, but the name matters less than doing it
+
+* xref:./_029_make_meaning_operational.adoc[Make the Meaning Operational]
+** Signal: the glossary from chapter 28 is three months old and already drifting, because nothing actually depends on it
+** Principle: an ontology nothing depends on is documentation; it becomes architecture once real software is built on the mapping between a concept and where its values actually live. Every abstraction you create, a database, an API, a process, a concept, is a promise that the thing means something and will keep meaning it, and breaking that promise later is never cheap
+** Practice: pick one concept, map each of its attributes to the physical field holding its value today, and build one small thing, a report, an API, a permission, from that mapping instead of from the raw table
+** Pitfall: treating the mapping as a one-off migration exercise instead of the thing every future schema change has to update
+** Takeaway: apply chapter 21's test to the mapping itself, if you deleted it tomorrow and nothing broke, it isn't operational yet
+
+* xref:./_030_commodity_vs_strategic.adoc[Separate Commodity from Strategic]
+** Signal: you're customising a CRM or ERP to represent something it was never built to represent
+** Principle: buy the capability everyone needs the same way; build the capability that makes your understanding of your organisation an advantage. Chapter 25 covers where that complexity actually comes from, and how to decide what's worth taking on
+** Practice: list your major systems, mark each as commodity or strategic, flag any strategic capability currently living inside a commodity tool
+** Pitfall: treating buy-versus-build as a per-system choice instead of a per-capability one
+** Takeaway: any strategic capability flagged inside a commodity tool is your next migration candidate, see Part VI
+
+* xref:./_031_design_the_exit.adoc[Design the Exit Before You Design the System]
+** Signal: nobody can describe how you'd remove a system without describing a crisis
+** Principle: if you can't describe how to replace something, you haven't finished designing it
+** Practice: for every major system, write down what data you'd keep, what would break, and how long it would take to leave
+** Pitfall: treating the exit path as a someday-document instead of a go-live requirement
+** Takeaway: no exit path, no go-live, make it a checklist item, not an aspiration
+
+* xref:./_032_build_the_interface_layer.adoc[Build the Interface Layer]
+** Signal: users know, and complain about, which specific system underneath is slow this week
+** Principle: an interface should present one coherent system and buffer people from whatever is changing underneath it
+** Practice: take your highest-traffic user journey and check whether it touches the underlying system's schema directly, or through an interface; where chapter 29's mapping already exists, check whether the interface can be generated from it instead of hand-built
+** Pitfall: bolting the interface on after the system is already load-bearing, instead of designing it in from day one
+** Takeaway: once meaning is mapped, a surprising amount of interface, APIs, reports, permissions, stops being hand-written and starts being derived
+
+* xref:./_033_measure_waiting.adoc[Measure Waiting, Not Just Uptime]
+** Signal: your dashboards track uptime and incidents; nobody tracks how long a routine change actually takes
+** Principle: queue time, lead time for change, and dependency count are architectural signals, not just operational ones
+** Practice: pick three metrics from this chapter and start tracking them this quarter, even by hand
+** Pitfall: measuring team velocity instead of organisational lead time, they are not the same number
+** Takeaway: you can't fix what you don't measure, and most organisations aren't measuring the thing that's actually hurting them
+
+== Part VI: Applying It
+
+* xref:./_034_recognise_the_failure_modes.adoc[Recognise the Failure Modes]
+** The failure modes repeat across organisations. The classic vendor arguments, "don't reinvent the wheel," "it's industry standard," "it's more secure," "thousands of organisations already use it," "it's cheaper," "nobody gets fired for buying it," and the classic knee-jerk fixes, more governance, more headcount, another bolted-on tool, more custom fields, more documentation, eventually a full replatform, are both recognisable in advance.
+** Score your own organisation against each pattern with a one-page diagnostic. This chapter is a mirror, not a fix, the fix is chapters 12 to 20 and chapters 27 to 33.
+
+* xref:./_035_migrate_an_existing_system.adoc[Migrate an Existing System]
+** Most organisations reading this book already have an embalmed system, not a blank page, and migration has its own sequencing, separate from designing something fresh.
+** Name the invariants hiding inside the current system (chapter 27), give them a language (chapter 28), map them onto what already exists (chapter 29), put an interface in front of it (chapter 32), then plan the exit (chapter 31), in that order. Replacing one vendor with another and calling it a migration skips all of this.
+** You don't need to fix everything at once, pick the one system costing you most on chapter 33's metrics, and start there.
+
+* xref:./_036_case_study_grants_platform.adoc[Case Study: The Grants Management Platform]
+** The set-up: a custom-built system, replaced technology-first, on a CRM chosen before the problem was
+** How it happened: the layering of individually reasonable decisions, traced step by step
+** The gap that mattered most: no transition model, state inferred from field combinations instead of recorded
+** A concrete failure: two people, two questions, no way to tell which record was stale
+** Who benefited from the complexity, and why it kept compounding instead of levelling off
+** What chapters 28 and 29 would have done differently: name Applicant, Organisation, Grant, and Application as concepts independent of the CRM's object model, map them explicitly, and let identity and state be modelled once instead of inferred from field combinations
+
+== Part VII: Recovering a Lost Function
+
+Everything so far assumes a reader with some capacity to act. Most
+organisations picking up this book don't have that yet, they have an
+engineering function that's already exhausted, already distrusted, and
+already carrying the accumulated weight of every chapter in Part IV. This
+Part is about that starting condition specifically.
+
+* xref:./_037_recognising_a_struggling_function.adoc[Recognising a Struggling Function]
+** A struggling function isn't just behind, behind is normal, everyone's behind. A struggling function has already tried to fix itself and failed publicly enough that the rest of the organisation has stopped believing it can. The tell isn't the backlog, it's that nobody on the team volunteers information anymore, because volunteering information has cost people before.
+** Burnout, high turnover, and a quiet culture of blame usually travel together, and by the time leadership notices, the function has already learned that the safest move is to look busy and say as little as possible. None of the moves in Part V will work on a team operating like that, they'll just look like one more initiative to survive.
+** The test: ask the team, directly, what happened the last time someone tried to change something significant here. If the honest answer involves someone being blamed, sidelined, or quietly leaving, you're not starting from Part IV's problem, you're starting from this one.
+
+* xref:./_038_trust_comes_before_method.adoc[Trust Comes Before Method]
+** Part II argued that culture and trust have to exist before the moves in Part V land. In a struggling function, that's not a sequencing note, it's the entire first phase of work, and skipping it is the single most common way transformation attempts fail twice in the same organisation.
+** You cannot credibly ask a team to name invariants, or admit where the god objects are, if the last person who asked those questions used the answers to justify a reorganisation. Rebuilding that trust looks unglamorous, showing up, following through on small commitments, removing one piece of friction without asking for anything in return, and it has to happen before you introduce a single concept from Part V.
+** The test: pick the smallest possible improvement you can make and deliver without asking the team for anything in return, then watch whether people start volunteering information afterwards. If they don't, trust isn't back yet, and neither Part IV's diagnosis nor Part V's moves will get an honest answer.
+
+* xref:./_039_triage_a_portfolio.adoc[Triage a Portfolio, Not a System]
+** Chapter 35 covers migrating one system. A struggling function usually has a dozen systems in roughly the same state, and the mistake is applying that same playbook everywhere at once, with a team that's already stretched thin.
+** Triage here looks less like picking the system costing you most, chapter 33's metrics still apply, and more like picking the system where a visible win is actually achievable with the trust and capacity you currently have. An ambitious fix that fails publicly does more damage to a struggling function than a modest fix that visibly works.
+** The test: rank your systems by pain and by achievability separately, then start with whichever one scores highest on achievability, not pain. Chapter 35's method still applies once you've picked the target, this chapter is about picking it differently when capacity and trust are both already scarce.
+
+== Conclusion
+
+* xref:./_040_where_to_start.adoc[Where to Start Monday Morning]
+** This week: run the ten-minute test from chapter 21 on your most painful system, unless your function is already struggling, in which case start with Part VII instead, the test assumes a team that can afford to answer it honestly
+** This quarter: pick one move from Part V and finish it
+** This year: use the diagnostic in chapter 34 to decide what's next
+** The one-page summary of the whole book, for handing to someone else
+** Closing thesis: architecture judged by the learning it permits, the trust it creates, and how little effort it takes for an organisation to become something it hasn't been before

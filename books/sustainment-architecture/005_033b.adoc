@@ -1,0 +1,18 @@
+= Optimise for the next change
+
+Each of the seven moves is really asking
+
+"Does this make the next change cheaper?"
+
+That becomes the universal test.
+
+Not
+
+elegant
+scalable
+cloud-native
+enterprise-grade
+
+Simply
+
+"Will this reduce the cost of changing our mind?"

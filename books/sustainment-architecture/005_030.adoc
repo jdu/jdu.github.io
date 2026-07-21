@@ -1,0 +1,8 @@
+= Commodity vs. Strategic
+
+
+* Signal: you're customising a CRM or ERP to represent something it was never built to represent
+* Principle: buy the capability everyone needs the same way; build the capability that makes your understanding of your organisation an advantage. Chapter 25 covers where that complexity actually comes from, and how to decide what's worth taking on
+* Practice: list your major systems, mark each as commodity or strategic, flag any strategic capability currently living inside a commodity tool
+* Pitfall: treating buy-versus-build as a per-system choice instead of a per-capability one
+* Takeaway: any strategic capability flagged inside a commodity tool is your next migration candidate, see Part VI

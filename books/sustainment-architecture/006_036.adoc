@@ -1,0 +1,9 @@
+= Case study: grants platform
+
+
+* The set-up: a custom-built system, replaced technology-first, on a CRM chosen before the problem was
+* How it happened: the layering of individually reasonable decisions, traced step by step
+* The gap that mattered most: no transition model, state inferred from field combinations instead of recorded
+* A concrete failure: two people, two questions, no way to tell which record was stale
+* Who benefited from the complexity, and why it kept compounding instead of levelling off
+* What chapters 28 and 29 would have done differently: name Applicant, Organisation, Grant, and Application as concepts independent of the CRM's object model, map them explicitly, and let identity and state be modelled once instead of inferred from field combinations

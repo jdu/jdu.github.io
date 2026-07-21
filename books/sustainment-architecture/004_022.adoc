@@ -1,0 +1,6 @@
+= Entropy is the default
+
+
+* Everything drifts toward disorder unless energy is actively spent resisting it, and organisations, and every system inside them, are no exception. Traditional EA tries to fight this head on by reducing entropy directly, standardising everything into stillness, but stillness was never actually available to an organisation whose job is to keep changing.
+* The honest failure mode isn't that entropy wins, it always does eventually, the failure is designing as though it won't, and then being surprised when maintenance, cleanup, and simplification never get funded because none of it looks like new capability.
+* The test: look at whatever "keeps the lights on" work is currently unfunded or perpetually deprioritised in your organisation. That list is entropy's invoice, arriving on schedule.

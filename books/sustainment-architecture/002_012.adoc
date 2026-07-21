@@ -1,0 +1,6 @@
+= Build a culture
+
+
+* Autonomy doesn't survive on an org chart or a values statement, it survives on whether people feel like genuine members with a stake, with peers they trust and are judged by, rather than employees waiting on permission from someone above them.
+* The moment "who's your team" narrows to "who's your manager," judgement narrows with it. Worth noticing, quietly, what people actually believe would happen to them if they made a reasonable call and it went wrong, that answer is the real culture, whatever the values statement says.
+* Local knowledge is sacred for the same reason, no central planner, however capable, can ever know as much about a specific problem as the people closest to it. Architecture's job isn't to centralise that knowledge, it's to maximise how much of it survives and gets acted on.

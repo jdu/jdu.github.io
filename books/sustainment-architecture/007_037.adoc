@@ -1,0 +1,6 @@
+= Recognising a struggling function
+
+
+* A struggling function isn't just behind, behind is normal, everyone's behind. A struggling function has already tried to fix itself and failed publicly enough that the rest of the organisation has stopped believing it can. The tell isn't the backlog, it's that nobody on the team volunteers information anymore, because volunteering information has cost people before.
+* Burnout, high turnover, and a quiet culture of blame usually travel together, and by the time leadership notices, the function has already learned that the safest move is to look busy and say as little as possible. None of the moves in Part V will work on a team operating like that, they'll just look like one more initiative to survive.
+* The test: ask the team, directly, what happened the last time someone tried to change something significant here. If the honest answer involves someone being blamed, sidelined, or quietly leaving, you're not starting from Part IV's problem, you're starting from this one.

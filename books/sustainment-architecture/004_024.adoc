@@ -1,0 +1,6 @@
+= The accumulation no one caused
+
+
+* Chapter 23 traced this for one system. It's the same pattern at the scale of the whole organisation: exceptions, temporary fixes, duplicated glossaries, local optimisations, abandoned dashboards and service accounts, all of it accretes quietly, and almost never through a single decision anyone could point to and call a mistake.
+* Every one of those additions was reasonable at the time, to the person adding it. Nobody sets out to embalm the organisation in yesterday's decisions, they're just trying to ship something, and the trail of detritus behind them becomes somebody else's problem to notice, eventually.
+* The exercise: list everything that exists in your organisation because it was easier to add than to remove, old processes, unwatched mailboxes, orphaned automation rules, dashboards nobody reads. Nobody owns that list, which is exactly why it keeps growing.
