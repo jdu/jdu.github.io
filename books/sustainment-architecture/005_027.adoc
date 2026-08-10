@@ -1,5 +1,196 @@
 = Define invariants
 
+Every organisation changes.
+
+Departments are reorganised. Systems are replaced. Processes evolve. Teams grow, shrink and merge. None of those things is unusual, and none of them is necessarily a problem. The difficulty begins when the organisation has no stable reference point against which those changes can be understood.
+
+That reference point is what I call an invariant.
+
+An invariant is something the organisation believes will remain true regardless of how it chooses to organise itself or which technology happens to support it. It is not a description of today's implementation. It is a description of the organisation itself.
+
+Every other architectural decision depends upon identifying these first.
+
+== Recognising the problem
+
+The easiest way to recognise that invariants have never been defined is to listen to how people explain the organisation.
+
+Ask someone what a Grant is.
+
+If the answer begins with:
+
+"It's the thing in Salesforce..."
+
+or
+
+"It's that record in Oracle..."
+
+or
+
+"It's whatever this table represents..."
+
+then the organisation has confused its systems with itself.
+
+The same exercise works for almost any important concept.
+
+Ask three different teams what an Application, Award, Employee, Project or Organisation is.
+
+If the answers differ, or if everyone eventually points at a different system, then the organisation has no stable definition independent of its technology.
+
+That is the first problem to solve.
+
+== What makes something an invariant?
+
+Not everything deserves to be an invariant.
+
+An invariant should continue making sense even if every current system disappeared tomorrow.
+
+For most organisations, the list is surprisingly small.
+
+People exist independently of HR systems.
+
+Organisations exist independently of CRMs.
+
+Money exists independently of finance systems.
+
+Authority exists independently of approval workflows.
+
+Relationships exist independently of databases.
+
+Provenance exists independently of audit logs.
+
+These things describe reality.
+
+The software merely records observations about them.
+
+A useful test is to imagine replacing every major platform in the organisation.
+
+If the concept would still exist afterwards, it is a good candidate for an invariant.
+
+If the concept disappears with the software, it probably describes an implementation rather than the organisation.
+
+== Writing them down
+
+Most organisations only need between five and eight invariants.
+
+More than that usually indicates you're describing implementation rather than identity.
+
+Write each invariant as a short paragraph in plain English.
+
+Avoid technical language.
+
+Avoid product names.
+
+Avoid organisational structure.
+
+The description should be understandable by someone who has never seen your technology estate.
+
+For example:
+
+Grant
+
+A commitment by the organisation to provide funding to one or more recipients under agreed conditions.
+
+Notice what is absent.
+
+No mention of Salesforce.
+
+No mention of Oracle.
+
+No workflow.
+
+No status values.
+
+No database identifiers.
+
+Those things may all be important later.
+
+They are not part of the invariant.
+
+== What good looks like
+
+A useful set of invariants has several properties.
+
+Property	Description
+Independent	Can be understood without referring to any system.
+Stable	Expected to remain valid through organisational change.
+Shared	Every team understands the definition in the same way.
+Simple	Describes the concept, not the implementation.
+Testable	People can identify whether something belongs to the concept or not.
+
+If an invariant cannot satisfy these properties, it probably needs simplifying.
+
+== Common mistakes
+
+The most common mistake is confusing today's organisation with the organisation itself.
+
+For example:
+
+"An Application is something submitted through Salesforce."
+
+That definition fails immediately if Salesforce is replaced.
+
+Likewise,
+
+"A Grant is something approved by the Grants Operations team."
+
+Teams change.
+
+Responsibilities move.
+
+The definition has become coupled to today's operating model.
+
+A stronger definition describes the thing itself rather than the current mechanism through which it happens.
+
+The second common mistake is attempting to define everything.
+
+The purpose of invariants is not to describe the entire organisation.
+
+It is to identify the handful of concepts that remain stable while everything else changes around them.
+
+== Workshop
+
+This exercise usually takes less than two hours.
+
+* Gather representatives from across the organisation.
+* Ask each person to independently write down the ten most important concepts in the organisation.
+* Compare the lists.
+* Group concepts that clearly describe the same underlying thing.
+* Remove concepts that only exist because of particular systems or processes.
+* Continue until only five to eight concepts remain.
+* Write one paragraph describing each concept without mentioning any system, product, department or process.
+* Test each definition by asking whether it would still be true if every current system were replaced.
+
+The discussion is usually more valuable than the document it produces.
+
+Disagreement exposes ambiguity that has often existed unnoticed for years.
+
+== How to know when you're finished
+
+You are not finished when everybody agrees.
+
+You are finished when somebody unfamiliar with your systems can read the definitions and understand the organisation without needing any additional explanation.
+
+The document should fit comfortably on a single page.
+
+If it requires twenty pages of caveats and exceptions, you are almost certainly documenting implementations rather than invariants.
+
+Return to the concepts and simplify them.
+
+== Diagram
+
+== Why this comes first
+
+Every chapter that follows assumes these invariants exist.
+
+Without them, interfaces become point-to-point translations between products. Data models become reflections of individual applications. Migrations become exercises in preserving implementation details instead of preserving the organisation's understanding of itself.
+
+The remaining architectural moves build on this foundation.
+
+Without invariants, there is nothing stable enough to build upon.
+
+== Deliverable
+
+A one-page document containing five to eight invariant concepts, each defined in plain language, independent of systems, organisational structure or current processes.
 
 * Signal: nobody can agree what "Grant" or "Awarded" means without pointing at a specific field in a specific system
 * Principle: identity, people, organisations, money, relationships, authority, provenance, and audit change slowly; everything else is implementation

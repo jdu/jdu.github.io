@@ -16,6 +16,14 @@ That's rarely an explanation, and it's evidence that the explanation has more or
 Institutional memory doesn't disappear in one dramatic event. It erodes slowly through dozens of different mechanisms,
 each of them individually reasonable.
 
+Technology organisations routinely lose more than labour when people leave. They lose undocumented relationships between systems, explanations for exceptions, knowledge of failed approaches and the ability to recognise when an apparently strange design is protecting something important.
+
+A systematic review of 91 empirical studies found substantial evidence that employee turnover produces organisational knowledge loss, while the effect depends on the nature of the knowledge, the departing person and the organisation’s retention mechanisms. Software-specific research likewise describes turnover as a threat to code quality and team productivity because contributors hold knowledge that may not exist in repositories or documentation.
+
+This is especially damaging during transformation. The people carrying the current system’s tacit model are often treated as representatives of the past just as their knowledge becomes most necessary. If they leave before that understanding is transferred, the new programme must rediscover the organisation through incidents, failed migrations and unexplained discrepancies.
+
+The phenomenon is larger than the familiar “bus factor.” It is the gradual loss of the organisation’s ability to interpret its own technology.
+
 
 * People leave, teams get reorganised, systems get replaced, consultants arrive and depart, and the reasons behind old decisions leave with them. A few years later nobody remembers why two reports disagree, why three systems define "Application" differently, or why one field has behaved strangely for the last eight years, the context evaporated along with whoever used to carry it.
 * That's why the same mistakes get repeated, not because anyone's careless, but because the lesson was only ever stored in people, and every reorganisation disperses the people who held it. Most organisations store enormous amounts of data, and very little of their actual understanding, which is a different thing, and losing the second is what makes losing the first so expensive; chapter 26 picks this up as an architectural problem, not just an organisational one.

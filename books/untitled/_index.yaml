@@ -1,0 +1,152 @@
+title: Floating the Road
+author: Jeff Uren
+edition: First Edition 2026
+
+copyright: |
+  Copyright © 2026 Jeff Uren. All rights reserved.
+
+  No part of this publication may be reproduced, distributed, or transmitted in any form or by
+  any means without the prior written permission of the author.
+
+dedication: |
+  For everyone, who didn't have someone, to help them understand.
+
+acknowledgements: |
+  I can't really not start out by thanking my family. My kids, and partner Gemma, who have put up with
+  a lot of late-night scribbling in notebooks, staring at screens, raging at the world, and generally being
+  a bit of a pain in the ass.
+
+  In addition, I'd like to thank all the lovely people I've worked with over the years, and all the people
+  I look forward to working with in the future. Over time, I've tried to say it as plainly as I possibly could,
+  and as straightly as I could, that I appreciate you, and everything you've done.
+
+bibliography:
+  - author: "TBD"
+    title: "TBD"
+    year: 2026
+    publisher: "TBD"
+
+parts:
+  - title: Introduction
+    summary: |
+      This is a book about a lot of things. But at the heart of it, it's a
+      culmination of decades of working within organisations that have a huge,
+      wide, varied, and constantly changing remit that doesn't always align
+      with the needs of the people who work within them.
+    chapters:
+      - 000_001.adoc
+
+  - title: What are We Building?
+    summary: |
+      TBD
+    chapters:
+      - 001_001.adoc
+      - 001_002.adoc
+      - 001_003.adoc
+      - 001_004.adoc
+
+  - title: Looking Inside
+    summary: TBD
+    chapters:
+      - 002_001.adoc
+      - 002_002.adoc
+      - 002_003.adoc
+      - 002_004.adoc
+      - 002_005.adoc
+
+  - title: Yer Toolbox
+    summary: TBD
+    chapters:
+      - 003_001.adoc
+      - 003_002.adoc
+      - 003_003.adoc
+      - 003_004.adoc
+      - 003_005.adoc
+      - 003_006.adoc
+      - 003_007.adoc
+
+  - title: Building Blocks
+    summary: TBD
+    chapters:
+      - 011_001.adoc
+      - 011_002.adoc
+      - 011_003.adoc
+      - 011_004.adoc
+      - 011_005.adoc
+      - 011_006.adoc
+      - 011_007.adoc
+      - 011_008.adoc
+      - 011_009.adoc
+      - 011_010.adoc
+
+  - title: Beneath the Software
+    summary: TBD
+    chapters:
+      - 010_001.adoc
+
+  - title: Patterns Without Pattern Matching
+    summary: TBD
+    chapters:
+      - 004_001.adoc
+      - 004_002.adoc
+      - 004_003.adoc
+      - 004_004.adoc
+      - 004_005.adoc
+
+  - title: Designing Software
+    summary: TBD
+    chapters:
+      - 005_001.adoc
+      - 005_002.adoc
+      - 005_003.adoc
+      - 005_004.adoc
+      - 005_005.adoc
+      - 005_006.adoc
+
+  - title: Engineering Leverage
+    summary: TBD
+    chapters:
+      - 012_001.adoc
+      - 012_002.adoc
+      - 012_004.adoc
+      - 012_005.adoc
+      - 012_006.adoc
+      - 012_007.adoc
+
+  - title: Breaking Down the Work
+    summary: TBD
+    chapters:
+      - 006_001.adoc
+      - 006_002.adoc
+      - 006_003.adoc
+      - 006_004.adoc
+      - 006_005.adoc
+
+  - title: Reading Existing Software
+    summary: TBD
+    chapters:
+      - 007_001.adoc
+      - 007_002.adoc
+      - 007_003.adoc
+      - 007_004.adoc
+      - 007_005.adoc
+      - 007_006.adoc
+
+  - title: Building With Other People
+    summary: TBD
+    chapters:
+      - 008_001.adoc
+      - 008_002.adoc
+      - 008_003.adoc
+      - 008_004.adoc
+
+  - title: Keeping It Alive
+    summary: TBD
+    chapters:
+      - 009_001.adoc
+      - 009_002.adoc
+      - 009_003.adoc
+      - 009_004.adoc
+      - 009_005.adoc
+      - 009_006.adoc
+      - 009_007.adoc

@@ -1,0 +1,543 @@
+title: Bookshelf
+subtitle: Jeff Uren
+sections:
+  - name: permanent
+    title: Permanent Residents
+    description: Books that w
+  - name: in_progress
+    title: Currently Reading
+  - name: to_read
+    title: To Read
+  - name: 2026_read
+    title: 2026 Read
+  - name: 2025_read
+    title: 2025 Read
+  - name: archives
+    title: Archives
+    alphabetical: true
+books:
+  - Abnett, Dan:
+      - title: Horus Rising
+        section: archives
+        order: 39
+      - title: Xenos
+        section: archives
+        order: 42
+      - title: Malleus
+        section: archives
+      - title: Hereticus
+        section: archives
+  - Abrash, Michael:
+      - title: Graphics Programming Black Book
+        section: archives
+        order: 130
+  - Adams, Douglas:
+      - title: Life, the Univers and Everything
+        section: archives
+        order: 40
+      - title: The Long Dark Tea-Time of the Soul
+        section: archives
+        order: 45
+      - title: Dirk Gently's Holistic Detective Agency
+        section: archives
+  - Alexander, Lloyd:
+      - title: The Black Cauldron
+        section: archives
+        order: 81
+  - Almada, Selva:
+      - title: Not a River
+        section: archives
+        order: 41
+  - Arthur, Robert:
+      - title: The Secret of Skeleton Island
+        section: archives
+        order: 44
+  - Atwood, Margaret:
+      - title: Burning Questions
+        section: in_progress
+        order: 9
+      - title: "Strange Things: The Malevolent North in Canadian Literature"
+        section: archives
+        order: 43
+  - Baggini, Julian:
+      - title: The Pig that Wants to Be Eaten
+        section: in_progress
+        order: 10
+  - Beazley, David:
+      - title: Python Essential Reference
+        section: archives
+        order: 47
+  - Birn, Anne-Emanuelle:
+      - title: "Textbook of International Health: Global Health in a Dynamic World"
+        section: archives
+        order: 50
+  - Brand, Stewart:
+      - title: "Maintenance: Of Everything"
+        section: 2026_read
+        order: 32
+  - Briggs, Stephen:
+      - title: "The Truth: Stage Adaptation"
+        section: archives
+        order: 48
+  - Brooks, John:
+      - title: Business Adventures
+        section: archives
+        order: 46
+  - Bulgakov, Mikhail:
+      - title: The Master and Margarita
+        section: archives
+        order: 49
+  - Calvino, Italo:
+      - title: Invisible Cities
+        section: to_read
+        order: 14
+  - Campbell, Wiliam Wilfred:
+      - title: Canada
+        section: archives
+        order: 52
+  - Clarke, Susanna:
+      - title: Piranesi
+        section: 2026_read
+        order: 20
+  - Connors, Phillip:
+      - title: "Fire Season: Field notes from a wilderness lookout"
+        section: archives
+        order: 53
+  - Conrad, Joseph:
+      - title: Heart of Darkness
+        section: archives
+        order: 51
+  - Cleverly, Michael:
+      - title: The Kitchen Readings
+        section: archives
+  - Deming, W. Edwards:
+      - title: Out of the Crisis
+        section: in_progress
+        order: 11
+  - Emerson, Ralph Waldo:
+      - title: The Essential Writing of Ralph Waldo Emerson
+        section: archives
+        order: 129
+  - Faulkner, William:
+      - title: The Sound and the Fury
+        section: archives
+  - Feynman, Richard:
+      - title: Surely You're Joking Mr. Feynman!
+        section: archives
+      - title: The Pleasure of Finding Things Out
+        section: archives
+  - Gaiman, Neil:
+      - title: Stardust
+        section: archives
+        order: 56
+      - title: Anansi Boys
+        section: archives
+        order: 57
+      - title: Neverwhere
+        section: archives
+        order: 58
+  - Garrett, Laurie:
+      - title: "Betrayal of Trust: Collapse of Global Public Health"
+        section: archives
+        order: 59
+      - title: The Coming Plaque
+        section: archives
+        order: 60
+  - Gibson, Wiliam:
+      - title: Neuromancer
+        section: archives
+        order: 54
+  - Grunwald, Peter D.:
+      - title: The Minimum Description Length Principle
+        section: archives
+        order: 55
+  - Herodotus:
+      - title: The Histories
+        section: archives
+        order: 128
+  - Herriott, James:
+      - title: (title unknown)
+        section: archives
+        order: 132
+  - Hobb, Robin:
+      - title: Assassins Apprentice
+        section: archives
+        order: 61
+  - Hunt, Andy:
+      - title: The Pragmatic Programmer
+        section: archives
+        order: 63
+  - Huntford, Roland:
+      - title: The Shackleton Voyages
+        section: archives
+        order: 62
+  - Ishiguro, Kazuo:
+      - title: Klara and the Sun
+        section: archives
+        order: 64
+  - Jannson, Tove:
+      - title: The Summer Book
+        section: permanent
+        order: 6
+  - Jansson, Tove:
+      - title: Fair play
+        section: archives
+        order: 65
+      - title: A Winter Book
+        section: archives
+        order: 66
+      - title: Notes from an island
+        section: archives
+        order: 67
+      - title: Travelling Light
+        section: archives
+        order: 68
+  - Kawabata, Yosunari:
+      - title: Snow Country
+        section: to_read
+        order: 13
+  - Keegan, Claire:
+      - title: Small Things Like These
+        section: to_read
+        order: 15
+  - Kernighan, Briann W.:
+      - title: The UNIX Programming Environment
+        section: archives
+        order: 73
+  - Kibuishi, Kazu:
+      - title: Flight, Volume Four
+        section: archives
+        order: 69
+      - title: Flight, Volume Two
+        section: archives
+        order: 70
+      - title: Flight, Volume One
+        section: archives
+        order: 71
+  - King, Granville:
+      - title: The Jeep Bible
+        section: 2026_read
+        order: 30
+  - Kochan, Stephen G.:
+      - title: Programming in Objective-C
+        section: archives
+        order: 72
+  - Le Guin, Ursula K.:
+      - title: A Wizard of EarthSea
+        section: archives
+      - title: The Disposessed
+        section: archives
+      - title: The Left Hand of Darkness
+        section: archives
+      - title: The Other Wind
+        section: archives
+      - title: The Word for World is Forest
+        section: archives
+      - title: No Time to Spare
+        section: to_read
+      - title: Words Are My Matter
+        section: to_read
+      - title: The Farthest Shore
+        section: archives
+      - title: The Toms of Atuan
+        section: archives
+  - Leacock, Stephen:
+      - title: Canada
+        section: archives
+        order: 75
+  - Leopold, Aldo:
+      - title: A Sand County Almanac
+        section: permanent
+        order: 1
+  - Liu, Cixin:
+      - title: To Hold Up the Sky
+        section: archives
+        order: 82
+  - Lloyd, Alexander:
+      - title: Taran Wanderer
+        section: archives
+      - title: The Book of Three
+        section: archives
+      - title: The High King
+        section: archives
+      - title: The Black Cauldron
+        section: archives
+  - London, Jack:
+      - title: The Call of the Wild
+        section: archives
+        order: 76
+  - Lovecraft, H.P.:
+      - title: The Complete Works
+        section: archives
+        order: 83
+  - MacLeod, Alastair:
+      - title: "Island: The Complete Stories"
+        section: archives
+        order: 84
+  - McCarthy, Cormac:
+      - title: Suttree
+        section: permanent
+        order: 5
+  - Miller, Rand:
+      - title: The Myst Reader
+        section: 2026_read
+        order: 19
+        author: Rand Miller, David Wingrove
+  - Moorcock, Michael:
+      - title: The Weird of the White Wolf
+        section: archives
+        order: 131
+  - Munroe, Randall:
+      - title: How To
+        section: to_read
+        order: 18
+  - Mytting, Lars:
+      - title: "Norwegian Wood: Chopping, Stacking and Drying Wood the Scandinavian Way"
+        section: archives
+        order: 85
+  - Persig, Robert M.:
+      - title: Zen and the Art of Motorcycle Maintenance
+        section: permanent
+        order: 3
+  - Pinker, Steven:
+      - title: "The Better Angels of Our Nature: Why Violence Has Declined"
+        section: archives
+        order: 106
+  - Pirsig, Robert M.:
+      - title: Lila
+        section: permanent
+        order: 4
+      - title: Lila
+        section: 2026_read
+        order: 33
+  - Prata, Stephen:
+      - title: C++ Primer Plus
+        section: archives
+        order: 105
+  - Pratchett, Terr:
+      - title: Men at Arms
+        section: archives
+        order: 92
+  - Pratchett, Terry:
+      - title: Moving Pictures
+        section: archives
+      - title: The Amazing Maurice and his Educated Rodents
+        section: archives
+      - title: Lords and Ladies
+        section: archives
+      - title: Jingo
+        section: archives
+      - title: Guards! Guards!
+        section: archives
+      - title: Soul Music
+        section: archives
+      - title: Raising Steam
+        section: archives
+        order: 86
+      - title: Equal Rites
+        section: archives
+        order: 87
+      - title: Eric
+        section: archives
+        order: 88
+      - title: Hogfather
+        section: archives
+        order: 89
+      - title: Making Money
+        section: archives
+        order: 90
+      - title: The Last Hero
+        section: archives
+      - title: Carpe Jugulum
+        section: archives
+      - title: Maskerade
+        section: archives
+        order: 91
+      - title: Nation
+        section: archives
+        order: 93
+      - title: Pyramids
+        section: archives
+        order: 94
+      - title: Sourcery
+        section: archives
+        order: 95
+      - title: The Color of Magic
+        section: archives
+        order: 96
+      - title: The Dark Side of the Sun
+        section: archives
+        order: 97
+      - title: The Fifth Elephant
+        section: archives
+        order: 98
+      - title: The Last Continent
+        section: archives
+        order: 99
+      - title: The Light Fantastic
+        section: archives
+        order: 100
+      - title: The Wee Free Men
+        section: archives
+        order: 101
+      - title: Thief of Time
+        section: archives
+        order: 102
+      - title: Thud!
+        section: archives
+        order: 103
+      - title: Witches Abroad
+        section: archives
+        order: 104
+  - Revolli, Carlo:
+      - title: There are places in the world where rules are less important than kindness
+        section: to_read
+        order: 12
+  - Saint-Exupery, Antoine de:
+      - title: Wind, Sand and Start
+        section: archives
+        order: 109
+  - Sandborn, Peter:
+      - title:
+          "System Sustainment: Acquisition And Enginerering Processes for the Sustainment of Critical
+          and Legacy Systems"
+        section: in_progress
+        order: 8
+        author: Peter Sandborn, William Lucyshyn
+  - Seethaler, Robert:
+      - title: A Whole Life
+        section: 2026_read
+        order: 34
+  - Silverstein, Shel:
+      - title: Where the Sidewalk Ends
+        section: permanent
+        order: 7
+      - title: A Light in the Attic
+        section: archives
+        order: 107
+  - Steadman, Ralph:
+      - title: The Joke's Over
+        section: archives
+        order: 108
+  - Swinton:
+      - title: Sculptures of the Eskimo
+        section: 2026_read
+        order: 36
+  - Taladega, Tanya:
+      - title: Seven Fallen Feathers
+        section: permanent
+        order: 2
+  - Thompson, Hunter S.:
+      - title: Screwjack
+        section: archives
+      - title: Fear and Loathing in Las Vegas
+        section: archives
+      - title: Fear and Loating in America
+        section: archives
+        order: 110
+      - title: Generation of Swine
+        section: archives
+        order: 111
+      - title: Kingdom of Fear
+        section: archives
+        order: 112
+      - title: The Curse of Lono
+        section: archives
+        order: 113
+      - title: The Great Shark Hunt
+        section: archives
+        order: 114
+      - title: The Proud Highway
+        section: archives
+        order: 115
+      - title: The Rum Diary
+        section: archives
+        order: 116
+      - title: "Fear and Loathing: On the Campaign Trail '72"
+        section: archives
+        order: 118
+  - Truss, Lynne:
+      - title: Eats, Shoots & Leaves
+        section: archives
+        order: 117
+  - Tolkien, J.R.R.:
+      - title: The Hobbit
+        section: archives
+      - title: The Lord of the Rings
+        section: archives
+      - title: The Silmarillion
+        section: archives
+  - Unknown:
+      - title: The Essential Deming
+        section: 2026_read
+        order: 21
+      - title: "Granta 174: Therapy"
+        section: 2026_read
+        order: 31
+  - Various:
+      - title: Chulthu
+        section: 2026_read
+        order: 35
+  - Warren Jr., Henry S.:
+      - title: Hacker's Delight
+        section: archives
+        order: 119
+  - Watterson, Ralph:
+      - title: The Complete Calvin and Hobbes
+        section: archives
+        order: 126
+  - Williams, Tad:
+      - title: Mountain of Black Glass
+        section: archives
+        order: 120
+      - title: River of Blue Fire
+        section: archives
+        order: 121
+      - title: Stone of Farewell
+        section: archives
+        order: 122
+      - title: The Dragonbone Chair
+        section: archives
+        order: 123
+      - title: The City of Golden Shadow
+        section: archives
+  - Wolfe, Gene:
+      - title: The Book of the New Sun
+        section: 2026_read
+        order: 22
+      - title: The Shadow of the Torturer
+        section: 2026_read
+        order: 23
+      - title: Shadow & Claw
+        section: 2026_read
+        order: 24
+      - title: The Claw of the Conciliator
+        section: 2026_read
+        order: 25
+      - title: Sword & Citadel
+        section: 2026_read
+        order: 26
+      - title: The Sword of the Lictor
+        section: 2026_read
+        order: 27
+      - title: The Citadewl of the Autarch
+        section: 2026_read
+        order: 28
+      - title: The Urth of the New Sun
+        section: 2026_read
+        order: 29
+      - title: The Book of the New Sun Vol. 1
+        section: 2025_read
+        order: 38
+        note: reread
+      - title: Shadow & Claw
+        section: archives
+        order: 124
+      - title: Sword & Citadel
+        section: archives
+        order: 125
+  - World, Gene:
+      - title: The Book of the New Sun Vol. 2
+        section: 2025_read
+        order: 37
+        note: reread

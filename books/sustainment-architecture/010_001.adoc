@@ -1,0 +1,15 @@
+= That Architects Craft
+
+Diagrams, models, standards, and decisions are outputs. The work itself happens in conversations, investigations, disagreements, design sessions, code incidents and the hundreds of small decisions through which an organisation changes. A useful architect spends much more time helping other people see a problem clearly than telling them what its solution ought to be.
+
+This part is about that work.
+
+It's about learning how to look at a system without pretending you can see all of it; how to communicate complicated ideas without removing their complexity; how to expose trade-offs that have been hidden beneath confident recommendations; and how to leave the people you work with better able to make the next decision without you.
+
+This book has quite rightly been hard on consultants, governance structures, transformations, vendors, and organisational incentives. At some point it alos needs to turn the lens and say:
+
+> Architects are capable of exactly the same sins.
+
+We can create diagrams nobody needs, invent standards to justify our presence, centralise decisions ebcause it makes architecture visible, impose abstractions teams didn't ask fo, confuse sophistication with value and leave behind governance that continues long after the problem that created it has disappeared.
+
+We need to practice the same humility and stewardship we demand of everyone else. 

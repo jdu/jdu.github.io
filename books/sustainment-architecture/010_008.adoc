@@ -1,0 +1,536 @@
+= Keep Your Hands in the Work
+
+Architecture creates distance from implementation. Some distance is necessary. An architect cannot spend every day buried in one repository and still maintain a useful view across systems, teams and organisational boundaries. The problem begins when that distance becomes permanent.
+
+It's surprisingly easy for an architect to remain conversant in technology while becoming progressively less technical. You still know which databases are fashionable, which cloud services exist, which vendors occupy which parts of the market and which architectural patterns are currently considered modern. You can compare Snowflake with Databricks, Kubernetes with ECS, Kafka with managed queues, or the latest generation of AI platforms. You can speak confidently about event-driven architecture, semantic layers, lakehouses and platform engineering.
+
+None of that necessarily means you understand how any of them work.
+
+There's a difference between being familiar with the technology landscape and possessing technical depth. Architecture needs both.
+
+== Knowing the Market isn't the Same as Knowing the Technology
+
+An architect should understand what can be bought.
+
+Commercial products, managed services and open-source projects all change what is sensible to build internally. Ignoring the market leads to needless reinvention. A modern architect should know broadly what capability exists, where mature products are available and where the market is still immature.
+
+But product knowledge is shallow knowledge by default.
+
+A vendor can tell you that a platform provides governance, lineage, streaming, semantic modelling or AI-assisted analytics. A product matrix can tell you which boxes contain ticks. Neither tells you how those capabilities behave under pressure, where their abstractions leak, how difficult they are to integrate or which assumptions they impose on the architecture around them.
+
+You learn those things by getting closer.
+
+* Install the database.
+* Run the query.
+* Build the pipeline.
+* Break the consumer.
+* Read the execution plan.
+* Look at the generated files.
+* Inspect the protocol.
+* Follow the authentication flow.
+* Try the migration.
+* Read the source code when something behaves strangely.
+
+Until you have done some of that work, much of what you know about the technology is still somebody else's description of it.
+
+== Practise
+
+Technical judgement is perishable.
+
+You don't maintain it by remembering what you knew ten years ago. Languages change. Database engines acquire new execution models. Infrastructure becomes programmable in different ways. Distributed systems that once required specialist teams become managed services. Things that were impractical five years ago become ordinary, while approaches that were once considered best practice become historical curiosities.
+
+An architect needs some form of continuing technical practice.
+
+That doesn't mean taking ownership of production services or spending half the week clearing engineering tickets. It means continuing to make things often enough that the resistance of the material remains familiar.
+
+* Write some code.
+* Build a small service.
+* Stand up a cluster.
+* Create an event stream.
+* Model a domain.
+* Write an infrastructure definition.
+* Push a few million rows through a new data engine.
+* Try the API everyone is proposing.
+* Build the smallest possible version of the architecture being discussed.
+
+There's a quality of understanding that only appears when you actually attempt something.
+
+A diagram might make a technology look interchangeable with another. Twenty minutes of implementation may expose a completely different programming model.
+
+A product may describe itself as open. Trying to extract its configuration may tell you what that claim really means.
+
+An API may appear simple until you discover pagination, throttling, historical updates and eventual consistency.
+
+Practice turns architectural vocabulary back into engineering knowledge.
+
+== Go Deep Sometimes
+
+Breadth is one of architecture's great advantages.
+
+You encounter databases, security, networks, application design, data modelling, integration, infrastructure, operating systems, cloud services, commercial products and organisational processes. Over time you develop enough familiarity to recognise patterns across all of them.
+
+Breadth without depth, however, becomes superficial very quickly.
+
+An architect should periodically go deep.
+
+Pick a technology relevant to the work and learn it substantially beyond the level required to describe it in a presentation. Understand its execution model. Learn how it stores data. Understand its consistency guarantees. Learn where state lives. Find out what happens during failure. Read its documentation beyond the getting-started guide. Understand what its operators complain about.
+
+You don't need that depth everywhere.
+
+You need enough experience of depth to recognise what genuine understanding feels like.
+
+That matters enormously when evaluating other people's claims. Once you have learned a few systems deeply, you become much less impressed by feature names. You know that "supports transactions", "scales horizontally", "event driven", "serverless" or "AI powered" each conceal an enormous number of consequential details.
+
+Depth gives you resistance to architecture by brochure.
+
+== Learn Mechanisms, Not Brands
+
+Technologies change faster than the ideas underneath them.
+
+Someone who learned "Oracle" may eventually become dated.
+
+Someone who learned transactions, query planning, indexing, concurrency control, replication and storage engines can move between Oracle, Postgres, SQL Server, DuckDB and whatever comes next.
+
+The same applies elsewhere.
+
+Learn message delivery, ordering, replay and backpressure rather than simply learning Kafka.
+
+Learn scheduling, isolation, service discovery and resource allocation rather than merely learning Kubernetes.
+
+Learn authentication, authorisation, delegation and trust boundaries rather than memorising one identity platform.
+
+Learn columnar storage, predicate pushdown, partitioning and vectorised execution rather than attaching your understanding to a particular lakehouse product.
+
+Learn graph traversal, identity and relationship semantics rather than associating graph architecture with a particular database vendor.
+
+Products are implementations of mechanisms.
+
+Architects who understand mechanisms can evaluate unfamiliar products quickly because they have something stable to compare them against.
+
+Architects who know only products are repeatedly reset when the market changes.
+
+== Build Enough to Understand the Abstraction
+
+Modern technology is composed almost entirely of abstractions.
+
+That is a good thing. Very few organisations should implement their own schedulers, storage engines, encryption libraries or distributed consensus algorithms.
+
+But abstraction creates a particular architectural danger: people begin making consequential decisions about mechanisms they have never encountered beneath the abstraction.
+
+You don't need to implement Raft to use a distributed database.
+
+It's useful to understand why a network partition creates difficult choices.
+
+You don't need to build a database engine.
+
+It's useful to understand why indexes accelerate one access pattern while making another more expensive.
+
+You don't need to write a container runtime.
+
+It's useful to understand what a process, namespace, filesystem and network boundary actually are.
+
+Every now and then, go one level lower than your normal work requires.
+
+That depth pays for itself later because abstractions stop appearing magical.
+
+And architecture should be deeply suspicious of magic.
+
+== Read Source Code
+
+Open source has given modern architects an extraordinary opportunity that previous generations rarely had.
+
+Much of the infrastructure on which organisations depend can simply be inspected.
+
+When documentation is ambiguous, look.
+
+When a system behaves unexpectedly, search the implementation.
+
+When evaluating an open-source project, examine how it is structured, how frequently it changes, how errors are handled, what dependencies it carries and how maintainers discuss difficult design decisions.
+
+You don't need to understand the entire codebase.
+
+Even small amounts of source reading improve your sense of what the software really is.
+
+A product described as a lightweight abstraction may turn out to contain an enormous machinery of adapters and edge cases.
+
+A supposedly complicated system may reveal a surprisingly simple internal model.
+
+Architecture is partly the ability to see through the marketing category into the engineering underneath.
+
+Source code is unusually honest in that regard.
+
+== Build with New Technologies Before Recommending Them
+
+Architectural enthusiasm should come after experimentation, not before it.
+
+When a new database, framework, AI tool or platform appears attractive, use it for something small.
+
+Not a proof-of-concept designed to prove that it works.
+
+Something deliberately intended to expose its shape.
+
+* Try a real data model.
+* Use awkward data.
+* Run an upgrade.
+* Change the schema.
+* Introduce failure.
+* Integrate it with something that doesn't naturally fit.
+* See what the operational experience looks like.
+
+A technology often reveals its philosophy through the things that feel easy and the things that feel awkward.
+
+That philosophy matters because adopting a technology means accepting some of its worldview.
+
+A good architect should know enough of that worldview before asking an organisation to live inside it.
+
+== Learn Technologies You Don't Expect to Use
+
+Staying current doesn't only mean becoming better at the existing estate.
+
+Periodically learn something outside it.
+
+If your organisation uses relational databases, spend some time with graph databases.
+
+If your systems are request-response heavy, build something with a log or event stream.
+
+If you mostly use Python, write something substantial in Rust or Go.
+
+If everything is cloud hosted, understand what modern local-first or embedded systems can do.
+
+If your organisation buys large analytics platforms, spend time with DuckDB, Polars, DataFusion or other lower-level components and see how much capability is available without the platform.
+
+This isn't technology tourism.
+
+It expands the set of architectures you can imagine.
+
+One of the dangers of working inside a mature organisation is that the existing estate quietly defines what appears possible. People solve problems using the tools already approved because those are the tools they know.
+
+Experimentation reminds you that the current architecture is only one point in a much larger design space.
+
+== Understand What You Are Buying
+
+Technical depth becomes particularly important when evaluating commercial products.
+
+A commercial platform may contain excellent engineering. It may also package ordinary technical capabilities behind proprietary interfaces and charge substantially for convenience, integration and support.
+
+Without technical understanding, it is difficult to distinguish between the two.
+
+If you understand how object storage, Parquet, distributed compute and query engines work, you can evaluate what a commercial data platform is genuinely adding.
+
+If you understand identity protocols, policy evaluation and directory services, you can distinguish commodity IAM capability from product-specific packaging.
+
+If you understand retrieval, embeddings, tool invocation and language models, you can evaluate whether an "enterprise AI platform" provides something technically distinctive or mainly assembles existing components.
+
+This doesn't imply that you should build the equivalent yourself.
+
+Convenience, operational support and integration are valuable.
+
+It means you can price those things consciously.
+
+A technically shallow organisation often pays enormous premiums because it cannot tell which parts of a product are difficult and which parts are merely unfamiliar.
+
+== Stay Capable of Building the Small Version
+
+There's a useful threshold for architectural competence:
+
+> Could you build the small version?
+
+Not the hyperscale version.
+
+Not the regulated enterprise product.
+
+Not the thing with twenty-four-hour support and five years of accumulated features.
+
+The small version that demonstrates the mechanism.
+
+* Could you build a basic event consumer?
+* Could you create a small REST service?
+* Could you model a handful of concepts in RDF?
+* Could you implement authentication between two services?
+* Could you write a pipeline that turns raw files into partitioned Parquet?
+* Could you deploy something to a container platform?
+* Could you build the crude version of the semantic lookup service you are recommending?
+
+If the answer is always no, the distance between architecture and engineering is becoming too large.
+
+You may still recommend buying the capability.
+
+In fact, after building the small version you may have considerably more respect for why buying it is sensible.
+
+The point isn't independence from technology suppliers.
+
+It's independence of judgement.
+
+== Learn Operations
+
+A great deal of architecture is conceived during implementation and disproved during operation.
+
+Architects should therefore understand what operating technology actually involves.
+
+* Deployments.
+* Backups.
+* Upgrades.
+* Monitoring.
+* Capacity.
+* Credentials.
+* Certificates.
+* Incidents.
+* Cost.
+* Support.
+* Data recovery.
+* Dependency updates.
+
+Operational knowledge changes how you evaluate designs.
+
+A system composed of twelve elegant services looks different after you have been responsible for twelve deployment pipelines, twelve sets of alerts, twelve dependency graphs and twelve failure modes.
+
+A managed product looks different after you have experienced a vendor incident for which your only operational control was opening a ticket.
+
+A database design looks different after performing a real migration against a dataset large enough that rolling back is no longer trivial.
+
+Operation makes permanence visible.
+
+Architects who never operate anything can accidentally design as though implementation is the expensive part and ownership is free.
+
+== Learn Performance by Measuring It
+
+Technical intuition is useful.
+
+It's also frequently wrong.
+
+Modern hardware and software are sufficiently complicated that performance should increasingly be learned by experiment.
+
+* Run benchmarks.
+* Read query plans.
+* Measure serialisation.
+* Look at network behaviour.
+* Watch memory consumption.
+* Compare file layouts.
+* Measure cold starts.
+* Test concurrency.
+* Use realistic volumes occasionally.
+
+This doesn't require becoming a performance engineer.
+
+It prevents architecture from being built around folklore.
+
+Claims such as:
+
+* relational databases cannot scale,
+* Python is too slow,
+* JSON is inefficient,
+* serverless will be cheaper,
+* graph databases are faster for relationships,
+* this needs Spark,
+* are not architectural facts.
+
+They are hypotheses about particular workloads.
+
+Technical practice teaches architects to recognise the difference.
+
+== Learn Enough Mathematics and Computer Science to See Through Fashion
+
+A surprising amount of supposedly new technology is an old idea appearing under a new product category.
+
+Distributed systems continue dealing with coordination, state, failure and partial knowledge.
+
+Databases continue dealing with storage, indexing, consistency and query execution.
+
+Data platforms continue dealing with representation, movement, transformation and computation.
+
+AI systems still consume compute, memory, data and probability.
+
+Architects benefit enormously from learning some of the foundations beneath these technologies.
+
+* Data structures.
+* Algorithms.
+* Probability.
+* Distributed systems.
+* Database theory.
+* Networking.
+* Operating systems.
+* Programming language concepts.
+* Security models.
+* Information theory where relevant.
+
+Not because architecture should become academic.
+
+Because fundamentals decay much more slowly than products do.
+
+The better you understand the foundations, the easier it becomes to recognise when a supposedly revolutionary technology is merely moving an old trade-off somewhere new.
+
+== Maintain More Than One Technical Home
+
+It's useful to have areas where your technical depth is particularly strong.
+
+It's dangerous to have only one.
+
+Someone whose entire career has centred on enterprise Java applications may naturally interpret architecture through application platforms.
+
+A career database specialist may see information modelling as the centre of every system.
+
+A cloud infrastructure specialist may treat deployment architecture as architecture itself.
+
+Broaden deliberately.
+
+An architect might maintain serious competence in two or three different areas: perhaps software development, data systems and infrastructure; or security, networking and distributed systems.
+
+The exact combination matters less than having enough different perspectives that none becomes your entire model of technology.
+
+Architecture is often about recognising the boundaries between disciplines.
+
+You have to know enough of both sides to see the boundary.
+
+== Don't Confuse Seniority with Distance
+
+There's a persistent career model in technology where progression means leaving implementation behind.
+
+* Engineer.
+* Senior engineer.
+* Lead.
+* Architect.
+* Manager.
+
+Eventually the person who once understood systems deeply spends their days producing documents about systems built by other people.
+
+That progression isn't inevitable.
+
+Seniority can mean increasing the range across which technical knowledge is applied rather than abandoning technical practice.
+
+* You may write less production code.
+* You may operate fewer services.
+* You may spend much more time on organisational questions.
+
+But some portion of your professional life should still involve direct technical learning and experimentation.
+
+Otherwise your expertise slowly becomes historical.
+
+You remain confident because you once knew deeply.
+
+Technology doesn't care.
+
+== Make Learning Part of the Job
+
+Staying technically current cannot depend entirely on evenings and weekends.
+
+An organisation that expects architects to understand modern technology should expect them to spend time learning it.
+
+That might mean regularly experimenting with emerging tools, attending engineering reviews, reading technical papers, building prototypes, pairing with teams or taking responsibility for small exploratory pieces of work.
+
+This should not be treated as time away from architecture.
+
+It's architecture.
+
+A profession that depends on judgement has to continually renew the experience from which that judgement is formed.
+
+A surgeon who stopped learning new surgical techniques twenty years ago would not be considered more strategic because they now only attended planning meetings.
+
+Technology should not accept a lower standard.
+
+== Know When Your Knowledge Is Old
+
+Experience is valuable.
+
+Experience also creates traps.
+
+Something genuinely may have been a terrible idea fifteen years ago and become perfectly reasonable today.
+
+* Hardware changed.
+* Networks changed.
+* Languages changed.
+* Compilers changed.
+* Cloud economics changed.
+* Open-source ecosystems matured.
+* Products absorbed enormous amounts of complexity.
+
+An architect has to periodically revisit conclusions formed earlier in their career.
+
+> "Never put business logic in the database."
+
+> "Never build distributed systems unless absolutely necessary."
+
+> "Open source isn't suitable for enterprise use."
+
+> "Build is more expensive than buy."
+
+> "Relational databases cannot handle this."
+
+> "Python can't be used for serious systems."
+
+These kinds of beliefs often contain experience, but experience has a timestamp.
+
+The architect should ask periodically whether the mechanisms that originally made the advice sensible still exist.
+
+Learning isn't merely acquiring new knowledge.
+
+It's retiring knowledge whose environment has disappeared.
+
+== Stay Curious About the Small Things
+
+Technical relevance is maintained as much through curiosity as discipline.
+
+* When an engineer mentions an unfamiliar database feature, look it up.
+* When a new file format appears, read its specification.
+* When a vendor claims a particular form of isolation or scalability, understand what they mean.
+* When a project adopts an unfamiliar language, write a small program in it.
+* When an incident involves something you don't understand, spend an hour understanding the mechanism afterwards.
+
+None of these activities is individually significant.
+
+Accumulated over years, they create an architect who continues to understand contemporary systems rather than merely contemporary terminology.
+
+== Technical Depth Protects Independence
+
+There's a wider organisational reason for all of this.
+
+An organisation whose architects understand only commercial offerings becomes dependent on the people selling those offerings to explain what technology can do.
+
+* The vendor defines the problem space.
+* The consultancy defines what good looks like.
+* The analyst report defines the shortlist.
+* The market defines what architecture appears possible.
+* Technical depth gives the organisation another source of judgement.
+
+An architect who understands the underlying mechanisms can look at a product and say:
+
+> That's genuinely difficult capability and we'd be foolish to reproduce it.
+
+Or:
+
+> That's mostly packaging around technology we already understand.
+
+Or:
+
+> The useful part is commodity, but the way this product models our organisation would create an unhealthy dependency.
+
+Or:
+
+> We don't need a platform at all. Three well-understood components solve this adequately.
+
+That independence is extremely valuable.
+
+It's one of the reasons organisations need technically capable architects rather than technology procurement specialists with architecture titles.
+
+== Keep Some Dirt Under Your Fingernails
+
+Architecture will always require abstraction.
+
+It will always require meetings, models, communication and organisational reasoning. The architect's job is broader than engineering, and becoming a good architect necessarily means spending less time implementing any one system than a specialist engineer does.
+
+But some contact must remain.
+
+* Keep writing things.
+* Keep running things.
+* Keep reading specifications and source code.
+* Keep learning unfamiliar technologies.
+* Keep going deeper than the product brochure.
+
+Keep enough technical practice that a new architecture still produces curiosity about how it actually works rather than satisfaction that the boxes fit neatly on the page.
+
+You don't need to know every technology.
+
+You do need to remain capable of knowing one.
+
+Because the moment architecture becomes primarily an understanding of what products are available, it has stopped being architecture and started becoming shopping.
+
+Technical depth is what keeps the difference visible.

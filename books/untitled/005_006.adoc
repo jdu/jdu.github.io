@@ -1,0 +1,9 @@
+= Walk the Change
+
+Then do it with a hypothetical requirement.
+
+“We now need to support X.”
+
+Where does that change travel?
+
+This gives readers an extraordinarily useful way of evaluating architectures.

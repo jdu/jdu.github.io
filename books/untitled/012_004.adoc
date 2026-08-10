@@ -1,0 +1,27 @@
+= Declarative Versus Imperative
+
+This fits beautifully here too.
+
+Instead of telling a machine how:
+
+create this
+then create that
+then connect them
+then configure this
+
+you sometimes describe what should exist:
+
+these are the things
+these are their relationships
+
+Then another system determines how to produce the result.
+
+SQL, HTML, CSS, Terraform, build systems, parser grammars and Kubernetes manifests all demonstrate variations of this idea.
+
+Not “declarative is better.”
+
+Rather:
+
+Moving the mechanism elsewhere can give you enormous leverage—but you've also surrendered some control and visibility.
+
+That's exactly the kind of trade-off your book wants to teach.

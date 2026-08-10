@@ -1,0 +1,5 @@
+= Read the History
+
+Git history, old decisions, abandoned approaches.
+
+The code tells you what. History often tells you why.

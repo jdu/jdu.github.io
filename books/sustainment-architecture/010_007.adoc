@@ -1,0 +1,696 @@
+= Make Other People Smarter
+
+Architecture is often practised as though the architect's value comes from knowing the answer.
+
+A team presents a problem, the architect evaluates it, and eventually returns with a recommendation. The architect's expertise becomes visible because they can see something other people could not. In the short term this can be useful. In the long term it creates exactly the wrong dependency.
+
+If every difficult decision requires the architect to be present, the organisation has not gained architectural capability. It has acquired another bottleneck.
+
+A better measure of architectural work is whether the people involved become better able to make the next decision without you.
+
+That does not mean withholding expertise, pretending not to know things or turning every meeting into a teaching exercise. It means using expertise in a way that improves the judgement of the people around you. Sometimes that means giving an answer. More often it means asking the question that reveals why the answer follows.
+
+== Do Not Rush to Demonstrate That You Know
+
+Experienced architects often recognise patterns quickly.
+
+Someone proposes a microservice and you can already see that the boundary is artificial.
+
+A team proposes Kafka and you suspect they only need a queue.
+
+A programme wants to buy an enterprise platform and you can already see where the vendor model will collide with the organisation.
+
+The temptation is to say so immediately.
+
+Sometimes you should.
+
+But doing so too quickly has a cost.
+
+You replace the other person's reasoning with your own.
+
+The engineer learns that the architect dislikes this design. They do not necessarily learn what made the design weak. The product manager learns that architecture rejected the product. They do not necessarily understand what property of the product created the concern.
+
+The next time the same pattern appears, they still need you.
+
+Instead of:
+
+> We don't need Kafka here.
+
+try:
+
+> What property of this problem requires us to retain and replay the event history?
+
+Instead of:
+
+> This should not be a microservice.
+
+try:
+
+> Which part of this needs to change independently from the rest?
+
+Instead of:
+
+> That abstraction isn't buying us anything.
+
+try:
+
+> Which future change are we expecting this abstraction to protect us from?
+
+The question contains much of the reasoning without giving away the conclusion.
+
+It also creates the possibility that the other person has an answer you had not considered.
+
+That matters.
+
+== Ask Questions That Contain a Model
+
+The best architectural questions are rarely generic.
+
+"What do you think?" can be useful, but it does not necessarily help someone reason differently.
+
+A stronger question introduces a useful distinction.
+
+> What becomes easier if we choose this, and what becomes harder?
+
+introduces trade-offs.
+
+> What would have to be true for this to remain a good decision?
+
+introduces assumptions.
+
+> What fails first?
+
+introduces failure boundaries.
+
+> What would make us choose differently?
+
+introduces falsifiability.
+
+> Which part of this is specific to our organisation?
+
+introduces the distinction between commodity and strategic capability.
+
+> Which decision must remain ours if we buy this?
+
+introduces dependency.
+
+The question is doing more than eliciting information.
+
+It is teaching a way of looking at the problem.
+
+Once people become accustomed to these questions, they begin asking them before the architect arrives.
+
+That is the outcome you want.
+
+== Let People Finish the Thought
+
+Sometimes the architect already knows where a conversation is going.
+
+Do not always finish it for people.
+
+Suppose someone says:
+
+> If we put all of this logic in Salesforce, we'd get the workflow functionality quickly, but every time the process changes we'd need to...
+
+Leave the silence.
+
+They may finish:
+
+> ...change the Salesforce configuration.
+
+Then ask:
+
+> Who currently has the ability to do that?
+
+Now they may discover the dependency themselves.
+
+This is a subtle skill.
+
+People tend to remember conclusions they reached much more strongly than conclusions delivered to them. More importantly, they also understand the reasoning that produced the conclusion.
+
+The architect's role is sometimes to create enough structure around a problem that the answer becomes difficult not to see.
+
+== Ask for the Other Option
+
+People become attached to designs partly because the design they are discussing becomes the whole problem space.
+
+Ask for another option.
+
+Not necessarily a better one.
+
+Just another.
+
+> What is the simplest version of this?
+
+> What would we do if we weren't allowed to buy anything?
+
+> What would we do if we had to buy rather than build?
+
+> What would this look like if there were only one team?
+
+> What would it look like if ten teams had to use it?
+
+> What would we do if this system disappeared tomorrow?
+
+Creating a second option forces comparison.
+
+Once there are two plausible approaches, assumptions begin becoming visible.
+
+The goal is not to create endless architecture alternatives. Two or three are usually enough to make the trade-offs concrete.
+
+An architect who repeatedly asks for alternatives also teaches people that the first workable solution is not automatically the architecture.
+
+== Ask People to Explain the Constraint
+
+When someone tells you that something "has to" be done a particular way, ask why.
+
+Not aggressively.
+
+Just follow the constraint.
+
+> Why does that need to be synchronous?
+
+> Why must that live in the CRM?
+
+> Why does one team need to own all of this?
+
+> Why does the customer identifier need to come from this system?
+
+> Why does the data need to be real-time?
+
+> Why must we use the same product across every department?
+
+Often the first answer merely moves the constraint:
+
+> Because Finance needs it immediately.
+
+What does immediately mean?
+
+> Before the morning report.
+
+Now "real-time" has become "available by 8am".
+
+That may result in a radically different architecture.
+
+The useful habit is to keep moving until the constraint reaches something real: a legal obligation, a user need, a physical limitation, an economic boundary or an explicit organisational choice.
+
+A surprising amount of architecture is built around constraints that nobody remembers choosing.
+
+== Ask Engineers to Teach You
+
+Making other people smarter does not imply that the architect occupies the teacher's role.
+
+Often the most useful thing you can do is ask someone to explain their area to you.
+
+> Show me why that is difficult.
+
+> Walk me through what happens when this fails.
+
+> Where does the data actually come from?
+
+> Why did you structure it this way?
+
+> What have we tried before?
+
+This does several things at once.
+
+It gives you access to detail that architecture documents rarely contain.
+
+It forces the person explaining the system to organise their own mental model.
+
+It shows respect for expertise.
+
+And it creates a conversation rather than an inspection.
+
+Sometimes the act of explaining exposes the problem without the architect saying anything.
+
+An engineer describing a deployment process may suddenly realise that three manual steps exist only because two teams do not trust the same automation.
+
+A domain specialist explaining a reporting discrepancy may recognise that two departments are using different definitions of the same word.
+
+The architect did not solve the problem.
+
+They created the conditions in which it became visible.
+
+== Do Not Pretend Not to Know
+
+There is an opposite failure mode.
+
+Socratic questioning can become irritating very quickly when everyone knows the architect already has an opinion.
+
+People can tell when they are being led through a sequence of questions whose answer has already been decided.
+
+That is not collaboration.
+
+It is a quiz.
+
+If you know something important, say it.
+
+> I think there is a problem with this boundary because these two components always change together. Before we decide that, though, can you show me why you separated them?
+
+That is much more respectful than pretending to discover the concern together.
+
+The principle is not "never give answers".
+
+It is:
+
+> Give enough of your reasoning that people can challenge it.
+
+Architecture should not operate through riddles.
+
+== Expose Your Own Reasoning
+
+When you make a recommendation, show the structure underneath it.
+
+Instead of:
+
+> I would keep this capability internal.
+
+say:
+
+> I would keep this internal because the rules change frequently, they encode organisation-specific judgement, and we do not have a clean way to specify that judgement contractually. If those conditions changed, buying it might make more sense.
+
+Now the other person has learned something reusable.
+
+They can apply the same criteria elsewhere.
+
+They can also challenge you:
+
+> The rules don't actually change very often.
+
+Good.
+
+Now the architectural disagreement has become about evidence rather than authority.
+
+The strongest architects are not those whose conclusions are hardest to challenge.
+
+They are those whose reasoning is easiest to inspect.
+
+== Turn Preferences Into Principles
+
+People naturally develop preferences.
+
+* Postgres.
+* Kafka.
+* Kubernetes.
+* AWS.
+* REST.
+* GraphQL.
+* Monoliths.
+* Microservices.
+* Open source.
+* Commercial products.
+
+These preferences usually have history behind them. Someone has had success with a technology or been badly burned by another.
+
+The architect can help turn those experiences into something more transferable.
+
+If an engineer says:
+
+> I hate ORMs.
+
+Ask:
+
+> What problems have they caused you?
+
+Perhaps the actual concern is hidden query behaviour and difficulty predicting performance.
+
+Now the lesson is not:
+
+> Don't use ORMs.
+
+It is:
+
+> We need database access behaviour to remain observable and predictable where query performance matters.
+
+That principle can survive the next tool.
+
+Likewise:
+
+> We should never buy enterprise software.
+
+may conceal:
+
+> We have repeatedly lost control when organisation-specific process logic became trapped inside proprietary platforms.
+
+That is a useful architectural concern.
+
+The preference was only its rough outer shell.
+
+== Teach People to Separate Facts, Assumptions and Choices
+
+Many architecture discussions become confused because different types of statement are mixed together.
+
+Consider:
+
+> We need to use the vendor's customer identifier because Salesforce is our CRM.
+
+There may be three different things hidden inside that sentence.
+
+A fact:
+
+> Salesforce currently assigns a customer identifier.
+
+An assumption:
+
+> Salesforce will remain our CRM for the foreseeable future.
+
+A choice:
+
+> Other systems should adopt that identifier as the organisation-wide identity.
+
+Those are not the same thing.
+
+Teach people to separate them.
+
+Ask:
+
+> Which part of that is a fact today?
+
+> Which part are we assuming will continue?
+
+> Which part are we choosing?
+
+This is an extraordinarily useful discipline because choices disguised as facts tend to become permanent.
+
+The same technique works with programme decisions:
+
+> We have to migrate everything this year.
+
+Why?
+
+Perhaps the supplier contract expires this year.
+
+That is a fact.
+
+Perhaps leadership believes extending it would be unacceptable.
+
+That is a choice.
+
+Perhaps the team assumes another extension cannot be negotiated.
+
+That is an assumption.
+
+Now the decision space is visible again.
+
+== Let People Be Right
+
+Sometimes an architect asks a question expecting one answer and gets a better one.
+
+Take the loss gracefully.
+
+An engineer may have considered the failure mode you thought they missed.
+
+A business specialist may explain why the apparently unnecessary exception is essential.
+
+A vendor may have a stronger portability story than you expected.
+
+Do not move the goalposts because your challenge was answered.
+
+Say:
+
+> Yes, that addresses the concern.
+
+This is one of the simplest ways to build trust.
+
+People become much more willing to expose unfinished thinking when they know architecture is genuinely evaluating the answer rather than searching for a reason to reject it.
+
+The objective is not for the architect to be right.
+
+The objective is for the design to become better understood.
+
+== Make It Safe to Say "I Don't Know"
+
+Architecture deals constantly with uncertainty.
+
+People should be able to say:
+
+> I don't know.
+
+> We haven't tested that.
+
+> I assumed that.
+
+> I hadn't thought about that case.
+
+Those are useful statements.
+
+They tell you where investigation is required.
+
+If architectural review punishes uncertainty, people learn to hide it.
+
+* Answers become more confident.
+* Diagrams become cleaner.
+* Risk registers become greener.
+* The organisation becomes less informed.
+
+Architects contribute to this more than they often realise. A review style built around catching mistakes teaches people to arrive with defensible answers rather than honest questions.
+
+A healthier response is:
+
+We don't know yet. Is that something we need to know before making this decision?
+
+Sometimes the answer is no.
+
+That is equally useful.
+
+== Praise Good Reasoning, Not Agreement
+
+When someone changes your mind, make that visible.
+
+> That's a better constraint than the one I was using.
+
+> I hadn't considered that dependency.
+
+> That changes my view.
+
+> Your explanation of the failure case makes this option much more reasonable.
+
+This does more than create a pleasant working environment.
+
+It teaches what architecture values.
+
+* Careful reasoning.
+* Evidence.
+* Explicit trade-offs.
+* Changing position when the evidence changes.
+
+If people receive approval only when they agree with the architect, they will learn to optimise for agreement.
+
+If they receive recognition for improving the reasoning, they will improve the reasoning.
+
+== Give the Pen Away
+
+Collaborative modelling is a particularly good place to practise this.
+
+If you have been drawing for ten minutes, hand the marker to someone else.
+
+Ask:
+
+> Can you show me where I've got this wrong?
+
+Or:
+
+> Draw the bit I'm missing.
+
+The drawing changes immediately.
+
+People add boundaries you did not know existed.
+
+They use different words.
+
+They place two things close together that you assumed were unrelated.
+
+They cross out something you thought was important.
+
+The act of drawing externalises their mental model.
+
+You now have something shared that everyone can challenge.
+
+This is far more powerful than presenting a completed architecture diagram and asking for comments.
+
+A finished diagram invites approval.
+
+An unfinished sketch invites participation.
+
+== Leave Behind Questions
+
+A useful architect gradually builds a vocabulary of questions within the teams they work with.
+
+After enough conversations you begin hearing people ask one another:
+
+> What are we optimising for?
+
+> Where did the complexity go?
+
+> What would make this choice wrong?
+
+> Is that a real constraint or one we've inherited?
+
+> Which part of this is specific to us?
+
+> What happens when it fails?
+
+> How do we leave?
+
+At that point architectural judgement has started spreading.
+
+This is much more scalable than central architecture.
+
+A small architecture function can influence a large organisation if good questions reproduce themselves.
+
+A large architecture function can still become a bottleneck if every question has to return to it for an answer.
+
+== Give People Tools, Not Just Answers
+
+Questions are one tool.
+
+Others include simple decision records, trade-off tables, modelling conventions, architectural fitness tests and small shared vocabularies.
+
+The aim is always the same: make good reasoning easier to reproduce.
+
+A team deciding whether to buy or build should not need the original architect present if it has a useful way to examine strategic specificity, market maturity, dependency, internal capability and exit.
+
+A team designing an integration should not need an architecture board to remind it to consider ownership, semantics, retries and failure.
+
+A team evaluating a new technology should know to ask what problem it solves, what complexity it introduces, how it fails and how difficult it will be to remove.
+
+Architecture becomes organisational capability when its methods survive the architect.
+
+== Do Not Create Learned Helplessness
+
+There is a subtle danger in highly centralised architecture.
+
+Teams gradually stop making architectural decisions.
+
+Why bother?
+
+* Architecture will review it.
+* Architecture will tell us which pattern to use.
+* Architecture owns the standards.
+* Architecture decides whether exceptions are allowed.
+
+Over time, the teams most familiar with the systems become less confident exercising judgement about them.
+
+The central architecture function then observes inconsistent decision-making and concludes that even more governance is required.
+
+The dependency reinforces itself.
+
+Good architects push decisions outward whenever the consequences are sufficiently local.
+
+They provide principles, evidence and support.
+
+They intervene where decisions cross important boundaries or create long-lived organisational consequences.
+
+The goal is not architectural consistency at all costs.
+
+It is widespread architectural competence.
+
+== Know When to Give the Answer
+
+There are moments when teaching through questions is inappropriate.
+
+An incident is unfolding.
+
+A security vulnerability needs immediate remediation.
+
+A regulatory requirement is explicit.
+
+A junior engineer is stuck on something well understood.
+
+A decision has already been investigated thoroughly and delay now costs more than further learning provides.
+
+Give the answer.
+
+Architecture should not become pedagogical theatre.
+
+The objective is not to force every person to independently rediscover decades of engineering knowledge.
+
+Expertise exists precisely so that we can borrow it.
+
+The distinction is between transferring knowledge and creating dependency.
+
+Sometimes the best thing you can say is:
+
+> We've seen this problem before. Use this pattern. I'll explain why afterwards.
+
+That is still making people smarter.
+
+== Teach the Reason, Preserve the Freedom
+
+Standards are another opportunity.
+
+A weak standard says:
+
+> Services must communicate using asynchronous messaging.
+
+A useful standard says:
+
+> Where work does not require an immediate response, prefer asynchronous communication because it reduces temporal coupling between independently operated services. Synchronous communication remains appropriate where the caller genuinely requires the result before it can continue.
+
+Now somebody can understand when the rule applies.
+
+More importantly, they can recognise when it does not.
+
+Rules without reasoning create compliance.
+
+Rules with reasoning create judgement.
+
+The second scales much better.
+
+== Work Yourself Out of the Conversation
+
+There is a useful test for architectural effectiveness.
+
+Return to a team you worked with six months ago.
+
+* Are they asking better questions?
+* Are their decision records clearer?
+* Do they expose trade-offs before review?
+* Are they identifying architectural concerns without being prompted?
+* Can they disagree with you using the same reasoning tools you helped establish?
+
+If so, architecture worked.
+
+If they still need you to repeat the same advice, perhaps the intervention solved the immediate design but did not improve the organisation.
+
+Architecture should leave residue.
+
+Not more committees or documents.
+
+* Judgement.
+* Vocabulary.
+* Questions.
+* Confidence.
+
+The ability to recognise a familiar problem in an unfamiliar form.
+
+== The Architect Is Not the Smartest Person in the Room
+
+They should not need to be.
+
+The domain specialist knows things about the organisation you will never know.
+
+The engineer working on the service understands details you will not hold in your head.
+
+The security specialist sees threats you will miss.
+
+The finance colleague understands consequences you did not realise existed.
+
+The architect's advantage is different.
+
+You spend a disproportionate amount of time looking across boundaries, comparing patterns, following consequences and asking how today's local decision becomes tomorrow's organisational constraint.
+
+Use that perspective to connect other people's intelligence rather than compete with it.
+
+A good architectural conversation should not end with everyone impressed by the architect.
+
+It should end with the room understanding the problem better than it did before.
+
+Eventually somebody else should ask the question you were about to ask.
+
+That is not a loss of relevance.
+
+That is the work succeeding.
+
+Question-led architecture, teaching without lecturing, and creating independent judgement.

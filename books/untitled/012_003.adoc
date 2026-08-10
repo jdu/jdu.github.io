@@ -1,0 +1,34 @@
+= Single Sources of Structure
+
+I think this could be a really strong chapter.
+
+Suppose you have:
+
+data model
+
+and from it derive:
+
+database schema
+API schema
+client types
+validation
+documentation
+serialization
+
+Now a change is made once and propagated mechanically.
+
+But you can immediately introduce the danger:
+
+        generator
+           ↓
+        generated
+           ↓
+       generated
+           ↓
+        generated
+
+Eventually nobody knows where the truth actually lives.
+
+So the real lesson becomes:
+
+Automation should make authority clearer, not obscure it.

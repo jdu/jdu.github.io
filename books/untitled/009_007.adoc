@@ -1,0 +1,3 @@
+= Removing Things
+
+Deletion as an engineering capability.

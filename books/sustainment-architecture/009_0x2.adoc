@@ -1,0 +1,147 @@
+= Getting Fit
+
+Most organisations treat architecture as something that is reviewed periodically. A design is produced, discussed, approved and eventually forgotten until the next major project begins.
+
+Fitness testing takes a different approach.
+
+Instead of describing architectural principles in documents and hoping people continue following them, those principles are turned into executable tests that run continuously. If an architectural property matters, it should be possible to verify that it still holds. When it no longer does, the architecture should report that fact in the same way a failing unit test reports a defect in software.
+
+This changes architecture from something that is occasionally reviewed into something that is continuously observed.
+
+== What should be tested?
+
+Not everything can be expressed as a fitness test, but many architectural characteristics can.
+
+Some tests relate to software.
+
+* Services may only communicate through approved interfaces.
+* No application may connect directly to a production database.
+* Every API must expose authentication and observability.
+
+Others relate to data.
+
+* Every Grant must have exactly one recipient.
+* Every Person must have a persistent identifier.
+* Every controlled vocabulary must contain only approved values.
+
+Others relate to the organisation itself.
+
+* Every business capability must have an owner.
+* Every strategic system must have an exit plan.
+* Every ontology concept must belong to a domain and have a steward.
+
+The important distinction is that these are no longer aspirations. They are conditions the organisation expects to remain true.
+
+== Fitness tests should reflect architectural principles
+
+A useful fitness test begins with an architectural principle rather than a technology.
+
+Suppose one of your principles is that strategic business concepts should never be defined by individual applications.
+
+That principle can become a test.
+
+* Every business concept must exist within the shared ontology.
+* Every application must map its local representation to that concept.
+* No application may introduce a conflicting definition.
+
+Likewise, if one of your principles is that commodity systems must remain replaceable, another test naturally follows.
+
+* Every strategic system must have an identified exit strategy.
+* Dependencies must be documented.
+* Replacement effort must be reviewed annually.
+
+The test exists because the principle matters, not because the technology makes it easy to measure.
+
+== Implementing fitness tests
+
+In a large organisation, fitness tests should exist at several different levels.
+
+Level	Example
+Source code	Dependency rules, API conventions, security requirements
+Infrastructure	Network policies, encryption, backup verification
+Data	SHACL validation, controlled vocabularies, lineage completeness
+Architecture	Capability ownership, ontology coverage, interface standards
+Organisation	Exit plans, stewardship, review cadence, operational measures
+
+Each level reinforces the others. A failed architectural fitness test should be treated no differently from a failed build. Both indicate that something the organisation depends upon is no longer true.
+
+== Start small
+
+One of the most common mistakes is attempting to automate every architectural rule.
+
+Begin with the handful of principles that would genuinely concern you if they stopped being true.
+
+For example:
+
+Principle	Fitness Test
+Systems must be replaceable	Every strategic system has an exit profile.
+Meaning is shared	Every application maps to the organisational ontology.
+Data remains trustworthy	Every published dataset has complete lineage.
+Waiting is visible	Queue and hand-off times are continuously measured.
+Ownership is explicit	Every capability has a named steward.
+
+Five reliable tests are usually worth more than hundreds of rules nobody reviews.
+
+== Make failure visible
+
+A fitness test only becomes useful when somebody notices it has failed.
+
+The results should therefore be visible alongside the organisation's existing operational measures. They should appear in build pipelines, dashboards and engineering reports, rather than hidden inside architecture repositories.
+
+Architectural drift is much easier to correct when it is discovered early. A missing owner, an undocumented dependency or an unmapped concept can often be resolved in minutes when identified immediately. Left unnoticed for several years, the same issue may require a substantial programme of work.
+
+Fitness tests shorten that feedback loop.
+
+== Review the tests themselves
+
+Fitness tests are built on assumptions about what the organisation values.
+
+As those values evolve, the tests should evolve as well.
+
+A fitness test that no longer reflects an important architectural principle should be retired. A newly adopted principle should quickly acquire a corresponding test. The architecture therefore develops alongside the organisation rather than becoming another source of outdated governance.
+
+Like every model described in this book, the tests exist to serve the organisation. They should be revised whenever they stop doing so.
+
+== Deliverable
+
+Identify five architectural principles that your organisation considers non-negotiable.
+
+For each one, define:
+
+Question	Example
+What principle are we protecting?	Every strategic capability remains replaceable.
+How can it be measured?	Exit profile exists and has been reviewed within the last year.
+Where is the evidence?	Architecture repository, CMDB, ontology, CI/CD pipeline.
+How often should it be checked?	Every build, daily, weekly or quarterly.
+Who responds when it fails?	System steward or architecture owner.
+
+If a principle cannot be measured, discuss whether it needs to be made more precise. If it can be measured but nobody acts when it fails, it is not yet functioning as governance.
+
+== Typical technologies
+
+The implementation of fitness tests will vary depending on what is being measured.
+
+|===
+h| Concern	| Typical tools
+|Software architecture	| ArchUnit, dependency-cruiser, cargo-deny
+| Infrastructure	| Terraform/OpenTofu, Kubernetes admission policies, OPA, Cedar
+| APIs	| OpenAPI validation, contract testing
+|Data quality	|Great Expectations, Soda, dbt tests
+|Ontologies	|SHACL, SPARQL queries
+|Event flows	|Process mining, OpenTelemetry, workflow metrics
+|Documentation	|ADR validation, docs-as-code checks
+|Platform health	|CI/CD pipelines, observability platforms
+
+These technologies are implementation choices. The important step is deciding what architectural property you wish to preserve. The tooling should follow from that decision, not the other way around.
+
+---
+
+I would add one final idea that I don't see discussed very often. In your approach, fitness tests shouldn't only ask "Is the software still healthy?" They should also ask "Is the organisation's understanding still healthy?" That leads to a richer set of tests, such as:
+
+* Are new business concepts being introduced outside the shared ontology?
+* Are controlled vocabularies diverging between systems?
+* Are there strategic systems without an exit plan?
+* Are waiting times increasing across key flows?
+* Are assumptions that justified major architectural decisions still valid?
+
+Those are architectural fitness tests in the fullest sense: they continuously verify not just the implementation, but the organisation's ability to preserve meaning, adapt to change and steward its own understanding over time.

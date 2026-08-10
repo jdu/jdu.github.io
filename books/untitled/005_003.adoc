@@ -1,0 +1,9 @@
+= Draw the System
+
+Teach an actual graphical vocabulary.
+
+Not UML certification.
+
+Something someone can draw on paper while talking to another engineer.
+
+Boxes, containment, arrows, boundaries, stores, flows, ownership, uncertainty.

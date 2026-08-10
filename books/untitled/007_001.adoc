@@ -1,0 +1,5 @@
+= Where Do I Start?
+
+You've inherited 400,000 lines of code.
+
+Now what?

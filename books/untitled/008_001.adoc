@@ -1,0 +1,3 @@
+= Communicating Designs
+
+Sketches, written proposals, examples, prototypes.

@@ -1,0 +1,490 @@
+= Communicate for the Decision
+
+Architecture requires talking about the same problem in many different ways.
+
+An engineer may need to understand how a failure occurs. A product manager needs to understand what behaviour it prevents. Someone responsible for a service needs to know what operational burden it creates. A finance colleague may need to understand how the choice changes future cost. A senior leader may need to know whether it constrains an important organisational capability.
+
+None of these people needs a simplified version of the truth.
+
+They need the part of the truth that allows them to make a decision.
+
+That distinction is important. Good architectural communication is not about translating technical language into increasingly vague business language. It is about preserving the causal relationship while changing which parts of it receive attention.
+
+The same skill applies in an organisation of ten people or ten thousand. Responsibility may be distributed across departments in one and across individuals in another. The architect still has to understand what somebody knows, what they are responsible for, and what decision the conversation is trying to support.
+
+== Start With the Decision
+
+Before explaining an architecture, ask what the other person needs to decide.
+
+That sounds obvious, but architecture discussions often begin with what the architect wants to explain.
+
+A team has investigated an identity problem for three weeks, so the presentation begins with identity models. An engineer has discovered an interesting failure mode, so the meeting begins with queues and retries. A platform team has spent months developing a capability, so the discussion begins with the platform.
+
+The audience may need none of those things yet.
+
+Suppose five systems maintain separate identifiers for the same organisations.
+
+An engineer considering an integration needs to know:
+
+> Which identifier should I persist, and how do I resolve the others?
+
+Someone responsible for reporting needs to know:
+
+> Can two reports disagree because they identify organisations differently?
+
+A programme considering another CRM needs to know:
+
+> Will adopting this product create another independent representation of organisation identity?
+
+Someone deciding where to invest may need to know:
+
+> Are we repeatedly paying teams to solve the same organisational problem?
+
+The underlying condition has not changed.
+
+The decision has.
+
+Architecture communication should begin there.
+
+== Preserve the Mechanism
+
+There is a dangerous form of simplification in which the explanation gets shorter by removing the thing that actually causes the problem.
+
+Consider:
+
+> We have a data quality problem.
+
+That could mean almost anything.
+
+Compare it with:
+
+> Five systems independently identify the organisations we work with. Teams therefore reconstruct the relationships between those identities whenever data is combined, and different mappings can produce different answers.
+
+That explanation is still accessible to someone who has never designed a database.
+
+More importantly, it preserves causality.
+
+They can ask sensible questions:
+
+* Why do five systems maintain identities?
+* Could we establish one shared identity?
+* Which systems would have to change?
+* What happens when two records cannot be reconciled?
+
+The architect has given them something they can reason about.
+
+A useful explanation often has the form:
+
+> Because this is true, this keeps happening, and therefore this becomes difficult.
+
+For example:
+
+> Because several systems contain their own definition of committed spend, teams repeatedly reconcile those definitions when producing organisation-wide reports. That means reporting remains expensive and different parts of the organisation can legitimately produce different answers to the same question.
+
+You can remove implementation detail without removing the mechanism.
+
+That is the difference between clarity and oversimplification.
+
+== Talk About Consequences
+
+Technology itself is rarely the useful starting point outside a technical design conversation.
+
+Someone considering Kafka does not necessarily need to understand distributed logs before they can participate in the decision.
+
+They may need to understand the trade:
+
+> Several consumers need to process the same events independently, and some need to replay events that happened previously. We can introduce infrastructure designed for that purpose, but doing so gives us another distributed system that we must operate and understand permanently.
+
+Now there is a decision.
+
+* Do we actually need replay?
+* How many consumers are expected?
+* Is the operational burden proportionate?
+* Could something simpler satisfy the requirement?
+
+The technology remains available for deeper discussion when it becomes relevant.
+
+This approach is particularly useful with domain specialists and non-technical colleagues because it does not require them to pretend to have opinions about implementation choices. They can contribute knowledge about consequences, which is usually what the architecture needs from them anyway.
+
+Instead of:
+
+> Should this be eventually consistent?
+
+ask:
+
+> If somebody changes this information here, how long could another part of the organisation safely continue seeing the old value?
+
+Instead of:
+
+> Do we need high availability?
+
+ask:
+
+> What actually happens if this system is unavailable for an hour?
+
+Instead of:
+
+> Should we use event sourcing?
+
+ask:
+
+> Do we need to know what we believed at a particular point in the past, or only what we believe now?
+
+The architectural property emerges from the answer.
+
+== Different People See Different Parts of the Problem
+
+People understand systems through their relationship with them.
+
+* Engineers tend to see mechanisms and failure modes.
+* Domain specialists see distinctions, exceptions and judgement.
+* People operating services see recurring work and fragility.
+* Product staff see outcomes, users and priorities.
+* Finance sees commitments and costs.
+* Security sees exposure and control.
+* Leadership sees organisational capability, dependency and choices that may be difficult to reverse.
+
+These are not increasingly abstract versions of reality.
+
+They are different projections of it.
+
+Architecture becomes useful when those projections can be connected.
+
+* An engineer may know that a change requires coordinated releases across four services.
+* A delivery manager knows that apparently small changes routinely take six weeks.
+* A leader knows that the organisation cannot respond quickly when policy changes.
+
+Those may all be observations of the same architectural condition.
+
+The architect can connect them:
+
+> A policy change currently requires coordinated modification of four separate implementations of the same rule. The coordination is why relatively small changes take several weeks. Until that rule is represented once and consumed consistently, changing policy will continue to require coordinated delivery across several teams.
+
+Everyone can now see their part of the problem in the same explanation.
+
+== Do Not Assume Technical and Non-Technical Audiences
+
+The division between technical and non-technical people is often unhelpful.
+
+* A finance specialist may understand the behaviour of an ERP better than most engineers.
+* A grants officer may understand a data model immediately because they understand the distinctions the model is attempting to represent.
+* A senior executive may have spent twenty years building software.
+* An engineer may know almost nothing about the business process their service implements.
+
+Adjusting communication according to job title is therefore unreliable.
+
+Find out what the person already understands.
+
+* Ask questions.
+* Draw something.
+* Use their terminology.
+
+Allow them to tell you when you have gone too far into detail or removed too much.
+
+The goal is not to pitch the explanation at an imagined level of technical literacy.
+
+It is to establish enough shared understanding to make progress.
+
+== Use Their Language Without Losing Yours
+
+Every part of an organisation develops language around its work.
+
+Use it.
+
+If someone talks about grants, applicants and funding decisions, begin there rather than translating everything immediately into entities, state transitions and relationships.
+
+If an engineer is already reasoning in terms of transactions and idempotency, there is no value in replacing those precise terms with vague organisational language.
+
+Architecture needs both vocabularies.
+
+The skill is connecting them.
+
+> A Grant has one authoritative funding decision.
+
+might become:
+
+> That means the API cannot simply accept whichever decision arrives last, because an update has to preserve the authority and history of the decision.
+
+The domain statement creates the technical constraint.
+
+Or:
+
+> This workflow cannot represent two concurrent approval routes.
+
+may become:
+
+> Some applications legitimately undergo two independent review processes, so the current implementation is collapsing two different organisational relationships into a single status.
+
+The technical limitation exposes a problem in the organisational model.
+
+Communication is strongest when people can see the connection between the language they already use and the architectural consequence it creates.
+
+== Be Precise About Uncertainty
+
+Different audiences do not justify different levels of certainty.
+
+If something is unknown, say so.
+
+This becomes particularly important when architectural information passes through several people. Uncertainty tends to disappear as information is summarised.
+
+An engineer says:
+
+> We haven't tested this above ten million records, but based on the current access pattern we don't expect a problem.
+
+By the time the statement reaches a programme report it becomes:
+
+> The solution scales.
+
+Those are not equivalent statements.
+
+The architect should preserve qualifiers that matter:
+
+> We do not currently have evidence that scale will be a constraint, but this has not yet been tested at the expected five-year volume.
+
+Likewise:
+
+> The supplier says this is supported.
+
+is different from:
+
+> We have demonstrated that it works with our workflow.
+
+And:
+
+> We believe this will reduce reconciliation.
+
+is different from:
+
+> Reconciliation will be eliminated.
+
+Precision is not excessive caution.
+
+It prevents organisational confidence from gradually exceeding the evidence underneath it.
+
+== Explain the Trade, Not Just the Recommendation
+
+Architectural recommendations become more credible when people can see what they are being asked to accept.
+
+Instead of:
+
+> We should centralise this capability.
+
+say:
+
+> Centralising it means we can define this concept once and stop rebuilding it in each system. In exchange, teams that need the concept will become dependent on the shared service, so its availability and responsiveness become more important.
+
+Instead of:
+
+> We should buy this product.
+
+say:
+
+> Buying gives us mature commodity functionality quickly, but means accepting the vendor's workflow model and making future change partly dependent on them.
+
+Instead of:
+
+> We should build this ourselves.
+
+say:
+
+> This capability changes frequently with our own policy and contains organisation-specific judgement. Owning it gives us control over that change, but means accepting permanent responsibility for operating and maintaining it.
+
+People can disagree with these decisions.
+
+That is healthy.
+
+The job of the architect is to make sure they are disagreeing about the real exchange rather than slogans such as build versus buy, centralised versus federated, or modern versus legacy.
+
+== Use Examples Before Abstractions
+
+Architecture tends naturally towards abstraction.
+
+Sometimes the quickest route to shared understanding is the opposite.
+
+Start with one real case.
+
+> Yesterday, Finance and Grants produced different figures for the same funding scheme.
+
+Then trace it.
+
+* Why were they different?
+* Where did each number originate?
+* Which definition did each use?
+* Who believed their definition was authoritative?
+* Where did the divergence enter the systems?
+
+Once the concrete case is understood, the broader architectural pattern often becomes obvious:
+
+> We don't have a shared operational definition of committed spend.
+
+The abstraction now has evidence underneath it.
+
+This is much easier to discuss than beginning with a conceptual statement about semantic consistency.
+
+Examples also provide a check against architecture becoming detached from actual work. If a proposed principle cannot explain a real case, it may not yet be useful.
+
+== Know What Detail to Leave Out
+
+Good communication requires omission.
+
+A diagram containing every component is usually less useful than one containing the five components relevant to the decision.
+
+An explanation of an integration problem probably does not need to begin with Kubernetes.
+
+A conversation about organisational identity probably does not need to explain the RDF representation used to encode it.
+
+Leaving something out is not dishonest when it does not affect the reasoning.
+
+The useful test is:
+
+> If the omitted detail were different, could it change the decision?
+
+If not, leave it out.
+
+If yes, preserve it.
+
+That creates a much more defensible approach to abstraction than trying to guess what somebody is capable of understanding.
+
+== Give People a Way Back Into the Detail
+
+Concise communication should not create a dead end.
+
+Someone hearing:
+
+> We currently depend on this supplier for a capability we cannot reproduce ourselves.
+
+may reasonably ask:
+
+> What specifically would prevent us from replacing them?
+
+The architect should be able to travel back into the evidence.
+
+Perhaps the answer is:
+
+* the workflows exist only in proprietary configuration;
+* there is no complete export;
+* seven systems consume proprietary identifiers;
+* and no permanent employee currently understands the implementation well enough to reconstruct it.
+
+This is why technical depth and communication ability reinforce one another.
+
+You can be concise with confidence when you know the detail is still available underneath the concise statement.
+
+Without that foundation, concise architectural communication becomes assertion.
+
+== Don't Use Abstraction to Gain Authority
+
+There is a particular kind of architectural language that sounds important because nobody can easily disagree with it.
+
+* Strategic alignment.
+* Enterprise agility.
+* AI enablement.
+* Data-driven transformation.
+* Future-ready architecture.
+
+These phrases may describe genuine objectives.
+
+On their own they describe almost nothing.
+
+Architecture should become more concrete when challenged, not retreat into increasingly impressive abstraction.
+
+Ask:
+
+> What would we actually observe being different?
+
+"We would become more agile."
+
+How?
+
+"Teams would be able to change processes more quickly."
+
+What currently stops them?
+
+"Changes require modifications by an external supplier."
+
+Now there is something architectural to work with.
+
+An architect should be suspicious of any statement that cannot eventually be connected to a decision, behaviour, system, constraint or piece of evidence.
+
+== Check That the Message Survives
+
+A useful exercise is to express the same architectural condition in several ways and check that none contradict the others.
+
+For example:
+
+|===
+h|Concern	h|Explanation
+|Implementation	|Three systems calculate committed spend independently using different rules.
+|Delivery	|Changes to the definition require coordinated updates across several implementations.
+|Reporting	|Different reports can produce different values for committed spend.
+|Organisation	|Wellcome does not currently have one operational definition of an important financial concept.
+|Decision	|Until that definition is stabilised, organisation-wide reporting will continue requiring reconciliation.
+|===
+
+These are not levels of intelligence or hierarchy.
+
+They are views of the same condition for different purposes.
+
+If one explanation cannot be reconciled with another, investigate.
+
+Something has probably been lost in translation.
+
+== Ask What Matters to Them
+
+One of the easiest ways to communicate well is simply to ask.
+
+> What decision are you trying to make?
+
+> What are you worried about?
+
+> Which part of this matters to you?
+
+> How much detail would be useful?
+
+> What would you need to know to be comfortable with this?
+
+This prevents the architect from guessing what another role ought to care about.
+
+Sometimes a COO wants to understand the database problem in detail.
+
+Sometimes an engineer only needs to know that the organisation has accepted a constraint and can move on.
+
+Sometimes the most technically sophisticated person in the room needs the simplest explanation because the decision they are making has nothing to do with the implementation.
+
+Meet the conversation where it actually is.
+
+== Leave Shared Understanding Behind
+
+The measure of good architectural communication is not whether the architect explained something elegantly.
+
+It is whether the people involved can reason about the problem afterwards.
+
+A useful conversation leaves people able to say:
+
+> This is the condition we're dealing with.
+
+> This is why it happens.
+
+> These are the consequences.
+
+> These are the choices available to us.
+
+> This is what each choice costs.
+
+> This is what we still don't know.
+
+The architect should not need to remain in every subsequent conversation to translate the architecture again.
+
+That would make architecture another dependency.
+
+Communication is part of stewardship because organisations cannot preserve decisions they never genuinely understood. The architect's responsibility is therefore not to find the correct level of abstraction, or to learn a special language for executives and another for engineers.
+
+It is much simpler than that.
+
+Understand what the other person is trying to decide.
+
+Preserve the parts of reality that matter to that decision.
+
+And explain them in terms that allow the other person to think for themselves.
+
+Moving from engineer to executive without losing the substance.

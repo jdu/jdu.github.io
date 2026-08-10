@@ -1,0 +1,30 @@
+= Small Languages
+
+This could be another wonderful chapter.
+
+Engineers eventually discover that sometimes the best abstraction is not another class hierarchy.
+
+It's a tiny language.
+
+Regular expressions are one.
+
+SQL is one.
+
+Format strings are one.
+
+Routing definitions can become one.
+
+Configuration can accidentally become one.
+
+And eventually:
+
+rule when customer.age > 65
+    apply senior_discount
+
+You have created a language whether you intended to or not.
+
+Then teach people to recognise the threshold:
+
+When configuration gains conditions, variables, references and composition, you are probably designing a programming language.
+
+That's experienced-engineer knowledge.

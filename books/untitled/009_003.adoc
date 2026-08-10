@@ -1,0 +1,9 @@
+= Repairability
+
+Can you get inside it?
+
+Can you interrogate it?
+
+Can you replace parts?
+
+Can you operate it imperfectly?

@@ -1,5 +1,140 @@
 = Design the exit
 
+Here's a super obvious in hindsight, but often overlooked aspect of enterprise architecture. We spend enormous effort and time planning how a system will be introduced, and almost no time at all thinking about how we eventually remove it.
+
+We build out loads of artefacts, and content around implementation plans, key dates, migration plans, and support plans (and sometimes not). All these things have governance, risk registers and acceptance criteria. An enormous amount of effort goes into hedging our bets and ensuring that the system is introduced successfully into the organisation. At no point in that process do we ever as the question:
+
+> How do we remove it?
+
+That, in my opinion, is a huge oversight because every system is going to eventually leave the organisation. It may be replaced, absorbed into another capability, retired because the business has changed, or simply become obsolete. We never really know the timing exactly, but we know the outcome, experience has taught us, bit us extremely hard on that front.
+
+If an architecture has no credible, or even considered exist strategy for some component or application, then the organisation isn't in control of that capability. It's at the mercy of the system itself, and the people who maintain it. That's not a good place to be, but it doesn't seem to show up in risk registers.
+
+== Recognizing the problem
+
+A simple exercise reveals whether an organisation has designed an exit.
+
+Choose one of your major systems and ask a small group of engineers, architects and operational staff how it would be removed.
+
+If the discussion quickly becomes a conversation about risk, disruption, years of work and countless unknown dependencies, the organisation has not designed an exit.
+
+More often than not, nobody can answer the question with confidence because the answer has never been considered. The system was designed to be introduced, not to be replaced.
+
+That is surprisingly common.
+
+== Every system is temporary
+
+One of the themes running throughout this book is that organisations outlive their technology.
+
+The systems you use today are temporary observations of a much longer-lived organisation. They exist to support the organisation, not define it.
+
+That means every major system should be viewed as replaceable from the day it enters production.
+
+This is not an argument that systems should be easy to throw away or that organisations should constantly chase new technology. Quite the opposite. Stable systems are often desirable.
+
+The point is that stability should come from continuing usefulness, not from the absence of any practical escape.
+
+== What does the organisation need to keep?
+
+An exit strategy begins by separating the organisation from the implementation.
+
+If the system disappeared tomorrow, what would the organisation actually need to preserve?
+
+Usually it is not everything.
+
+Some data has enduring value because it represents the organisation's memory. Other information exists only to support the operation of that particular product. Some integrations describe business capabilities. Others exist only because of the software's internal design.
+
+These distinctions are rarely documented because they are unnecessary while the system remains in service.
+
+They become essential the moment the organisation wants to leave.
+
+Without them, every migration becomes an attempt to carry everything forward, simply because nobody knows what can safely be left behind.
+
+== Make dependencies visible
+
+Systems rarely become difficult to replace because of their size.
+
+They become difficult to replace because nobody knows who depends upon them.
+
+Dependencies accumulate quietly over time. A report begins reading directly from a database. An operational process starts relying on a particular export. Another application discovers an API that happens to solve its immediate problem. None of these decisions is unreasonable, but together they create a web of relationships that often remains invisible until someone proposes removing the system.
+
+By then the organisation discovers that it is not replacing one application.
+
+It is changing dozens of pieces of work that quietly grew around it.
+
+The exit becomes expensive because the dependencies were never made visible while they were being created.
+
+== Treat exit as a design constraint
+
+Exit strategies are often written long after a system has entered production, if they are written at all.
+
+By then most of the important architectural decisions have already been made.
+
+A better approach is to treat the exit as a design constraint from the beginning.
+
+Before a major system is approved, ask questions such as:
+
+What information belongs to the organisation rather than the product?
+What interfaces would another system need to replace?
+Which business capabilities would be disrupted if this system disappeared?
+How would we migrate away if a better option became available in five years?
+
+These questions rarely prevent a design.
+
+They simply prevent the organisation accidentally becoming trapped by it.
+
+== Make it part of delivery
+
+An exit strategy should not be an aspirational document produced when budgets allow.
+
+It should be part of the definition of done.
+
+Every major system should leave behind a short document answering three practical questions.
+
+What would we keep?
+
+Identify the information and capabilities that belong to the organisation rather than the product.
+
+What would break?
+
+Identify the systems, processes and teams that currently depend upon it.
+
+How would we leave?
+
+Describe, at a high level, the sequence of work required to replace the capability.
+
+None of these documents needs to be exhaustive.
+
+They need only be accurate enough that the organisation can make informed decisions when change eventually arrives.
+
+== Deliverable
+
+For every strategic system in the organisation, produce a one or two page exit profile.
+
+Question	Description
+What organisational capabilities does this system support?	Describe capabilities, not product features.
+What information must survive replacement?	Focus on organisational knowledge and records.
+What depends upon this system today?	Include systems, reports, integrations and operational processes.
+What would replace those dependencies?	Identify the likely migration path.
+How long would a replacement realistically take?	Use broad estimates, not detailed project plans.
+What assumptions would make replacement easier?	Record improvements while they are still inexpensive to make.
+
+Review the document alongside the system architecture. Update it as the system evolves.
+
+== If you can't leave, you don't own it
+
+A system without an exit path gradually stops being a tool and starts becoming a constraint.
+
+The organisation no longer chooses to keep it because it remains the best option. It keeps it because replacing it has become too uncertain, too expensive or too risky to contemplate.
+
+That is not stability.
+
+It is dependency.
+
+One of architecture's responsibilities is ensuring that every important capability remains something the organisation controls rather than something it merely accommodates.
+
+Designing the exit is how that responsibility becomes visible.
+
 
 * Signal: nobody can describe how you'd remove a system without describing a crisis
 * Principle: if you can't describe how to replace something, you haven't finished designing it

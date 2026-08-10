@@ -1,0 +1,9 @@
+= Walk the Failure
+
+Do exactly the same thing with failure.
+
+What happens if this doesn't answer?
+
+What happens if this returns twice?
+
+What happens if we lose power here?

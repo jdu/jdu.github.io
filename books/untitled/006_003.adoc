@@ -1,0 +1,5 @@
+= Build to Learn
+
+Prototypes, spikes, experiments and disposable code.
+
+And crucially: recognising the difference between learning work and production work.

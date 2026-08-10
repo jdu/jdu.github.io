@@ -1,5 +1,108 @@
 = Identity
 
+An organisation is often described in terms of what it possesses.
+
+It has systems, applications, buildings, employees, suppliers, budgets, data and processes. Annual reports, inventories and enterprise architecture repositories are filled with lists of these things because they are tangible and comparatively easy to measure.
+
+Ask a different question, however, and the answer becomes much less certain.
+
+*What is this organisation?*
+
+That question cannot be answered by pointing at a CRM, an ERP, a department or a balance sheet. Those things are expressions of the organisation, but they are not the organisation itself. Replace every application, reorganise every department and recruit an entirely new workforce over the course of twenty years, and the organisation may still be recognisably the same institution. Something more enduring has survived all of those changes.
+
+That enduring quality is what I mean by identity.
+
+== Identity outlives implementation
+
+Most organisations underestimate how much they change.
+
+Teams merge and divide. Responsibilities move between departments. Systems are retired and replaced. Reporting lines shift. Entire operating models are redesigned. Sometimes the organisation itself changes direction, pursuing work that would have been unimaginable a decade earlier.
+
+Yet despite all of this, people continue talking about the organisation as though it were a continuous thing.
+
+A university remains the same university despite generations of students, academics and administrators passing through it. A charity remains recognisable despite changing funding models, technologies and leadership. Even organisations that merge, divide or radically reinvent themselves often preserve something that people recognise as their identity.
+
+That continuity does not arise from any individual system.
+
+It arises because the organisation preserves enough shared understanding that today's institution can still be understood as the successor to yesterday's.
+
+Architecture should concern itself with protecting that continuity.
+
+== Identity is more than purpose
+
+Purpose is often described as the answer to why an organisation exists.
+
+Identity is broader.
+
+It includes purpose, but also the concepts the organisation recognises, the relationships it maintains, the responsibilities it accepts, the promises it makes and the language through which it understands its own work.
+
+If purpose explains why an organisation exists, identity explains why it remains recognisably itself.
+
+This distinction matters because organisations frequently change what they do without changing who they are. A research institute may begin funding entirely new scientific disciplines while remaining committed to advancing knowledge. A humanitarian organisation may respond to different crises over time while remaining recognisably the same institution. Their work evolves, but their identity provides continuity across that evolution.
+
+== Identity gives change somewhere to return to
+
+Architecture is often described as managing change.
+
+A more useful way to think about it is that architecture manages continuity through change.
+
+Every significant transformation alters something about the organisation. New systems introduce different ways of working. Teams acquire new responsibilities. Old concepts disappear while new ones emerge. Without some stable understanding of what the organisation is trying to remain, change becomes little more than a sequence of disconnected migrations.
+
+Identity provides the reference point against which those changes can be understood.
+
+It allows the organisation to ask not simply "What has changed?", but "What has remained the same?" and "What must remain the same if we are still to be the organisation we believe ourselves to be?"
+
+Those are architectural questions every bit as much as technical ones.
+
+== Identity must be deliberately preserved
+
+Identity is often assumed to emerge naturally.
+
+Sometimes it does, particularly in smaller organisations where people share history and context directly.
+
+As organisations grow, however, identity becomes increasingly distributed. No single individual carries the whole picture. Understanding becomes spread across documents, systems, traditions, conversations and institutional memory.
+
+Without deliberate stewardship, that shared understanding begins to fragment.
+
+Different parts of the organisation develop different interpretations of the same concepts. New systems quietly redefine established language. Responsibilities move while the reasons behind them are forgotten. Eventually the organisation still possesses its history, but no longer possesses a coherent understanding of itself.
+
+Identity has not disappeared.
+
+It has become difficult to recognise.
+
+The work of architecture is not to invent an identity for the organisation. It is to preserve and clarify the one that already exists, allowing it to evolve without becoming disconnected from its own past.
+
+== Identity is observable
+
+Identity is sometimes spoken about as though it were abstract or intangible.
+
+In practice, it leaves evidence everywhere.
+
+It appears in the concepts an organisation chooses to name. In the relationships it considers important enough to record. In the decisions it makes repeatedly across decades. In the promises it refuses to compromise, even when circumstances change.
+
+These are not merely cultural artefacts.
+
+They are architectural ones.
+
+An ontology records aspects of identity through shared concepts. Architectural decision records preserve why important choices were made. Provenance records explain how understanding evolved. Version history captures how concepts changed without losing their continuity. None of these is the organisation's identity, but together they provide evidence of how that identity has persisted through time.
+
+== Identity as an architectureal concern
+
+Architecture has traditionally been concerned with systems.
+
+This book argues that systems are only one expression of something more enduring.
+
+Every architectural decision should therefore be evaluated against a simple question:
+
+*Does this help the organisation remain recognisably itself as it changes?*
+
+Sometimes the answer will be found in a data model. Sometimes in an ontology, a capability map or an interface. Sometimes in a decision not to change at all.
+
+The important point is that architecture should begin with the identity of the organisation rather than with the technology currently used to express it.
+
+Because systems will always change.
+
+Identity is what allows those changes to belong to the same organisation.
 
 * Ask most organisations what they have, and you'll get an inventory, systems, data, headcount, budget. Ask what they are, and the answer is much harder, and much more durable. The mission survives reorganisations, technology migrations, and complete turnover of staff, in a way no system or dataset ever does; identity is the most permanent thing an organisation has.
 * That's why the question worth asking, constantly, is "what are we", not "what data do we have". Meaning, from chapter 5, explains what that identity actually consists of, the concepts, the language, the things that matter. Time, from chapter 8, explains how that identity persists and changes, state tracked over time is really identity being observed as it moves. Identity survives change, but only if something is actually tracking what changed and why.

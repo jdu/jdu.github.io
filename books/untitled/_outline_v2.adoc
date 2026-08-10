@@ -1,0 +1,418 @@
+Part I. What Are We Building?
+
+- Introduction — Set out what the book is trying to do: give engineers ways to
+  see, reason about, build, change, and sustain software rather than prescribe
+  one correct way to engineer it.
+- Good is a Noun — Establish that "good" only exists relative to purpose,
+  constraints, people, environment, and time. Reject universal notions of good
+  architecture or good code.
+- Software is Material — Explore software as something with shape, inertia,
+  accumulated constraints, dependencies, interfaces, and history, even though
+  it is not physically tangible.
+- From Instructions to Systems — Begin with a simple program and progressively
+  add state, persistence, processes, networks, users, and organisations to show
+  how systems emerge.
+- There is No Such Thing as Finished Software — Introduce change and
+  sustainment as normal conditions of software rather than exceptional
+  maintenance work.
+- Constraints Are the Problem — Explore technical, organisational, financial,
+  regulatory, temporal, and human constraints, and distinguish genuine
+  constraints from inherited assumptions.
+
+Part II. Looking Inside
+
+- Code Has Shape — Teach readers to see structure in code: clusters,
+  dependencies, flows, responsibilities, seams, repetition, and irregularity.
+- State Changes Everything — Show how introducing mutable or persistent state
+  changes the reasoning required around otherwise simple software.
+- Coupling — Explore the many forms of coupling, including behavioural,
+  temporal, data, implementation, operational, and organisational coupling,
+  without treating coupling as inherently bad.
+- Cohesion — Examine why some behaviours and data naturally belong together and
+  how cohesion helps expose useful boundaries.
+- Boundaries Have a Cost — Show that every boundary introduces translation,
+  contracts, coordination, failure modes, and cognitive overhead.
+- Ownership — Explore who or what owns state, behaviour, resources, decisions,
+  schemas, and lifecycle, and why unclear ownership creates complexity.
+
+Part III. Yer Toolbox
+
+- Calling Things — Explore direct invocation: functions, methods, commands,
+  procedure calls, RPC, HTTP calls, and other ways one piece of software asks
+  another to do work.
+- Moving Things — Cover messages, events, streams, queues, files, pipes, and
+  other mechanisms for moving information between parts of a system.
+- Remembering Things — Introduce memory, files, databases, logs, caches, object
+  storage, and the different kinds of persistence available to engineers.
+- Dividing Things — Explore modules, packages, libraries, processes, services,
+  plugins, applications, and the consequences of splitting software apart.
+- Doing Things Later — Cover scheduling, delayed work, queues, jobs, callbacks,
+  asynchronous execution, and deferred processing.
+- Doing Many Things, At Once — Introduce concurrency, parallelism, threads,
+  processes, workers, actors, and distributed work as different ways of
+  arranging simultaneous activity.
+- Letting Other People In — Explore APIs, command-line interfaces, extension
+  points, plugins, embedded languages, and other mechanisms for opening
+  software to external use.
+- Interfaces and Protocols — Treat interfaces as agreements between
+  independently changing things, covering syntax, semantics, compatibility,
+  versioning, and failure behaviour.
+
+Part IV. Building Blocks
+
+- Values and Representation — Explore how raw values represent things in the
+  world and how representation choices affect what can be expressed or
+  confused.
+- Types and Meaning — Show how type systems, enums, records, structures,
+  optionality, units, and richer representations can preserve meaning and
+  constrain invalid states.
+- Naming Things — Examine naming as modelling: how vocabulary shapes
+  understanding, reveals ambiguity, and creates shared or conflicting
+  interpretations of a domain.
+- Functions and Composition — Explore functions as mechanisms for naming
+  behaviour, creating seams, constraining effects, and composing larger
+  behaviours from smaller ones.
+- Control Flow — Cover sequencing, branching, iteration, recursion, pipelines,
+  events, and state machines as different shapes of behaviour rather than
+  merely syntax.
+- State — Examine local, shared, persistent, cached, derived, and distributed
+  state, and the problems introduced by mutation.
+- Identity — Explore what makes something the same thing over time, including
+  identifiers, equality, references, natural keys, and object identity.
+- Resources and Lifetime — Examine allocation, ownership, sharing, exhaustion,
+  cleanup, memory, files, sockets, database connections, locks, and other
+  finite resources.
+- Contracts and Invariants — Explore the assumptions that must remain true and
+  where those assumptions can be expressed or enforced.
+- Indirection — Cover references, pointers, lookup tables, interfaces, handles,
+  proxies, dependency injection, DNS, and other ways software separates
+  identity from location or implementation.
+- Boundaries — Bring the building blocks together to examine the different
+  kinds of boundary an engineer can intentionally create inside software.
+
+Part V. Beneath the Software
+
+- The Machine Underneath — Build a working mental model from application code
+  down through runtimes, system calls, kernels, processors, memory, storage,
+  and devices.
+- From Source Code to Running Program — Explain compilation, interpretation,
+  linking, loading, runtimes, bytecode, JIT compilation, executable artefacts,
+  and process creation.
+- What Happens When You Click the Button? — Trace a real interaction through
+  input devices, operating systems, browsers or applications, networking,
+  servers, storage, and back again.
+- Data Is Bytes Eventually — Follow information from domain concepts through
+  structures, serialization, encoding, compression, files, memory, and network
+  packets.
+- Processes, Threads and Work — Explain processes, threads, event loops,
+  coroutines, blocking, scheduling, concurrency, and parallelism from the
+  machine upward.
+- Networks Are Machines Too — Demystify DNS, addresses, routing, ports, TCP,
+  UDP, QUIC, TLS, proxies, NAT, load balancers, and connection management.
+- The Problem of Time — Explore clocks, ordering, deadlines, latency, retries,
+  TTLs, leases, eventual consistency, and the fact that distributed systems
+  cannot assume one shared present.
+- Queues Mean Pressure — Explain buffers, queues, backpressure, throughput,
+  rate mismatch, and the unavoidable question of where excess work accumulates.
+- Caches Create Two Truths — Treat caching as creation of another
+  representation of state, bringing synchronization, invalidation, ownership,
+  and consistency problems.
+- Configuration Is Software — Explore configuration files, environment
+  variables, flags, secrets, and the point at which configuration becomes a
+  programming language.
+- Deployment Is Part of the Design — Follow software from source through build,
+  packaging, configuration, deployment, execution, upgrade, rollback, and
+  retirement.
+- Errors Are Information — Examine error values, exceptions, partial failure,
+  ambiguity, retryability, and the difference between knowing something failed
+  and not knowing what happened.
+- Observability Is an Interface — Treat logs, metrics, traces, diagnostics,
+  admin tools, and runtime introspection as the interface a running system
+  exposes to its maintainers.
+- Performance Is Shape — Explore algorithms, I/O, allocations, serialization,
+  round trips, locality, batching, contention, parallelism, and how to discover
+  where time is actually being spent.
+- Dependencies Are Decisions — Frame libraries, frameworks, services, vendors,
+  and platforms as exchanges of work now for obligations and constraints later.
+- Every Abstraction Has a Floor — Show how abstractions eventually terminate in
+  lower layers someone may need to understand when behaviour escapes the
+  abstraction.
+- Interfaces Outlive Implementations — Explore why APIs, schemas, formats,
+  protocols, and assumptions often survive long after the implementations
+  behind them have been replaced.
+
+Part VI. Patterns Without Pattern Matching
+
+- What a Pattern Actually Is — Define patterns as recurring shapes that appear
+  when similar forces are resolved in similar ways, rather than recipes to be
+  applied.
+- Learn the Shape, Forget the Name — Use familiar patterns to develop
+  recognition and intuition without encouraging catalogue-driven software
+  design.
+- Forces Before Patterns — Teach readers to identify the pressures and
+  constraints that lead towards particular structural choices before naming a
+  pattern.
+- Patterns Compose — Show how real systems contain overlapping and interacting
+  patterns rather than clean textbook implementations of one pattern at a time.
+- When the Pattern Stops Helping — Explore cargo culting, accidental
+  frameworks, preserved abstractions, and cases where the original forces no
+  longer justify the pattern.
+
+Part VII. Designing Software
+
+- Start With the Smallest Thing — Begin with the least machinery capable of
+  expressing the actual problem and allow complexity to earn its way into the
+  design.
+- Find the Constraints — Identify which forces genuinely limit the design and
+  which are preferences, assumptions, inherited conventions, or negotiable
+  boundaries.
+- Count the Costs — Evaluate computational, financial, cognitive, operational,
+  coordination, dependency, and future-change costs rather than optimizing
+  along one dimension.
+- Find the Things That Belong Together — Use behaviour, data, lifecycle, rate
+  of change, ownership, and shared invariants to discover useful code and
+  system boundaries.
+- Draw the System — Teach a lightweight graphical vocabulary for communicating
+  containment, flow, state, ownership, uncertainty, interfaces, and boundaries.
+- Walk the Data — Trace one real piece of information through a system to
+  reveal transformations, dependencies, storage, ownership, and hidden
+  assumptions.
+- Walk the Failure — Follow failures through the same system to understand
+  containment, ambiguity, retry behaviour, recovery, and propagation.
+- Walk the Change — Introduce a hypothetical requirement and trace where the
+  change travels to expose coupling and assess the shape of the design.
+- Preserve Reversibility — Distinguish useful optionality from speculative
+  future-proofing and identify decisions whose cost justifies keeping an exit
+  path.
+
+Part VIII. Engineering Leverage
+
+- Make the Machine Do the Repetition — Establish leverage as encoding repeated
+  structure or decisions so humans decide once and machines reproduce
+  consistently.
+- Functions Aren't the Only Abstraction — Compare functions, generics, traits,
+  templates, macros, generators, schemas, and languages as different ways of
+  abstracting different kinds of repetition.
+- Macros — Explore declarative, procedural, attribute, and derive-style macros
+  using systems such as Rust to show both their structural power and their
+  debugging costs.
+- Templates and Code Generation — Explore generation of code, schemas, clients,
+  configuration, documentation, deployment artefacts, and other mechanically
+  derived structures.
+- Single Sources of Structure — Examine how one authoritative representation
+  can safely generate many others, and when generated layers instead obscure
+  where truth lives.
+- Declarative Versus Imperative — Explore the trade-off between describing
+  desired outcomes and explicitly controlling the steps used to produce them.
+- Small Languages — Show how configuration, rules, query languages, format
+  strings, parsers, and DSLs emerge, intentionally or accidentally.
+- Encode Decisions, Not Just Repetition — Explore how compilers, types,
+  schemas, formatters, linters, generators, and tooling can move engineering
+  knowledge out of human memory and into machinery.
+- The Cost of Magic — Examine abstraction as knowledge compression and the cost
+  of mentally decompressing hidden behaviour when debugging or modifying a
+  system.
+
+Part IX. Breaking Down the Work
+
+- From Problem to Work — Show how vague outcomes become concrete engineering
+  work without prematurely turning requirements into technical solutions.
+- Find the Thin Slice — Find the smallest end-to-end piece of functionality
+  that produces useful evidence and exercises real parts of the system.
+- Build to Learn — Distinguish exploratory code, spikes, prototypes,
+  experiments, and disposable work from software intended to be sustained.
+- Make Uncertainty Visible — Explicitly separate what is known, assumed,
+  undecided, and still needing discovery.
+- Estimates Are Models — Treat estimates as models built from incomplete
+  information rather than promises or predictions of the future.
+- Feedback Loops — Explore how quickly engineers can move from an action to
+  evidence through compilation, testing, deployment, observability, user
+  feedback, and communication.
+
+Part X. Reading Existing Software
+
+- Where Do I Start? — Give engineers practical ways into unfamiliar codebases
+  without attempting to understand everything before touching anything.
+- Find the Seams — Locate entry points, boundaries, persistent state,
+  integration points, dependency edges, and places where behaviour can be
+  isolated.
+- Follow Something Real — Trace an actual request, command, record, message, or
+  user interaction through the code instead of reading files in arbitrary
+  order.
+- Read the History — Use version control, commit history, old documentation,
+  issues, and removed code to understand why current structures exist.
+- Recognising Accretion — Distinguish complexity inherent to the problem from
+  complexity accumulated through history, workarounds, abandoned ideas, and
+  changing constraints.
+- Working the Problem — Reproduce, reduce, trace, measure, isolate, inspect
+  lower layers, read source, and build toy examples when faced with unfamiliar
+  behaviour.
+- Changing Things Safely — Reason about blast radius, reversibility,
+  confidence, observation, compatibility, and incremental change rather than
+  relying on generic refactoring rules.
+
+Part XI. Building With Other People
+
+- Communicating Designs — Explore sketches, diagrams, prose, examples,
+  prototypes, and conversations as different tools for creating shared
+  understanding.
+- How to Disagree About Software — Move disagreements away from taste and
+  status towards forces, constraints, evidence, alternatives, consequences, and
+  trade-offs.
+- Making Decisions at Your Vantage Point — Show that architectural reasoning
+  belongs to every engineer and can be practised from wherever someone stands
+  in a system.
+- Knowing What You Don't Know — Recognise the boundaries of your understanding,
+  when assumptions need validating, and when a problem has crossed into
+  somebody else's expertise.
+- Coordination Has a Cost — Explore the price of shared ownership, cross-team
+  dependencies, distributed decision-making, and designs that require
+  continuous agreement between people.
+
+Part XII. Building Confidence
+
+- What Does Correct Mean? — Establish correctness as a collection of
+  behavioural, temporal, security, durability, performance, and domain claims
+  rather than simply producing the expected output.
+- Tests Are Evidence — Treat tests as evidence supporting claims about a system
+  rather than proof of quality or correctness.
+- Test the Things That Must Remain True — Connect tests to contracts,
+  invariants, and behaviours that should survive changes in implementation.
+- Test the Boundary — Focus confidence-building effort where independent
+  assumptions meet: APIs, processes, databases, files, queues, and external
+  systems.
+- Test the Failure — Exercise timeouts, unavailable dependencies, duplicates,
+  partial execution, resource exhaustion, invalid inputs, and other non-happy
+  paths.
+- Make Failure Reproducible — Turn intermittent behaviour into repeatable
+  experiments that can be observed, measured, and reasoned about.
+- Static Evidence — Cover type systems, compilers, schemas, static analysis,
+  linters, model checking, and other ways of establishing confidence before
+  execution.
+- Production Is Evidence Too — Use runtime behaviour, incidents, logs, metrics,
+  traces, user behaviour, and real workloads to challenge assumptions made
+  before deployment.
+- Confidence Has a Cost — Explore how much evidence different levels of risk
+  justify and why certainty is neither free nor completely attainable.
+
+Part XIII. Trust and Authority
+
+- Who Gets to Do What? — Introduce security through the simple question of
+  which actor is allowed to cause which effect.
+- Trust Boundaries — Identify where information, authority, or control crosses
+  between areas with different assumptions of trust.
+- Identity Is Not Authority — Separate knowing who or what something is from
+  deciding what it is permitted to do.
+- Authentication and Authorization — Explore mechanisms for establishing
+  identity and assigning permissions without conflating the two.
+- Capabilities and Privilege — Examine limited authority, scoped access, least
+  privilege, and the architectural effect of restricting what components can
+  do.
+- Input Comes From Somewhere — Treat data entering from users, files, APIs,
+  queues, configuration, databases, and devices as crossing assumptions and
+  trust boundaries.
+- Secrets — Explore credentials, keys, tokens, secret distribution, rotation,
+  lifecycle, accidental propagation, and why secrets reshape architecture.
+- Delegation and Impersonation — Examine systems acting on behalf of users or
+  other systems and how delegated authority should be represented and
+  constrained.
+- Provenance and Audit — Record not only what happened but who or what caused
+  it, where information came from, and what transformations were applied.
+- Assume Less — Show how reducing the number of trusted components, actors, and
+  implicit guarantees can simplify reasoning about security.
+
+Part XIV. At the Edge
+
+- Programs With People In Them — Explore how software changes once humans
+  become part of the control loop and can pause, reconsider, abandon, repeat,
+  or contradict actions.
+- Events and Interaction — Cover clicks, gestures, keyboard input, timers,
+  notifications, sensors, and other event-driven inputs.
+- Rendering State — Treat interfaces as representations of underlying state and
+  explore what happens when displayed state and authoritative state diverge.
+- Local State and Remote State — Examine the relationship between state on a
+  device and state maintained elsewhere.
+- Humans Are Asynchronous — Explore abandoned workflows, multiple windows,
+  stale screens, returning later, interruptions, and other behaviours machines
+  must accommodate.
+- Waiting — Treat latency as a human design concern as well as a performance
+  metric.
+- Offline Is a State — Explore disconnected and intermittently connected
+  systems without treating lack of connectivity solely as failure.
+- Synchronisation — Examine reconciliation, conflicts, ownership, ordering,
+  merging, and multiple independently changing copies of information.
+- Undo Changes the Design — Show how reversibility affects persistence, command
+  modelling, history, side effects, and destructive operations.
+- Devices Have Constraints — Explore battery, memory, storage, sensors,
+  processing capability, intermittent networks, platform policies, and physical
+  interfaces.
+- The Browser Is a Computer — Reconnect browser development to processes,
+  memory, storage, networking, rendering, security boundaries, and the
+  underlying machine.
+- Desktop, Mobile, Terminal and Beyond — Compare different application surfaces
+  to expose the common engineering ideas underneath platform-specific
+  frameworks.
+
+Part XV. Data and History
+
+- Data Has Shape — Explore rows, documents, graphs, events, objects, files,
+  streams, and other representations as different structural choices.
+- Schemas Are Models — Treat schemas as statements about the world and the
+  assumptions the software makes about what can exist.
+- Keys and Identity — Examine how persisted information identifies entities and
+  why stable identity is difficult.
+- Relationships — Explore references, foreign keys, embedding, composition,
+  graph relationships, and other ways of representing connection.
+- Constraints Belong Near the Data — Examine where data invariants should live
+  and what happens when every consumer must independently remember them.
+- Transactions — Explore which changes become visible together, what
+  consistency guarantees mean, and where transactional boundaries should sit.
+- Mutable State and Recorded History — Compare overwriting the current state
+  with retaining the sequence of events or changes that produced it.
+- Derived Data — Distinguish authoritative information from information that
+  can be recomputed and examine the danger of accidental competing truths.
+- Copies Create Obligations — Explore replication, caching, exports,
+  denormalisation, synchronization, and what it means to have more than one
+  representation of information.
+- Ownership of Data — Ask who has authority to create, modify, interpret,
+  publish, migrate, and delete information.
+- Migration — Explore changing schemas and representations while existing
+  applications and data continue to operate.
+- Compatibility Across Time — Examine old programs reading new data, new
+  programs reading old data, mixed deployments, queued messages, and long-lived
+  formats.
+- Provenance — Track where information originated, what transformed it, and how
+  confidently its current meaning can be understood.
+- Deletion Is a Design Problem — Explore cascading deletion, retention, derived
+  copies, backups, audit requirements, tombstones, and the difficulty of making
+  information genuinely disappear.
+- Data Outlives Programs — Close on the idea that software implementations are
+  temporary custodians of information whose lifetime may be measured in
+  decades.
+
+Part XVI. Keeping It Alive
+
+- Build for the Next Person — Design with the assumption that somebody
+  unfamiliar with the system will eventually need to understand and alter it.
+- Legibility — Treat the ability to form an accurate mental model of software
+  as a core engineering property distinct from stylistic cleanliness.
+- Repairability — Explore diagnostics, inspection, escape hatches, replacement,
+  isolation, manual intervention, and the ability to get inside a broken
+  system.
+- Changeability — Examine what makes reasonable change possible without
+  attempting to support every hypothetical future.
+- Compatibility and Migration — Treat coexistence between old and new states as
+  a normal part of software evolution rather than an exceptional transformation
+  programme.
+- Leaving Things Alone — Explore restraint, stability, and the cases where
+  changing software creates more risk than continuing to live with
+  imperfection.
+- Removing Things — Treat deletion of features, code, dependencies, data,
+  infrastructure, and whole systems as a deliberate engineering capability.
+- Sustainment — Bring together legibility, confidence, repairability,
+  knowledge, operation, change, migration, and eventual replacement as the
+  long-term work of engineering software.
+- Over Muskeg — Close on the central metaphor: engineering is not about finding
+  permanently solid ground, but understanding what moves, what must carry load,
+  what can be allowed to flex, and how to keep something useful standing as the
+  ground beneath it changes.

@@ -1,0 +1,104 @@
+= Software for Lost Souls
+
+We have increasingly substituted the selection and arrangement of technologies for the act of understanding and designing software. The answer is not technological austerity, but recovering engineering agency: choosing proportionate abstractions, owning the meaningful parts of our systems, and using modern languages and tools to build software we can understand.
+
+Engagement -> Explanation -> New Ways of Seeing -> Practical Discipline -> Stewardship
+
+== Part 1 - Lost
+
+* Software for Lost Soulds
+** what it means to feel estranged from your own systems: unable to explain them, change them safely, or understand where behaviour comes from.
+* The Landscape of Pieces
+** Modern development as assembly: frameworks, platforms, packages, APIs, configuration systems, generators, and managed services.
+* The Disappearing Program
+** How the actual program becomes buried beneath build systems, depedenncy grpahs, runtime machiner and conventions.
+* Nobody designed this
+** Systems that emerge from thousands of individuall reasonable choices without ever being consciously designed as a whole.
+* The Framework Mind
+** How engineers gradually leanr to think in terms of available products and patterns rather than the problemn itself.
+* Borrow Understanding
+** Every dependenc import assumptions, operational behaviour, and failure modes that the team may not understand.
+
+== Part II - How We Became Lost
+
+* Abstraction feels like progress
+** Why indirection, generalisation, and automation are so intellectually attractive.
+* The Fear of Reinvention
+** How "never build what already exists" became a dogma rather than a useful heuristic.
+* The Safety of Consensus
+** Choosing popular tools feels professionally safer than making a smaller, more deliberate technical decision.
+* Complexity Without Responsibility
+** Outsourced complexity still belongs to you, even when it lives in a framework, cloud service, or package registry.
+* The Industry of Motion
+** Why the software industry rewards novelty, migration, and adoption more visibly than maintenance and restraint.
+* The Lost Confidence of the Programmer
+** How engineers came to trust ecosystems, frameworks, and architecture diagrams more than their own ability to build software.
+
+
+== Part III - Seeing Software Again
+
+* Start with the outcome
+** The purpose of software is not to contain particular technologies, it's to reliably produce an outcome for someone.
+* The Shape of the Program
+** Recovering a clear understanding of inputs, state, behaviour, boundaries, and outputs.
+* Local Reasoning
+** Good software allows an engineer to understand one part without loading the entire system into their head.
+* Visible Machinery
+** Prefer systems whose important behaviour can be inspected, traced, and explained.
+* The Cost of Distance
+** Every layer between intent and execution makes software harder to reason about.
+* Abstraction Has a Budget
+** Abstraction is not inherently bad, but it must earn its place by removing more complexity than it introduces.
+* Meaning Before Reuse
+** Code organised around what the system means is often more durable than code organised around technical patterns.
+
+== Part IV - Building Directly
+
+* Choose a Capable Language
+** Modern languages can absorb responsibilities that were once delegated to frameworks, generators, and extern tooling.
+* Use Libraries, Not Worlds
+** The distinction between adopting a focused capability and surrendering the shape of your system to an ecosystem.
+* BUild the Small thing
+** Many internal systems need less machinery than teams assume.
+* Own the Core
+** Identify the behaviour that gives the system its meaning and keep it understandable and under your control.
+* Keep State Honest
+** Make state, persistence, and transitions explicit rather than hiding them behind layers of convenience.
+* Prefer Boring Boundaries
+** Files, queues, HTTP, SQL and simple data structures survive longer than elaborate system abstractions.
+* Design for Removal
+** Components should be replaceable, but the system shouldn't be constructed as though everything will be replaced tomorrow.
+* Tools that Increase Agency
+** Compilers, type systems, debuggers, profilers, macros systems, tests, and observability should strengthen the engineer rather than obscure the program.
+* Deployment Is Part of the Program
+** A system isn't maintainable when its code is simple but its build and runtime environment are incomreprehensible.
+
+== Part V - Maintaining Meaning
+
+* THe Second Engineer
+** Design for the person who inherits the system without its original context.
+* Software is Institutional Memory
+** Code carries decisions, language and assumptions long after the people who made them have gone.
+* Maintenance is the Product
+** Delivery is a momment. Maintenance is the majority of the softwares life.
+* Change without Excavation
+** A healthy ssytem allows changes without archaeological expeditions through frameworks, and dependency internals.
+* The Right Kind of Duplication
+** Some duplication preserves meaning and independence better than premature generalisation.
+* Stability is a feature
+** The value of software that does not require continual migration to remain alive.
+* Leaving a Smaller System Behind
+** Good engineering should reduce the burden inherited by the next person.
+
+== Part VI - Finding Our Way Back
+
+* Not Minimalism
+** The goal is not fewer lines of code, fewer tools or technologocial asceticism. It's proportionality.
+* Not Reinventing Everything
+** Reclaiming engineering judgement doesn't mean rejecting libraries, platforms, or existing work.
+* The Courage to Choose Less
+** Simpler systems often require more confidence because their decisions can't be justified by popularity alone.
+* Programming is understanding
+** Writing software is a way of developing a precise understanding of a problem, not just confgiguration a solution.
+* Software for Human Beings
+** Software should be understandable by the people who build it, dependable for the people who use it, and survivable for those who inherit it.

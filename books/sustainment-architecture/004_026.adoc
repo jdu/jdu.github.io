@@ -1,6 +1,125 @@
 = The cost of changing your mind
 
 
+When organisations decide to replace a system or adopt a new way of working, the discussion usually begins with technology. Attention naturally focuses on migration plans, implementation effort, integration work and project budgets because those things are visible. They can be estimated, costed and planned for.
+
+They are also only part of the cost.
+
+The larger cost often sits elsewhere, quietly accumulated over years of people adapting themselves to the existing system. Processes have been shaped around its limitations. Teams have developed ways of working that assume its behaviour. Reports, operational procedures and even the language people use have gradually settled into forms that make sense within the current environment. None of those things appears on the project plan because they are no longer recognised as consequences of the system. They have simply become "how we work."
+
+By the time the organisation decides to change direction, it is no longer replacing a piece of software. It is asking the organisation to stop behaving in ways it has spent years learning.
+
+== Every Decision Accumulates Consequences
+
+Architectural decisions rarely remain isolated.
+
+A decision made today becomes part of the environment in which tomorrow's decisions are made. New work naturally builds on what already exists because that is usually the cheapest and least disruptive option. Over time the original decision stops being one decision among many and instead becomes part of the background that every new piece of work quietly assumes.
+
+This is why changing direction becomes progressively more expensive. The cost does not come from undoing the original decision itself. It comes from undoing everything that has grown around it since.
+
+An organisation may discover that a particular product is no longer the right fit, but replacing the product also means revisiting years of reports, integrations, operational procedures and training that were written assuming that product would remain. None of those artefacts was created to make future change difficult. They simply reflect the organisation's understanding at the time they were produced.
+
+== Learning Is Cheap. Acting On It Is Not.
+
+Most organisations continue learning throughout their lives. They gain a better understanding of their customers, discover more useful ways of organising work and refine the language they use to describe themselves. Learning is rarely the problem.
+
+The difficulty begins when that improved understanding conflicts with decisions that have already become deeply embedded.
+
+Suppose an organisation realises that what it has always treated as a single business capability is actually several distinct capabilities that should evolve independently. The insight may arrive in a single workshop. Acting on it may take years.
+
+Not because the idea is complicated, but because every system, report, interface and process built around the earlier assumption now has to be reconsidered. The organisation is not paying for the new idea. It is paying for the continued success of the old one.
+
+== Why The Cost Is Often Hidden
+
+One reason organisations repeatedly underestimate the cost of change is that the cost is distributed.
+
+* No individual team sees the whole picture.
+* Engineering estimates the migration.
+* Operations estimates new procedures.
+* Finance estimates licensing.
+* Training estimates onboarding.
+
+Each estimate is reasonable within its own boundary, yet none captures the cumulative effect of asking an entire organisation to replace one set of assumptions with another.
+
+By the time those costs are visible, the decision to change has usually already been made. Projects then appear to overrun, not because they were badly managed, but because the organisation discovered that it had spent years building around assumptions it no longer wished to keep.
+
+This is one reason major transformations so often feel unexpectedly expensive. The organisation is not simply building something new; it is unwinding years of adaptation that nobody had been consciously maintaining.
+
+== Where cost actually lives
+
+=== The Cost of Rediscovering Knowledge
+
+Changing a long-established system almost always begins with a period of rediscovery.
+
+Before anything can be redesigned, the organisation first has to understand what it already has. Why does this process exist? Why are these two systems inconsistent? Which reports depend on this behaviour? Which parts of the current design are deliberate and which are simply historical accidents?
+
+These questions are rarely difficult because the answers are technically complex. They are difficult because the reasoning has gradually disappeared. The organisation still possesses the software, but it no longer possesses the understanding that produced it.
+
+Large programmes often spend months rediscovering knowledge that the organisation once held perfectly well. That effort is not creating new value. It is paying the cost of previous forgetting.
+
+=== The Cost of Unwinding Adaptation
+
+Software does not exist in isolation. Given enough time, people adapt themselves to it.
+
+Work is organised around its limitations. Reports reflect the questions it can answer. Processes evolve to accommodate the behaviours it encourages. None of these adaptations feels particularly significant while it is happening. Each one is simply the easiest way of getting work done.
+
+Years later those adaptations have become indistinguishable from the organisation itself.
+
+Replacing the software therefore means unwinding years of learned behaviour before the organisation can begin learning something new. This is often one of the largest costs of change, yet it rarely appears explicitly in project estimates because there is no single piece of work called "undo ten years of adaptation."
+
+=== The Cost of Coordination
+
+Foundational decisions rarely affect only one team.
+
+As organisations grow, more and more work comes to depend on the same assumptions. A change that appears straightforward within one department may require agreement from many others before it can proceed. The effort is no longer spent solving the technical problem. It is spent helping different parts of the organisation move together.
+
+This coordination cost increases naturally over time. The more successful a system becomes, the more parts of the organisation build upon it. Success therefore creates its own inertia. A capability that serves the whole organisation is usually far more difficult to change than one used by a single team, regardless of the quality of its implementation.
+
+=== The Cost of Opportunity
+
+Every major change consumes attention.
+
+Engineers spend time migrating instead of building. Operational teams support the transition instead of improving services. Subject matter experts explain the past instead of shaping the future. Leaders devote months to governance and decision-making that could otherwise have been spent addressing new opportunities.
+
+These costs are difficult to quantify because they are measured in things that never happened. The capability that was never built. The improvement that was postponed. The opportunity that was missed because the organisation was occupied preserving or replacing yesterday's decisions.
+
+Opportunity cost rarely appears in architecture discussions, yet it is often the largest cost of all.
+
+=== The Cost of Confidence
+
+Major architectural change asks people to abandon ways of working that have become familiar. Even when the current system is widely recognised as inadequate, it is at least understood. People know where its edges are and how to work around its weaknesses.
+
+Replacing that certainty with something unfamiliar creates hesitation. Teams become more cautious. Decision-making slows. Productivity often falls before it rises again.
+
+None of this reflects resistance to change. It reflects the simple reality that confidence takes time to rebuild.
+
+Architects should expect this and design transitions that minimise unnecessary disruption rather than assuming new technology alone will create immediate improvements.
+
+=== Cost of professional discounting
+
+* People who have built up experience through specialisation in a given system have invariably built up knowledge about how the organisation works, it's processes and dark corners.
+* Because the system they're specialised in is being replaced, their knowledge is often discounted, and they are treated as if they are no longer relevant to the organisation's future. 
+
+== Designing For Change
+
+None of this suggests that architects should avoid making decisions. Every system embodies assumptions, and every architecture reflects the best understanding available at the time.
+
+The responsibility is to recognise that those assumptions will eventually change.
+
+When making an architectural decision, it is worth asking not only whether it solves today's problem, but what would have to change if the organisation later discovered that the decision was based on an incomplete understanding.
+
+That question shifts the focus of architecture. Instead of asking only whether a design is correct, it asks whether the organisation will be able to recover gracefully when its understanding improves.
+
+
+== A Practical Test
+
+Choose one significant architectural decision in your organisation that nobody would make today.
+
+Rather than asking how difficult it would be to replace the technology, trace the consequences that have accumulated around it. Look for the reports that depend upon it, the operational practices that assume it, the language that grew from it and the teams whose work has adapted to its behaviour.
+
+The exercise is not intended to criticise the original decision. It is intended to make visible the cost that normally remains hidden. Once those consequences can be seen, they become something architecture can actively work to reduce in future decisions.
+== Decisions outlive their reasons
+
 * We talk endlessly about coupling between systems, and almost never about coupling across time. If changing today's organisation requires re-litigating decisions made fifteen years ago, for reasons nobody currently working there was present for, your architecture is coupled to history just as tightly as it could ever be coupled to another system.
 * Every architectural decision is made in a context, a set of priorities, a technology landscape, a set of assumptions about the future, that was reasonable when it was made. The problem isn't that those decisions were wrong, it's that organisations keep negotiating with their own past long after the context that justified it has gone; chapter 9 covered why the reasons behind those decisions get forgotten, this is what that forgetting costs architecturally.
 * The test: for your most painful system, ask how much it would cost to change your mind about one foundational decision made when it was built, not to patch around it, to actually reverse it. Great architecture is measured by how cheap that answer is, because the alternative is an organisation that can only ever move in the direction its old decisions already committed it to.

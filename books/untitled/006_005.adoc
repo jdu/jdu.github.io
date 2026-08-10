@@ -1,0 +1,5 @@
+= Estimates Are Models
+
+Why estimation isn't fortune telling.
+
+You're modelling work from incomplete information.

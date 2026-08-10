@@ -1,0 +1,17 @@
+= Forces Before Patterns
+
+Instead of:
+
+“We need an event-driven architecture.”
+
+Teach:
+
+What needs to know?
+When does it need to know?
+Who owns the state?
+Can either side disappear?
+Does ordering matter?
+What happens twice?
+What happens tomorrow?
+
+And allow an architecture to fall out of those questions.

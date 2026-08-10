@@ -1,0 +1,7 @@
+= Walk the Data
+
+A very practical technique.
+
+Pick one operation and follow it all the way through the system.
+
+This would be almost like tracing wiring in a service manual.

@@ -1,0 +1,534 @@
+= Graphs & Ontologies
+
+We typically draw large sets of complicated diagrams that box things into frozen sets of categories or relationships. 
+
+Architectural diagrams can be extremely hard to follow, and can require a large amount of maintenance and effort to keep relevant and accurate, diagrams can link to diagrams, form sets, views, and layers, but they are still fundamentally a static representation of a dynamic system.
+
+Most enterprise architecture frameworks start with _applications_, _databases_ or _infrastructure_ and work _upwards_. We want to start with language. The technology stack then becomes a sequence of increasingly formal representations of the same understanding.
+
+There aren't really any off-the-shelf tools that on their own support this kind of approach, lucky for us though, there's some really great research, outcomes, frameworks, and tools that we can leverage together to build something that can represent the organisation in a way that is more meaningful.
+
+== Upper Ontologies
+
+An upper ontology is a set of concepts that are shared across multiple domains. It's a way to describe the workd in a way
+that's independent of any particular domain or context.
+
+Utilizing upper ontologies allows us to create a shared understanding of the world that can be used across multiple domains. This is 
+particularly useful in enterprise architecture, where we need to describe complex systems and their relationships in a way
+that promotes understanding, and can elide the tight coupling between the architecture and the implementation.
+
+UML and other languages _are_ upper ontologies, but they aren't the only ones. There are may other types of upper ontologies,
+some of which can be used together to describe the world and provide outputs which are much more inspectable and understandable 
+from a human perspective and don't require the architect or stakeholders to hold the entirety of the system in their head to understand it.
+
+A good starting point for upper ontologies is the [Basic Formal Ontology](https://basic-formal-ontology.org/), which is a small, but very useful
+upper ontology that can be used to describe the world. You can then branch off into things like OWL, which is a much more expressive upper ontology that can be used to describe complex systems and their relationships.
+
+== Turtle language
+
+The turtle programming language is a simple, but very useful language for describing ontologies. It's a subset of the RDF specification
+and is used to describe the entities (classes), their properties, and the relationships between them. Turtle is a very human-readable language
+compared to standard RDF syntax, and it's just plaintext which makes it eminently inspectable, versionable, and easy to work with.
+
+
+[source]
+----
+funding:FundingApplication a upper:Concept ;
+  upper:description       "This is a thing" ;
+  upper:keyedOn         ( funding:FundingApplicationId ) . 
+
+----
+
+== Defining your upper ontology
+
+When defini
+
+== Querying your ontology
+
+Once you've defined your upper ontology, and started to build out your actual ontology itself, you can start to query it using the SPARQL query language, or load it into a graph database like Neo4J, ArcadeDB, or Stardog and use their query languages to explore and understand the 
+relationships between the entities in your ontology.
+
+== What this gives you that UML doesn't
+
+UML is heavily opinionated about _presentation_. It forces you to use a particular set of diagrams, and a specific set of relationships and encodings of information. It doesn't give you a way to describe the world in a way that is independent of any particular domain or context. 
+
+As well, it doesn't accommodate _meaning_, and the encoding of decisions without a lot of extra effort. In an ontology you can describe the world in ways that align with your organisations understanding of itself, and you can extend your upper ontology to encode things that are important, decision which fed into the architecture, constraints on the architecture and organisation.
+
+We're not just modelling what _exists_ we're modeling stewardship.
+
+== Core Classes
+
+* Thing
+** Concept
+** Capability
+** System
+** Interface
+** Decision
+** Assumption
+** Constraint
+** Principle
+** Standard
+** Organisation
+** Person
+** Team
+** Process
+** Measure
+** Vocabulary
+** Enumeration
+** Artifact
+** Domain
+
+These aren't _technical_ classes, they're architectural ones.
+
+== Key Relationships
+
+* Concept
+** hasAttribute
+** hasRelatioships
+** belongsToDomain
+* Capability
+** realisedBy [System]
+** ownedBy [Team]
+** supports [Concept]
+* System
+** implements [Capability]
+** contains [Interface]
+** governedBy [Standard]
+** constrainedBy [Constraint]
+* Decision
+** affects [System]
+** affects [Capability]
+** justifiedBy [Assumption]
+** follows [Principle]
+** creates [Constraint]
+** supercedes [Decision]
+* Assumption
+** about [Concept]
+** validatedBy [Measure]
+** invalidatedBy [Evidence]
+* Constraint
+** limits [Capability]
+** limits [System]
+* Measure 
+** measures [Concept]
+** measures [Capability]
+* Artifact
+** documents [Decision]
+** documents [Standard]
+** documents [Principle]
+
+== Architecture is mostly decisions
+
+[turtle]
+----
+:Decision_001
+  a arch:Decision ;
+  rdfs:label          "Use salesforce as grants CRM" ;
+  arch:madeOn         "2025-03-12"^^xsd:date ;
+  arch:madeBy         :ArchitectureBoard ;
+  arch:justifiedBy    :assumption_CDMScale ;
+  arch:follows        :BuyCommodityCapability ;
+  arch:creates        :Constraint_SalesforceModel ;
+  arch:reviewedAfter  "2030-01-01"^^xsd:date .
+----
+
+Not you've captured the _why_.
+
+== Assumption
+
+This is a huge one, architecture is always built on assumptions, but those assupmtions rarely survive the end of the project or transformation.
+
+
+[turtle]
+----
+
+:Assumption_CRMScale 
+  a arch:Assumption ;
+  rdfs:label          "CRM can adequately represent grants" ;
+  arch:confidence     "High" ;
+  arch:status         arch:Active .
+----
+
+Five years later:
+
+[turtle]
+----
+arch:status arch:Invalidated .
+----
+
+Now you know exactly why a decision should be revisited.
+
+== Principle
+
+These are first-class citizens, hold yourself to account.
+
+[turtle]
+----
+:DesignExitFirst
+  a arch:Principle ;
+  rdfs:label          "Design for exit first" ;
+  arch:description    "All systems should be designed with an exit strategy in mind, to ensure that the organisation can adapt and change as needed." .
+----
+
+Then
+
+[turtle]
+----
+:Decision_001
+  arch:follows        ( 
+    :DesignExitFirst
+    :BuyCommodityCapability 
+  ) .
+----
+
+== Stewardship layer
+
+This is where your ontology becomes genuinely unique.
+
+Thing -> Meaning -> Decision -> Implementation
+
+Every implementation should trace back to:
+
+* Meaning
+* Decision
+* Assumption
+* Principle
+
+== Example
+
+[turtle]
+----
+:Grant
+   a arch:Concept ;
+   rdfs:label       "Grant" .
+
+:GrantManagement a arch:Capability ;
+    rdfs:label       "Grant Management" ;
+    arch:supports    :Grant .
+
+:Salesforce a arch:System ;
+    rdfs:label       "Salesforce" ;
+    arch:implements  :GrantManagement .
+
+:Decision_GrantCRM a arch:Decision ;
+    rdfs:label       "Use Salesforce for Grant Management" ;
+    arch:madeOn      "2025-03-12"^^xsd:date ;
+    arch:madeBy      :ArchitectureBoard ;
+    arch:justifiedBy :Assumption_CRMScale ;
+    arch:follows     :DesignExitFirst ;
+    arch:creates     :Constraint_SalesforceModel .
+
+:Assumption_CommercialCRM a arch:Assumption ;
+    rdfs:label       "Commercial CRM can adequately represent grants" ;
+    arch:status      arch:Active .
+
+:BuyCommodityCapability a arc:Principle ;
+    rdfs:label       "Buy commodity capabilities when possible" .
+----
+
+== You can go even further
+
+Archictecture should explitly model _intent_.
+
+Decision -> hasGoal -> Goal
+
+Example:
+
+[turtle]
+----
+:ReduceOperationalRisk a arch:Goal .
+
+:Decision_GrantCRM arch:pursues :ReduceOperationalRisk .
+----
+
+Now, years later you can ask:
+
+> "Which decisions were made to reduce operational risk?"
+
+or
+
+> "Which assumptions support this goal?"
+
+== Lifecycle
+
+You can model lifecycles as well.
+
+Decision -> Proposed -> Accepted -> Implemented -> Superceded -> Retired
+
+Same for assumptions:
+
+Proposed -> Active -> Validated -> Invalidated -> Retired
+
+== A big one to add in
+
+Architecture desperately need one class that doesn't exist anywhere else.
+
+> Rationale
+
+Not the justification, the actual reasoning for a decision:
+
+[turtle]
+----
+:Decision_GrantCRM 
+  arch:hasRationale """
+The decision to use Salesforce for Grant Management was made after careful consideration of the available options. The architecture board evaluated the capabilities of various CRM systems and determined that Salesforce provided the best balance of functionality, scalability, and support for our specific needs.
+  """ .
+----
+
+== The architecture graph becomes
+
+Concept -> Capability -> System -> Decision -> Assumption -> Principle -> Goal -> Rationale
+
+Now you're not just documenting architecture, you're documenting your architectural _thinking_.
+
+== Modeling _flow_
+
+Flow is one of our main concerns out of architecture, and it's often very hard to model in general. Flow is the modeling the movement of something meaningful through the organisation. 
+
+The key distinction compared to standard modeling primitives we've talked about already is:
+
+* Flow Definition: the intended path
+* Flow occurence: one real instance moving through it
+* Flow step: a meaningful stage
+* Transition: movement between steps
+* Flow object: the thing moving
+* Trigger: what causes the movement
+* Outcome: what the flow is intended to produce
+
+[plaintext]
+----
+Flow 
+  - hasStep -> FlowStep
+  - move -> Concept
+  - pursues -> Goal
+  - realisedby -> Capability
+  - governedBy -> Principle / Constraint
+FlowStep
+  - performedBy -> Team / Person / System
+  - usesCapability -> Capability
+  - receives -> Concept
+  - produces -> Concept
+  - transitionsTo -> FlowStep
+
+Transition
+  - fromStep -> FlowStep
+  - toStep -> FlowStep
+  - triggeredBy -> Trigger
+  - requires -> Condition
+  - changesStateFrom / changesStatgeTo -> State
+
+FlowOccurrence
+  - instanceOf -> Flow
+  - carries -> Entit
+  - currentlyAt -> FlowStep
+  - startedAt 
+  - completedAt
+  - hasTransition -> TransitionOccurence
+----
+
+= Example: grant application flow
+
+[turtle]
+----
+@prefix arch: <https://example.org/architecture/> .
+@prefix ex:   <https://example.org/example/> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+ex:GrantApplicationFlow
+    a arch:Flow ;
+    arch:moves ex:Application ;
+    arch:pursues ex:ReachFundingDecision ;
+    arch:hasStep
+        ex:DraftApplication ,
+        ex:SubmitApplication ,
+        ex:ReviewApplication ,
+        ex:DecideApplication .
+
+ex:DraftApplication
+    a arch:FlowStep ;
+    arch:receives ex:Application ;
+    arch:performedBy ex:Applicant ;
+    arch:transitionsTo ex:SubmitApplication .
+
+ex:SubmitApplication
+    a arch:FlowStep ;
+    arch:usesCapability ex:ApplicationSubmission ;
+    arch:performedBy ex:GrantsPlatform ;
+    arch:transitionsTo ex:ReviewApplication .
+
+ex:ReviewApplication
+    a arch:FlowStep ;
+    arch:performedBy ex:ReviewPanel ;
+    arch:usesCapability ex:PeerReview ;
+    arch:transitionsTo ex:DecideApplication .
+
+ex:SubmissionTransition
+    a arch:Transition ;
+    arch:fromStep ex:DraftApplication ;
+    arch:toStep ex:SubmitApplication ;
+    arch:triggeredBy ex:ApplicationSubmitted ;
+    arch:changesStateFrom ex:Draft ;
+    arch:changesStateTo ex:Submitted .
+----
+
+== Model ther thing moving, not just the sequence
+
+A flow should always say what moves through it, that might be:
+
+* an Application
+* a Payment
+* a Decision
+* a Request
+* a Person
+* infromation about an Organisation
+
+This prevents flow diagrams from becoming generic boxes labelled "review", "approval", and "processing" without showing what's actually being transformed.
+
+[turtle]
+----
+ex:GrantApplicationFlow
+    arch:moves ex:Application .
+
+ex:PaymentFlow
+    arch:moves ex:PaymentInstruction .
+
+ex:IdentityVerificationFlow
+    arch:moves ex:IdentityClaim .
+----
+
+== Keep flow separate from process
+
+A process describes prescribed work, a flow describes movement through the organisation.
+
+One flow may pass through several processes, teams, and systems. Likewise, one process may contribute to several flows.
+
+[turtle]
+----
+ex:GrantApplicationFlow
+    arch:realisedBy ex:ApplicationAssessmentProcess .
+
+ex:ApplicationAssessmentProcess
+    a arch:Process ;
+    arch:supportsFlow ex:GrantApplicationFlow .
+----
+
+This is important as organisations often optimize individual processes while making the end-to-end flow worse.
+
+== Connect flow to capability and systems
+
+The flow shouldn't depend directly on a particular system unless that dependency is itself important.
+
+[turtle]
+----
+ex:SubmitApplication
+    arch:usesCapability ex:ApplicationSubmission .
+
+ex:ApplicationSubmission
+    a arch:Capability ;
+    arch:realisedBy ex:GrantsPlatform .
+
+ex:GrantsPlatform
+    a arch:System .
+----
+
+== Model waiting explicitly
+
+Waiting should be a first-class thing rather than inferred from timestamps.
+
+[turtle]
+----
+ex:WaitingForReview
+    a arch:WaitState ;
+    arch:withinFlow ex:GrantApplicationFlow ;
+    arch:beginsAfter ex:SubmitApplication ;
+    arch:endsWhen ex:ReviewerAssigned ;
+    arch:expectedDuration "P10D"^^xsd:duration .
+----
+
+You can then query:
+
+* where flows wait;
+* which teams or systems create queues ;
+* how long items remain in each state ;
+* which transitions require approval ;
+* where work repeatedly returns to an earlier step 
+
+== Include deviations from the intended path
+
+Real flows rarely follow the neat happy path. Model exceptions, loops, and rework explicitly
+
+[turtle]
+----
+ex:ReviewApplication
+    arch:mayTransitionTo ex:RequestMoreInformation .
+
+ex:RequestMoreInformation
+    a arch:FlowStep ;
+    arch:transitionsTo ex:ReviewApplication ;
+    arch:reason ex:InsufficientEvidence .
+----
+
+That lets you distinguish useful iteration from avoidable rework.
+
+== Add architectural justification
+
+The flow itself can carry the same reasoning as the rest of the ontology.
+
+[turtle]
+----
+ex:ManualFinanceApproval
+    a arch:FlowStep ;
+    arch:justifiedBy ex:HighValuePaymentRisk ;
+    arch:governedBy ex:SeparationOfDuties ;
+    arch:introducedBy ex:Decision_042 ;
+    arch:reviewWhen ex:AutomatedControlsAvailable .
+
+----
+
+This is valuable because approval steps often survive long after their original justification has disappeared.
+
+The important principle, no matter how you model this, is that flow should describe how meaning, responsibility, and state move through the organisation, while systems remain temporary mechanisms that realize parts of that flow.
+
+== SHACL and verification
+
+== SKOS and the language of business
+
+== PROV-O for provenance
+
+== BPMN for flow
+
+== DMS for decisions
+
+== Events
+
+== Model Incentives
+
+TBW, model the incentives which drove certain decisions.
+
+== Reasoning with Datalog
+
+Souffle, Logica, Ascent or SPARQL CONSTRUCT.
+
+Your architecture then becomes executable:
+
+[plaintext]
+----
+Grant
+ hasRecipient Organisation
+
+therefore
+
+Organisation isFundingRecipient
+----
+
+I think this is one of the genuinely novel aspects of your approach. Most enterprise architecture frameworks start with applications, databases or infrastructure and work upwards. Yours starts with language. The technology stack then becomes a sequence of increasingly formal representations of the same understanding:
+
+* Narrative — explain the organisation in human terms.
+* Glossary (SKOS) — establish a shared vocabulary.
+* Ontology (RDF/OWL) — model concepts, relationships and meaning.
+* Validation (SHACL) — encode organisational rules as executable constraints.
+* Provenance (PROV-O) — preserve why decisions and models exist.
+* Queries (SPARQL) — explore and reason over organisational knowledge.
+* Projections (GraphQL, OpenAPI, SQL, events) — expose the same understanding in forms that applications and people can use.
+
+That progression fits your philosophy perfectly: each layer is another representation of the organisation, not another source of truth. The organisation's meaning sits at the centre, and every other artefact is a projection of it. I think that's a much stronger message than simply recommending a collection of standards.

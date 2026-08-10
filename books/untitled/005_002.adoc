@@ -1,0 +1,5 @@
+= Find the Things That Belong Together
+
+How to break a codebase apart.
+
+Data, behaviour, lifecycle, rate of change, ownership.

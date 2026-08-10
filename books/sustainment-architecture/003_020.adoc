@@ -1,5 +1,167 @@
 = Let engineers drive capability
+            
+[[margin:ins_fot]]
+--
+And a few IN software engineering as well if I'm honest.
+--
 
+This sections pretty near and dear to my heart, so we're going to spend some time here.
+
+
+I think people outside of software engineering[[ref:ins_fot]] have been sort of hoodwinked over the last twenty years. They've been sold the idea that building software is the expensive and difficult part. It isn't. Building _understanding_ is. Modern software engineering has accumulated decades of abstractions, frameworks, patterns, infrastructure and hard-earned lessons that mean a handful of capable engineers can produce systems in weeks that would once have required entire departments. The bottleneck is infrequently typing actual code. It's understanding what should exist in the first place.
+
+[[margin:aside_1]]
+--
+*Aside:* Go look how many project management platforms are out there, go look, google "project management software", I'll wait. There's so many that it should be *abundantly clear* that _building_ them has not
+been hard since the late 90s. We can build them fast, and at volume, and at a level of quality that's sufficient for most organisations, and then sell them.
+--
+
+So when you buy a product which provides some functionality, and you evaluate it solely on the functionality it provides, you're not saving yourself time in terms of cost or effort for engineers to write code and build applications which approximate that functionality[[ref:aside_1]]. *You're alleviating yourself of the effort and responsibility of understanding what the organisation actually needs*, and subsequently robbing your internal teams of the opportunity to build deep understanding, and solve the problem in ways which align
+directly with your operational needs instead of the prescribed needs of a vendor.
+
+== The spectre of Shadow IT
+
+Shadow IT is usually described as uncontrolled technology: spreadsheets, local databases, unofficial SaaS products and scripts created outside central oversight.
+
+Research presents a more interesting picture. Shadow systems often emerge because official systems do not support the work people are accountable for performing. They are both a risk and a form of adaptation. Research on shadow IT has documented the security and governance problems it introduces, while studies of workarounds during major enterprise implementations show that unofficial practices may also preserve essential distinctions and operational flexibility that formal systems removed.
+
+This creates a recurring cycle:
+
+The organisation standardises a process.
+The standard does not represent important local conditions.
+People construct workarounds.
+The workarounds fragment data and control.
+Leadership responds with more standardisation and governance.
+
+The shadow estate is then blamed on user behaviour, even though it contains evidence about where the official architecture does not fit reality.
+
+This is an interesting phenomena book because it connects architecture, meaning, truth and organisational adaptation. Unofficial technology is often the organisation attempting to restore information that the official model discarded.
+
+== Software is easier to build than people think
+
+If I want to expose an HTTP API today, here's what that actually looks like:
+
+[source,rust]
+----
+use axum::{routing::get, Router};
+
+#[tokio::main]
+async fn main() {
+    let app = Router::new().route("/", get(|| async { "Hello, world!" }));
+    let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
+    axum::serve(listener, app).await.unwrap();
+}
+----
+
+The mechanics of building software have become more or less trivial, it's the difficult questions that come after this bit of code that are harder:
+
+
+* What should the endpoint expose?
+* Who owns it?
+* What concepts does it represent?
+* How does it evolve?
+
+Those aren't programming questions, they're core organisational ones.
+
+== Software engineering is theory building
+
+Peter Naur famously described programming as _Theory Building_. I've always thought that was a better description of software engineering than "writing code". Engineers spend most of their time constructing a coherent theory of an organisation: its language, concepts, constraints, relationships and behaviours. The source code is really just the artefact left behind once that understanding is sufficiently complete.
+
+Writing the actual software has become progressively cheaper over time, and not because engineering salaries have gone down. Modern languages, frameworks, cloud infrastructure, open-source, AI-assisted development, and decades of accumulated knowledge and _balanced_ abstractions mean that producing a service, an API, a
+workflow engine, or an entire web, desktop or mobile application is often measured in weeks rather than years. *For an experienced engineer, implementation is rarely the limiting factor*.
+
+// Diagram
+
+== Commercial software represents somebody else's theory
+
+In order to be _adaptive_, you need to have a deep understanding of your organisation, it's people, it's processes, it's funding, it's partnerships. If you buy commercial software to solve a problem that
+is distinct to your organisation, you are effectively outsourcing that understanding to a vendor whose incentives are to bend your organisation to fit _their_ theory of how organisations should operate and what they find meaningful.
+
+Commercial software is literally just theory that has accumulated _somewhere else_. Years of solving one or a handful of organisation's problems eventually became abstract enough to package and sell. Every ERP, CRM, HR platform and project management tool holds thousands of assumptions about how work should happen.
+
+You should be <i>very</i> careful about whose organisations processes you're buying. Because when they're misaligned, it's extremely costly in time, money and resource, and in extreme cases, sometimes impossible to change.
+
+Organisations consistently misunderstand what it is they're actually paying for, they think that they're buying software because software is expensive to build. *What they're really buying is someone else's theory because they aren't willing to invest in building their own*.
+
+== How a rational organisation goes awry
+
+You don't arrive at commercial software accidentally. You're pushed toward it from multiple directions. Consultants recommend it, procurement processes actually reward it, vendors market it, analysts rank it, boards recognize names. It's a subtle set of pressures, but it's unbelievably relentless.
+
+All the arguments you hear sound great, in isolation.
+
+=== "Dont't reinvent the wheel"
+
+This is a pretty common one, it implies that writing software is where the cost is, and the simple and most straightforward solution is that buying software must be cheaper than building it.
+
+Buying a product doesn't remove the work of understanding your organisation, it just shifts that work into configuration, integrations, customisation, governance, and _organisational compromise_.
+
+You are <strong>not</strong> buying less complexity, you're buying complexity that lives somewhere else.
+
+=== "It's industry standard!"
+
+Standards are incredibly useful when the problem itself is pretty standard. Things like Payroll, Identity, Email, Accounting.
+
+Those are domains where thousands of organisations have already discovered remarkably similar solutions, but the mistake is assuming your differentiating capabilities have also become standard.
+
+Research isn't standard, humanitarian response isn't standard, scientific funding isn't standard. Your competitive advantage almost certainly isn't standard either.
+
+=== "It's more secure"
+
+This is one of the more persuasive arguments. Large vendors have security teams, penetration testing, compliance certifications, and dedicated incident response.
+
+Those *are* real advantage, but security is only a single quality of an overarching systems. Adaptability, replaceability, organisational fit are also qualities that matter.
+
+Buying security while simultaneously making your organisation less capable of changing is still a trade-off, it isn't a free improvement.
+
+=== "Thousands of organisations already use it"
+
+This sounds compelling, but actually think about what that means under the hood.
+
+It means the product has accumulated requirements from thousands of organisations. It wasn't built for *yours*.
+
+The larger the customer base becomes, the more the software optimizes for the statistical average organisation.
+
+If your organisations exists precisely because it _isn't_ average, that's probably worth mulling over a bit.
+
+=== "It's cheaper"
+
+Sometimes, sometimes not, depends on how you measure cost in most cases.
+
+Procurement compares licensing against development, but almost nobody compares licensing, plus configuration, plus integration, plus training, plus administration, plus consultants, plus migration
+lock-ins, plus eventual replacement. 
+
+Those are engineering costs too, they're just usually hidden in different budgets masking the real cost of the decision.
+
+=== "Nobody gets fired for buying X"
+
+This is probably one of the strongest pressures, and it's really that commercial software *transfers responsibility*.
+
+If the project struggles, everyone can point at the vendor, the analyst reports, the procurement exercise or the implementation partner.
+
+Building internal capability asks leaders to trust their own engineers, and that requires judgement.
+
+I really need to make this clear: *One optimizes for organisational success, the other more often than not optimizes for career safety*.
+
+These are not the same things
+
+== Cumulative effect
+
+You've probably heard some or all of these before.
+
+The cumulative effect of all this pressure is subtle, you slowly begin to believe that software itself is where value lives when it really isn't. The actual value is in understanding the organisation, and software is just an artefact of that understanding.        
+
+
+== Invest in people, not products
+
+Investing in engineering has very different economics to enterprise software. A good engineering team doesn't just produce software, it continually refines its understanding of the organisation. As the organisation evolves , that understanding will evolve alongside it, and software will evolve as a direct byproduct.
+
+Commercial software though, evolves according to the priorities of thousands of customers.
+
+If I have engineers, they can understand the change, and implement it directly in a *plaintext code file that's versioned, tracked, tested, and quality   checked*.
+
+You don't have to rely on a vendors attestations, future roadmaps. You can see it, right there, in front of you.
+
+In an organisation that changes often and drastically, *Software engineering is one of the few organisational capabilities which can evolve at roughly the same rate as the organisation itself*.
 
 * People outside software engineering have largely been sold the idea that writing code is the expensive, difficult part. It usually isn't anymore, understanding the organisation is. Treating engineering purely as a delivery arm for someone else's fully-specified requirements outsources the one part that was actually valuable.
 * Product-oriented teams, durable teams that own a capability instead of time-boxed projects, are the right shape, but only if engineering sits inside that ownership instead of underneath it. Worth checking how many capabilities your organisation has shipped that didn't start as someone else's requirement.

@@ -1,6 +1,12 @@
-title: Architecture for Living Organisations
+title: Adaptive Architecture for Living Organisations
 author: Jeff Uren
 edition: First Edition 2026
+
+copyright: |
+  Copyright © 2026 Jeff Uren. All rights reserved.
+
+  No part of this publication may be reproduced, distributed, or transmitted in any form or by
+  any means without the prior written permission of the author.
 
 dedication: |
   For everyone still trying to explain the org chart to someone new.
@@ -45,16 +51,38 @@ parts:
       - 001_004.adoc
       - 001_005.adoc
       - 001_006.adoc
+      - 001_006a.adoc
+      - 001_006b.adoc
+      - 001_006c.adoc
+      - 001_006d.adoc
       - 001_007.adoc
       - 001_008.adoc
       - 001_009.adoc
       - 001_010.adoc
       - 001_011.adoc
+  - title: The Work of an Architect
+    summary: |
+      Architecture is an unusual discipline because relatively little of its value comes from producing architecture.
+    chapters:
+      - 010_001.adoc
+      - 010_002.adoc
+      - 010_003.adoc
+      - 010_004.adoc
+      - 010_004.1.adoc
+      - 010_005.adoc
+      - 010_006.adoc
+      - 010_007.adoc
+      - 010_008.adoc
+      - 010_009.adoc
+      - 010_010.adoc
+      - 010_011.adoc
+      - 010_012.adoc
+      - 010_013.adoc
   - title: Culture
     summary: |
       Socio-technical concerns aren't a soft add-on to architecture, they're
-      increasingly recognised as part of it. Get this Part right and the moves in
-      Part V land easily; get it wrong and no move will save you.
+      increasingly recognised as a core part of it. Get this Part right and the moves in
+      Part V land a lot more easily; get it wrong and no move, and no person can save you.
     chapters:
       - 002_012.adoc
       - 002_013.adoc
@@ -98,6 +126,19 @@ parts:
       - 005_033a.adoc
       - 005_033b.adoc
       - 005_033c.adoc
+  - title: Tools for Stewardship
+    summary: |
+      You need a way to do these things, there's a lot here, so you need the right
+      tools for the job to help you execute the moves in Part V and to underpin the ideas
+      in Part III. 
+
+      Here we talk about some tooling that might not be the right fit for you, but it's a good
+      starting point to get you thinking about what you need to do, and how you might do it.
+    chapters:
+      - 009_0xx.adoc
+      - 009_0x1.adoc
+      - 009_0x2.adoc
+      - 009_0x3.adoc
   - title: Applying It
     summary: |
       Still to be written.

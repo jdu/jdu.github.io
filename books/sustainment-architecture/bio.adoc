@@ -1,0 +1,11 @@
+= Bio
+
+Jeff Uren is a software engineer, data architect and engineering leader with more than twenty years of experience building large-scale systems across healthcare, scientific research, finance, embedded software and distributed platforms.
+
+His work has ranged from operating systems and embedded devices to cloud-native data platforms, federated analytics and semantic architectures. During the COVID-19 pandemic he contributed to the architecture and technical review of multiple clinical trial data-sharing platforms supporting international vaccine research, and has since led the design of semantic data platforms and organisational ontologies within the research sector.
+
+Throughout his career Jeff has been less interested in individual technologies than in the organisations that build and depend upon them. His work increasingly focuses on the intersection of software architecture, enterprise architecture, systems thinking and knowledge representation, exploring how organisations can preserve shared meaning while continuing to evolve.
+
+He is the creator of the Unified Domain Architecture (UDA), a practical approach to modelling organisational meaning independently of individual systems, and is an advocate for treating architecture as a discipline of stewardship rather than governance.
+
+When he isn't designing systems, Jeff writes about architecture, organisations and technology, with a particular interest in the relationship between language, complexity and change. His writing draws inspiration from fields as varied as cybernetics, military sustainment, philosophy, ecology and literature, reflecting a belief that the hardest problems in architecture are rarely technical alone.

@@ -1,0 +1,13 @@
+= Making Decisions at Your Vantage Point
+
+This chapter feels particularly important given what you've just said.
+
+You don't need to be “the architect.”
+
+A junior engineer can notice a boundary that doesn't make sense.
+
+A hobbyist can reason about persistence.
+
+A senior engineer can spot organisational coupling.
+
+Architecture is visible from wherever you're standing.

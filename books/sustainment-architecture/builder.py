@@ -1,4 +1,10 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.11"
+# dependencies = [
+#     "pyyaml",
+# ]
+# ///
 """
 Build a single-page, book-styled HTML document from _index.yaml + chapter .adoc files.
 
@@ -77,6 +83,7 @@ MARGIN_BOTTOM_PT = 30
 
 MARGIN_TOP_IN = MARGIN_TOP_PT / PT_PER_IN
 MARGIN_BOTTOM_IN = MARGIN_BOTTOM_PT / PT_PER_IN
+MARGIN_TOP_PX = MARGIN_TOP_IN * DPI
 
 CONTENT_WIDTH_PX = (PAGE_WIDTH_IN - MARGIN_LEFT_IN - MARGIN_RIGHT_IN) * DPI
 CONTENT_HEIGHT_PX = (PAGE_HEIGHT_IN - MARGIN_TOP_IN - MARGIN_BOTTOM_IN) * DPI
@@ -155,6 +162,17 @@ EXTRA_REM = {
 }
 EXTRA_PX = {tag: (top * BASE_FONT_PX, bottom * BASE_FONT_PX) for tag, (top, bottom) in EXTRA_REM.items()}
 LI_ITEM_EXTRA_PX = 0.35 * BASE_FONT_PX
+
+# Code blocks and tables aren't text-wrapped -- their height is driven by
+# line/row count, not estimated word-wrap, so they don't need FONT_REM /
+# WRAP_WIDTH_PX entries; these constants match the CSS below directly.
+CODE_FONT_PX = 0.82 * BASE_FONT_PX
+CODE_LINE_HEIGHT = 1.4
+CODE_BLOCK_EXTRA_PX = 1.5 * BASE_FONT_PX + 1.0 * BASE_FONT_PX  # padding (top+bottom) + margin-bottom
+
+TABLE_FONT_PX = 0.92 * BASE_FONT_PX
+TABLE_ROW_PADDING_PX = 0.7 * BASE_FONT_PX  # cell padding, top+bottom
+TABLE_EXTRA_PX = 1.0 * BASE_FONT_PX  # margin-bottom
 
 # --- Table of Contents: two columns, spanning as many pages as it needs ----
 CONTENT_WIDTH_IN = PAGE_WIDTH_IN - MARGIN_LEFT_IN - MARGIN_RIGHT_IN
@@ -237,6 +255,7 @@ def unique_slug(text, seen):
 
 def apply_inline(text):
     """Escape HTML, then apply a small subset of AsciiDoc inline markup."""
+    text = text.replace("->", "→").replace("<-", "←").replace("=>", "⇒")  # arrow glyphs
     text = html.escape(text, quote=False)
     text = re.sub(r"\*(\S(?:.*?\S)?)\*", r"<strong>\1</strong>", text)
     text = re.sub(r"_(\S(?:.*?\S)?)_", r"<em>\1</em>", text)
@@ -356,6 +375,29 @@ def text_lines(text_len, font_px, width_px):
     return max(1, math.ceil(text_len / chars_per_line))
 
 
+def render_list_html(tag, entries):
+    """Render a (possibly nested) list. Each entry's `sub`, if present, is
+    a {"tag", "entries"} for a nested list rendered inside that <li>."""
+    items = []
+    for e in entries:
+        sub_html = render_list_html(e["sub"]["tag"], e["sub"]["entries"]) if e["sub"] else ""
+        items.append(f"<li>{e['html']}{sub_html}</li>")
+    return f"<{tag}>{''.join(items)}</{tag}>"
+
+
+def list_group_height(tag, entries, font_px, width_px, item_extra_px):
+    """Estimated height of a (possibly nested) list at a given font/width
+    scale -- recurses into each entry's nested sub-list, if any."""
+    top, bottom = EXTRA_PX["li-block"]
+    total = top + bottom
+    for e in entries:
+        lines = text_lines(e["text_len"], font_px, width_px)
+        total += lines * font_px * LINE_HEIGHT + item_extra_px
+        if e["sub"]:
+            total += list_group_height(e["sub"]["tag"], e["sub"]["entries"], font_px, width_px, item_extra_px)
+    return total
+
+
 def estimate_image_height_px(block, width_px):
     """Rendered height of an `image::` block at a given display width,
     from its real aspect ratio if the file's dimensions can be read."""
@@ -384,16 +426,35 @@ def estimate_margin_group_height(sub_blocks):
             top, bottom = EXTRA_PX["hr"]
             total += (top + bottom) * 0.6
         elif tag in ("ul", "ol"):
-            top, bottom = EXTRA_PX["li-block"]
-            sub_total = top + bottom
-            for item_len in b["items"]:
-                lines = text_lines(item_len, MARGINNOTE_FONT_PX, MARGIN_WIDTH_PX)
-                sub_total += lines * MARGINNOTE_FONT_PX * LINE_HEIGHT + LI_ITEM_EXTRA_PX * 0.8
-            total += sub_total
+            total += list_group_height(tag, b["entries"], MARGINNOTE_FONT_PX, MARGIN_WIDTH_PX, LI_ITEM_EXTRA_PX * 0.8)
+        elif tag == "code-block":
+            total += CODE_BLOCK_EXTRA_PX + b["line_count"] * CODE_FONT_PX * CODE_LINE_HEIGHT
+        elif tag == "table":
+            total += TABLE_EXTRA_PX + b["row_count"] * (TABLE_FONT_PX * LINE_HEIGHT + TABLE_ROW_PADDING_PX)
         else:
             lines = text_lines(b.get("text_len", 0), MARGINNOTE_FONT_PX, MARGIN_WIDTH_PX)
             total += lines * MARGINNOTE_FONT_PX * LINE_HEIGHT + MARGINNOTE_FONT_PX * 0.8
     return total
+
+
+def estimate_blockquote_height(sub_blocks):
+    """Sum estimated heights of paragraphs nested inside a `>` blockquote,
+    at the main column's width and full body font size (unlike a margin
+    note, a blockquote isn't shrunk)."""
+    total = 0.5 * BASE_FONT_PX  # top+bottom padding
+    for b in sub_blocks:
+        tag = b["tag"]
+        if tag in ("ul", "ol"):
+            top, bottom = EXTRA_PX["li-block"]
+            sub_total = top + bottom
+            for item_len in b["items"]:
+                lines = text_lines(item_len, FONT_PX["li"], MAIN_WIDTH_PX)
+                sub_total += lines * FONT_PX["li"] * LINE_HEIGHT + LI_ITEM_EXTRA_PX
+            total += sub_total
+        else:
+            lines = text_lines(b.get("text_len", 0), FONT_PX["p"], MAIN_WIDTH_PX)
+            total += lines * FONT_PX["p"] * LINE_HEIGHT + FONT_PX["p"] * 0.6
+    return total + BASE_FONT_PX  # margin-bottom
 
 
 def block_height_px(block, is_chapter_start=False):
@@ -407,8 +468,17 @@ def block_height_px(block, is_chapter_start=False):
     if tag == "marginnote" and "margin_group" in block:
         return estimate_margin_group_height(block["margin_group"])
 
+    if tag == "blockquote":
+        return estimate_blockquote_height(block["quote_group"])
+
     if tag == "image":
         return estimate_image_height_px(block, MAIN_WIDTH_PX)
+
+    if tag == "code-block":
+        return CODE_BLOCK_EXTRA_PX + block["line_count"] * CODE_FONT_PX * CODE_LINE_HEIGHT
+
+    if tag == "table":
+        return TABLE_EXTRA_PX + block["row_count"] * (TABLE_FONT_PX * LINE_HEIGHT + TABLE_ROW_PADDING_PX)
 
     if tag == "chapter-title" and is_chapter_start:
         lines = text_lines(block["text_len"], FONT_PX["chapter-title"], CONTENT_WIDTH_PX)
@@ -419,12 +489,7 @@ def block_height_px(block, is_chapter_start=False):
         return top + bottom
 
     if tag in ("ul", "ol"):
-        top, bottom = EXTRA_PX["li-block"]
-        total = top + bottom
-        for item_len in block["items"]:
-            lines = text_lines(item_len, FONT_PX["li"], MAIN_WIDTH_PX)
-            total += lines * FONT_PX["li"] * LINE_HEIGHT + LI_ITEM_EXTRA_PX
-        return total
+        return list_group_height(tag, block["entries"], FONT_PX["li"], MAIN_WIDTH_PX, LI_ITEM_EXTRA_PX)
 
     font_px = FONT_PX.get(tag, FONT_PX["p"])
     width_px = WRAP_WIDTH_PX.get(tag, CONTENT_WIDTH_PX)
@@ -482,6 +547,12 @@ def paginate(blocks, content_height_px):
             margin_used = 0.0
             next_main = 0.0 if is_margin else h
             next_margin = h if is_margin else 0.0
+        if is_margin:
+            # Where this note "belongs" vertically: how far the main
+            # column has filled by this point, i.e. right by whatever it's
+            # annotating -- resolved against other notes on this page in
+            # resolve_marginnote_positions() once the page is complete.
+            block["anchor_top_px"] = main_used
         current.append(block)
         main_used = next_main
         margin_used = next_margin
@@ -490,11 +561,38 @@ def paginate(blocks, content_height_px):
     return pages
 
 
+MARGINNOTE_GAP_PX = 1.0 * BASE_FONT_PX  # matches the old float-based margin-bottom
+
+
+def resolve_marginnote_positions(page_blocks):
+    """Assign each margin note on a page a final, non-overlapping top
+    position, in document order: a note can't render higher than its own
+    anchor point, but if an earlier note on the same page is still tall
+    enough to reach that far down, this one stacks below it instead."""
+    last_bottom = 0.0
+    for block in page_blocks:
+        if block["tag"] != "marginnote":
+            continue
+        top = max(block["anchor_top_px"], last_bottom)
+        block["resolved_top_px"] = top
+        last_bottom = top + block_height_px(block) + MARGINNOTE_GAP_PX
+
+
 def render_sheet(page, page_number=None):
     """Render one page's blocks into a .sheet div. A page that opens on a
     chapter (skipping a leading part-header, if present) gets the
     chapter-opener treatment: extra class + a chapter-number marker."""
-    content_html = "".join(b["html"] for b in page)
+    resolve_marginnote_positions(page)
+    content_html_parts = []
+    for b in page:
+        if b["tag"] == "marginnote":
+            top_px = MARGIN_TOP_PX + b["resolved_top_px"]
+            content_html_parts.append(
+                b["html"].replace('<div class="marginnote">', f'<div class="marginnote" style="top:{top_px:.1f}px">', 1)
+            )
+        else:
+            content_html_parts.append(b["html"])
+    content_html = "".join(content_html_parts)
     footer = f'<div class="page-number">{page_number}</div>' if page_number is not None else ""
 
     opening_chapter = None
@@ -526,7 +624,7 @@ def convert_body(lines, heading_base, seen_ids, apply_lede=True):
         named_notes[note_id] = {"kind": kind, "sub_blocks": sub_blocks, "number": None}
 
     blocks = []
-    list_stack = []  # list of (depth, tag, items, texts)
+    list_stack = []  # list of [depth, tag, entries]; entries are {"text_len", "html", "sub"}
     para_buf = []
     admonition = None
     extract_notes = make_note_extractor(named_notes)
@@ -586,22 +684,127 @@ def convert_body(lines, heading_base, seen_ids, apply_lede=True):
                     note_html = f'<div class="marginnote">{apply_inline(payload)}</div>'
                     blocks.append({"tag": "marginnote", "text_len": len(payload), "html": note_html})
 
-    def close_lists():
-        while list_stack:
-            depth, tag, items_html, items_len = list_stack.pop()
+    def pop_list():
+        """Pop the deepest open list. If a shallower list is still open,
+        the popped list nests inside that list's last <li> (AsciiDoc's
+        `**` under `*` etc.); otherwise it's finished and becomes its own
+        top-level block."""
+        depth, tag, entries = list_stack.pop()
+        if list_stack:
+            list_stack[-1][2][-1]["sub"] = {"tag": tag, "entries": entries}
+        else:
             blocks.append({
                 "tag": tag,
-                "items": items_len,
-                "html": f"<{tag}>{''.join(items_html)}</{tag}>",
+                "entries": entries,
+                "html": render_list_html(tag, entries),
             })
 
-    for raw in lines:
+    def close_lists():
+        while list_stack:
+            pop_list()
+
+    i = 0
+    n = len(lines)
+    pending_attrs = {}
+    while i < n:
+        raw = lines[i]
         line = raw.rstrip("\n")
         stripped = line.strip()
 
         if stripped == "":
             flush_para()
             close_lists()
+            pending_attrs = {}
+            i += 1
+            continue
+
+        source_attr_match = re.match(r"^\[source(?:,\s*([\w+-]*))?\]$", stripped)
+        if source_attr_match:
+            pending_attrs["source_lang"] = source_attr_match.group(1) or ""
+            i += 1
+            continue
+
+        if re.match(r'^\[(%header|options="header")\]$', stripped):
+            pending_attrs["table_header"] = True
+            i += 1
+            continue
+
+        # Any other bracket attribute line (e.g. [cols="1,1"]) -- consumed
+        # silently so it doesn't leak into paragraph text as literal text.
+        if re.match(r"^\[.*\]$", stripped):
+            i += 1
+            continue
+
+        code_fence_match = re.match(r"^-{4,}$", stripped)
+        if code_fence_match:
+            flush_para()
+            close_lists()
+            lang = pending_attrs.get("source_lang", "")
+            pending_attrs = {}
+            i += 1
+            code_lines = []
+            while i < n and not re.match(r"^-{4,}$", lines[i].strip()):
+                code_lines.append(lines[i].rstrip("\n"))
+                i += 1
+            i += 1  # skip closing ----
+            escaped = html.escape("\n".join(code_lines), quote=False)
+            lang_class = f' class="language-{html.escape(lang)}"' if lang else ""
+            blocks.append({
+                "tag": "code-block",
+                "line_count": len(code_lines) or 1,
+                "html": f"<pre><code{lang_class}>{escaped}</code></pre>",
+            })
+            continue
+
+        if stripped == "|===":
+            flush_para()
+            close_lists()
+            has_header = bool(pending_attrs.get("table_header"))
+            pending_attrs = {}
+            i += 1
+            table_lines = []
+            while i < n and lines[i].strip() != "|===":
+                table_lines.append(lines[i])
+                i += 1
+            i += 1  # skip closing |===
+            rows = []
+            for table_line in table_lines:
+                table_line_stripped = table_line.strip()
+                if not table_line_stripped or not table_line_stripped.startswith("|"):
+                    continue
+                cells = [c.strip() for c in table_line_stripped.split("|")[1:]]
+                rows.append(cells)
+            row_htmls = []
+            for row_index, cells in enumerate(rows):
+                cell_tag = "th" if (has_header and row_index == 0) else "td"
+                cells_html = "".join(f"<{cell_tag}>{apply_inline(c)}</{cell_tag}>" for c in cells)
+                row_htmls.append(f"<tr>{cells_html}</tr>")
+            blocks.append({
+                "tag": "table",
+                "row_count": len(rows),
+                "html": f"<table>{''.join(row_htmls)}</table>",
+            })
+            continue
+
+        if stripped.startswith(">"):
+            flush_para()
+            close_lists()
+            quote_lines = []
+            while i < n:
+                s = lines[i].strip()
+                if not s.startswith(">"):
+                    break
+                content = s[1:]
+                if content.startswith(" "):
+                    content = content[1:]
+                quote_lines.append(content)
+                i += 1
+            quote_blocks = convert_body(quote_lines, heading_base, seen_ids, apply_lede=False)
+            blocks.append({
+                "tag": "blockquote",
+                "quote_group": quote_blocks,
+                "html": f'<blockquote>{"".join(b["html"] for b in quote_blocks)}</blockquote>',
+            })
             continue
 
         heading_match = re.match(r"^(=+)\s+(.*)$", stripped)
@@ -619,12 +822,14 @@ def convert_body(lines, heading_base, seen_ids, apply_lede=True):
                 "anchor": anchor,
                 "html": f'<{tag} id="{anchor}">{apply_inline(title_text)}</{tag}>',
             })
+            i += 1
             continue
 
         if stripped == "'''":
             flush_para()
             close_lists()
             blocks.append({"tag": "hr", "html": "<hr/>"})
+            i += 1
             continue
 
         image_match = re.match(r"^image::(\S+)\[(.*?)\]$", stripped)
@@ -637,6 +842,7 @@ def convert_body(lines, heading_base, seen_ids, apply_lede=True):
                 "src": src,
                 "html": f'<img src="{html.escape(src, quote=True)}" alt="{html.escape(alt, quote=True)}">',
             })
+            i += 1
             continue
 
         list_match = re.match(r"^(\*+|\.+)\s+(.*)$", stripped)
@@ -648,26 +854,26 @@ def convert_body(lines, heading_base, seen_ids, apply_lede=True):
             item_text = content.strip()
 
             while list_stack and list_stack[-1][0] > depth:
-                d, t, items_html, items_len = list_stack.pop()
-                blocks.append({"tag": t, "items": items_len, "html": f"<{t}>{''.join(items_html)}</{t}>"})
+                pop_list()
             if not list_stack or list_stack[-1][0] < depth:
-                list_stack.append([depth, tag, [], []])
+                list_stack.append([depth, tag, []])
             elif list_stack[-1][1] != tag:
-                d, t, items_html, items_len = list_stack.pop()
-                blocks.append({"tag": t, "items": items_len, "html": f"<{t}>{''.join(items_html)}</{t}>"})
-                list_stack.append([depth, tag, [], []])
+                pop_list()
+                list_stack.append([depth, tag, []])
 
-            list_stack[-1][2].append(f"<li>{apply_inline(item_text)}</li>")
-            list_stack[-1][3].append(len(item_text))
+            list_stack[-1][2].append({"text_len": len(item_text), "html": apply_inline(item_text), "sub": None})
+            i += 1
             continue
 
         admon_match = re.match(r"^(NOTE|TIP|IMPORTANT|WARNING|CAUTION):\s*(.*)$", stripped)
         if admon_match and not para_buf:
             admonition = admon_match.group(1)
             para_buf.append(admon_match.group(2))
+            i += 1
             continue
 
         para_buf.append(stripped)
+        i += 1
 
     flush_para()
     close_lists()
@@ -743,7 +949,7 @@ body {
 .page {
   max-width: none;
   margin: 0 auto;
-  padding: 4rem 1rem 6rem;
+  padding: 7rem 1rem 6rem;
 }
 
 /* Every page of the book is a fixed-size sheet of paper (Crafting
@@ -772,6 +978,18 @@ body {
   flex-direction: column;
   justify-content: center;
   transform: translateY(-8%);
+  /* Several soft, off-center, semi-transparent blobs layered over a base
+     diagonal fill -- greens and one warm earthy tone, overlapping so the
+     seams blend rather than reading as a single centered gradient. Meant
+     to feel like a shifting, amorphous mass rather than a flat fill. */
+  background:
+    radial-gradient(ellipse 90% 70% at 50% 45%, rgba(74, 122, 90, 0.25) 0%, transparent 65%),
+    radial-gradient(ellipse 75% 55% at 12% 88%, rgba(122, 94, 58, 0.35) 0%, transparent 75%),
+    radial-gradient(ellipse 70% 60% at 78% 85%, rgba(16, 30, 20, 0.65) 0%, transparent 72%),
+    radial-gradient(ellipse 65% 55% at 82% 15%, rgba(35, 82, 58, 0.55) 0%, transparent 68%),
+    radial-gradient(ellipse 55% 45% at 18% 22%, rgba(58, 107, 74, 0.6) 0%, transparent 70%),
+    linear-gradient(155deg, #1a3a28 0%, #102117 100%);
+  color: #ffffff;
 }
 .title-page h1 {
   font-size: 5.5rem;
@@ -779,22 +997,24 @@ body {
   letter-spacing: 0.02em;
   line-height: 1.05;
   margin-bottom: 0.5rem;
+  color: #ffffff;
 }
 .title-page .subtitle {
   font-style: italic;
-  color: var(--muted);
+  color: #cfe3d6;
   font-size: 1.15rem;
 }
 .title-page .author {
   margin-top: 2rem;
   font-size: 1.1rem;
+  color: #ffffff;
 }
 .title-page .edition {
   margin-top: 3rem;
   font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--muted);
+  color: #a9c7b5;
 }
 
 .part-divider {
@@ -850,43 +1070,59 @@ body {
   margin: 0 0 1em;
 }
 
+/* Plain legal boilerplate, bottom-anchored rather than centered like the
+   Dedication -- reads as a document, not a piece of writing. */
+.copyright-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  text-align: left;
+}
+.copyright-page p {
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 0 0 0.75rem;
+}
+
 /* Table of Contents spans as many sheets as it needs (paginate_toc in
-   builder.py decides the split), each laid out in two columns. */
+   builder.py decides the split), each laid out in two columns. Multi-column
+   layout only actually fills column 1 then spills into column 2 if the
+   container has an explicit height to balance against -- left at auto
+   height, browsers just stack everything in column 1 and leave column 2
+   empty, which is what was happening here. __TOC_COLUMN_HEIGHT_PX__ is
+   substituted below to match CONTENT_HEIGHT_PX, the same per-column budget
+   paginate_two_column() already assumed when deciding what fits per page. */
 .toc-page nav.toc {
   columns: 2;
   column-gap: 0.4in;
+  column-fill: auto;
+  height: __TOC_COLUMN_HEIGHT_PX__px;
 }
-nav.toc ol {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 1.75rem;
-}
-nav.toc > ol > li {
-  margin-bottom: 1.5rem;
+/* Flat entries -- a part's label and each chapter are separate,
+   independently-paginated blocks (see build()'s ToC construction), not a
+   nested list, so a long part's chapters can flow across columns/pages. */
+.toc-part-label {
+  margin: 0 0 0.5rem;
   break-inside: avoid;
 }
-nav.toc .part-label {
+.toc-part-label .part-label {
   display: block;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
-nav.toc ul {
-  list-style: none;
-  padding-left: 0;
-  margin: 0.4rem 0 0;
+.toc-chapter {
+  margin: 0 0 1rem;
+  break-inside: avoid;
 }
-nav.toc ul li {
-  padding: 0.15rem 0;
+.toc-chapter > a {
   font-weight: bold;
 }
 nav.toc a {
   color: var(--text);
   text-decoration: none;
   border-bottom: 1px solid transparent;
-}
-nav.toc ul li a {
-  font-weight: bold;
 }
 nav.toc a:hover {
   border-bottom-color: var(--accent);
@@ -919,9 +1155,7 @@ nav.toc a:hover {
   flex-shrink: 0;
 }
 .toc-label {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: normal;
 }
 .toc-leader {
   flex: 1 1 auto;
@@ -935,9 +1169,13 @@ nav.toc a:hover {
 }
 
 /* Back-of-book Index: reuses the ToC's two-column .toc-page layout, but
-   with its own tighter, alphabetized-list styling. Higher specificity
-   than nav.toc > ol > li so its own spacing wins over the ToC's. */
-nav.toc .index-list > li {
+   with its own tighter, alphabetized-list styling. */
+.index-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.index-list > li {
   margin-bottom: 0;
   break-inside: avoid;
 }
@@ -1009,11 +1247,13 @@ nav.toc .index-list > li {
    `top` is measured from .sheet's padding box, i.e. the sheet's outer
    edge before its own padding is applied -- which is exactly page-top,
    so it can use the 70mm figure directly (no need to add the padding
-   back, unlike the title's own margin-top above). */
+   back, unlike the title's own margin-top above). `right` is measured
+   from that same outer edge too, so it needs the sheet's own 0.5in right
+   padding added back, or it overflows past the true content edge. */
 .chapter-number {
   position: absolute;
   top: 70mm;
-  right: 0;
+  right: 0.5in;
   width: 1.75in;
   font-size: 3rem;
   font-weight: 700;
@@ -1022,13 +1262,15 @@ nav.toc .index-list > li {
   color: var(--accent);
 }
 
-/* Page number footer -- bottom is measured from .sheet's padding box
-   (its outer edge), same reasoning as .chapter-number's top. */
+/* Page number footer -- bottom/left/right are all measured from .sheet's
+   padding box (its outer edge), so they need its own padding (1in left,
+   0.5in right) added back to center within the content box rather than
+   the whole physical sheet. */
 .page-number {
   position: absolute;
   bottom: 12pt;
-  left: 0;
-  right: 0;
+  left: 1in;
+  right: 0.5in;
   text-align: center;
   font-size: 0.8rem;
   color: var(--muted);
@@ -1057,7 +1299,10 @@ nav.toc .index-list > li {
 .sheet > ul,
 .sheet > ol,
 .sheet > .admonition,
-.sheet > img {
+.sheet > img,
+.sheet > pre,
+.sheet > table,
+.sheet > blockquote {
   width: 4.5in;
 }
 .sheet > img {
@@ -1072,11 +1317,22 @@ p { text-align: justify; hyphens: auto; margin: 0 0 1rem; }
 ul, ol { padding-left: 1.4rem; margin: 0 0 1rem; }
 li { margin-bottom: 0.35rem; }
 
+/* Positioned (not floated), same reasoning as .chapter-number: a float can
+   only rise as high as its point of insertion in the flow, and has to
+   stack below any earlier still-tall float in the same column, so its
+   rendered position can drift arbitrarily far from what it's actually
+   annotating. `top` is set inline per-note by render_sheet(), computed
+   from the main column's actual height at that note's reference point
+   (see resolve_marginnote_positions). `right` is measured from .sheet's
+   outer edge (its padding box), so it needs the sheet's own 0.5in right
+   padding added back -- otherwise the note's box sits 0.5in too far
+   right and its left-aligned, wrapping text overflows past the true
+   content edge. */
 .marginnote {
-  float: right;
-  clear: right;
+  position: absolute;
+  right: 0.5in;
   width: 1.75in;
-  margin: 0 0 1rem;
+  margin: 0;
   font-size: 0.8rem;
   line-height: 1.4;
   color: var(--muted);
@@ -1119,6 +1375,52 @@ code {
   background: rgba(128, 128, 128, 0.12);
   padding: 0.1em 0.3em;
   border-radius: 3px;
+}
+
+pre {
+  overflow-x: auto;
+  border-left: 2px solid #d0d0d0;
+  border-right: 2px solid #d0d0d0;
+  padding: 0.75rem 1rem;
+  margin: 0 0 1rem;
+}
+pre code {
+  font-size: 0.82rem;
+  line-height: 1.4;
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  white-space: pre;
+}
+
+table {
+  border-collapse: collapse;
+  margin: 0 0 1rem;
+  font-size: 0.92rem;
+}
+th, td {
+  border: 1px solid var(--rule);
+  padding: 0.35rem 0.5rem;
+  text-align: left;
+  vertical-align: top;
+}
+th {
+  font-weight: 700;
+  background: rgba(138, 90, 52, 0.08);
+}
+
+blockquote {
+  margin: 0 0 1rem;
+  padding: 0.25rem 0 0.25rem 1rem;
+  border-left: 3px solid var(--accent);
+  font-style: italic;
+  color: var(--muted);
+}
+blockquote p {
+  margin: 0 0 0.6rem;
+}
+blockquote p:last-child {
+  margin-bottom: 0;
 }
 
 .admonition {
@@ -1167,44 +1469,82 @@ code {
 }
 """
 CSS = CSS.replace("__BASE_FONT_PT__", f"{BASE_FONT_PT:.4f}")
+CSS = CSS.replace("__TOC_COLUMN_HEIGHT_PX__", f"{CONTENT_HEIGHT_PX:.2f}")
 
 
-def estimate_toc_entry_height(part_label_text, chapters):
-    """Estimated height (px) of one part's block in the ToC, wrapping at a
-    single ToC column's width -- used to decide how many part-blocks fit
-    on a ToC page before it needs to spill onto another. chapters is a
-    list of (chapter_title, subheading_titles) tuples."""
+def estimate_toc_part_label_height(part_label_text):
+    """Estimated height (px) of a part's own label line in the ToC -- its
+    own pagination entry, not bundled with its chapters, so a long part's
+    chapter list can flow across columns/pages instead of the whole part
+    being packed as one oversized, unsplittable block."""
     font_px = FONT_PX["p"]
-    height = 0.0
-    height += text_lines(len(part_label_text), font_px, TOC_COLUMN_WIDTH_PX) * font_px * LINE_HEIGHT
-    height += 1.5 * BASE_FONT_PX  # nav.toc > ol > li margin-bottom
-    for chapter_title, subheading_titles in chapters:
-        lines = text_lines(len(chapter_title), font_px, TOC_COLUMN_WIDTH_PX)
-        height += lines * font_px * LINE_HEIGHT + 0.3 * BASE_FONT_PX  # 0.15rem padding, top+bottom
-        # Subheading lines are single-line (nowrap + ellipsis in the CSS).
-        for _ in subheading_titles:
-            height += font_px * LINE_HEIGHT + 0.2 * BASE_FONT_PX
+    lines = text_lines(len(part_label_text), font_px, TOC_COLUMN_WIDTH_PX)
+    return lines * font_px * LINE_HEIGHT + 0.5 * BASE_FONT_PX  # .toc-part-label margin-bottom
+
+
+def estimate_toc_chapter_height(chapter_label, subheading_titles):
+    """Estimated height (px) of one chapter's ToC entry (its title plus its
+    nested, numbered sub-heading lines), wrapping at a single ToC column's
+    width. This is the pagination unit -- a chapter and its own
+    sub-headings stay together, but different chapters (even under the
+    same part) can land on different columns/pages."""
+    font_px = FONT_PX["p"]
+    lines = text_lines(len(chapter_label), font_px, TOC_COLUMN_WIDTH_PX)
+    height = lines * font_px * LINE_HEIGHT + 1.0 * BASE_FONT_PX  # .toc-chapter margin-bottom
+    if subheading_titles:
+        height += 0.2 * BASE_FONT_PX  # .toc-subheadings margin-top
+    # A subheading's label doesn't get the full column width -- its row also
+    # holds the "N.N" number, the dotted leader (shrunk to its 0.5em
+    # min-width once the label is long enough to need it) and the page
+    # number, all in the same flex row. Reserve roughly their combined
+    # width (~5.5em) so long titles are budgeted the extra line(s) they'll
+    # actually wrap onto instead of one line to a truncation ellipsis.
+    label_width_px = max(TOC_COLUMN_WIDTH_PX - 5.5 * font_px, 10)
+    for sub_title in subheading_titles:
+        sub_lines = text_lines(len(sub_title), font_px, label_width_px)
+        height += sub_lines * font_px * LINE_HEIGHT + 0.2 * BASE_FONT_PX  # .toc-subheadings li padding
     return height
 
 
 def paginate_two_column(entries, content_height_px, first_page_heading_height_px=0.0):
-    """entries: list of (html, height_px). Packs them into pages sized for
-    two columns (2x content height), with the first page's budget reduced
-    to leave room for a heading (used by both the ToC and the Index)."""
+    """entries: list of (html, height_px). Packs them into pages of two
+    real columns, simulating column-fill:auto's actual behavior: column 1
+    fills up to content_height_px, then column 2 the same way; an entry
+    that doesn't fit in either bumps to the next column or, if column 2 is
+    also full, starts a new page. A fixed column-count/height in CSS means
+    overflowing content doesn't wrap onto a new page on its own -- the
+    browser just adds extra columns past the page's physical width, so
+    this has to get the fit right rather than just summing total height
+    across both columns as one pool (which ignores that an entry can't be
+    split, so some space is "wasted" at each column break -- summing as
+    one pool overcounts how much actually fits).
+
+    A small safety margin on top, since these are text-length heuristic
+    heights, not exact browser layout."""
+    usable_height_px = content_height_px * 0.95
     pages = []
-    current = []
-    used = 0.0
-    budget = 2 * content_height_px - first_page_heading_height_px
+    current_page = []
+    col_index = 0
+    col_used = 0.0
+    col_capacity = usable_height_px - first_page_heading_height_px
+
     for entry_html, h in entries:
-        if current and used + h > budget:
-            pages.append(current)
-            current = []
-            used = 0.0
-            budget = 2 * content_height_px
-        current.append(entry_html)
-        used += h
-    if current:
-        pages.append(current)
+        if col_used > 0 and col_used + h > col_capacity:
+            if col_index == 0:
+                col_index = 1
+                col_used = 0.0
+                col_capacity = usable_height_px
+            else:
+                pages.append(current_page)
+                current_page = []
+                col_index = 0
+                col_used = 0.0
+                col_capacity = usable_height_px
+        current_page.append(entry_html)
+        col_used += h
+
+    if current_page:
+        pages.append(current_page)
     return pages
 
 
@@ -1333,7 +1673,16 @@ def build(index_path: Path, out_path: Path):
         if recommended:
             recommended_reading_by_part.append((part_title, recommended))
 
-        toc_chapter_items = []
+        # Each part's label and each chapter (with its own sub-headings) is
+        # its own flat pagination entry -- not nested/bundled as one giant
+        # per-part block -- so a long part's chapter list can flow across
+        # columns and pages instead of forcing the whole part onto one page.
+        # "PART I. Welcome" on one line -- .part-label's text-transform:
+        # uppercase renders it as "PART I. WELCOME".
+        part_label_text = f"{eyebrow}. {part_title}" if eyebrow else part_title
+        part_label_html = f'<div class="toc-part-label"><a class="part-label" href="#{part_id}">{apply_inline(part_label_text)}</a></div>'
+        toc_entries.append((part_label_html, estimate_toc_part_label_height(part_label_text)))
+
         for info in chapters_info:
             subheading_lines = []
             for n, (sub_title, anchor) in enumerate(info["subheadings"], start=1):
@@ -1348,38 +1697,25 @@ def build(index_path: Path, out_path: Path):
                 )
             subheadings_html = f'<ol class="toc-subheadings">{"".join(subheading_lines)}</ol>' if subheading_lines else ""
             chapter_label = f'Chapter {info["chapter_number"]}: {info["chapter_title"]}'
-            toc_chapter_items.append(
-                f'<li><a href="#{info["chapter_id"]}">{apply_inline(chapter_label)}</a>{subheadings_html}</li>'
-            )
-
-        # "PART I. Welcome" on one line -- .part-label's text-transform:
-        # uppercase renders it as "PART I. WELCOME".
-        part_label_text = f"{eyebrow}. {part_title}" if eyebrow else part_title
-        toc_entry_html = (
-            "<li>"
-            + f'<a class="part-label" href="#{part_id}">{apply_inline(part_label_text)}</a>'
-            + f'<ul>{"".join(toc_chapter_items)}</ul>'
-            + "</li>"
-        )
-        toc_entries.append((
-            toc_entry_html,
-            estimate_toc_entry_height(
-                part_label_text,
-                [
-                    (f'Chapter {info["chapter_number"]}: {info["chapter_title"]}', [s[0] for s in info["subheadings"]])
-                    for info in chapters_info
-                ],
-            ),
-        ))
+            chapter_html = f'<div class="toc-chapter"><a href="#{info["chapter_id"]}">{apply_inline(chapter_label)}</a>{subheadings_html}</div>'
+            subheading_titles = [s[0] for s in info["subheadings"]]
+            toc_entries.append((chapter_html, estimate_toc_chapter_height(chapter_label, subheading_titles)))
 
     toc_pages = paginate_toc(toc_entries, CONTENT_HEIGHT_PX)
     toc_sheets_html = "".join(
         f'<div class="sheet toc-page{" chapter-start" if i == 0 else ""}">'
         + ('<h3 class="chapter-title">Table of Contents</h3>' if i == 0 else "")
-        + f'<nav class="toc"><ol>{"".join(page_items)}</ol></nav>'
+        + f'<nav class="toc">{"".join(page_items)}</nav>'
         + "</div>"
         for i, page_items in enumerate(toc_pages)
     )
+
+    # --- Copyright page (right after the title page, before the ToC) -------
+    copyright_text = (data.get("copyright") or "").strip()
+    copyright_html = ""
+    if copyright_text:
+        copyright_blocks = convert_body(copyright_text.splitlines(), heading_base=3, seen_ids=seen_ids, apply_lede=False)
+        copyright_html = '<div class="sheet copyright-page">' + "".join(b["html"] for b in copyright_blocks) + "</div>"
 
     # --- Front matter: Dedication, Acknowledgements (after the ToC) --------
     dedication_text = (data.get("dedication") or "").strip()
@@ -1399,7 +1735,33 @@ def build(index_path: Path, out_path: Path):
         ack_flow.extend(convert_body(acknowledgements_text.splitlines(), heading_base=3, seen_ids=seen_ids, apply_lede=False))
         acknowledgements_html = "".join(render_sheet(p) for p in paginate(ack_flow, CONTENT_HEIGHT_PX))
 
-    front_matter_html = dedication_html + acknowledgements_html
+    preface_path = BOOK_DIR / "preface.adoc"
+    preface_html = ""
+    if preface_path.exists():
+        preface_title, preface_blocks = parse_chapter(preface_path)
+        preface_id = unique_slug(preface_title, seen_ids)
+        preface_flow = [{
+            "tag": "chapter-title",
+            "text_len": len(preface_title),
+            "html": f'<h3 class="chapter-title" id="{preface_id}">{apply_inline(preface_title)}</h3>',
+        }]
+        preface_flow.extend(preface_blocks)
+        preface_html = "".join(render_sheet(p) for p in paginate(preface_flow, CONTENT_HEIGHT_PX))
+
+    bio_path = BOOK_DIR / "bio.adoc"
+    bio_html = ""
+    if bio_path.exists():
+        bio_title, bio_blocks = parse_chapter(bio_path)
+        bio_id = unique_slug(bio_title, seen_ids)
+        bio_flow = [{
+            "tag": "chapter-title",
+            "text_len": len(bio_title),
+            "html": f'<h3 class="chapter-title" id="{bio_id}">{apply_inline(bio_title)}</h3>',
+        }]
+        bio_flow.extend(bio_blocks)
+        bio_html = "".join(render_sheet(p) for p in paginate(bio_flow, CONTENT_HEIGHT_PX))
+
+    front_matter_html = dedication_html + acknowledgements_html + preface_html + bio_html
 
     # --- Back matter: Recommended Reading, Bibliography, Index -------------
     recommended_reading_html = ""
@@ -1418,7 +1780,7 @@ def build(index_path: Path, out_path: Path):
                 "anchor": anchor,
                 "html": f'<h5 id="{anchor}">{apply_inline(part_title)}</h5>',
             })
-            items_html, items_len = [], []
+            rr_entries = []
             for entry in entries:
                 book_title = entry.get("title", "")
                 entry_author = entry.get("author", "")
@@ -1428,9 +1790,12 @@ def build(index_path: Path, out_path: Path):
                     line += f" &mdash; {apply_inline(entry_author)}"
                 if note:
                     line += f"<br>{apply_inline(note)}"
-                items_html.append(f"<li>{line}</li>")
-                items_len.append(len(book_title) + len(entry_author) + len(note))
-            rr_flow.append({"tag": "ul", "items": items_len, "html": f'<ul>{"".join(items_html)}</ul>'})
+                rr_entries.append({
+                    "text_len": len(book_title) + len(entry_author) + len(note),
+                    "html": line,
+                    "sub": None,
+                })
+            rr_flow.append({"tag": "ul", "entries": rr_entries, "html": render_list_html("ul", rr_entries)})
 
         rr_sheets = []
         for page_blocks in paginate(rr_flow, CONTENT_HEIGHT_PX):
@@ -1442,7 +1807,7 @@ def build(index_path: Path, out_path: Path):
     bibliography = data.get("bibliography") or []
     if bibliography:
         sorted_bib = sorted(bibliography, key=lambda e: (e.get("author") or "").lower())
-        items_html, items_len = [], []
+        bib_entries = []
         for entry in sorted_bib:
             entry_author = entry.get("author", "")
             book_title = entry.get("title", "")
@@ -1453,15 +1818,18 @@ def build(index_path: Path, out_path: Path):
                 line += f" {apply_inline(str(publisher))},"
             if year:
                 line += f" {year}."
-            items_html.append(f"<li>{line}</li>")
-            items_len.append(len(entry_author) + len(book_title) + len(str(publisher)) + len(str(year)))
+            bib_entries.append({
+                "text_len": len(entry_author) + len(book_title) + len(str(publisher)) + len(str(year)),
+                "html": line,
+                "sub": None,
+            })
         bib_flow = [
             {
                 "tag": "chapter-title",
                 "text_len": len("Bibliography"),
                 "html": '<h3 class="chapter-title" id="bibliography">Bibliography</h3>',
             },
-            {"tag": "ul", "items": items_len, "html": f'<ul>{"".join(items_html)}</ul>'},
+            {"tag": "ul", "entries": bib_entries, "html": render_list_html("ul", bib_entries)},
         ]
         bib_sheets = []
         for page_blocks in paginate(bib_flow, CONTENT_HEIGHT_PX):
@@ -1527,6 +1895,8 @@ def build(index_path: Path, out_path: Path):
   {f'<p class="author">{apply_inline(str(author))}</p>' if author else ''}
   {f'<p class="edition">{apply_inline(str(edition))}</p>' if edition else ''}
 </div>
+
+{copyright_html}
 
 <section class="toc-section" id="contents">
   {toc_sheets_html}

@@ -1,0 +1,54 @@
+= Make the Machine do the Repetition
+
+You've taught people what code is made from; now you show them how engineers can manipulate those building blocks at a higher level.
+
+Make the Machine Do the Repetition
+
+The basic principle:
+
+Humans should make decisions. Machines should repeat them.
+
+Start with mundane duplication, then show the spectrum:
+
+copy and paste
+
+function
+    ↓
+generic function
+    ↓
+template / generic type
+    ↓
+macro
+    ↓
+code generation
+    ↓
+domain-specific language
+
+Each step is essentially saying:
+
+“I have recognised a repeated structure and want to encode the structure rather than its instances.”
+
+That's a very architectural concept.
+
+== Functions Aren't the Only Abstraction
+
+This is where macros become interesting.
+
+Most introductory programming implicitly teaches:
+
+If something repeats, make a function.
+
+But sometimes what repeats isn't runtime behaviour. It's program structure.
+
+Rust makes this particularly visible.
+
+You might contrast:
+
+functions — abstract runtime behaviour
+generics — abstract over types
+traits — abstract capabilities/relationships
+declarative macros — abstract repeated syntax/structure
+procedural macros — transform or generate program structure
+build-time generation — manufacture artefacts before compilation
+
+That gives people a much richer picture of the available design space.

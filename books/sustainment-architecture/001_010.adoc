@@ -1,4 +1,4 @@
-= Knowledge decay
+= How knowledge decays
 
 In the previous chapter we looked at how organisations forget.
 
@@ -23,6 +23,8 @@ The organisation changes.
 Reality changes.
 
 The knowledge stays exactly where it was.
+
+
 
 == Knowledge Has a Half-Life
 

@@ -1,0 +1,111 @@
+ = Human Costs
+
+Architecture changes the conditions under which people work. A new system alters what they must remember, where they obtain information and how much control they have over completing a task. A new operating model changes responsibilities and relationships. A transformation programme may do all of these things at once, often while asking people to maintain the old organisation until the new one is ready.
+
+These effects are usually discussed in terms of adoption, productivity or resistance to change. They should also be understood as matters of health and safety. The World Health Organization identifies excessive workload, low control, unclear roles, authoritarian supervision, job insecurity and conflicting work and home demands as risks to mental health at work. In the United Kingdom, the Health and Safety Executive groups the main sources of work-related stress under six headings: demands, control, support, relationships, role and the management of change. Architecture can influence every one of them.
+
+== Change is not pyschologically neutral
+
+Organisational change is not inherently harmful. It may remove frustrating work, improve services and give people greater control over their jobs. The risk arises from how change is designed and carried out, particularly when it increases demands while reducing control, leaves roles uncertain or asks people to work for long periods between an old organisation and an unfinished replacement.
+
+A 2024 study used three representative German workforce surveys covering more than 50,000 observations between 2006 and 2018. Employees who had experienced at least one form of organisational change were 1.82 times as likely to report poor mental health indicators after adjustment for age, gender, occupation and survey year. In the 2012 sample, the predicted probability of poor mental health was 24.4% among employees experiencing change, compared with 14.4% among those who were not. The study was observational, so it does not prove that every change caused the difference, but it provides strong evidence that organisational change and employee health cannot safely be treated as unrelated concerns.
+
+The practical implication is not that organisations should avoid change. It is that change should be treated as an intervention in the working environment. Its effects on workload, control, role clarity, relationships and support should be assessed with the same seriousness as its effects on cost and delivery. 
+
+== How transformations increase demands
+
+A transformation rarely replaces one way of working with another in a single movement. For a period, the organisation has to operate both. People enter information into the new system while correcting records in the old one. They learn a new process while continuing to meet the commitments made under the previous process. When the two representations disagree, somebody has to investigate the difference and decide which version should be trusted.
+
+This transitional work is often absent from the programme plan because no single team owns it. It appears instead as small additions to ordinary jobs. A few more checks are introduced, meetings become longer and experienced staff spend more time explaining how the old organisation worked. Each addition appears manageable, but together they can significantly increase the demands placed on the people expected to keep the organisation operating.
+
+The people most affected are often the same people whose knowledge the transformation depends upon. They are asked to deliver their existing work, explain it to the programme, test its replacement and then help everyone else adopt it. Treating this as incidental participation hides a substantial transfer of effort from the programme into the existing workforce.
+ 
+== Control matters as much as workload
+
+High workload is not the only source of strain. The amount of control people retain over their work also matters.
+
+Control does not mean allowing everyone to choose their own objectives or ignore organisational constraints. It means having enough influence over the methods, sequencing and immediate decisions involved in doing the work well. A demanding job can remain manageable when people have authority to adjust priorities and respond to local conditions. The same demands become harder to sustain when deadlines, tools and procedures are imposed while the people responsible for the outcome are prevented from changing any of them.
+
+Transformation programmes often reduce control at the same time as they increase demand. Decisions move into programme governance, while responsibility for dealing with their consequences remains with operational teams. People may be accountable for an outcome without having authority over the design causing the problem. HSE treats demands and control as separate but interacting psychosocial risk factors and recommends addressing organisational causes rather than returning individuals to the same harmful conditions after they have become unwell.
+
+This is why consultation must involve more than informing people that a decision has been made. The people doing the work need a credible route to alter decisions when evidence from practice shows that the design is incomplete.
+
+== Uncertainty becomes part of the job
+
+Poorly managed change also creates uncertainty about matters that were previously settled. People may not know whether their role will continue, which team will own a capability or whether the system they are learning will still exist in a year. During repeated transformations, that uncertainty can cease to be temporary and become an ordinary feature of employment.
+
+Uncertainty consumes attention because people must continually reassess their position. They hold back from improving the current system because it may be replaced, but cannot rely on the replacement because its design is still moving. Decisions that would normally be straightforward acquire another question: whether the surrounding organisation will remain stable long enough for the decision to matter.
+
+Leadership may experience this as caution or resistance. From the perspective of the people affected, it may be a reasonable response to an environment in which commitments are repeatedly revised and information arrives late. Job insecurity, unclear roles and poorly communicated organisational change are recognised psychosocial risks, not merely obstacles to programme adoption.
+
+== Systems can damage professional judgement
+
+People usually want to do work they consider competent and worthwhile. Architecture can support that judgement, or repeatedly place people in situations where doing the right thing requires working against the system.
+
+A grants officer may know that two applicants should not be treated as equivalent, while the system provides no way to record the distinction. An analyst may know that a headline measure is misleading, but still be required to publish it because the programme reports against it. An engineer may be told to implement a design whose risks are understood but no longer open for discussion. Over time, the difficulty is no longer simply that the tools are frustrating. People are required to choose between complying with the system and exercising the professional judgement for which they were employed.
+
+Research uses terms such as moral distress and moral injury for more serious forms of this conflict, particularly in healthcare and other professions with strong ethical duties. These terms should not be applied casually to every disagreement at work. The relevant lesson for architecture is narrower: sustained organisational constraints that prevent people from acting according to accepted professional standards can cause genuine psychological distress. Modern reviews in health and social care identify institutional constraints, workload and an inability to act according to best practice as significant contributors.
+
+Architecture should not make professional judgement unnecessary. It should provide enough structure for that judgement to be exercised consistently and enough feedback for the structure to change when it no longer fits the work.
+
+== Silence is not evidence of acceptance
+
+The absence of complaints does not demonstrate that a transformation is harmless. People learn quickly whether raising concerns leads to investigation, delay, reputational damage or exclusion from future decisions. When the cost of speaking becomes clear, the organisation may receive less disagreement while the underlying problems continue.
+
+Contemporary research distinguishes between interpersonal psychological safety within teams and the wider psychosocial safety climate created by management priorities, policies and practices. A large 2024 systematic review covering 990 publications found that both concepts have become central to understanding employee wellbeing and organisational resilience. The wider point is that psychological safety cannot be created solely by asking managers to invite feedback. People watch what happens after difficult information is provided.
+
+An architecture function should therefore treat dissent as a source of evidence. When people repeatedly report that a workflow is unsafe, a definition is misleading or a migration is creating unmanageable work, the first question should be what the architecture has failed to represent. Labelling the response as resistance may remove the messenger while preserving the cause.
+
+== The cost travels beyond the organisation
+
+Work does not remain neatly contained within working hours. Prolonged uncertainty, overload and loss of control affect sleep, attention and emotional availability. Those effects alter how people participate in family and social life, even when they make deliberate efforts not to carry work home.
+
+Psychological research describes this through spillover, where strain in one area of a person's life affects another, and crossover, where that strain affects other people. A 2024 systematic review of 57 studies found that direct crossover was the most commonly observed mechanism and that effects were not limited to couples; they also appeared in relationships between parents and children, managers and staff, and employees and customers.
+
+This does not mean that an organisation is responsible for every difficulty experienced outside work. It means that the costs created by its decisions do not stop at the boundary of its payroll. A programme may record consultancy fees, licences and redundancy payments while leaving exhaustion, disrupted family time and lost confidence entirely outside its accounting. Those costs remain real even when the organisation has no mechanism for measuring them.
+
+== Why the cost remains hidden
+
+Psychological harm rarely appears as a single programme expense. It is distributed across absence, turnover, reduced concentration, slower decisions and the quiet withdrawal of discretionary effort. Some people leave. Others remain but stop volunteering information or taking risks. The organisation sees separate operational symptoms rather than a common effect of the way work has been designed.
+
+The scale of the wider problem is substantial. HSE estimates that stress, depression or anxiety accounted for 22.1 million working days lost in Great Britain during 2024/25. Each affected worker lost an average of 22.9 days. These figures describe work-related ill health across the economy rather than transformation programmes specifically, but they show why psychological conditions at work cannot be dismissed as an intangible or marginal cost.
+
+HSE recommends combining sickness absence with turnover, complaints, exit interviews, occupational health information and direct feedback from staff. It also recommends examining when changes occur: whether absence rises after periods of intense demand, whether one part of the organisation loses more people than another, and whether operational complaints coincide with changes in working methods. A survey on its own provides an indicator, not a diagnosis.
+
+The same approach should be applied to architecture. A programme should not wait for a mental-health absence figure before concluding that its design is creating strain. Rework, growing manual reconciliation, unresolved role disputes and a decline in people volunteering problems are earlier signals.
+
+== Wellbeing support does not replace good work design
+
+Individual support has value. Counselling, reasonable adjustments and access to clinical care can help people experiencing distress. They should not, however, be used as substitutes for removing avoidable hazards from the work itself.
+
+A 2024 study compared 46,336 workers across 233 British organisations, examining participation in common individual-level interventions such as resilience training, mindfulness and wellbeing applications. Across multiple subjective wellbeing measures, participants appeared no better off than non-participants. The research was cross-sectional and therefore cannot establish that such interventions never help an individual, but its findings question whether they provide an adequate response to harmful job demands.
+
+WHO's guidance places organisational intervention first: assess the risks created by working conditions, then mitigate, modify or remove them. Support for individuals remains important, but teaching people to cope with an avoidable source of harm is not equivalent to correcting it.
+
+== Assess the human effects of change
+
+The human effects of architecture should be reviewed before a major change is approved, monitored while it is being introduced and examined after the programme has formally closed. The purpose is not to prevent difficult work or eliminate every period of uncertainty. It is to identify where the design is imposing costs that are avoidable, unowned or absent from the business case.
+
+A practical review can use HSE's six areas as a starting point:
+
+|===
+|Area	|Questions for the architecture review	|Evidence to examine
+|Demands	|What additional work will exist during transition, and who will perform it? How long will dual running continue?	|Workload, overtime, queue length, rework and manual reconciliation
+|Control	|Which decisions remain with the people accountable for delivery? Can they alter the design when evidence shows it is failing?	|Decision rights, escalation paths and time taken to resolve local problems
+|Support	|Who helps teams when the new design does not fit real work? Has transitional capacity been funded?	| Support demand, unresolved incidents, staffing and access to expertise
+|Relationships	|Which boundaries or incentives may cause teams to transfer problems to one another?	|Complaints, repeated escalations and disputes over ownership
+|Role	|Are responsibilities clear during both transition and steady operation? Has accountability moved without authority?	|Role descriptions, duplicated ownership and unresolved hand-offs
+|Change	|What is still uncertain, who is affected and how can they influence the outcome?	|Consultation records, staff feedback, turnover and changes to programme assumptions
+|===
+
+The answers should be attached to the architectural decision, not stored separately as an HR concern. Where the review identifies substantial risk, the response may involve changing the implementation sequence, reducing concurrent change, extending support, clarifying authority or stopping work until the design is better understood. 
+
+== Stewardship includes working conditions
+
+Architecture is not solely responsible for employee mental health. Health is shaped by many personal, social and economic factors, and no architecture can remove every difficult experience from work.
+
+Architecture is responsible for the conditions it knowingly creates.
+
+When a design adds unnecessary work, removes control, obscures responsibility or prevents people from exercising sound professional judgement, those are not merely usability defects. They change the daily experience of work. When a transformation keeps those conditions in place for years, the effects may become serious and may extend beyond the people directly assigned to the programme.
+
+Stewardship therefore includes more than preserving systems and organisational knowledge. It includes taking reasonable care over the human environment produced by architectural decisions. The work is not complete when the system goes live. It is complete only when the organisation can operate it without transferring an unacknowledged part of its cost onto the people expected to make it work.

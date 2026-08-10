@@ -1,0 +1,121 @@
+Part I. What are We Building?
+  - Introduction
+  - Good is a Noun
+  - Software is Material
+  - From Instructions to Systems
+  - There is no such thing as Finished Software
+
+Part II. Looking Inside
+  - Code Has Shape
+  - State Changes Everything
+  - Coupling
+  - Cohesion
+  - Boundaries Have a Cost
+
+Part III. Yer Toolbox
+  - Calling Things
+  - Moving Things
+  - Remembering Things
+  - Dividing Things
+  - Doing Things Later
+  - Doing Many Things, At Once
+  - Letting Other People In
+
+Part IV. Building Blocks
+  - Values and Representation
+  - Types and Meaning
+  - Functions and Composition
+  - Control Flow
+  - State
+  - Identity
+  - Resource and Lifetime
+  - Contracts and Invariants
+  - Indirection
+  - Boundaries
+
+Part V. Beneath the Software
+  - The Machine Underneath
+  - From Source Code to Running Program
+  - What Happens When You Click the Button?
+  - Data Is Bytes Eventually
+  - Processes, Threads and Work
+  - Networks Are Machines Too
+  - The Problem of Time
+  - Queues Mean Pressure
+  - Caches Create Two Truths
+  - Configuration Is Software
+  - Deployment Is Part of the Design
+  - Versioning and Compatibility
+  - Errors Are Information
+  - Observability Is an Interface
+  - Performance Is Shape
+  - Dependencies Are Decisions
+  - Every Abstraction Has a Floor
+  - Interfaces Outlive Implementations
+  - Data Usually Lives Longer Than Code
+  - Reversibility
+  - Working the Problem
+
+Part VI. Patterns Without Pattern Matching
+  - What a pattern actuall is
+  - Learn the Shape, Forget the Name
+  - Forces Before Patterns
+  - Patterns Compose
+  - When the Pattern Stops Helping
+
+Part VII. Designing Software
+  - Start With the Smallest thing
+  - Find the Things That Belong Together
+  - Draw the System
+  - Walk the Data
+  - Walk the Failure
+  - Walk the Change
+
+Part VIII. Engineering Leverage
+  - Make the Machine do the Repetition
+  - Functions Aren't the Only Abstraction
+  - Macros
+  - Declarative Versus Imperative
+  - Small Languages
+  - Encode Decisions, Not Just Repetition
+  - The Cost of Magic
+
+Part IX. Breaking Down the Work
+  - From Problem to Work
+  - Find the Thin Slice
+  - Build to Learn
+  - Make Uncertainty Visible
+  - Estimates Are Models
+
+Part X. Reading Existing Software
+  - Where Do I Start?
+  - Find the Seams
+  - Follow Something Real
+  - Read the History
+  - Recognising Accretion
+  - Changing Things Safely
+
+Part XI. Building With Other People
+  - Communicating Designs
+  - How to Disagree About Software
+  - Making Decisions at Your Vantage Point
+  - Knowing What You Don't Know
+
+Part XII. Keeping It Alive
+  - Build for the Next Person
+  - Legibility
+  - Repairability
+  - Changeability
+  - Compatibility and Migration
+  - Leaving Things Alone
+  - Removing Things
+
+Part XIII. Building Confidence - How we establish that software actually works
+
+Part XIV. Trust and Authority - security as a fundamental property of software
+
+Part XV. At the Edge - Human-facing software, interaction, UI, offline/synchronisation
+
+Part XVI. Data and History - how information is represented, persisted, and evolved.
+
+

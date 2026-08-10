@@ -1,0 +1,5 @@
+= Changeability
+
+Systems don't need to accommodate every conceivable change.
+
+They need to make reasonable change possible.

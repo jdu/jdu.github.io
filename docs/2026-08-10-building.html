@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Holding Someone Elses Wallet</title>
+    <link rel="stylesheet" href="static/css/tufte.css" />
+    <script src="static/js/theme.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="On why architecture in organisations that constantly reinvent themselves should be judged by how little effort it takes to become something new — and how adaptive architecture, Praxeme, and sustainment thinking get you there."
+    />
+    <meta property="og:title" content="Evolving" />
+    <meta
+      property="og:description"
+      content="On why architecture in organisations that constantly reinvent themselves should be judged by how little effort it takes to become something new — and how adaptive architecture, Praxeme, and sustainment thinking get you there."
+    />
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:url"
+      content="https://jdu.github.io/2026-09-01-evolving.html"
+    />
+    <meta property="og:site_name" content="JDU" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Evolving" />
+    <meta
+      name="twitter:description"
+      content="On why architecture in organisations that constantly reinvent themselves should be judged by how little effort it takes to become something new — and how adaptive architecture, Praxeme, and sustainment thinking get you there."
+    />
+  </head>
+
+  <body>
+    <article>
+      <nav class="back-link"><a href="index.html">← Jeff Uren</a></nav>
+      <h1>Pickin' Parts</h1>
+      <p class="subtitle">Jeff Uren ★ 2026-07-21</p>
+
+      <section>
+        <h2>"Build" isn't a dirty word</h2>
+
+        <p>
+          Most software systems are assembled from existing components. No one
+          ever calls an application bespoke because it uses Postgres, Linux and
+          HTTP. Tableau server uses postgres, Jetty, Kafka, and other libraries
+          and packages that are freely available for people to use. The moment
+          an organisation combines an orchestrator, object storage, and compute,
+          it starts to worry that it's attempting to become a software vendor.
+        </p>
+
+        <p>
+          A data platform assembled from established components is in fact
+          <i>normal software engineering</i>. The alternative isn't the
+          <i>absence</i> of engineering, it's placing more of the engineering
+          inside a commercial product and accepting the boundaries that come
+          with it.
+        </p>
+      </section>
+
+      <section>
+        <h2>Platforms are shaped by their organisations</h2>
+
+        <p>
+          Data estates differ in ways that products can't fully generalize away.
+          They have different source systems, security models, data volumes,
+          operating rhythms, regulatory constraints, skills and expectations
+          about how quickly things should change.
+        </p>
+
+        <p>
+          A <i>composed</i> platform can follow those contours. It can run small
+          python jobs beside large spark workloads. It can use event-driven
+          processing where that suits the source and scheduled processing where
+          it doesn't. It can keep data in formats that stay useful outside the
+          current tool.
+        </p>
+
+        <p>
+          The platform doesn't have to pretend every workload is exactly the
+          same.
+        </p>
+      </section>
+
+      <section>
+        <h2>Mature components give you more, not less</h2>
+
+        <p>
+          Airflow, Spark, Postgres, Kafka, and S3 are not primitive building
+          blocks in the sense of nuts and bolts. Each represents years of
+          engineering, documentation, operational knowledge, and community use.
+        </p>
+
+        <p>
+          An organisation assembling them is inheriting an enormous amount of
+          existing capability. It's not starting at zero. It's beginning closer
+          to the point where it's own requirements are met.
+        </p>
+
+        <p>
+          The engineering effort goes into the parts that commercial platforms
+          can't know in advance: how the organisation deploys, secures,
+          observes, governs and understands its data.
+        </p>
+      </section>
+
+      <section>
+        <h2>You can improve one part without replacing everything</h2>
+
+        <p>
+          A composed platform allows capabilities to move at different speeds.
+        </p>
+
+        <p>
+          The storage layer can remain stable while compute changes. A new
+          execution engine can be introduced for one class of workload. Airflow
+          can continue orchestrating work without becoming the place where all
+          business logic lives. A query engine can be replaced without migrating
+          underlying data into another proprietary representation.
+        </p>
+
+        <p>
+          A monolithic platform often ties these decisions together. A
+          <i>weakness</i>
+          in one part becomes a migration of the whole.
+        </p>
+      </section>
+
+      <section>
+        <h2>Open interfaces preserve leverage</h2>
+
+        <p>
+          When data remains in parquet, iceberg, SQL tables or other broadly
+          supported forms, the organisation retains options.
+        </p>
+
+        <p>
+          Different tools can work over the same data. New services can be
+          introduced without first extracting everything from the old one.
+          Engineers can inspect the underlying state directly. The platform can
+          evolve without each change becoming a procurement excercise.
+        </p>
+
+        <p>
+          This isn't abstract portability. It changes who has leverage when
+          prices rise, product direction changes, or a vendor stops serving the
+          organisation well.
+        </p>
+      </section>
+
+      <section>
+        <h2>Building creates technical capability</h2>
+
+        <p>
+          Operating a platform develops knowledge that remains useful beyond the
+          platform itself.
+        </p>
+
+        <p>
+          Teams learn how data moves through the organisation, where failures
+          originate, how permissions are applied, what workloads actually cost
+          and which abstractions survive contact with real work. Those
+          capabilities improve security, integration, software delivery and
+          architectural judgement elsewhere.
+        </p>
+
+        <p>
+          Buying a platform can provide a faster route to a particular set of
+          features. It doesn't necessarily develop the organisation’s ability to
+          understand or change the system beneath them.
+        </p>
+      </section>
+
+      <section>
+        <h2>Commercial platforms do not remove the joins</h2>
+
+        <p>
+          A purchased product still has to connect to identity, networks, source
+          systems, reporting tools, security processes and organisational
+          governance. Pipelines still fail. Data still needs ownership. Costs
+          still need controlling. Product limitations still need working around.
+        </p>
+
+        <p>
+          The engineering doesn't just disappear. Some of it moves, some becomes
+          constrained, even more only gets performed through configuration,
+          consultancy and support tickets.
+        </p>
+
+        <p>
+          A composed platform makes more of those joins available to ordinary
+          engineering practices: code, tests, version control, automation and
+          observable interfaces.
+        </p>
+      </section>
+      <section>
+        <h2>The economics are broader than headcount</h2>
+
+        <p>
+          Build-versus-buy comparisons often place engineer salaries on one side
+          and licence costs on the other. That misses a lot of the actual cost.
+        </p>
+
+        <p>
+          Commercial platforms accumulate consumption charges, premium features,
+          consultancy, migration work, duplicated storage, data-egress costs and
+          teams dedicated to administering the product. They can also make small
+          architectural decisions expensive because each departure from the
+          intended model can require yet another product or service.
+        </p>
+
+        <p>
+          A composed platform has visible engineering costs, but it can often
+          run on <i>inexpensive commodity infrastructure</i> and scale in ways
+          the organisation can inspect and control.
+        </p>
+      </section>
+      <section>
+        <h2>Building <b>does</b> require <u>stewardship</u></h2>
+
+        <p>
+          The platform needs ownership, maintenance and enough continuity to
+          evolve. Components need upgrading. Shared conventions need restraint.
+          Internal abstractions need to remain smaller than the problems they
+          solve.
+        </p>
+
+        <p>
+          These aren't arguments against building though. They're the ordinary
+          obligations that come with owning <i>any</i> important technical
+          capability.
+        </p>
+      </section>
+      <section>
+        <h2>Build the parts that let the organisation remain itself</h2>
+
+        <p>
+          The organisation doesn't build object storage, orchestration or
+          distributed computation. It borrows these things from mature projects
+          and cloud services. It builds the relationships between them, the
+          operating model around them and the parts that reflect how its own
+          work is done.
+        </p>
+
+        <p>That's often the part most worth owning.</p>
+      </section>
+    </article>
+  </body>
+</html>

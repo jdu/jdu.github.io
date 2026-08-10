@@ -1,5 +1,163 @@
 = Build Trust
 
+One of the more subtle responsibilities of architecture is deciding where decisions are made.
+
+Many organisations assume that important decisions should naturally move upwards. Work is proposed by the people closest to it, reviewed by successive layers of management and governance, and eventually approved by someone sufficiently senior to authorise it. This appears to reduce risk. More people have examined the decision, more signatures have been collected and more opportunities have existed to prevent mistakes.
+
+The difficulty is that complexity rarely waits for permission.
+
+Trust is often treated as a cultural concern, something built through good leadership or strong interpersonal relationships. Those things matter, but they are only part of the story. Trust is also an architectural property. People trust what they can understand, observe and predict. When goals are clear, language is shared, ownership is visible and feedback arrives quickly, organisations require remarkably less permission because uncertainty has been reduced. Conversely, when understanding is fragmented, approvals multiply. Committees, governance boards and sign-off processes often emerge not because they improve decisions, but because they compensate for information that the organisation has failed to make available elsewhere.
+
+== Let's talk about trust... baby
+
+=== There is a persistent trust gap between leaders and employees
+
+Perhaps the most famous is the Edelman, which has measured institutional trust for over two decades. One of its recurring findings is that employees consistently report trusting their immediate employer more than business or government generally, but that trust drops sharply as leaders become more distant. Employees tend to trust "my employer" and "my manager" significantly more than CEOs, government leaders or media.
+
+That distinction is interesting architecturally because it suggests trust is fundamentally local, not organisational. People trust people they know and can observe.
+
+=== Trust predicts organisational performance
+
+Amy Edmondson's work on psychological safety showed that teams where people feel safe to speak up, admit mistakes and challenge assumptions consistently outperform teams where they cannot. The mechanism isn't that people become nicer. It is that the organisation learns faster because bad news travels more easily.
+
+This aligns almost perfectly with your Truth chapter.
+
+If people cannot safely say
+
+> "This architecture isn't working."
+
+or
+
+> "These numbers don't look right."
+
+then the organisation loses its connection to reality.
+
+=== High-trust leadership consistently outperforms command-and-control
+
+Leader-Member Exchange (LMX) theory has been studied for decades.
+
+Across hundreds of studies and multiple countries, higher-quality relationships between leaders and employees correlate with:
+
+* higher job satisfaction,
+* greater organisational commitment,
+* better objective performance,
+* lower turnover,
+* greater willingness to collaborate,
+* higher perceptions of fairness.
+
+Interestingly, the theory argues that leadership is fundamentally relational, not hierarchical.
+
+== Trust becomes more important as complexity increases
+
+One paper you would probably enjoy is the Bosch study on mature Scrum teams.
+
+They found that as teams mature, leadership naturally shifts away from directing work and towards creating conditions in which teams can make decisions independently. That transition depended on:
+
+* psychological safety,
+* shared purpose,
+* transparency,
+* communication,
+* trust.
+
+That's almost exactly the argument you're making about architecture.
+
+
+== Trust enables movement
+
+Modern militaries confronted this problem many decades ago. Complex operations had become too fast, too uncertain and too distributed for every decision to return to a central command post. Rather than attempting to direct every movement, command increasingly focused on communicating intent, establishing doctrine and ensuring that people had the training and resources to act independently when circumstances inevitably changed.
+
+The centre did not become less important.
+
+Its responsibility changed.
+
+Instead of controlling every decision, it became responsible for creating the conditions in which good decisions could be made without constant intervention.
+
+Organisations face much the same challenge. The people closest to the work usually possess the richest understanding of the immediate problem. They see details that cannot easily be communicated upwards, particularly when the situation is changing quickly. Requiring every significant decision to pass through a distant approval process often delays the work without materially improving the quality of the decision itself.
+
+Architecture should therefore aim to support informed local decision-making rather than concentrating every decision at the centre.
+
+== Permission is not trust
+
+Permission and trust are often treated as though they were interchangeable.
+
+They are not.
+
+Permission means that somebody else accepted responsibility for allowing an action to proceed. Trust means believing that the people closest to the work possess the judgement to make that decision themselves within agreed boundaries.
+
+The distinction matters because permission scales poorly.
+
+Every additional approval introduces waiting. Context must be transferred from the people doing the work to people reviewing it. Questions are answered, meetings are scheduled and priorities compete for attention. None of this necessarily improves the outcome. Much of it simply compensates for a lack of confidence elsewhere in the organisation.
+
+Trust requires more investment.
+
+People need clear intent. Shared language. Good architectural principles. Access to information. Training. Feedback when decisions produce unexpected consequences. These things are harder to build than approval processes, but they reduce the need for those approval processes in the first place.
+
+Architecture should make trust easier, not permission more frequent.
+
+== Approval often hides missing knowledge
+
+Approval processes have a habit of accumulating over time.
+
+A review board is introduced after a difficult incident. Another committee appears following an audit. Additional sign-offs are required after a failed project. Individually, each decision appears reasonable. Collectively, they produce organisations where relatively straightforward changes require approval from people several steps removed from the work itself.
+
+It is worth asking why those approvals exist.
+
+Sometimes they genuinely reduce risk.
+
+Often they compensate for something else.
+
+An architecture review may exist because architectural principles were never made explicit. A security approval may exist because secure defaults were never built into the platform. A governance meeting may exist because ownership remains unclear. An executive sign-off may exist because success has never been defined well enough for teams to judge it independently.
+
+The approval is solving a symptom.
+
+The architecture should address the underlying cause.
+
+== Replace pmerimssion with evidence
+
+One useful question to ask of any approval process is this:
+
+*What evidence would allow this decision to be made without requiring permission?*
+
+If a deployment requires manual approval every time, perhaps automated testing and continuous delivery provide stronger evidence than another signature.
+
+If a data sharing request requires multiple committees, perhaps clearer data classifications and policy-driven access controls remove much of the uncertainty.
+
+If every architectural decision must be reviewed centrally, perhaps the organisation has not yet expressed its architectural principles clearly enough for teams to apply them consistently themselves.
+
+Evidence scales.
+
+Permission rarely does.
+
+That does not mean every decision should become autonomous. Some decisions carry consequences large enough that broad discussion remains entirely appropriate. The point is that approvals should exist because they genuinely add judgement, not because the organisation has failed to build confidence elsewhere.
+
+== Architecture creates confidence
+
+Trust is often described as a cultural concern.
+
+It is also an architectural one.
+
+Shared language allows people to communicate accurately. Common concepts reduce misunderstanding. Good observability provides rapid feedback. Fitness tests demonstrate that important properties continue to hold. Decision records explain why previous choices were made. Stable interfaces reduce the consequences of independent change.
+
+These are not merely technical practices.
+
+They are mechanisms through which organisations become confident enough to distribute decision-making safely.
+
+An organisation that cannot trust its own people will eventually attempt to replace trust with governance.
+
+An organisation that invests in shared understanding finds it needs remarkably less governance than it once imagined.
+
+== What good looks like
+
+A healthy organisation does not remove every approval process.
+
+It removes the approvals that exist only because something more fundamental is missing.
+
+People understand the intent behind the architecture rather than simply complying with its rules. Decisions are made as close to the work as practical because the organisation has invested in the language, principles, feedback and evidence needed to support them. Central architecture spends less time granting permission and more time improving the conditions under which everyone else can succeed.
+
+That is a very different role.
+
+The architect becomes less like a gatekeeper and more like a steward—preserving shared understanding, building confidence and ensuring that trust rests on evidence rather than optimism. When those things are in place, architecture no longer directs every movement. It provides the conditions in which good movement becomes the natural outcome.
+
 
 * Advanced militaries learned decades ago that complex operations can't wait for every decision to flow back through a central command post, so the centre's job changed to providing intent, doctrine, and support rather than control. Good architecture works the same way, sustaining movement instead of directing every movement.
 * Architecture defaults to permission because permission is easy to audit and trust is not, so approval steps accumulate quietly until decisions need sign-off from people who aren't accountable for the outcome. Somewhere in your organisation, an approval step is standing in for evidence nobody's bothered to collect.

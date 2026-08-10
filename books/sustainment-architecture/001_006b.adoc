@@ -1,0 +1,172 @@
+= Harder Truths
+
+== The organisation knows what it is
+
+Most organisations assume that somewhere—perhaps in strategy, leadership or enterprise architecture—there is a coherent understanding of the organisation as a whole.
+
+Usually there is not.
+
+Different parts of the organisation carry different, partially overlapping accounts of its purpose, structure, customers, capabilities and obligations. The organisation functions not because these accounts agree, but because people continually reconcile them through conversation, judgement and workaround.
+
+This is uncomfortable because it means the organisation may be less a designed object than a negotiated settlement.
+
+== Leadership sees the whole
+
+Hierarchy creates the impression that information accumulates as it moves upward. Seniority is therefore treated as a wider field of vision.
+
+In practice, information is compressed as it travels. Detail is removed, uncertainty is simplified and disagreement is resolved before it reaches leadership. Senior leaders may possess broader context, but they often have less direct contact with the conditions in which the work is performed.
+
+The uncomfortable truth is that greater authority does not necessarily produce greater understanding.
+
+== Strategy describes reality
+
+A strategy is often treated as an authoritative description of what the organisation is doing and where it is going.
+
+Frequently it is an argument about what leadership would like the organisation to become. Existing work that does not fit the narrative is omitted, capabilities are described as absent because they are not visible centrally, and uncertainty is converted into confident direction.
+
+The strategy may still be useful. It simply should not be confused with an objective account of the organisation.
+
+=== The organisation acts as one thing
+
+We speak of organisations as though they possess a single mind:
+
+The organisation decided.
+
+The organisation wants.
+
+The organisation believes.
+
+In reality, decisions emerge from competing interests, partial information, institutional habits and unequal authority. Different groups may be pursuing incompatible outcomes while each believes it is acting on behalf of the whole.
+
+This assumption is comfortable because it hides politics beneath the language of alignment.
+
+== Decisions are made for the reasons recorded
+
+Architecture decisions, programme papers and business cases usually present a rational chain from evidence to conclusion.
+
+The actual decision may also have been shaped by timing, personal credibility, budget cycles, fear, executive preference, vendor relationships or the need to appear decisive. The written rationale is often not false, but it is cleaner than the process that produced it.
+
+The uncomfortable part is that organisational records frequently preserve the justification for a decision rather than its cause.
+
+== Governance reduces risk
+
+Governance is assumed to make decisions safer because more people review them and more evidence is recorded.
+
+Sometimes it does. Sometimes it diffuses accountability, delays corrective action and rewards decisions that are easy to defend rather than decisions that are likely to work. A heavily governed programme may fail with immaculate paperwork.
+
+The difficult truth is that governance can become a way of demonstrating control without exercising it.
+
+== Standardisation creates simplicity
+
+Standardisation is often presented as the natural cure for organisational complexity.
+
+It can remove unnecessary variation, but it can also erase meaningful differences and force exceptions into less visible forms. The process appears standard while people create spreadsheets, side systems and informal agreements to restore the distinctions the standard removed.
+
+The organisation then becomes simple in its official model and more complicated in practice.
+
+== Technology is the difficult part
+
+Transformation programmes often assume that the technical implementation is the central challenge and that organisational adoption will follow once the platform is delivered.
+
+Usually the harder questions concern authority, meaning, incentives, ownership and which version of reality will prevail. Technology makes those disagreements concrete, but it does not create them.
+
+This is uncomfortable because technical problems can be delegated. Political and epistemic problems cannot.
+
+== Capability can be purchased
+
+Organisations often behave as though capability is something that can be acquired through a product, supplier or consultancy engagement.
+
+Products provide functions. Consultants provide expertise and temporary capacity. Capability exists only when the organisation can understand, operate, challenge and evolve what has been introduced without permanent dependence on the people who introduced it.
+
+The uncomfortable truth is that an organisation can spend heavily acquiring technology while becoming less capable.
+
+== Data is neutral
+
+Data is commonly treated as a factual substrate beneath organisational interpretation.
+
+Yet every dataset reflects choices about what was considered worth recording, which categories were available, who had authority to define them and which exceptions were discarded. Data can be accurate while still presenting a partial or politically convenient view of reality.
+
+The question is therefore not merely whether the data is correct, but whose world it describes.
+
+== Measurement reveals performance
+
+Metrics are assumed to make performance visible.
+
+They also determine what receives attention. What can be counted becomes governable; what cannot be counted becomes anecdotal. Once consequences are attached to a measure, people adapt their behaviour around it and the metric begins reporting the adaptation rather than the underlying condition.
+
+The uncomfortable truth is that measurement does not simply observe the organisation. It reshapes it.
+
+== More visibility creates more control
+
+Leaders often ask for dashboards, reporting and central oversight because visibility appears to increase control.
+
+Visibility may reveal symptoms without exposing causes. It may also encourage local teams to manage the appearance of performance because they know what the centre can see. The organisation becomes more observable while becoming less candid.
+
+Seeing more indicators does not necessarily mean understanding more of the system.
+
+== Silence means agreement
+
+When objections stop, organisations often conclude that alignment has been achieved.
+
+Silence may instead mean that people have learned disagreement is futile, costly or dangerous. They continue doing what is required while withholding knowledge that might complicate the official narrative.
+
+This is one of the most dangerous assumptions because the organisation can lose access to reality while believing resistance has been overcome.
+
+== Resistance is irrational
+
+People who oppose a transformation are often described as attached to the past, fearful of change or protective of their territory.
+
+Sometimes they are. They may also understand dependencies, consequences and historical failures that the programme has not discovered. What appears as resistance may be compressed operational knowledge trying to enter a decision process that has no room for it.
+
+The uncomfortable truth is that resistance is often evidence before it becomes obstruction.
+
+== People are interchangeable
+
+Organisational charts, workforce plans and sourcing models often treat people as units of capacity attached to roles.
+
+But much organisational capability exists as tacit knowledge: who to ask, which definitions are misleading, where the systems disagree, which process matters only once a year and which promise was made long ago to somebody who still depends on it.
+
+When people leave, the organisation does not merely lose labour. It loses portions of its model of itself.
+
+== External advice is more objective
+
+Consultants and vendors are often treated as independent because they stand outside the organisation.
+
+They may be less attached to internal history, but they are not free of incentives, assumptions or preferred solution shapes. Distance can produce perspective; it can also remove context. External confidence is easily mistaken for objectivity because the uncertainty has already been edited out of the presentation.
+
+The uncomfortable question is not whether advisers are biased, but whether their biases are more visible than the organisation’s own.
+
+== Procurement transfers risk
+
+A contract can allocate responsibility, specify remedies and make failure commercially expensive for a supplier.
+
+It cannot transfer the operational consequences of failure. The organisation still has to serve its users, meet its obligations and repair the damage. Contractual risk may have moved while existential risk remains where it always was.
+
+Buying from a large supplier often makes a decision easier to defend, not necessarily safer.
+
+== Transformation has an end state
+
+Programmes are built around the idea that the organisation will move from a current state to a target state and then stabilise.
+
+In reality, the target begins ageing before it is reached. People adapt around it, external conditions change and compromises introduced during delivery become the starting point for the next intervention.
+
+The uncomfortable truth is that transformation is not a journey to stability. It is one episode in a continuous process of adaptation.
+
+== Success proves the decision was right
+
+Once something survives, delivers or produces visible benefit, the original decision is often vindicated retrospectively.
+
+But an acceptable outcome may have been produced despite the decision rather than because of it. People may have compensated for a poor design, costs may have been displaced elsewhere, or a cheaper alternative may have produced the same result.
+
+Outcomes matter, but they do not remove the need to examine the quality of the reasoning that preceded them.
+
+== The organisation wants to know the truth
+
+Perhaps the hardest assumption is that organisations naturally prefer an accurate account of themselves.
+
+Truth can threaten budgets, careers, strategies, supplier relationships and the legitimacy of past decisions. Organisations often want enough truth to act, but not always enough to destabilise the arrangements through which authority is exercised.
+
+That does not make organisations uniquely dishonest. It makes truth costly.
+
+
+The most dangerous organisational assumptions are not those nobody has questioned. They are those the organisation cannot afford to question without also reconsidering who has authority, who benefits, and which parts of its own story remain intact.

@@ -1,5 +1,273 @@
 = Fix the incentives
 
 
+We've gone over a lot of ground here, there's a lot of observations and information floating here, but we haven't really answered the question of *how* an organisation accretes all these things.
+
+The important thing to note is that these incentives are not really diametrically opposed. They are locally rational and mutually reinforcing. Each actor can make a defensible decision according to the way their role is measured while collectively producing an organisation that is more dependent, more complicated and less able to change.
+
+* *Consultants* are rewarded for _transformation_
+* *Vendors* are rewarded for selling _products_
+* *Procurement* is rewarded for _buying established products_
+* *Management* is rewarded for _reducing perceived risk_
+* *Boards* are rewarded for visible _governance_
+
+And finally:
+
+*No one* is rewarded for quietly building internal capability over time.
+
+The incentives are all aligned to make sure that the organisation is _always_ in motion, and that the people who are supposed to be helping it adapt, are instead spending their time _defending themselves_.
+
+== How we get here 
+
+We have described many of the things that accumulate inside an organisation: systems, integrations, committees, controls, exceptions, contracts, duplicated data and abandoned ways of working. We have not yet answered the more important question of how an organisation acquires them.
+
+It rarely happens through a single reckless decision. No one sets out to create an estate that is expensive to operate and almost impossible to change. Complexity accumulates through a succession of decisions that were reasonable within the narrow boundaries in which they were made.
+
+A programme needs to demonstrate progress. Procurement needs to demonstrate that a supplier was selected fairly. Management needs to demonstrate that risk is being controlled. The board needs evidence that governance is in place. Vendors need to sell products and services. Consultants need a defined engagement through which they can provide advice and delivery.
+
+Each decision can be justified. The combined result may still be disastrous.
+
+This is a familiar problem in organisational economics. Principal–agent theory describes situations in which authority, information, incentives and consequences are distributed between different actors. Each participant acts according to the information and rewards available to them, but their interests do not necessarily produce the outcome wanted by the organisation as a whole.
+
+The organisation does not arrive here because everyone behaved irrationally. It arrives here because everyone behaved rationally inside a system that rewarded the wrong things.
+
+== Complexity is usually locally rational
+
+Consider a large procurement.
+
+The programme wants certainty, so it asks for detailed requirements. Procurement wants comparable bids, so it turns those requirements into a specification. Suppliers protect themselves by pricing the uncertainty the specification cannot remove. Governance asks for additional assurance because the resulting contract is expensive. The eventual system struggles to accommodate changing needs, so the organisation creates exceptions, manual processes and additional integrations around it.
+
+At every stage, someone did what their role expected of them.
+
+The programme reduced visible uncertainty. Procurement followed an auditable process. The supplier remained within the contract. Governance received its papers. The board saw evidence that risks had been considered.
+
+The organisation nevertheless acquired another rigid system and a new collection of dependencies.
+
+Complexity accretes in the space between these locally successful decisions. The costs are displaced from the decision being measured into the future operation of the organisation. A procurement can be completed successfully while producing a system that is difficult to change. A programme can go live successfully while leaving years of reconciliation and remedial work behind it. A governance process can operate exactly as designed while making good decisions harder to reach.
+
+This is why examining individual competence is rarely enough. The question is not merely whether people performed their roles correctly. It is whether the roles, incentives and decision boundaries could collectively produce a sustainable outcome.
+
+== Consultants are rewarded for intervention
+
+Consultants can bring specialist knowledge, independent challenge and experience that the organisation genuinely lacks. The problem is not that consultants exist, or that their advice is necessarily poor. It is that the natural unit of consulting work is a bounded engagement: a review, a strategy, a transformation or an implementation.
+
+Quietly improving an organisation's judgement over ten years is difficult to package as an engagement. A transformation programme has a title, a budget, a leadership structure and a visible end state. It can be commissioned, presented and governed. Gradual capability building is slower, less dramatic and harder to attribute to any one intervention.
+
+Research into management fashions helps explain the resulting market. Eric Abrahamson described consultants, management writers, business schools and professional media as “fashion setters” that identify managerial anxieties, develop techniques presented as the frontier of progress and disseminate them back into organisations. The theory does not claim that every new technique is useless. It explains why the market continually needs new techniques to appear progressive and why apparently settled organisations remain receptive to the next wave of transformation.
+
+The consultancy does not need to invent a problem. Real problems already exist. It needs to frame those problems in a form that can be addressed through an engagement. Fragmented processes become an operating-model transformation. Inconsistent data becomes a platform programme. Weak coordination becomes organisational redesign. The framing may be legitimate, but it also determines what kinds of solutions can subsequently be sold.
+
+The danger appears when the engagement substitutes for organisational learning. The consultants diagnose the problem, formulate the strategy, choose the method and sometimes deliver the implementation. Internal staff provide context and operate the result, but the organisation does not necessarily acquire the ability to repeat the work for itself.
+
+The UK National Audit Office now explicitly recommends that knowledge transfer be designed into consultancy contracts and carried out throughout the engagement, rather than reduced to a handover of documents at the end. Its guidance says internal staff must learn enough to continue the initiative after the consultants leave and, where possible, avoid repeatedly purchasing the same capability.
+
+That advice exists because knowledge transfer does not occur automatically. A completed engagement can leave behind deliverables without leaving behind capability.
+
+== Vendors are rewarded for production adoption
+
+A vendor sees an organisation through the product it sells.
+
+A customer relationship platform vendor sees relationships that can be represented through its platform. An enterprise resource planning vendor sees processes that can be configured within its modules. A cloud provider sees workloads that can be moved into its services. None of this requires dishonesty. A product company naturally understands problems through the capabilities of its product.
+
+The difficulty begins when the organisation adopts the same view.
+
+The product's categories become the organisation's categories. Its workflows become the approved way of working. Its limitations are reframed as standardisation. Where reality does not fit, the organisation changes its process, purchases another module, commissions customisation or builds an integration around the boundary.
+
+The product becomes larger than the problem it was bought to solve.
+
+Contemporary technology markets make this dependence more pronounced. The National Audit Office notes that digital services are increasingly subscription-based, controlled by suppliers rather than owned by the customer, and concentrated among a small number of very large providers. It also describes legacy systems that have become “black boxes” supported by the suppliers that originally provided them, making them unattractive or impractical for alternative suppliers to take over.
+
+A vendor may deliver exactly what it promised and still increase the organisation's long-term dependency. The contractual outcome and the architectural outcome are not the same thing.
+
+This is not an argument against buying products. Commodity capability should usually be bought. The mistake is failing to distinguish between capability that is genuinely common and capability through which the organisation expresses its particular identity, knowledge or advantage.
+
+When a product is placed over something strategically distinctive, the organisation must either constrain itself to the product or spend indefinitely adapting the product to itself. 
+
+== Procurement is rewarded for a defensible purchase
+
+Procurement exists for good reasons. It protects fairness, competition, financial control and legal compliance. Those responsibilities also shape what procurement regards as a good decision.
+
+An established supplier is easier to assess than an unfamiliar one. A standard framework is easier to defend than a novel commercial arrangement. A product with many reference customers appears safer than a capability that must be developed internally. When outcomes are uncertain, evidence that others have already bought something becomes a substitute for evidence that it fits this organisation.
+
+Institutional theory calls part of this mimetic isomorphism. DiMaggio and Powell observed that uncertainty encourages organisations to imitate other organisations, particularly those perceived as successful or legitimate. Copying a recognised peer does not eliminate risk, but it makes the decision easier to explain.
+
+Modern procurement research continues to identify this pattern. OECD work describes risk aversion as a barrier to innovation procurement, while recent European Commission analysis found that public buyers often prefer established firms able to provide previous customer references, even where delivering a genuinely new solution makes those references a weak predictor of success.
+
+Procurement therefore tends to favour what is already legible to procurement.
+
+This becomes particularly dangerous when commercial specialists are separated from the technical and operational knowledge needed to evaluate the purchase. The National Audit Office found that commercial teams frequently led digital procurements without sufficient use of digital expertise. It warned that shortages of combined commercial and technical skill can lead organisations to rely on generic frameworks, and even to shape specifications around the procurement mechanisms officials know how to use rather than the nature of the problem being solved.
+
+Procurement has not necessarily failed in these cases. It may have succeeded according to every criterion applied to it.
+
+The criteria were incomplete. 
+
+== Management is rewarded for reducing perceived risk
+
+A manager proposing an unfamiliar internal approach carries a particular kind of exposure. If it fails, the decision is theirs. They selected the team, accepted the uncertainty and chose not to follow the established route.
+
+Buying a familiar product from a major supplier changes the narrative. The decision can be supported by market position, reference customers, procurement assurance and external advice. Failure remains possible, but it becomes easier to describe as an unforeseeable delivery problem rather than an irresponsible choice.
+
+This creates a distinction between reducing risk and making risk defensible.
+
+Externalisation often achieves the second more reliably than the first.
+
+A contract can specify liabilities, deliverables and escalation routes, but it cannot transfer the organisation's ultimate responsibility for the outcome. The National Audit Office found that attempts to push excessive risk onto technology suppliers can lead to over-specified contracts, fewer bidders and services that technically satisfy a contract without meeting the organisation's actual need. Its conclusion is blunt: the buyer remains accountable when the service fails, regardless of how the contract allocated responsibility.
+
+The risk has not disappeared. It has moved.
+
+It moves from the visible moment of decision into integration, operation, renewal, switching and eventual replacement. By the time those costs appear, the original decision-makers may have moved roles and the programme may have been declared complete.
+
+Management is therefore encouraged to prefer decisions that are safe to approve over systems that are safe to inhabit
+
+== Boards are rewarded for visible governance
+
+Boards cannot observe an organisation directly. They depend on reports, risk registers, assurance statements, programme dashboards and the testimony of leadership. These artefacts are necessary, but they create a bias towards risks that can be represented through governance processes.
+
+A committee can see whether an architecture review occurred. It is much harder to see whether the review improved the architecture. It can see whether a risk has an owner, a rating and a mitigation. It is harder to see whether the organisation understands the risk well enough to act when circumstances change.
+
+The distinction is between evidence of governance and evidence of control.
+
+Research into audit committees in UK higher education found that oversight could become fixated on the process of risk management and over-reliant on risk registers. The researchers identified both substantive and symbolic governance activity and questioned whether the resulting arrangements enabled committees to monitor operational risk effectively.
+
+That does not mean governance is merely theatre. It means governance can become theatrical when the artefacts become the objective.
+
+Current UK government guidance recognises this danger. It says assurance should be tested against reliable evidence, should identify gaps and duplication, and should explicitly examine whether risks are being over-controlled, consuming resources that could be used elsewhere.
+
+Visible governance is attractive because it can be counted. Meetings happened. Papers were submitted. Gates were passed. Risks were recorded. These things demonstrate activity, but activity does not necessarily demonstrate understanding.
+
+When boards reward the production of assurance more consistently than the reduction of dependency, the organisation acquires more governance without necessarily becoming more governable.
+
+== Internal capability loses the presentation contest
+
+Internal capability grows quietly.
+
+People learn the organisation's history. Teams discover where concepts do not align. Engineers develop tools that remove recurring work. Analysts learn which figures are misleading. Managers develop enough technical judgement to distinguish a difficult problem from an expensive sales proposition.
+
+There is rarely a single launch date for this capability. Its value appears in incidents avoided, contracts not required, decisions made more quickly and changes completed without a major programme. Those outcomes are difficult to place on a slide because many of them are counterfactual: the expensive thing that did not need to happen.
+
+External expenditure is easier to classify as investment. Internal expertise is more likely to appear as headcount.
+
+A transformation programme receives a business case because it promises a future state. The people gradually constructing that future state through ordinary work remain an operating cost. The organisation can therefore become willing to spend millions purchasing a capability while remaining reluctant to fund the smaller permanent team needed to understand, operate and evolve it.
+
+This is not merely a theoretical concern. The National Audit Office found that the UK government had not clearly decided which digital skills it should retain internally and which should be sourced externally. It connected weak “intelligent client” capability—the ability to understand needs, markets, technologies and suppliers—to poor outcomes in digital change.
+
+Other governments have begun responding directly. Australia's 2023 Strategic Commissioning Framework was explicitly introduced to reduce dependence on consultants and contractors and rebuild internal public-service capability, particularly for work considered core to the state.
+
+Capability does not mean doing everything internally. It means retaining enough knowledge and authority to decide what should be bought, judge whether it is working and change direction without requiring permission from the supplier.
+
+Without that capability, procurement ceases to be a choice. It becomes dependency purchasing further dependency.
+
+== Motion creates more motion
+
+These incentives form a reinforcing cycle.
+
+An organisation lacks internal capacity, so it commissions external advice. The advice recommends a programme. The programme procures products and implementation services. The new system introduces dependencies and transitional work. Internal teams spend their time integrating, reconciling and supporting it. Because they are occupied maintaining the result, they have less time to develop the capability that might have provided an alternative.
+
+The next problem therefore arrives in an organisation even less able to solve it internally.
+
+External intervention creates the conditions for further external intervention.
+
+A system introduced to simplify the estate may coexist with its predecessor for years. A product selected to standardise work may require local tools to handle the exceptions. A governance mechanism introduced after one failure may remain after its purpose is forgotten. None of these additions is large enough to trigger a reconsideration of the whole estate. They settle around what is already there.
+
+The organisation becomes busier without becoming more adaptive.
+
+The National Audit Office has warned explicitly that new technology procurements can add another layer of complexity and cost over existing legacy systems, particularly where organisations lack the combined digital and commercial capability to understand the transition.
+
+The movement itself then becomes evidence that the organisation is responding.
+
+Strategies are launched. Partners are appointed. Programmes are mobilised. Governance is established. The absence of movement begins to look like the absence of leadership, even where the most responsible action would be to continue building, learning or removing things slowly.
+
+Transformation stops being an exceptional response to a particular need.
+
+It becomes the organisation's normal operating condition.
+
+== The people who could help become defendants
+
+The people closest to the work often see these problems first.
+
+They know which dependencies are hidden behind the programme plan. They know why the existing process contains apparent irregularities. They know which migration assumptions are unlikely to survive contact with real data. They also know that explaining these things can make them appear negative, territorial or resistant to change.
+
+The programme is rewarded for movement. They are supplying reasons to slow down.
+
+The vendor is rewarded for adoption. They are describing where the product does not fit.
+
+Leadership is presenting confidence. They are introducing uncertainty.
+
+Their knowledge is necessary, but its immediate effect is inconvenient. The organisation begins treating the people carrying the most context as obstacles to the future rather than evidence about the present.
+
+Over time, people adapt. They qualify their concerns. They wait to see whether somebody more senior will raise the issue. They record objections defensively or stop raising them altogether.
+
+Research describes organisational silence as the point at which people collectively believe that speaking about problems is futile or dangerous. Once that belief spreads, withholding information becomes normal rather than exceptional.
+
+Related research into organisational defensive routines describes patterns through which people and institutions avoid embarrassment or threat. These routines protect individuals in the immediate situation while preventing the organisation from exposing errors, learning from them and changing the conditions that produced them.
+
+This is how the people who are supposed to help the organisation adapt end up spending their time defending themselves.
+
+They collect evidence that they warned the programme. They document decisions for personal protection. They learn to translate operational reality into language that governance will accept. Eventually, more effort goes into surviving the decision process than improving the decision.
+
+The organisation then interprets the absence of candid disagreement as alignment.
+
+== Ask hard questions
+
+The purpose of tracing these incentives is not to discover a villain. It is to identify who benefits from the current arrangement, who carries its consequences and which information remains absent from the decision.
+
+Begin with the question already implied by this chapter:
+
+> Who benefits if the system stays complicated?
+
+Then ask whether those are the same people advising on its simplification, extending its contracts or selling its replacement.
+
+That question should not be treated as an accusation. Complexity can be commercially beneficial without anyone deliberately creating it. A supplier may earn legitimate revenue supporting a system that has become difficult to leave. A consultancy may be repeatedly engaged because the organisation has never retained the capability transferred through earlier engagements. A governance function may expand because every failure appears to justify another control.
+
+The incentive matters even where the intent is good.
+
+A useful examination follows several lines of inquiry:
+
+|===
+h| Examine	|Questions to ask
+|Benefits	|Who receives revenue, authority, status or protection from this decision? Who benefits from extending the programme or preserving the dependency?
+|Consequences	|Who will operate the result after the programme closes? Who carries the cost when the design does not fit ordinary work?
+|Knowledge	|What will the organisation know how to do afterwards that it cannot do now? Who will possess that knowledge?
+|Accountability	|Who remains accountable three years after go-live? Can that person alter the system without returning to the original supplier?
+|Risk	|Has risk genuinely been reduced, or has it been made easier to document, contract or explain?
+|Evidence	|What evidence supports the claimed outcome beyond adoption, implementation and go-live?
+|Alternatives	|Was gradual internal development considered on equal terms, including the capability it would leave behind?
+|Exit	|What would it take to leave the product, supplier, programme structure or operating model? Has that cost been included?
+|Removal	|Which existing systems, processes and controls will actually disappear? Who is accountable for ensuring they do?
+|===
+
+The answers should expose the difference between the organisation's objective and the objectives of the actors participating in the decision.
+
+Where no one owns the long-term outcome, the decision is not ready.
+
+== Reward stewardship
+
+Accretion will continue while the organisation rewards addition more visibly than removal.
+
+Preventing it requires more than asking people to behave differently. The incentives themselves have to change.
+
+Consultancy engagements should be measured partly by the capability they leave behind. Contracts should identify the knowledge, skills and decision authority that will transfer into the organisation, not simply the documents that will be delivered.
+
+Vendors should be evaluated against whole-life dependency, interoperability, data portability and exit cost, not only implementation price and feature coverage.
+
+Procurement should involve technical and operational expertise before the solution and contract structure have hardened. Its success should include the quality of the operating outcome, not merely compliance with the buying process.
+
+Management should be rewarded for sustained capability, reduced dependency and the removal of old systems—not simply the launch of new programmes.
+
+Boards should ask for evidence of operability, adaptability and internal understanding alongside evidence of governance. A programme that passes every gate but leaves the organisation unable to alter its own systems has not reduced risk.
+
+Architecture must make these long-term effects visible while there is still time to influence the decision. That means tracing incentives, dependencies, knowledge and exit from the beginning rather than recording them after the contract has been signed.
+
+Organisational accretion is not mysterious. It is the residue left by incentives.
+
+The organisation asks each participant to optimise one visible part of the problem, then inherits the combined consequences. It continually rewards motion, acquisition and assurance while treating continuity, removal and patient capability building as ordinary costs.
+
+No one is rewarded for quietly making the organisation better able to understand and change itself over time.
+
+Until someone is, the organisation will keep buying transformation and wondering why it never feels transformed.
+
+---
+
+
 * Consultants are rewarded for recommending transformation, vendors for selling, procurement for buying established products, management for reducing perceived risk, boards for visible governance, and nobody is rewarded for quietly building internal capability. None of that is malice, it's incentives aimed at something other than the organisation's actual interest.
 * Worth asking plainly, for any system that's become complicated, who benefits if it stays that way, and checking whether that's the same party currently extending it.

@@ -1,0 +1,5 @@
+= Patterns Compose
+
+Real systems aren't implementations of patterns.
+
+They're overlapping arrangements of them.

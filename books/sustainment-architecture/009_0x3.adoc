@@ -1,0 +1,3 @@
+= Leverage AI
+
+* Use semantic data, ontologies, vector-based search to explore the organisation's knowledge graph

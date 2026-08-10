@@ -1,4 +1,4 @@
-= Truth
+= Honesty
 
 In the previous chapter we argued that architecture begins with meaning. Before an organisation can
 build software, integrate systems or produce reports, it first has to agree on waht the things inside
@@ -8,7 +8,7 @@ Truth is an important problem.
 
 Meaning asks whether everyone is talking about the same thing.
 
-Trust asks whether what they are saying about it is still honest.
+Trust asks whether what they are saying about it is still _honest_.
 
 Those two ideas are often confused beacuse they fail in similar ways. An organisation might agree
 perfectly on waht an _Application_ or a _Grant_ is while slowly losing the ability to describe
@@ -76,6 +76,402 @@ Because an organisation that can no longer describe itself honestly has already 
 
 It has lost the ability to learn.
 
+== Prepare to be hurt
+
+There is now decades of research documenting the disappointing outcomes of large transformation programmes and IT projects. Exact figures vary depending on the study and the definitions used, but the overall pattern is remarkably consistent. Projects routinely exceed their budgets, miss delivery dates, deliver less value than expected or leave behind years of additional work that was never anticipated when the programme began. Yet many of these same programmes are later presented as successes, both internally and in public case studies. Success quietly becomes defined as the system eventually went live, rather than asking whether the organisation achieved the outcomes it originally set out to achieve, what compromises were made along the way or what long-term costs were accepted to get there.
+
+This matters because architecture depends upon organisations being willing to describe reality honestly. If every migration is reported as a success regardless of what it actually cost, the organisation loses the ability to learn. The difficult trade-offs disappear from memory. Future programmes inherit only the official narrative, not the experience of the people who lived through the work. Lessons are replaced by marketing.
+
+The consequence is subtle but profound. Architecture stops accumulating knowledge and starts accumulating stories. Those stories become the evidence used to justify future decisions, despite being incomplete accounts of what really happened. Over time the organisation becomes increasingly confident in practices that may never have achieved the results it believes they did.
+
+This is one of the reasons architecture should concern itself with truth rather than optimism. An honest failure teaches an organisation more than a carefully managed success story. If architecture exists to help an organisation understand itself, then it must preserve not only what worked, but what was harder than expected, what assumptions proved false and what costs only became visible years after the project had officially ended.
+
+=== Reflection
+
+* What work was left behind?
+* What capabilities became harder as a result?
+* Which assumptions proved incorrect?
+* What temporary compromises became permanent?
+* Would the people delivering the work choose the same approach again?
+
+*Organisations are remarkably bad at telling honest stories about themselves.*
+
+== Institutional memory loss
+
+Large transformation programmes often begin with ambitious objectives and optimistic business cases. As the work progresses, those objectives are quietly revised. Deadlines move. Budgets are extended. Capabilities are deferred into later phases. Scope is reduced, integrations are postponed, and temporary workarounds become permanent operating procedures. None of these changes is unusual. Large programmes are honestly difficult, organisations change even while they're being delivered and genuinely new problems emerge along the way.
+
+What's more unusual is what happens afterwards.
+
+By the time the programme concludes, the original measures of success have often been replaced by more forgiving ones. Delivering eighteen months late becomes evidence of resilience. A budget that doubled becomes an investment in long-term capability. Functionality that was removed from the scope is no longer counted as something that failed to arrive. If the new system eventually enters production, the transformation itself is quietly recorded as a success, even if the organisation had to redefine success several times to reach that conclusion.
+
+This rarely happens through deliberate deception.
+
+The people involved have invested years of their professional lives in the programme. Careers have been built around it. Budgets have been approved. Public commitments have been made. Organisations naturally prefer stories that justify those investments over stories that question them. Few people set out to rewrite history. Instead, history is gradually simplified until the difficult parts disappear and only the broad narrative remains: we transformed the organisation.
+
+The problem is that future organisations only inherit the simplified version.
+
+Case studies, conference talks, vendor presentations and executive summaries almost never dwell on the years of compromise that followed implementation. They rarely describe the capabilities that were quietly abandoned, the manual processes that survived because nobody had time to replace them, the integrations that never quite worked as intended or the additional teams that had to be created simply to support the new platform. Those details are not usually false; they are simply omitted. What remains is a story whose conclusion is accurate but whose journey has been edited beyond recognition.
+
+This creates an unfortunate form of survivorship bias. Organisations studying these transformations believe they are learning from success, when in reality they are learning from stories that have already been filtered through politics, hindsight and institutional memory. They compare another organisation's polished narrative with their own messy day-to-day experience, concluding that they must simply be executing less effectively. They seldom realise that the other organisation almost certainly experienced the same uncertainty, the same missed milestones and the same compromises, but no longer talks about them.
+
+There is a further irony.
+
+Most people have lived through at least one transformation that was officially declared successful despite arriving late, exceeding its budget or delivering less than originally promised. They know, from direct experience, how much work remained after the project had closed and how many compromises were made to reach the finish line. Yet when they hear another organisation describe a similar programme, they instinctively accept the public account as though those same forces had somehow not been at work elsewhere.
+
+The result is that organisations repeatedly compare their lived experience with everyone else's edited memory.
+
+Architecture has an important role to play here. If its purpose is to help an organisation understand itself honestly, then it must preserve the full history of change, not merely its public summary. Decisions should record their assumptions. Programmes should record what changed, what was abandoned, what proved more difficult than expected and what new work was created as a consequence. Success should not mean that a system eventually entered production. It should mean that the organisation learned something worth preserving, whether the outcome was comfortable or not.
+
+Otherwise the organisation slowly loses the ability to distinguish between a successful transformation and a successful _story_.
+
+== If you don't believe 
+
+One of the more uncomfortable findings in project management research is not that large transformation programmes often struggle. It's that we've actually known this for decades.
+
+The Standish Group's CHAOS reports have consistently shown that only around *30% of software and IT projects are delivered on time, on budget and with their intended scope*. Around half are classified as "challenged", delivering late, over budget or with reduced functionality, while roughly one in five fail outright through cancellation or never being _meaningfully_ used.
+
+Research from the University of Oxford and McKinsey paints an equally sobering picture. Studying thousands of large IT programmes, Bent Flyvbjerg and Alexander Budzier found that while the average cost overrun was significant, the average disguised a much more dangerous reality. Around one in six projects became what they describe as Black Swans—projects with average cost overruns of around *200%* and schedule overruns approaching 70%. Later work examining more than 5,000 IT projects concluded that these extreme overruns are not rare accidents but follow a _heavy-tailed distribution_, meaning catastrophic outcomes occur far more frequently than conventional planning assumes.
+
+The pattern extends well beyond software. Flyvbjerg's broader research into more than 16,000 major projects found that only 8.5% achieved their cost and schedule targets, and only 0.5% met their cost, schedule and benefit objectives simultaneously. He describes this as the iron law of megaprojects: over budget, over time, over and over again.
+
+Those numbers are _insane_.
+
+The more interesting question is why they appear to have so little influence on how organisations make decisions.
+
+One reason is that transformations never really remember themselves _honestly_.
+
+As programmes progress, the definition of success mutates. Original deadlines become "aspirational". Budget increases become "additional investment". Features that disappear from scope are just not discussed anymore. Temporary manual workarounds become accepted ways of working. If the system eventually enters production, the transformation itself is often remembered as a success, even if the organisation reached that point only after _redefining_ what success meant.
+
+It's not even the fault of deliberate deception. It's the product of incentives. Careers become attached to programmes. Vendors need reference customers. Executives need to demonstrate progress. Programme teams naturally focus on what was achieved rather than what was quietly abandoned. The official story becomes shorter, cleaner and more optimistic than the lived experience of the people who delivered it.
+
+Over time, those edited stories become the evidence used by the next generation of programmes.
+
+That's why organisations repeatedly believe they are learning from success when they are often learning from successful _retellings_. Conference presentations, case studies and executive summaries almost always describe where the organisation arrived. They seldom describe the capabilities that were deferred indefinitely, the integrations that never worked properly, the years of stabilisation after the official go-live, or the additional teams created simply to compensate for shortcomings in the new platform.
+
+There's an irony here that's easy to miss.
+Organisations are funny things. You can call just about anything an organisation these days. A group of people who get together to play a game, even a book club is an organisation. But when we talk about organisations in the context of business, we're talking about something a bit more specific.
+Most people have worked on at least one transformation that was officially declared a success despite missing deadlines, exceeding its budget or delivering less than originally promised. They know from experience how much untidy work remained after the launch. Yet when another organisation presents its own transformation at a conference or publishes it as a case study, those same people instinctively accept the polished narrative as though the same compromises had not been made there as well.
+
+We compare our own lived experience with everyone else's *edited memory*.
+
+Truth, in architecture, requires resisting that temptation. It requires preserving not only what eventually worked, but what changed, what failed, what was abandoned and what cost more than anyone expected. Without that, every generation inherits the same optimistic stories and wonders why the same failures keep repeating. The organisation does not lose because projects fail. It loses because it forgets how they failed, and replaces that understanding with a story that's easier to tell.
+
+== Success is almost impossible to measure
+
+Very few transformation programmes have objective success criteria that survive until the end.
+
+Instead they drift.
+
+Originally:
+
+Replace five systems.
+Reduce operating costs by 30%.
+Improve reporting within six months.
+
+Three years later:
+
+New platform is live.
+Users are trained.
+Legacy system decommissioning is "Phase 2."
+
+The programme has technically succeeded because the definition of success changed.
+
+That's an important architectural observation.
+
+Success is difficult to measure because organisations rarely agree on what it means before the work begins, and even when they do, the definition seldom survives contact with delivery. A programme may begin with promises to reduce cost, improve service, simplify the estate and retire old systems. Years later, those ambitions have been reduced to a narrower claim: the platform went live, users were migrated, or the programme delivered within its revised scope. The organisation has not necessarily falsified the result. It has allowed the measure of success to move until it fits what was eventually achieved.
+
+Even a genuine improvement is hard to attribute. Performance may have recovered because demand fell, experienced staff returned, an unrelated process changed or teams quietly worked around the new system. The organisation usually compares the outcome with the troubled condition that justified intervention, not with the realistic alternatives that might have achieved the same result more cheaply or safely. Without that counterfactual, it can show that something improved after the programme, but not that the programme caused the improvement or represented the best available choice.
+
+The final difficulty is timing. Programmes close before many of their benefits or costs can be observed. Benefits remain forecasts, while support burdens, retained legacy systems, manual reconciliation, supplier dependency and staff exhaustion are dispersed into ordinary operations. By the time the full outcome becomes visible, the programme team has gone and the original success criteria have largely been forgotten. What organisations call success is therefore often not a measured condition, but a negotiated story told at the point when they need the programme to end.
+
+== Survivorship bias
+
+There are thousands of failed ERP implementations.
+
+How many keynote talks have you seen called
+
+"Everything went wrong."
+
+Very few.
+
+You only hear from the survivors.
+
+You could literally write:
+
+We should perhaps find it curious that conference programmes are filled almost exclusively with successful transformations, despite decades of evidence showing that many transformations struggle. Organisations rarely volunteer to become case studies in failure, yet those are often the ones from which architecture has the most to learn.
+
+Survivorship bias is the tendency to draw conclusions from the examples that remain visible while ignoring those that disappeared, failed or were never publicised. The organisations, programmes and products we hear about are rarely a representative sample. They are the ones that survived long enough, performed well enough, or had sufficient incentive to tell their story. The failures are less likely to appear at conferences, in consultancy reports or as vendor case studies, so the evidence available to us is already filtered before we begin evaluating it.
+
+Imagine an organisation considering a large cloud migration. It studies several well-known companies that describe faster delivery, lower operating costs and improved scalability after adopting the same platform. What it does not see are the organisations that abandoned similar migrations, spent heavily rebuilding capabilities they had lost, remained permanently dependent on consultants, or quietly retained most of their original estate alongside the new platform. The visible examples make the approach appear reliably successful because the unsuccessful cases have largely removed themselves from view.
+
+The danger is that organisations mistake visibility for probability. A polished case study proves that one organisation was willing and able to present that version of events; it does not reveal how often the same approach failed elsewhere, how unusual the successful organisation was, or how much difficulty was omitted from its account. Good architecture therefore studies the full distribution of outcomes wherever possible, including failed programmes, abandoned products, expensive reversals and organisations that chose not to proceed. Without the missing cases, success stories tell us much less than they appear to.
+
+== Hindsight bias
+
+Once something succeeds...
+
+everyone believes it was inevitable.
+
+This causes organisations to forget
+
+uncertainty
+disagreement
+luck
+contingency
+
+Everything becomes
+
+"The right decision."
+
+instead of
+
+"The decision that happened to work under those circumstances."
+
+Hindsight bias is the tendency to look back on an outcome and treat it as more predictable, more coherent and more inevitable than it really was. Once the result is known, the uncertainty surrounding the original decision fades from view. Warnings seem obvious, failed alternatives are forgotten and chance events are absorbed into a story in which the outcome appears to have followed naturally from the choices that were made. The organisation remembers a clear path where, at the time, there was only incomplete information, disagreement and risk.
+
+Imagine a major systems programme that eventually goes live after two years of delay, several budget increases and a long period of manual reconciliation. In the official retrospective, leadership may describe the programme as a necessary modernisation that succeeded because the organisation remained committed to its vision. The early warnings, abandoned designs, emergency interventions and compromises are reduced to ordinary delivery difficulties. Because the system is now live, the final outcome is used to validate the original decision, even though the route taken may bear little resemblance to the plan that was approved.
+
+The danger is that hindsight bias turns survival into evidence of wisdom. A decision that eventually produced an acceptable outcome is remembered as a good decision, while a similar decision that failed is remembered as obviously flawed. In both cases, the organisation learns from the ending rather than from the quality of the reasoning available at the time. Good architecture resists this by preserving assumptions, alternatives, uncertainties and dissent as they existed when the decision was made.
+
+== Escalation of commitment
+
+One of the biggest findings in behavioural economics.
+
+People double down on failing programmes.
+
+Not because they're irrational.
+
+Because abandoning them becomes politically harder than continuing.
+
+That means
+
+more budget
+
+↓
+
+more compromise
+
+↓
+
+declare victory.
+
+Escalation of commitment is the tendency to continue investing in a decision after evidence suggests it is failing, particularly when significant money, time, reputation or political capital has already been attached to it. Instead of treating the new evidence as a reason to reconsider, organisations reinterpret it as a reason to commit more strongly. Delays justify additional funding, rising costs justify protecting the investment already made, and early doubts are dismissed because changing direction would require admitting that the original decision may have been wrong.
+
+Imagine a large technology programme that has missed several milestones and still cannot demonstrate that its core assumptions are valid. By this point, the organisation has signed contracts, recruited a programme team and publicly committed to the outcome. Cancelling it would make the expenditure visible as a loss and expose senior sponsors to scrutiny. Continuing feels safer, even though it may cost much more. The programme receives another budget increase, its scope is reduced, success measures are softened and previously essential benefits are deferred into later phases. Eventually, the system goes live in a diminished form and the fact of delivery is used to justify the years of continued investment.
+
+The danger is that past expenditure begins to influence decisions about future value. Money and effort already spent cannot be recovered, but they create a powerful pressure to avoid stopping. The organisation no longer asks whether the programme remains the best use of its remaining resources; it asks how much more must be spent to prevent the previous investment from appearing wasted. Good architecture resists this by establishing explicit stopping conditions, reviewing assumptions independently and making it legitimate to change direction before failure becomes too politically expensive to acknowledge.
+
+== Goodharts here again
+
+> When a measure becomes a target, it ceases to be a good measure.
+
+If programme success is measured by
+
+"go-live"
+
+then guess what becomes the objective.
+
+Not
+
+organisational improvement.
+
+Just
+
+go-live.
+
+Goodhart’s Law describes what happens when a measure stops being used to observe performance and starts being used to control it:
+
+> When a measure becomes a target, it ceases to be a good measure.
+
+A measure is usually introduced as a proxy for something more difficult to observe directly. Delivery dates stand in for progress. Ticket closure rates stand in for responsiveness. System adoption stands in for usefulness. These measures can be informative while people are free to pursue the underlying objective. Once rewards, reputation or funding depend on the number itself, behaviour changes. People begin optimising what is measured, even when doing so weakens the thing the measure was intended to represent.
+
+Imagine a transformation programme judged primarily on the number of users migrated to a new platform. The target creates pressure to move accounts quickly, so users are counted as migrated once access has been created or basic data has been transferred. Whether they can complete their work, whether the data is reliable, and whether they continue using parallel spreadsheets receive less attention because those things do not affect the headline figure. The programme reports 95 per cent adoption while much of the organisation still depends on the old processes beneath it.
+
+The measure has not necessarily been falsified. It has been satisfied precisely as defined. The problem is that the definition captured only a convenient approximation of success. Once it became the target, the organisation reorganised its effort around improving the approximation rather than producing the outcome it originally cared about.
+
+Goodhart’s Law becomes particularly dangerous when the measure is attached to status or survival. A team measured by incident closure time learns to close incidents before underlying causes are resolved. A call centre measured by call duration learns to end conversations quickly. A project measured by delivery dates reduces scope, defers difficult work and labels unfinished capabilities as later phases. In each case, the reported performance improves while the real condition may remain unchanged or become worse.
+
+The architectural lesson is not to abandon measurement. It is to avoid confusing indicators with reality. Measures should be interpreted alongside qualitative evidence, operational consequences and countermeasures that reveal how the number might be gamed. They should also be revised when behaviour begins adapting around them. A measure that never changes despite changing circumstances is likely to become a ritual rather than a source of truth.
+
+Good architecture therefore asks two questions whenever a metric is proposed:
+
+> What are we actually trying to improve?
+
+and
+
+> How could people improve this number without improving that thing?
+
+The second question is often the more important one.
+
+
+== The long tail
+
+Almost every transformation measures
+
+implementation.
+
+Almost none measures
+
+five years later.
+
+The hidden costs appear after the project closes.
+
+For example
+
+* abandoned SharePoint sites
+* duplicate integrations
+* manual reconciliation
+* extra support teams
+* undocumented workarounds
+* spreadsheets
+* local databases
+* shadow IT
+* forgotten permissions
+* zombie interfaces
+
+We have an entire chapter in this book just based around organisational debris.
+
+Reference it.
+
+Transformation programmes have an artificial end date. Organisations do not.
+
+A programme is usually considered complete when its visible outputs have been delivered: the system has gone live, users have been migrated, contracts have been accepted and the programme budget has closed. The consequences of the change, however, may only be beginning. Benefits take time to emerge, operating costs become clearer through use, and compromises that appeared temporary during delivery settle into the permanent structure of the organisation. Government project-delivery guidance explicitly allows for benefits reviews after programme closure because many outcomes cannot yet be assessed when the delivery team disbands. Research into information-system projects makes the same point: benefits require continued attention through implementation and operation, rather than following automatically from the delivery of technology.
+
+Consider an organisation replacing its financial system. The new platform goes live after several delays, most users are transferred and the programme declares success. Yet the old system remains available because historical reports have not been reproduced. Finance staff reconcile figures between both systems each month. Several integrations were judged too risky to migrate before launch, so temporary data extracts connect them to the new platform. A small team retains privileged knowledge of the old system because certain year-end processes still depend upon it.
+
+None of this necessarily appears against the transformation programme. The programme delivered the new system. The reconciliation belongs to Finance, the extracts belong to Technology, the remaining licences belong to Operations and the additional support demand is absorbed into existing teams. Costs that were once concentrated inside a visible programme have been dispersed across the organisation, where they become much harder to recognise as consequences of the original decision.
+
+The programme has ended, but the transformation continues.
+
+=== Temporary work becomes permanent work
+
+Large programmes routinely defer work in order to protect a delivery date. Data cleansing is reduced to the minimum needed for migration. Difficult integrations are moved into a later phase. Decommissioning is separated from implementation. Operational improvements are postponed until the new system has had time to settle.
+
+Some deferral is unavoidable. The problem is that deferred work loses the political and financial protection enjoyed by the programme that created it. Once the launch has occurred, senior attention moves elsewhere, specialist contractors leave and the remaining work must compete with ordinary operational demand. “Phase two” gradually becomes a collection of backlog items owned by teams that were never given the capacity to complete it.
+
+Temporary workarounds then become part of the operating model. A spreadsheet introduced to validate migration data becomes the monthly reconciliation process. An emergency interface becomes a production dependency. A manual approval introduced during transition remains because nobody is confident enough to remove it. The organisation adapts around the unfinished transformation until the adaptation itself becomes difficult to change.
+
+Research on legacy-system replacement shows that transformation does not simply eliminate technical debt. The replacement process can generate new sociotechnical debt as organisations preserve parts of the old system, configure the new system around unresolved constraints and create additional arrangements to bridge the two.
+
+=== The old world rarely disappears cleanly
+
+Transformation business cases often count benefits that depend on removing something: an old platform, a manual process, a supplier contract, a reporting team or a duplicated source of data. Delivery plans tend to concentrate more heavily on introducing the replacement.
+
+Addition and removal are not symmetrical.
+
+A new system can be launched on a chosen date. An old system can be retired only when every remaining dependency has been found, understood and replaced. A rarely used regulatory report, an annual process, an undocumented data feed or a team that retained its old workflow may keep the system alive long after most users have moved. Continuing to operate it appears cheaper than resolving the final dependencies, particularly once the original programme has closed.
+
+The result is not replacement but layering. The organisation acquires the cost of the new world without fully releasing the cost of the old one. The National Audit Office has repeatedly observed that transforming legacy services is expensive and complex, but retaining them also creates continuing service, people and future-change costs that organisations often fail to record completely.
+
+This is one reason transformations can increase complexity while reporting that they have reduced it. The target architecture may be simpler on paper, but the organisation must operate the target architecture, the remaining legacy estate and the machinery connecting them.
+
+=== Benefits and costs travel on different timelines
+
+Programme costs are usually immediate and visible. Benefits are often delayed and conditional.
+
+The organisation pays for software, consultants, implementation and migration during delivery. The promised benefit may depend on later behavioural change, process redesign, data improvement, decommissioning or the organisation using the new capability in ways that have not yet been established. A functioning technical system is therefore only one of the conditions needed for the benefit to appear.
+
+Costs have their own delayed forms. Licence increases arrive at renewal. Performance limitations become apparent as usage grows. Customisations become expensive when the vendor releases a new version. Knowledge disappears as the implementation team moves on. The organisation may not understand the full operating model until several annual cycles have passed.
+
+This creates a convenient asymmetry. The programme closes while its expected benefits remain forecasts, but before many of its enduring costs are visible. Later benefits are attributed to the transformation, while later costs are treated as ordinary operational problems.
+
+Without deliberate post-implementation evaluation, the original business case can remain notionally successful indefinitely. The evidence needed to challenge it arrives only after the governance structure responsible for answering the challenge has disappeared.
+
+=== The long tail is carried by people
+
+The remaining work does not vanish when the programme closes. It is transferred to the people operating the result.
+
+They answer questions the programme did not resolve, maintain transitional interfaces, correct migrated data and explain why the documented process does not quite work. Experienced staff become permanent interpreters between the old organisation and the new system. New employees learn the workaround without knowing why it exists, and eventually it becomes indistinguishable from the intended design.
+
+This is one of the least visible forms of organisational accretion. The architecture appears complete because its diagrams contain the new platform. The lived architecture includes the platform, the reconciliation spreadsheet, the retained database, the support mailbox, the undocumented extract and the person who knows which figures cannot be trusted before the fifth working day.
+
+The programme records the delivery effort. The organisation inherits the maintenance effort.
+
+=== Closure is an architecture decision
+
+A programme should not be judged complete merely because it has introduced its replacement. It should be judged by whether the organisation can sustain the result without carrying an indefinite transitional burden.
+
+That requires explicit ownership of the long tail. Before closure, the organisation should know which old systems and processes remain, why they remain, what it costs to retain them and who is accountable for removing them. Deferred work should have named owners, funded capacity and dates at which its continued deferral will be reconsidered. Benefits should remain attached to accountable operational leaders after the programme structure disappears, as established benefits-management guidance recommends.
+
+A useful closure review should therefore ask:
+
+> What work has the programme created that will continue after the programme ends?
+
+> Which systems, contracts, processes and controls have actually disappeared?
+
+> What was described as temporary, and what prevents it from becoming permanent?
+
+> Who owns benefits that have not yet been realised?
+
+> Where have implementation costs been transferred into ordinary operational work?
+
+> When will the organisation return to determine whether the transformation was genuinely worthwhile?
+
+The long tail is not an unfortunate period of tidying up after the real work. It is where the truth of the transformation becomes visible. Go-live demonstrates that the organisation succeeded in introducing something. Only the years that follow reveal whether it succeeded in changing anything.
+
+== Missing counterfactuals
+
+Nobody asks
+
+Compared to what?
+
+A transformation may have delivered.
+
+Would the organisation have been better spending half the money modernising what they already had?
+
+Nobody knows.
+
+Because the alternative never happened.
+
+Architecture should always think in counterfactuals.
+
+A counterfactual is the outcome that might have occurred had the organisation chosen differently. Transformation programmes are usually judged by comparing the final state with the problems that existed before them. They're much less often compared with the plausible alternatives available at the time: improving the existing system, changing the process without replacing the technology, building a smaller internal capability, or doing nothing until the problem was better understood.
+
+The absence is important because delivery alone doesn't prove that the chosen intervention was worthwhile. A programme can eventually produce an improvement, but that improvement might have been achieved more quickly, cheaply and safely through another route. Without a counterfactual, the organisation can say that the programme delivered something, but not that it was the best use of its resources.
+
+Imagine an organisation spending £20 million replacing a reporting platform because reports are slow, definitions are inconsistent and analysts rely on manual workarounds. Four years later, the new platform is live and reporting has improved. The programme is declared successful. What is never examined is whether the organisation might have achieved most of the same benefit by investing £3 million in shared definitions, data quality, better pipelines and a stronger internal engineering team while retaining the existing platform for another five years.
+
+Because that alternative was never attempted, the larger programme appears justified by the fact that conditions improved after it. The organisation compares the result with the troubled past rather than with the best realistic alternative. It attributes every improvement to the transformation and ignores the opportunity cost of the money, time and attention consumed by it.
+
+Good architecture makes counterfactuals explicit before major commitments are made. It asks not just whether a proposal can work, but what _else_ could produce the same outcome, what would happen without intervention, and which option leaves the organisation more capable afterwards. Without those comparisons, success means only that something happened—not that the right thing happened.
+
+== Regression to the mean
+
+Every generation believes
+
+* AI
+* Cloud
+* ERP
+* Microservices
+* Low-code
+* Digital Transformation
+
+will finally solve what the previous wave didn't.
+
+Because organisational memory is shorter than technology marketing.
+
+Regression to the mean is the tendency for unusually extreme results to be followed by results closer to the ordinary average. Performance varies for many reasons: chance, timing, temporary conditions, measurement error and circumstances that may not persist. When an organisation intervenes at the moment things are unusually bad, some improvement is likely even when the intervention has little effect. The organisation may then attribute that natural recovery to whatever action it happened to take.
+
+Imagine a department whose service performance falls sharply during one quarter. Several experienced staff are absent, demand rises unexpectedly and a supplier suffers a serious outage. Leadership responds by commissioning a transformation programme, appointing new advisers and introducing additional governance. Six months later, service levels have improved. The programme is credited with turning the department around, even though staff have returned, demand has settled and the supplier outage has ended. Performance might have recovered substantially without the transformation.
+
+The same effect can make leadership changes, new products and management methods appear more powerful than they are. Interventions are rarely introduced when performance is ordinary; they are introduced after a crisis, a failed audit or an especially poor set of results. Because the starting point is unusually low, almost any subsequent period is likely to look better. The improvement is real, but its cause remains uncertain.
+
+Regression to the mean can also work in the opposite direction. An organisation may adopt a new method after an unusually successful year, then blame the method when performance later returns to normal. In both cases, the mistake is treating movement away from an exceptional result as evidence that the latest intervention caused the change.
+
+Good architecture therefore avoids judging an intervention solely by comparing the period immediately before it with the period immediately afterwards. It examines longer-term trends, comparable teams, external conditions and what would plausibly have happened without the intervention. Otherwise, organisations repeatedly confuse timing with effectiveness and reward the people who arrived immediately before conditions returned to normal.
+
+=== I know all this hurts to hear
+
+There is another reason organisations continue repeating these mistakes. We assume that because we experienced the difficulties ourselves, we would recognise them elsewhere. In practice, we do the opposite. We explain away our own programme's overruns as understandable consequences of complexity, while accepting another organisation's polished case study at face value. We know our own success story was edited, but rarely do we extend the same scepticism to anyone else's.
+
+*Arhictecture should study distributions, not anecdotes*
+
+Architecture should make decisions based on the distribution of outcomes, not the attractiveness of individual stories.
+
+We know, from direct experience, that our own transformations were messier than the official story that was eventually told about them. We know deadlines slipped, compromises were made, budgets changed and capabilities were quietly deferred. Yet when another organisation presents its own transformation, we instinctively consume the official story as though it were the whole truth. We grant other organisations a certainty we never granted ourselves.
+
+
+---
 
 * Meaning, from chapter 5, is agreeing what something means. Truth is a separate problem, whether what gets reported about it is still honest, and organisations eventually stop describing reality even when the meaning was never in question. It rarely happens all at once.
 * Metrics become targets, and the moment they do, people optimise for the number instead of the thing the number was supposed to represent. Reports become political, because admitting a number is bad has consequences for whoever owns it. Dashboards stop showing what's happening and start telling whichever story is safest to tell, and definitions get renegotiated, not because anyone's understanding improved, but because the old definition made someone look bad.

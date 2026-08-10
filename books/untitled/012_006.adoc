@@ -1,0 +1,26 @@
+= Encode Decisions, Not Just Repetition
+
+This is where I'd distinguish the whole section from productivity.
+
+The best leverage often isn't:
+
+“This saved us writing 300 lines.”
+
+It's:
+
+“Nobody has to remember to do this correctly anymore.”
+
+Examples:
+
+type system enforces an invariant
+macro generates consistent registration
+formatter eliminates stylistic decisions
+linter catches prohibited structures
+schema generates serialization
+build system calculates dependency order
+compiler checks exhaustiveness
+migration tool tracks database state
+
+You're moving knowledge from people's heads into machinery.
+
+That connects directly back to sustainment.

@@ -1,28 +1,125 @@
-= Architecture is Stewardship
+= Introduction
 
 
 My formal title doesn't include the term "architect", take from that what you will. Although I don't
 have the title, I've been doing the work of an architect for a long time, and through that time, and the longer
-period of being in software engineering, design, and operations, I've come to a few conclusions about what
-architecture really is, what people think it is, and what it should actually be.
+period of being in software engineering, design, and operations, I've got a few opinions about what
+architecture _really_ is, what people think it is, and what it should actually be.
 
 Live long enough in engineering and eventually you'll become involved with various architects, and 
 leading roles that are often described as "architectural". You'll see people with those titles treated with 
 a kind of reverence, and in some cases even a certain amount of fear.
 
+== What's this book about then?
+
+If you picked up this book expecting another enterprise architecture framework, you're probably going to be disappointed.
+
+There are no maturity models to progress through, no metamodel to memorise, no certification to pass, and no claim that everything would be easier if organisations simply adopted one more methodology. There are already enough frameworks, reference architectures and modelling notations in the world. Many of them are useful. This book is not trying to replace them.
+
+It's not really about software architecture either, even though it's spending a lot of time discussing software.
+
+It's really about the things that sit underneath all of that other stuff, and more importantly it's about how organisations understand themselves. 
+
+Technology runs like a thread the chapters because it's one of the primary ways that organisations express understanding, but technology isn't the subject. Neither are data models, operating models, governance processes or organisational charts. These are all temporary expressions of something that's longer-lasting: the organisation's own understanding of what it is, what it does and why.
+
+The arguments throughout this book are that architecture has gradually become obsessed with describing systems while putting less and less attention on describing the organisation those systems exist to serve. As organisations become larger and more complicated, that missing layer becomes extremely expensive. Systems drift apart, language and vocabulary diverges, migrations become harder, reports disagree and institutional knowledge disappears. None of that is necessarily down to poor technical choices, it more or less arrives because organisations lose a coherent way to _describe_ themselves.
+
+[[margin:mental_health]]
+--
+In some of the worst cases we end up responsible for psychological harm to the people who are trying to do what's best for the organisation.
+--
+
+The outcomes are pretty clear, and more and more organisations are hitting walls that are increasingly more expensive to work around. The cost of forgotten knowledge is high, and the cost of rediscovering it's even higher[[ref:mental_health]]. Along the way, we can end up demoralizing the people who are trying to do the work, slowing progress, and we end up with systems that are more brittle, more expensive, and more difficult to change than they need to be.
+
+The chapters that follow borrow from a variety of disciplines. There's enterprise architecture here, but also systems thinking, ontology engineering, software architecture, military sustainment, cybernetics, distributed systems, philosophy, linguistics and organisational design. None of these disciplines individually is the whole answer. But, individually, they illuminate parts of the same problem from different perspectives.
+
+If we needed to create a single, unified "theme" that runs through this book, it would likely look something like this:
+
+> Architecture is the discipline of preserving an organisation's understanding of itself while everything else changes.
+
+All the other pieces, things like frameworks, diagrams, ontologies, application, APIs, data models, governance, principles, and platforms, are ultimately aligned in service of that goal.
+
+== Synthesis
+
+None of the ideas in this book are new, nor are they presented as though they are, or as if I've come up with them in some cathartic understanding of the universe as a whole. Enterprise architecture, systems thinking, cybernetics, ontology engineering, Domain-Driven Design, military sustainment, lean manufacturing, complexity science, software architecture and countless other disciplines have spent decades exploring different parts of the same landscape. 
+
+Many of the tools, techniques and observations described here have long histories, and many have been refined by practitioners working in domains far removed from software. The intention here isn't to replace those bodies of work, it's to bring them together in a coherent understanding that addresses a problem they treat separately: how an organisation preserves its understanding of itself while everything around it continues to change.
+
+Less common I think, is the angle that we're viewing these ideas from. Traditional enterprise architecture often begins with systems, applications, capabilities or organisational structures and works upward towards the business. This book takes the opposite approach. It begins with meaning, identity, culture and stewardship, and treats technology as ultimately a temporary expression of those things.
+
+From that perspective, ontologies, architectural decision records, fitness functions, process models, knowledge graphs and interface standards stop being isolated techniques. They become different tools for preserving the organisation's ability to understand itself, to adapt deliberately, and to carry that understanding safely through change. If there is anything original here, it's not the individual techniques, it's the synthesis: seeing them as parts of a single discipline concerned less with building systems, and more with stewarding meaning over time.
+
+== Architecture is additive
+
+There are a lot of people who think that architecture is just about making decisions, and that the role itself is more or less about being the person who makes those decisions. In some organisations, the role is considered a person whose job it is to justify decisions that have already been made, or to be the person who makes decisions that others are unwilling or too afraid to make. 
+
+We utilize frameworks and tools like TOGAF, C4, and Archimate to help use make those decision, or rationalize those decisions within the confines of the organisation's existing processes and structures.
+
+It's often an _additive_ process, where you're expected to figure out how new decisions and technology slot into a larger, growingly complex system. You're supposed to see the whole, know where the pieces fit, and make sure that the pieces are all compatible with each other, and if they're not, find ways to _make_ them compatible.
+
+Architects _can_ produce thick reams of diagrams, specifications, and documentation, but the reality is that most of that work is actually never really read. People pick out the individual pieces of information they need, and ignore the rest. The diagrams are dense, complex, and require an understanding of the context and time that they were produced within.
+
+At it's ultimate worst, you are a sink for _risk_. Avoid mistakes, and if you can't avoid them, be the person who takes the blame for them, and defend your decisions through extensive documentation of trade-offs, and the reasoning behind them. File your critiques of decisions made by others so that you have something to point to when you inevitably have to land a soft "I told you so" or "I warned you."
+
+People love to hate architects, and architects love to hate _themselves_. It can be a lonely job, and it can also be a thankless one. The architect is often the person whose blamed for when things go wrong, but like so many others in technology, their contributions are invisible when things go _right_.
+
+== Quality before description
+
+Robert Pirsig spent a lot of Zen and the Art of Motorcycle Maintenance and later Lila exploring a deceptively simple question: _what is quality?_ His conclusion wasn't that quality could be neatly defined, it was that it exists _before_ our attempts to describe it. We recognise good workmanship before we can fully explain why it's good. Our descriptions, classifications and theories follow afterwards, they form as attempts to capture something that was already there.
+
+That observation has surprising consequences for architecture.
+
+Organisations exist _before_ their diagrams. They have identity, purpose, relationships, responsibilities and patterns of behaviour long before somebody creates an organisational chart, designs a database or purchases an enterprise platform. Those things don't create the organisation; they're attempts to describe it. Like maps, they're useful because they _simplify_ reality. They help us navigate, but they shouldn't be mistaken for the landscape itself.
+
+This book repeatedly returns to that distinction. A data model isn't the organisation. A capability map isn't the organisation. An ontology isn't the organisation. They're all descriptions, each emphasising different aspects of the same underlying reality. Their value isn't in being _complete_, but in helping us preserve and communicate an understanding that would otherwise be forgotten.
+
+Pirsig later developed these ideas further in Lila, describing quality as something that exists before subjects and objects are separated. Whether or not you accept his broader metaphysics, there's an architectural lesson worth keeping in there. Organisations are always _richer_ than the models we build to explain them. Every architecture, ontology and process model is an _interpretation_, not the actual thing itself. The moment we forget that, we stop learning from reality and begin defending the model instead.
+
+The chapters that follow treat architecture as an ongoing conversation with reality rather than a finished description of it. Models will change. Definitions will evolve. Systems will come and go. The discipline isn't in creating a perfect representation to last for all time, it's continually refining our understanding while remaining humble enough to recognise that the organisation is going to always exceed even our best attempts to describe it.
+
+== What do we mean by "Enterprise"?
+
+The word enterprise has accumulated a shocking amount of baggage.
+
+To some people it means "large organisation". To others it means "big business". For still others it evokes governance, committees and documentation. Even more use it to describe software that's expensive, conservative or designed for large customer bases. Somewhere along the way, "enterprise" stopped describing something specific and started acting as a shorthand for whatever the speaker wanted to legitimise or dismiss.
+
+That in my opinion, makes the word utterly unhelpful.
+
+It's not unusual to hear someone reject an approach because it "isn't enterprise", or recommend a product because it's "enterprise-grade", without ever explaining what either of those statements actually means. The word can become a substitute for actual _reasoning_. Rather than discussing scalability, reliability, governance, security or maintainability directly, these are bundled together into a label that everyone assumes they already understand.
+
+Throughout this book I try to avoid using the word "enterprise" completely. 
+
+When I do use the term, I simply mean an organisation large enough that no single person can hold all of it in their head. One where understanding has to be shared across many people, many teams, many systems and, just as importantly, across time. That could be a multinational company, a research institute, a government department, a charity or a temporary coalition of organisations responding to a crisis. The legal structure is actually irrelevant.
+
+The architectural problems i'll talk over in this book don'tt appear because an organisation has become large. They show up because understanding becomes more and more distributed. When that happens, language, memory, trust and shared meaning become architectural concerns in their own right.
+
+Most importantly, "enterprise" should never be used to dismiss an idea.
+
+Small organisations can develop better architectural practices than large ones. Open-source communities commonly solve coordination problems that large corporations struggle with. Techniques developed for embedded systems, aviation, manufacturing or scientific research often translate into enterprise environments with surprisingly little modification. Ultimately good ideas aren't "enterprise or non-enterprise". They're just ideas whose assumptions either match your organisation, or they don't.
+
+In writing this book the way I have, arguments should stand or fall on their merits, not on whether somebody has attached the word "enterprise" to them.
+
+
+== What the role actually is, or should be
+
 But as the architect in any organisation, your job isn't really to be the smartest guy in the room at 
 all times. Architects aren't there to be a font of wisdom and knowledge, the purveyors of some infinite
 wisdom that only they have ascended to levels capable of tapping from the wider cosmos.
 
-== Stewardship
+Being an architect is a stewardship operation. The architect is the custodian of the organisation's understanding of itself, and of the systems built to express that understanding. Their responsibility isn't just to design technology, but to ensure that the organisation's identity, language, and accumulated knowledge survive the departure of individuals, the replacement of systems, organisational upheaval, and the passage of time itself. 
 
-Being an architect is a stewardship operation. The architect is the custodian of the organisation's understanding of itself,
-and of the systems built to express that understanding. Their responsibility isn't just to design technology, but to
-ensure that the organisation's identity, language, and accumulated knowledge survive the departure of individuals,
-teh replacement of systems, organisational upheaval, and the passage of time itself.
+You're not here to produce diagrams or approve technology choices. You're here to preserve the organisation's ability to understand itself.
 
-You're not here to produce diagrams or approve technology choices. You're here to preserve the organisation's ability
-to understand itself.
+== AI is a tool
+
+Throughout this book, you'll notice there's not a lot of talk about AI, LLMs, or how to leverage those things from and architectural perspective. That's not particularly by design, but rather because the book is about the organisation, and not about technology. AI is a tool, and like any other tool, it can be used to help preserve the organisation's understanding of itself, or it can be used to make that understanding more difficult to maintain.
+
+LLMs and trained models are not magic. They're tools, and if not continually reinforced through continued learning, they will forget, or infer meaning where meaning doesn't exist. They'll make mistakes, and they'll make
+judgement calls that don't align with the principles and values of the organisation.
+
+AI and LLMs are just another tool in the architect's toolbox, but they're not the centrepoint of it, you would do well to use AI in a way that it never substitutes for your own judgement.
+
+Further along, in the tools section, we'll show you how to do just that.
 
 == Responsibility
 
@@ -35,4 +132,15 @@ Architecture is the practice of helping an organisation remember who it is while
 
 Every organisation eventually forgets who i tis. Architecture exists beacuse forgetting is inevitable.
 
+== A note before we get started
+
+Some of the ideas in this book are going to make you feel _uncomfortable_.
+
+Not because they're intended to provoke, because they ask us to examine assumptions that have become deeply embedded in the way many organisations think about architecture, technology and change. Along the way we'll question practices that are widely accepted, challenge stories that organisations tell about themselves and look carefully at why so many well-intentioned transformations fail to achieve what they set out to do amongst a great many other forces and factors.
+
+None of this is an argument that people are _incompetent_, or that organisations are uniquely dysfunctional. The opposite actually. Most of the patterns we'll explore are the natural consequences of complexity, changing priorities and the simple fact that organisations are made up of people trying to do good work under imperfect conditions.
+
+The aim isn't to criticise, or to attack, it's to understand. _Honest architecture_ begins with an honest description of reality, and honest conversations, even when reality is inconvenient and uncomfortable. Only then can we hope to build systems—and organisations—that adapt without forgetting who they are.
+
+*This book will favour uncomfortable truth over comfortable convention*
 

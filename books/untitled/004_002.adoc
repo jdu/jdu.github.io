@@ -1,0 +1,7 @@
+= Learn the Shape, Forget the Name
+
+Repository. Adapter. Observer. Pipeline. State machine. Actor. Event log.
+
+The names are useful for communication.
+
+The internalised mental model is much more useful.

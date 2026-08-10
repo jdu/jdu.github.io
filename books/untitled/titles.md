@@ -1,0 +1,5 @@
+- The Backroad
+- Corduroy Software
+- Uncertain Ground
+- Over Muskeg - Software architecture on uncertain ground
+- The Floating the Road; Software Architecture, Engineering, and Change

@@ -1,0 +1,7 @@
+= How to Disagree About Software
+
+Move the conversation away from taste:
+
+“I don't like this.”
+
+towards forces, constraints and consequences.

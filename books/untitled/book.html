@@ -1,0 +1,585 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Floating the Road</title>
+<style>
+:root {
+  --text: #2b2822;
+  --muted: #6b6357;
+  --canvas: #ddd4c2;
+  --paper: #fffdf7;
+  --rule: #d8cfbe;
+  --accent: #8a5a34;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  /* Heading sizes below are in rem, which is relative to this root size,
+     not to body's font-size. Keep them equal so the type scale stays
+     in proportion to the running text. This value is computed in
+     builder.py (BASE_FONT_PT, solved for TARGET_LINES_PER_PAGE lines per
+     page) and substituted in below -- keep both in sync. */
+  font-size: 7.1355pt;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--canvas);
+  color: var(--text);
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, Georgia, "Times New Roman", serif;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.page {
+  max-width: none;
+  margin: 0 auto;
+  padding: 7rem 1rem 6rem;
+}
+
+/* Every page of the book is a fixed-size sheet of paper (Crafting
+   Interpreters' 8in x 10in trim) resting on the canvas background, with a
+   1in/0.5in/66pt/30pt margin baked in as padding. */
+.sheet {
+  width: 8in;
+  min-height: 10in;
+  box-sizing: border-box;
+  padding: 66pt 0.5in 30pt 1in;
+  margin: 0 auto 2.5rem;
+  background: var(--paper);
+  border-radius: 2px;
+  box-shadow:
+    0 1px 2px rgba(43, 40, 34, 0.09),
+    0 20px 40px -16px rgba(43, 40, 34, 0.32);
+  position: relative;
+}
+.sheet > :first-child {
+  margin-top: 0 !important;
+}
+
+.title-page {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transform: translateY(-8%);
+  /* Several soft, off-center, semi-transparent blobs layered over a base
+     diagonal fill -- greens and one warm earthy tone, overlapping so the
+     seams blend rather than reading as a single centered gradient. Meant
+     to feel like a shifting, amorphous mass rather than a flat fill. */
+  background:
+    radial-gradient(ellipse 90% 70% at 50% 45%, rgba(74, 122, 90, 0.25) 0%, transparent 65%),
+    radial-gradient(ellipse 75% 55% at 12% 88%, rgba(122, 94, 58, 0.35) 0%, transparent 75%),
+    radial-gradient(ellipse 70% 60% at 78% 85%, rgba(16, 30, 20, 0.65) 0%, transparent 72%),
+    radial-gradient(ellipse 65% 55% at 82% 15%, rgba(35, 82, 58, 0.55) 0%, transparent 68%),
+    radial-gradient(ellipse 55% 45% at 18% 22%, rgba(58, 107, 74, 0.6) 0%, transparent 70%),
+    linear-gradient(155deg, #1a3a28 0%, #102117 100%);
+  color: #ffffff;
+}
+.title-page h1 {
+  font-size: 5.5rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1.05;
+  margin-bottom: 0.5rem;
+  color: #ffffff;
+}
+.title-page .subtitle {
+  font-style: italic;
+  color: #cfe3d6;
+  font-size: 1.15rem;
+}
+.title-page .author {
+  margin-top: 2rem;
+  font-size: 1.1rem;
+  color: #ffffff;
+}
+.title-page .edition {
+  margin-top: 3rem;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #a9c7b5;
+}
+
+.part-divider {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.part-divider-label {
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-size: 1rem;
+  color: var(--accent);
+  margin-bottom: 1.25rem;
+}
+.part-divider-number {
+  font-size: 6rem;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 1.5rem;
+}
+.part-divider-title {
+  font-size: 1.4rem;
+  font-style: italic;
+  color: var(--muted);
+}
+.part-divider-summary {
+  max-width: 4in;
+  margin-top: 2rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  text-align: left;
+  color: var(--text);
+}
+.part-divider-summary p {
+  margin: 0 0 1em;
+}
+
+.dedication {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.dedication p {
+  max-width: 4in;
+  font-style: italic;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--muted);
+  margin: 0 0 1em;
+}
+
+/* Plain legal boilerplate, bottom-anchored rather than centered like the
+   Dedication -- reads as a document, not a piece of writing. */
+.copyright-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  text-align: left;
+}
+.copyright-page p {
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 0 0 0.75rem;
+}
+
+/* Table of Contents spans as many sheets as it needs (paginate_toc in
+   builder.py decides the split), each laid out in two columns. Multi-column
+   layout only actually fills column 1 then spills into column 2 if the
+   container has an explicit height to balance against -- left at auto
+   height, browsers just stack everything in column 1 and leave column 2
+   empty, which is what was happening here. 832.00 is
+   substituted below to match CONTENT_HEIGHT_PX, the same per-column budget
+   paginate_two_column() already assumed when deciding what fits per page. */
+.toc-page nav.toc {
+  columns: 2;
+  column-gap: 0.4in;
+  column-fill: auto;
+  height: 832.00px;
+}
+/* Flat entries -- a part's label and each chapter are separate,
+   independently-paginated blocks (see build()'s ToC construction), not a
+   nested list, so a long part's chapters can flow across columns/pages. */
+.toc-part-label {
+  margin: 0 0 0.5rem;
+  break-inside: avoid;
+}
+.toc-part-label .part-label {
+  display: block;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.toc-chapter {
+  margin: 0 0 1rem;
+  break-inside: avoid;
+}
+.toc-chapter > a {
+  font-weight: bold;
+}
+nav.toc a {
+  color: var(--text);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+nav.toc a:hover {
+  border-bottom-color: var(--accent);
+}
+
+/* Third ToC level: a chapter's own == sub-headings, numbered with a
+   dotted leader running to their page number. Not indented, per the
+   "don't indent the ToC" rule above -- distinguished by weight/size only. */
+.toc-subheadings {
+  list-style: none;
+  padding-left: 0;
+  margin: 0.2rem 0 0;
+}
+.toc-subheadings li {
+  font-weight: normal;
+  padding: 0.1rem 0;
+}
+.toc-line {
+  display: flex;
+  align-items: baseline;
+  color: var(--text);
+  text-decoration: none;
+}
+.toc-line:hover .toc-label {
+  border-bottom: 1px solid var(--accent);
+}
+.toc-num {
+  color: var(--muted);
+  margin-right: 0.4em;
+  flex-shrink: 0;
+}
+.toc-label {
+  white-space: normal;
+}
+.toc-leader {
+  flex: 1 1 auto;
+  min-width: 0.5em;
+  border-bottom: 1px dotted var(--rule);
+  margin: 0 0.3em;
+}
+.toc-pagenum {
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+/* Back-of-book Index: reuses the ToC's two-column .toc-page layout, but
+   with its own tighter, alphabetized-list styling. */
+.index-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.index-list > li {
+  margin-bottom: 0;
+  break-inside: avoid;
+}
+.index-letter {
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0.9rem 0 0.2rem !important;
+  break-after: avoid;
+}
+.index-term {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-weight: normal;
+  padding: 0.05rem 0;
+}
+.index-pages {
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.part-eyebrow {
+  display: block;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.85rem;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+.sheet h2 {
+  text-align: center;
+  font-weight: 400;
+  font-size: 2rem;
+  margin: 0 0 0.75rem;
+  clear: both;
+}
+
+.chapter-title {
+  font-weight: 700;
+  font-size: 2.2rem;
+  margin: 4.5rem 0 1rem;
+  clear: both;
+}
+/* Chapter-opener page: 70mm from the top of the page to the top of the
+   title, 45mm from the title down to the first paragraph, and the chapter
+   number shown large in the margin column. The !importants beat
+   .sheet > :first-child's own margin-top:0 !important reset (higher
+   specificity here wins the tie). Title's margin-top is measured from
+   inside the sheet's content box (i.e. after its own 66pt top padding),
+   so back that padding out of the page-top-relative 70mm figure. */
+.chapter-start .chapter-title {
+  margin-top: calc(70mm - 66pt) !important;
+  margin-bottom: 45mm !important;
+}
+/* Table of Contents heading reuses the chapter-opener treatment for its
+   position, but doesn't need that much space before its own content --
+   just enough breathing room before the two-column list starts. Same
+   specificity as the rule above; being later here is what wins the tie. */
+.toc-page .chapter-title {
+  margin-bottom: 1.5rem !important;
+}
+/* Positioned (not floated) relative to .sheet's own content box, so it
+   always lands beside the chapter title regardless of where the chapter's
+   content later grows -- a float here would only be free to rise as high
+   as its point of insertion, which is wherever it happens to sit in the
+   DOM among the chapter's other blocks.
+   `top` is measured from .sheet's padding box, i.e. the sheet's outer
+   edge before its own padding is applied -- which is exactly page-top,
+   so it can use the 70mm figure directly (no need to add the padding
+   back, unlike the title's own margin-top above). `right` is measured
+   from that same outer edge too, so it needs the sheet's own 0.5in right
+   padding added back, or it overflows past the true content edge. */
+.chapter-number {
+  position: absolute;
+  top: 70mm;
+  right: 0.5in;
+  width: 1.75in;
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  color: var(--accent);
+}
+
+/* Page number footer -- bottom/left/right are all measured from .sheet's
+   padding box (its outer edge), so they need its own padding (1in left,
+   0.5in right) added back to center within the content box rather than
+   the whole physical sheet. */
+.page-number {
+  position: absolute;
+  bottom: 12pt;
+  left: 1in;
+  right: 0.5in;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.sheet h4 { font-size: 1.6rem; font-weight: 700; color: var(--text); margin: 2rem 0 0.75rem; clear: both; }
+.sheet h5 { font-size: 1.4rem; font-weight: 700; color: var(--text); margin: 1.75rem 0 0.6rem; clear: both; }
+.sheet h6 { font-size: 1.2rem; font-weight: 700; color: var(--text); margin: 1.5rem 0 0.5rem; clear: both; }
+/* "<chapter>.<n>" prefix on a chapter's own == sub-headings, matching the
+   same numbering shown for it in the table of contents. */
+.subheading-num {
+  color: var(--accent);
+}
+
+.lede::first-letter {
+  float: left;
+  font-size: 3.4em;
+  line-height: 0.8;
+  padding: 0.05em 0.08em 0 0;
+  color: var(--accent);
+  font-weight: bold;
+}
+
+/* Running text sits in a fixed 4.5in column; the remaining 1.75in (with a
+   0.25in gap) is left for .marginnote to float into. */
+.sheet > p,
+.sheet > ul,
+.sheet > ol,
+.sheet > .admonition,
+.sheet > img,
+.sheet > pre,
+.sheet > table,
+.sheet > blockquote {
+  width: 4.5in;
+}
+.sheet > img {
+  height: auto;
+  display: block;
+  margin: 0 0 1rem;
+  clear: both;
+}
+
+p { text-align: justify; hyphens: auto; margin: 0 0 1rem; }
+
+ul, ol { padding-left: 1.4rem; margin: 0 0 1rem; }
+li { margin-bottom: 0.35rem; }
+
+/* Positioned (not floated), same reasoning as .chapter-number: a float can
+   only rise as high as its point of insertion in the flow, and has to
+   stack below any earlier still-tall float in the same column, so its
+   rendered position can drift arbitrarily far from what it's actually
+   annotating. `top` is set inline per-note by render_sheet(), computed
+   from the main column's actual height at that note's reference point
+   (see resolve_marginnote_positions). `right` is measured from .sheet's
+   outer edge (its padding box), so it needs the sheet's own 0.5in right
+   padding added back -- otherwise the note's box sits 0.5in too far
+   right and its left-aligned, wrapping text overflows past the true
+   content edge. */
+.marginnote {
+  position: absolute;
+  right: 0.5in;
+  width: 1.75in;
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: var(--muted);
+  text-align: left;
+  hyphens: auto;
+}
+.marginnote img {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0.3rem 0;
+}
+.marginnote p {
+  margin: 0 0 0.6rem;
+}
+
+/* [[sidenote: ...]] reference marker left in the running text. */
+.sidenote-ref {
+  color: var(--accent);
+  font-weight: 700;
+  margin-left: 0.05em;
+}
+/* Leading number on the matching note over in the margin column. */
+.sidenote-number {
+  color: var(--accent);
+  font-weight: 700;
+  margin-right: 0.2em;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin: 2.5rem auto;
+  width: 40%;
+}
+
+code {
+  font-family: "SFMono-Regular", Consolas, Menlo, monospace;
+  font-size: 0.9em;
+  background: rgba(128, 128, 128, 0.12);
+  padding: 0.1em 0.3em;
+  border-radius: 3px;
+}
+
+pre {
+  overflow-x: auto;
+  border-left: 2px solid #d0d0d0;
+  border-right: 2px solid #d0d0d0;
+  padding: 0.75rem 1rem;
+  margin: 0 0 1rem;
+}
+pre code {
+  font-size: 0.82rem;
+  line-height: 1.4;
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  white-space: pre;
+}
+
+table {
+  border-collapse: collapse;
+  margin: 0 0 1rem;
+  font-size: 0.92rem;
+}
+th, td {
+  border: 1px solid var(--rule);
+  padding: 0.35rem 0.5rem;
+  text-align: left;
+  vertical-align: top;
+}
+th {
+  font-weight: 700;
+  background: rgba(138, 90, 52, 0.08);
+}
+
+blockquote {
+  margin: 0 0 1rem;
+  padding: 0.25rem 0 0.25rem 1rem;
+  border-left: 3px solid var(--accent);
+  font-style: italic;
+  color: var(--muted);
+}
+blockquote p {
+  margin: 0 0 0.6rem;
+}
+blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+.admonition {
+  margin: 1.5rem 0;
+  padding: 0.9rem 1.1rem;
+  border-left: 4px solid var(--accent);
+  background: rgba(138, 90, 52, 0.08);
+  font-style: normal;
+  text-align: left;
+}
+.admonition-label {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  margin-right: 0.4em;
+}
+
+.missing {
+  color: var(--muted);
+  font-style: italic;
+}
+
+@media (max-width: 600px) {
+  .page { padding: 1.5rem 0; }
+  .sheet {
+    width: 100%;
+    min-height: 0;
+    border-radius: 0;
+    padding: 2rem 1.25rem;
+  }
+}
+
+@media print {
+  @page { size: 8in 10in; margin: 0; }
+  body { background: #fff; color: #000; }
+  .page { padding: 0; }
+  .toc-section { display: none; }
+  .sheet {
+    box-shadow: none;
+    border-radius: 0;
+    margin: 0;
+    break-before: page;
+  }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="sheet title-page">
+  <h1>Floating the Road</h1>
+  
+  <p class="author">Jeff Uren</p>
+  <p class="edition">First Edition 2026</p>
+</div>
+
+<div class="sheet copyright-page"><p>Copyright © 2026 Jeff Uren. All rights reserved.</p><p>No part of this publication may be reproduced, distributed, or transmitted in any form or by any means without the prior written permission of the author.</p></div>
+
+<section class="toc-section" id="contents">
+  <div class="sheet toc-page chapter-start"><h3 class="chapter-title">Table of Contents</h3><nav class="toc"><div class="toc-part-label"><a class="part-label" href="#introduction">Introduction</a></div><div class="toc-chapter"><a href="#introduction-2">Chapter 1: Introduction</a></div><div class="toc-part-label"><a class="part-label" href="#what-are-we-building">Part I. What are We Building?</a></div><div class="toc-chapter"><a href="#good-is-a-noun">Chapter 2: Good is a Noun</a></div><div class="toc-chapter"><a href="#software-is-material">Chapter 3: Software is Material</a></div><div class="toc-chapter"><a href="#from-instructions-to-systems">Chapter 4: From Instructions to Systems</a></div><div class="toc-chapter"><a href="#there-is-no-such-thing-as-finished-software">Chapter 5: There is no such thing as Finished Software</a></div><div class="toc-part-label"><a class="part-label" href="#looking-inside">Part II. Looking Inside</a></div><div class="toc-chapter"><a href="#code-has-shape">Chapter 6: Code Has Shape</a></div><div class="toc-chapter"><a href="#state-changes-everything">Chapter 7: State Changes Everything</a></div><div class="toc-chapter"><a href="#coupling">Chapter 8: Coupling</a></div><div class="toc-chapter"><a href="#cohesion">Chapter 9: Cohesion</a></div><div class="toc-chapter"><a href="#boundaries-have-a-cost">Chapter 10: Boundaries Have a Cost</a></div><div class="toc-part-label"><a class="part-label" href="#yer-toolbox">Part III. Yer Toolbox</a></div><div class="toc-chapter"><a href="#calling-things">Chapter 11: Calling Things</a></div><div class="toc-chapter"><a href="#moving-things">Chapter 12: Moving Things</a></div><div class="toc-chapter"><a href="#remembering-things">Chapter 13: Remembering Things</a></div><div class="toc-chapter"><a href="#dividing-things">Chapter 14: Dividing Things</a></div><div class="toc-chapter"><a href="#doing-things-later">Chapter 15: Doing Things Later</a></div><div class="toc-chapter"><a href="#doing-many-things-at-once">Chapter 16: Doing Many Things, At Once</a></div><div class="toc-chapter"><a href="#letting-other-people-in">Chapter 17: Letting Other People In</a></div><div class="toc-part-label"><a class="part-label" href="#building-blocks">Part IV. Building Blocks</a></div><div class="toc-chapter"><a href="#values-and-representation">Chapter 18: Values and Representation</a></div><div class="toc-chapter"><a href="#types-and-meaning">Chapter 19: Types and Meaning</a></div><div class="toc-chapter"><a href="#functions-and-composition">Chapter 20: Functions and Composition</a></div><div class="toc-chapter"><a href="#control-flow">Chapter 21: Control Flow</a></div><div class="toc-chapter"><a href="#state">Chapter 22: State</a></div><div class="toc-chapter"><a href="#identity">Chapter 23: Identity</a></div><div class="toc-chapter"><a href="#resource-and-lifetime">Chapter 24: Resource and Lifetime</a></div><div class="toc-chapter"><a href="#contracts-and-invariants">Chapter 25: Contracts and Invariants</a></div><div class="toc-chapter"><a href="#indirection">Chapter 26: Indirection</a></div><div class="toc-chapter"><a href="#boundaries">Chapter 27: Boundaries</a></div><div class="toc-part-label"><a class="part-label" href="#beneath-the-software">Part V. Beneath the Software</a></div><div class="toc-chapter"><a href="#benath-the-software">Chapter 28: Benath The Software</a><ol class="toc-subheadings"><li><a class="toc-line" href="#the-machine-underneath"><span class="toc-num">28.1</span><span class="toc-label">The Machine Underneath</span><span class="toc-leader"></span><span class="toc-pagenum">33</span></a></li><li><a class="toc-line" href="#from-source-code-to-running-program"><span class="toc-num">28.2</span><span class="toc-label">From Source Code to Running Program</span><span class="toc-leader"></span><span class="toc-pagenum">33</span></a></li><li><a class="toc-line" href="#what-happens-when-you-click-the-button"><span class="toc-num">28.3</span><span class="toc-label">What Happens When You Click the Button?</span><span class="toc-leader"></span><span class="toc-pagenum">34</span></a></li><li><a class="toc-line" href="#data-is-bytes-eventually"><span class="toc-num">28.4</span><span class="toc-label">Data Is Bytes Eventually</span><span class="toc-leader"></span><span class="toc-pagenum">34</span></a></li><li><a class="toc-line" href="#processes-threads-and-work"><span class="toc-num">28.5</span><span class="toc-label">Processes, Threads and Work</span><span class="toc-leader"></span><span class="toc-pagenum">34</span></a></li><li><a class="toc-line" href="#networks-are-machines-too"><span class="toc-num">28.6</span><span class="toc-label">Networks Are Machines Too</span><span class="toc-leader"></span><span class="toc-pagenum">34</span></a></li><li><a class="toc-line" href="#the-problem-of-time"><span class="toc-num">28.7</span><span class="toc-label">The Problem of Time</span><span class="toc-leader"></span><span class="toc-pagenum">34</span></a></li><li><a class="toc-line" href="#queues-mean-pressure"><span class="toc-num">28.8</span><span class="toc-label">Queues Mean Pressure</span><span class="toc-leader"></span><span class="toc-pagenum">35</span></a></li><li><a class="toc-line" href="#caches-create-two-truths"><span class="toc-num">28.9</span><span class="toc-label">Caches Create Two Truths</span><span class="toc-leader"></span><span class="toc-pagenum">35</span></a></li><li><a class="toc-line" href="#configuration-is-software"><span class="toc-num">28.10</span><span class="toc-label">Configuration Is Software</span><span class="toc-leader"></span><span class="toc-pagenum">35</span></a></li><li><a class="toc-line" href="#deployment-is-part-of-the-design"><span class="toc-num">28.11</span><span class="toc-label">Deployment Is Part of the Design</span><span class="toc-leader"></span><span class="toc-pagenum">35</span></a></li><li><a class="toc-line" href="#versioning-and-compatibility"><span class="toc-num">28.12</span><span class="toc-label">Versioning and Compatibility</span><span class="toc-leader"></span><span class="toc-pagenum">35</span></a></li><li><a class="toc-line" href="#errors-are-information"><span class="toc-num">28.13</span><span class="toc-label">Errors Are Information</span><span class="toc-leader"></span><span class="toc-pagenum">36</span></a></li><li><a class="toc-line" href="#observability-is-an-interface"><span class="toc-num">28.14</span><span class="toc-label">Observability Is an Interface</span><span class="toc-leader"></span><span class="toc-pagenum">36</span></a></li><li><a class="toc-line" href="#performance-is-shape"><span class="toc-num">28.15</span><span class="toc-label">Performance Is Shape</span><span class="toc-leader"></span><span class="toc-pagenum">36</span></a></li><li><a class="toc-line" href="#dependencies-are-decisions"><span class="toc-num">28.16</span><span class="toc-label">Dependencies Are Decisions</span><span class="toc-leader"></span><span class="toc-pagenum">36</span></a></li><li><a class="toc-line" href="#every-abstraction-has-a-floor"><span class="toc-num">28.17</span><span class="toc-label">Every Abstraction Has a Floor</span><span class="toc-leader"></span><span class="toc-pagenum">37</span></a></li><li><a class="toc-line" href="#interfaces-outlive-implementations"><span class="toc-num">28.18</span><span class="toc-label">Interfaces Outlive Implementations</span><span class="toc-leader"></span><span class="toc-pagenum">37</span></a></li><li><a class="toc-line" href="#data-usually-lives-longer-than-code"><span class="toc-num">28.19</span><span class="toc-label">Data Usually Lives Longer Than Code</span><span class="toc-leader"></span><span class="toc-pagenum">37</span></a></li><li><a class="toc-line" href="#reversibility"><span class="toc-num">28.20</span><span class="toc-label">Reversibility</span><span class="toc-leader"></span><span class="toc-pagenum">37</span></a></li><li><a class="toc-line" href="#working-the-problem"><span class="toc-num">28.21</span><span class="toc-label">Working the Problem</span><span class="toc-leader"></span><span class="toc-pagenum">37</span></a></li></ol></div><div class="toc-part-label"><a class="part-label" href="#patterns-without-pattern-matching">Part VI. Patterns Without Pattern Matching</a></div><div class="toc-chapter"><a href="#what-a-pattern-actuall-is">Chapter 29: What a pattern actuall is</a></div><div class="toc-chapter"><a href="#learn-the-shape-forget-the-name">Chapter 30: Learn the Shape, Forget the Name</a></div><div class="toc-chapter"><a href="#forces-before-patterns">Chapter 31: Forces Before Patterns</a></div><div class="toc-chapter"><a href="#patterns-compose">Chapter 32: Patterns Compose</a></div></nav></div><div class="sheet toc-page"><nav class="toc"><div class="toc-chapter"><a href="#when-the-pattern-stops-helping">Chapter 33: When the Pattern Stops Helping</a></div><div class="toc-part-label"><a class="part-label" href="#designing-software">Part VII. Designing Software</a></div><div class="toc-chapter"><a href="#start-with-the-smallest-thing">Chapter 34: Start With the Smallest thing</a></div><div class="toc-chapter"><a href="#find-the-things-that-belong-together">Chapter 35: Find the Things That Belong Together</a></div><div class="toc-chapter"><a href="#draw-the-system">Chapter 36: Draw the System</a></div><div class="toc-chapter"><a href="#walk-the-data">Chapter 37: Walk the Data</a></div><div class="toc-chapter"><a href="#walk-the-failure">Chapter 38: Walk the Failure</a></div><div class="toc-chapter"><a href="#walk-the-change">Chapter 39: Walk the Change</a></div><div class="toc-part-label"><a class="part-label" href="#engineering-leverage">Part VIII. Engineering Leverage</a></div><div class="toc-chapter"><a href="#make-the-machine-do-the-repetition">Chapter 40: Make the Machine do the Repetition</a><ol class="toc-subheadings"><li><a class="toc-line" href="#functions-aren-t-the-only-abstraction"><span class="toc-num">40.1</span><span class="toc-label">Functions Aren't the Only Abstraction</span><span class="toc-leader"></span><span class="toc-pagenum">53</span></a></li></ol></div><div class="toc-chapter"><a href="#macros">Chapter 41: Macros</a></div><div class="toc-chapter"><a href="#declarative-versus-imperative">Chapter 42: Declarative Versus Imperative</a></div><div class="toc-chapter"><a href="#small-languages">Chapter 43: Small Languages</a></div><div class="toc-chapter"><a href="#encode-decisions-not-just-repetition">Chapter 44: Encode Decisions, Not Just Repetition</a></div><div class="toc-chapter"><a href="#the-cost-of-magic">Chapter 45: The Cost of Magic</a></div><div class="toc-part-label"><a class="part-label" href="#breaking-down-the-work">Part IX. Breaking Down the Work</a></div><div class="toc-chapter"><a href="#from-problem-to-work">Chapter 46: From Problem to Work</a></div><div class="toc-chapter"><a href="#find-the-thin-slice">Chapter 47: Find the Thin Slice</a></div><div class="toc-chapter"><a href="#build-to-learn">Chapter 48: Build to Learn</a></div><div class="toc-chapter"><a href="#make-uncertainty-visible">Chapter 49: Make Uncertainty Visible</a></div><div class="toc-chapter"><a href="#estimates-are-models">Chapter 50: Estimates Are Models</a></div><div class="toc-part-label"><a class="part-label" href="#reading-existing-software">Part X. Reading Existing Software</a></div><div class="toc-chapter"><a href="#where-do-i-start">Chapter 51: Where Do I Start?</a></div><div class="toc-chapter"><a href="#find-the-seams">Chapter 52: Find the Seams</a></div><div class="toc-chapter"><a href="#follow-something-real">Chapter 53: Follow Something Real</a></div><div class="toc-chapter"><a href="#read-the-history">Chapter 54: Read the History</a></div><div class="toc-chapter"><a href="#recognising-accretion">Chapter 55: Recognising Accretion</a></div><div class="toc-chapter"><a href="#changing-things-safely">Chapter 56: Changing Things Safely</a></div><div class="toc-part-label"><a class="part-label" href="#building-with-other-people">Part XI. Building With Other People</a></div><div class="toc-chapter"><a href="#communicating-designs">Chapter 57: Communicating Designs</a></div><div class="toc-chapter"><a href="#how-to-disagree-about-software">Chapter 58: How to Disagree About Software</a></div><div class="toc-chapter"><a href="#making-decisions-at-your-vantage-point">Chapter 59: Making Decisions at Your Vantage Point</a></div><div class="toc-chapter"><a href="#knowing-what-you-don-t-know">Chapter 60: Knowing What You Don't Know</a></div><div class="toc-part-label"><a class="part-label" href="#keeping-it-alive">Part XII. Keeping It Alive</a></div><div class="toc-chapter"><a href="#build-for-the-next-person">Chapter 61: Build for the Next Person</a></div><div class="toc-chapter"><a href="#legibility">Chapter 62: Legibility</a></div><div class="toc-chapter"><a href="#repairability">Chapter 63: Repairability</a></div><div class="toc-chapter"><a href="#changeability">Chapter 64: Changeability</a></div><div class="toc-chapter"><a href="#compatibility-and-migration">Chapter 65: Compatibility and Migration</a></div><div class="toc-chapter"><a href="#leaving-things-alone">Chapter 66: Leaving Things Alone</a></div><div class="toc-chapter"><a href="#removing-things">Chapter 67: Removing Things</a></div></nav></div>
+</section>
+
+<div class="sheet dedication"><p>For everyone, who didn't have someone, to help them understand.</p></div><div class="sheet chapter-start"><h3 class="chapter-title" id="acknowledgements">Acknowledgements</h3><p>I can't really not start out by thanking my family. My kids, and partner Gemma, who have put up with a lot of late-night scribbling in notebooks, staring at screens, raging at the world, and generally being a bit of a pain in the ass.</p><p>In addition, I'd like to thank all the lovely people I've worked with over the years, and all the people I look forward to working with in the future. Over time, I've tried to say it as plainly as I possibly could, and as straightly as I could, that I appreciate you, and everything you've done.</p></div><div class="sheet chapter-start"><h3 class="chapter-title" id="preface">Preface</h3><p class="missing">[chapter not yet written]</p></div><div class="sheet chapter-start"><h3 class="chapter-title" id="bio">Bio</h3><p class="lede">Jeff Uren is a software engineer, data architect and engineering leader with more than twenty years of experience building large-scale systems across healthcare, scientific research, finance, embedded software and distributed platforms.</p><p>His work has ranged from operating systems and embedded devices to cloud-native data platforms, federated analytics and semantic architectures. During the COVID-19 pandemic he contributed to the architecture and technical review of multiple clinical trial data-sharing platforms supporting international vaccine research, and has since led the design of semantic data platforms and organisational ontologies within the research sector.</p><p>Throughout his career Jeff has been less interested in individual technologies than in the organisations that build and depend upon them. His work increasingly focuses on the intersection of software architecture, enterprise architecture, systems thinking and knowledge representation, exploring how organisations can preserve shared meaning while continuing to evolve.</p><p>He is the creator of the Unified Domain Architecture (UDA), a practical approach to modelling organisational meaning independently of individual systems, and is an advocate for treating architecture as a discipline of stewardship rather than governance.</p><p>When he isn't designing systems, Jeff writes about architecture, organisations and technology, with a particular interest in the relationship between language, complexity and change. His writing draws inspiration from fields as varied as cybernetics, military sustainment, philosophy, ecology and literature, reflecting a belief that the hardest problems in architecture are rarely technical alone.</p></div>
+
+<section class="part-group" id="introduction"><div class="sheet chapter-start"><h2>Introduction</h2><h3 class="chapter-title" id="introduction-2">Introduction</h3><p class="missing">[chapter not yet written]</p><div class="chapter-number">1</div><div class="page-number">1</div></div></section><section class="part-group" id="what-are-we-building"><div class="sheet part-divider"><span class="part-divider-label">Part</span><div class="part-divider-number">I</div><div class="part-divider-title">What are We Building?</div><div class="part-divider-summary"><p>TBD</p></div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="good-is-a-noun">Good is a Noun</h3><p class="missing">[chapter not yet written]</p><div class="chapter-number">2</div><div class="page-number">3</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="software-is-material">Software is Material</h3><p class="missing">[chapter not yet written]</p><div class="chapter-number">3</div><div class="page-number">4</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="from-instructions-to-systems">From Instructions to Systems</h3><p class="missing">[chapter not yet written]</p><div class="chapter-number">4</div><div class="page-number">5</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="there-is-no-such-thing-as-finished-software">There is no such thing as Finished Software</h3><p class="missing">[chapter not yet written]</p><div class="chapter-number">5</div><div class="page-number">6</div></div></section><section class="part-group" id="looking-inside"><div class="sheet part-divider"><span class="part-divider-label">Part</span><div class="part-divider-number">II</div><div class="part-divider-title">Looking Inside</div><div class="part-divider-summary"><p>TBD</p></div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="code-has-shape">Code Has Shape</h3><p class="missing">[chapter not yet written]</p><div class="chapter-number">6</div><div class="page-number">8</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="state-changes-everything">State Changes Everything</h3><p class="missing">[chapter not yet written]</p><div class="chapter-number">7</div><div class="page-number">9</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="coupling">Coupling</h3><p class="missing">[chapter not yet written]</p><div class="chapter-number">8</div><div class="page-number">10</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="cohesion">Cohesion</h3><p class="missing">[chapter not yet written]</p><div class="chapter-number">9</div><div class="page-number">11</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="boundaries-have-a-cost">Boundaries Have a Cost</h3><p class="missing">[chapter not yet written]</p><div class="chapter-number">10</div><div class="page-number">12</div></div></section><section class="part-group" id="yer-toolbox"><div class="sheet part-divider"><span class="part-divider-label">Part</span><div class="part-divider-number">III</div><div class="part-divider-title">Yer Toolbox</div><div class="part-divider-summary"><p>TBD</p></div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="calling-things">Calling Things</h3><p class="lede">Functions, procedures, RPC, HTTP, commands.</p><div class="chapter-number">11</div><div class="page-number">14</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="moving-things">Moving Things</h3><p class="lede">Messaages, databases, queues, streams, events, files.</p><div class="chapter-number">12</div><div class="page-number">15</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="remembering-things">Remembering Things</h3><p class="lede">Memory, files, databases, logs, caches, object stores</p><div class="chapter-number">13</div><div class="page-number">16</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="dividing-things">Dividing Things</h3><p class="lede">Modules, libraries, processes, services, plugins, applocations</p><div class="chapter-number">14</div><div class="page-number">17</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="doing-things-later">Doing Things Later</h3><p class="lede">Queues, schedulers, jobs, asynchronous execution</p><div class="chapter-number">15</div><div class="page-number">18</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="doing-many-things-at-once">Doing Many Things, At Once</h3><p class="lede">Threads, processes, parallelism, distributed computation</p><div class="chapter-number">16</div><div class="page-number">19</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="letting-other-people-in">Letting Other People In</h3><p class="lede">APIs, protocols, command lines, extension points, plugins.</p><div class="chapter-number">17</div><div class="page-number">20</div></div></section><section class="part-group" id="building-blocks"><div class="sheet part-divider"><span class="part-divider-label">Part</span><div class="part-divider-number">IV</div><div class="part-divider-title">Building Blocks</div><div class="part-divider-summary"><p>TBD</p></div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="values-and-representation">Values and Representation</h3><p class="missing">[chapter not yet written]</p><div class="chapter-number">18</div><div class="page-number">22</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="types-and-meaning">Types and Meaning</h3><p class="missing">[chapter not yet written]</p><div class="chapter-number">19</div><div class="page-number">23</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="functions-and-composition">Functions and Composition</h3><p class="missing">[chapter not yet written]</p><div class="chapter-number">20</div><div class="page-number">24</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="control-flow">Control Flow</h3><p class="missing">[chapter not yet written]</p><div class="chapter-number">21</div><div class="page-number">25</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="state">State</h3><p class="missing">[chapter not yet written]</p><div class="chapter-number">22</div><div class="page-number">26</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="identity">Identity</h3><p class="missing">[chapter not yet written]</p><div class="chapter-number">23</div><div class="page-number">27</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="resource-and-lifetime">Resource and Lifetime</h3><p class="missing">[chapter not yet written]</p><div class="chapter-number">24</div><div class="page-number">28</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="contracts-and-invariants">Contracts and Invariants</h3><p class="missing">[chapter not yet written]</p><div class="chapter-number">25</div><div class="page-number">29</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="indirection">Indirection</h3><p class="lede">Pointers, references, interfaces, proxies, lookup tables, DNS, dependency injection, handles, symbolic links, IDs.</p><p>Software engineering uses indirection constantly because it lets us change what something refers to without changing everything that refers to it.</p><p>But every additional level also makes the system harder to follow.</p><p>That's almost architecture in miniature.</p><div class="chapter-number">26</div><div class="page-number">30</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="boundaries">Boundaries</h3><p class="missing">[chapter not yet written]</p><div class="chapter-number">27</div><div class="page-number">31</div></div></section><section class="part-group" id="beneath-the-software"><div class="sheet part-divider"><span class="part-divider-label">Part</span><div class="part-divider-number">V</div><div class="part-divider-title">Beneath the Software</div><div class="part-divider-summary"><p>TBD</p></div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="benath-the-software">Benath The Software</h3><p class="lede">Not a computer-science survey. More like opening the bonnet and following the pipes.</p><h5 id="the-machine-underneath"><span class="subheading-num">28.1</span> The Machine Underneath</h5><p>Start with:</p><p>application ↓ runtime / libraries ↓ system calls ↓ kernel ↓ CPU / memory / storage / devices</p><p>What a process really is. Virtual memory. Threads. File descriptors. Sockets. Filesystems. Scheduling.</p><p>Enough that things like “the database opened 500 connections” stop being abstract statements.</p><h5 id="from-source-code-to-running-program"><span class="subheading-num">28.2</span> From Source Code to Running Program</h5><p>Take several paths:</p><p>Rust/C/C++ → compiler → executable → loader → process</p><p>Java/C# → compiler → bytecode → runtime → process</p><p>Python → interpreter → modules → process</p><p>JavaScript → runtime/JIT → process/browser</p><p>What compilation, linking, loading, interpreters and runtimes actually mean.</p><p>This gives people a much better instinct for what frameworks are sitting on top of.</p><div class="chapter-number">28</div><div class="page-number">33</div></div><div class="sheet"><h5 id="what-happens-when-you-click-the-button"><span class="subheading-num">28.3</span> What Happens When You Click the Button?</h5><p>This could be one of the signature chapters of the book.</p><p>Follow one request all the way through:</p><p>mouse ↓ OS ↓ browser ↓ JavaScript ↓ HTTP ↓ DNS ↓ TCP / QUIC ↓ TLS ↓ network ↓ load balancer ↓ server ↓ application ↓ database ↓ disk</p><p>Then come all the way back.</p><p>Do variants for a desktop application and mobile application.</p><p>That single chapter could teach more useful architecture intuition than fifty diagrams of microservices.</p><p>There are several other areas that I think represent experienced-engineer knowledge rather than conventional architecture curriculum.</p><h5 id="data-is-bytes-eventually"><span class="subheading-num">28.4</span> Data Is Bytes Eventually</h5><p>People should understand the descent:</p><p>Customer ↓ object ↓ record ↓ JSON / protobuf / Avro ↓ bytes ↓ packet / file / page</p><p>Encoding, serialization, schemas, endianness at least conceptually, compression, framing.</p><p>It explains an enormous number of engineering decisions.</p><h5 id="processes-threads-and-work"><span class="subheading-num">28.5</span> Processes, Threads and Work</h5><p>A lot of engineers can use async frameworks without having a solid model of what is happening.</p><p>Processes, threads, event loops, coroutines, parallelism, concurrency, blocking, scheduling, synchronization.</p><p>Not “here's how to write pthreads.”</p><p>Rather: these are the different ways computers can arrange work.</p><h5 id="networks-are-machines-too"><span class="subheading-num">28.6</span> Networks Are Machines Too</h5><p>Networks shouldn't just appear as arrows.</p><p>Packets, routing, DNS, ports, TCP, UDP, TLS, proxies, NAT, load balancers, connection pools.</p><p>And especially:</p><p>A network call is not a function call with a longer arrow.</p><p>That lesson alone prevents a lot of bad architecture.</p><h5 id="the-problem-of-time"><span class="subheading-num">28.7</span> The Problem of Time</h5><div class="page-number">34</div></div><div class="sheet"><p>I'd expand the earlier time chapter considerably.</p><p>Clocks, ordering, timeouts, retries, deadlines, leases, TTLs, eventual consistency.</p><p>Experienced distributed-systems engineers eventually discover that time is part of the data model.</p><h5 id="queues-mean-pressure"><span class="subheading-num">28.8</span> Queues Mean Pressure</h5><p>Queues, buffers and backpressure.</p><p>The important lesson isn't how Kafka works.</p><p>It is:</p><p>producer faster than consumer ↓ somewhere something accumulates</p><p>Every system answers the question “where does excess work go?”, whether intentionally or accidentally.</p><h5 id="caches-create-two-truths"><span class="subheading-num">28.9</span> Caches Create Two Truths</h5><p>A wonderfully practical chapter.</p><p>Caching isn't fundamentally a performance technique.</p><p>The moment you cache something, you have created another representation of state and therefore a synchronization problem.</p><p>That kind of framing is exactly what I think this book should teach.</p><p>I'd also add some less glamorous areas that experienced engineers eventually realise are architecture.</p><h5 id="configuration-is-software"><span class="subheading-num">28.10</span> Configuration Is Software</h5><p>Environment variables, configuration files, feature flags, secrets, runtime configuration.</p><p>Configuration often becomes an undocumented programming language.</p><p>You can design it badly.</p><h5 id="deployment-is-part-of-the-design"><span class="subheading-num">28.11</span> Deployment Is Part of the Design</h5><p>An application isn't merely its source tree.</p><p>source → build → artefact → package → deploy → configure → execute → observe → upgrade</p><p>If it can't be deployed, upgraded and rolled back sanely, that is an architectural property.</p><h5 id="versioning-and-compatibility"><span class="subheading-num">28.12</span> Versioning and Compatibility</h5><p>This deserves much more emphasis than most software books give it.</p><div class="page-number">35</div></div><div class="sheet"><p>Schemas evolve. APIs evolve. files survive old programs. Messages remain in queues. Mobile clients don't update immediately.</p><p>Teach people to ask:</p><p>What happens when two versions of this system exist at the same time?</p><p>Because eventually they will.</p><h5 id="errors-are-information"><span class="subheading-num">28.13</span> Errors Are Information</h5><p>Not “exceptions versus result types.”</p><p>What failures mean.</p><p>When to propagate them, transform them, retry them, record them, hide them or stop.</p><p>There is a huge difference between:</p><p>couldn't connect</p><p>and:</p><p>we don't know whether the operation succeeded</p><p>Experienced engineers learn to notice that distinction.</p><h5 id="observability-is-an-interface"><span class="subheading-num">28.14</span> Observability Is an Interface</h5><p>Logs, metrics, traces, debugging interfaces, admin tools.</p><p>I would frame observability as:</p><p>The interface the running system provides to its maintainers.</p><p>Which fits sustainment beautifully.</p><h5 id="performance-is-shape"><span class="subheading-num">28.15</span> Performance Is Shape</h5><p>Avoid premature-optimization clichés.</p><p>Teach where performance actually comes from:</p><p>algorithms locality allocations serialization network round trips contention I/O batching caching parallelism</p><p>And especially how to find where the time actually went.</p><p>There are also a few more subtle chapters I'd want in a book like this.</p><h5 id="dependencies-are-decisions"><span class="subheading-num">28.16</span> Dependencies Are Decisions</h5><p>Not “avoid dependencies.”</p><p>A dependency exchanges work today for obligations tomorrow.</p><p>Libraries, frameworks, SaaS products and platforms all belong on the same spectrum.</p><div class="page-number">36</div></div><div class="sheet"><h5 id="every-abstraction-has-a-floor"><span class="subheading-num">28.17</span> Every Abstraction Has a Floor</h5><p>Eventually somebody has to understand the thing underneath.</p><p>ORM → SQL → database → filesystem → storage.</p><p>HTTP framework → HTTP → TCP → sockets.</p><p>Containers → processes → kernel.</p><p>This could become one of the recurring visual motifs of the book: keep lifting the floorboards.</p><h5 id="interfaces-outlive-implementations"><span class="subheading-num">28.18</span> Interfaces Outlive Implementations</h5><p>One of those things you really learn after maintaining systems for twenty years.</p><p>The implementation everybody agonised over disappears.</p><p>The weird API decision survives for fifteen years.</p><h5 id="data-usually-lives-longer-than-code"><span class="subheading-num">28.19</span> Data Usually Lives Longer Than Code</h5><p>Same idea.</p><p>You will rewrite the application before you rewrite twenty years of business records.</p><p>That should radically change how people think about schemas and migration.</p><h5 id="reversibility"><span class="subheading-num">28.20</span> Reversibility</h5><p>Not everything needs to be extensible.</p><p>But decisions with enormous blast radii should ideally be reversible.</p><p>This gives people a much healthier design heuristic than “future proofing.”</p><p>And I think there is one major practical engineering part still missing from our outline:</p><h5 id="working-the-problem"><span class="subheading-num">28.21</span> Working the Problem</h5><p>How experienced engineers actually attack something unfamiliar.</p><p>Chapters like:</p><p>Reproduce It — make the behaviour observable.</p><p>Reduce It — remove everything that isn't necessary.</p><p>Trace It — follow data and control flow.</p><p>Measure It — don't diagnose performance from intuition.</p><p>Change One Thing — preserve causality while investigating.</p><p>Read the Source — eventually the documentation runs out.</p><div class="page-number">37</div></div><div class="sheet"><p>Cross the Abstraction Boundary — when something impossible happens, descend a layer.</p><p>Build a Toy Version — sometimes twenty lines teach you more than twenty pages of documentation.</p><p>Those are incredibly transferable engineering skills, from somebody tinkering with a Raspberry Pi through to somebody responsible for a distributed platform.</p><p>And that leads to what I think could be the real promise of the book:</p><p>It isn't trying to make someone a software architect.</p><p>It's trying to make them the kind of engineer who, when confronted with something unfamiliar, can take it apart mentally, understand the forces acting upon it, see the choices available, and work their way downward until nothing is magic anymore.</p><p>That feels very consistent with the workshop-manual/Jeep Doctor idea.</p><div class="page-number">38</div></div></section><section class="part-group" id="patterns-without-pattern-matching"><div class="sheet part-divider"><span class="part-divider-label">Part</span><div class="part-divider-number">VI</div><div class="part-divider-title">Patterns Without Pattern Matching</div><div class="part-divider-summary"><p>TBD</p></div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="what-a-pattern-actuall-is">What a pattern actuall is</h3><p class="lede">A pattern isn't a thing you put into software.</p><p>It's a recurring shape that appears when similar forces are resolved in similar ways.</p><div class="chapter-number">29</div><div class="page-number">40</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="learn-the-shape-forget-the-name">Learn the Shape, Forget the Name</h3><p class="lede">Repository. Adapter. Observer. Pipeline. State machine. Actor. Event log.</p><p>The names are useful for communication.</p><p>The internalised mental model is much more useful.</p><div class="chapter-number">30</div><div class="page-number">41</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="forces-before-patterns">Forces Before Patterns</h3><p class="lede">Instead of:</p><p>“We need an event-driven architecture.”</p><p>Teach:</p><p>What needs to know? When does it need to know? Who owns the state? Can either side disappear? Does ordering matter? What happens twice? What happens tomorrow?</p><p>And allow an architecture to fall out of those questions.</p><div class="chapter-number">31</div><div class="page-number">42</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="patterns-compose">Patterns Compose</h3><p class="lede">Real systems aren't implementations of patterns.</p><p>They're overlapping arrangements of them.</p><div class="chapter-number">32</div><div class="page-number">43</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="when-the-pattern-stops-helping">When the Pattern Stops Helping</h3><p class="lede">Probably an important chapter.</p><p>Patterns become dangerous when people preserve their form after the forces that justified them disappear.</p><div class="chapter-number">33</div><div class="page-number">44</div></div></section><section class="part-group" id="designing-software"><div class="sheet part-divider"><span class="part-divider-label">Part</span><div class="part-divider-number">VII</div><div class="part-divider-title">Designing Software</div><div class="part-divider-summary"><p>TBD</p></div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="start-with-the-smallest-thing">Start With the Smallest thing</h3><p class="lede">Not “MVP”.</p><p>Start with the smallest conceptually complete system.</p><div class="chapter-number">34</div><div class="page-number">46</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="find-the-things-that-belong-together">Find the Things That Belong Together</h3><p class="lede">How to break a codebase apart.</p><p>Data, behaviour, lifecycle, rate of change, ownership.</p><div class="chapter-number">35</div><div class="page-number">47</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="draw-the-system">Draw the System</h3><p class="lede">Teach an actual graphical vocabulary.</p><p>Not UML certification.</p><p>Something someone can draw on paper while talking to another engineer.</p><p>Boxes, containment, arrows, boundaries, stores, flows, ownership, uncertainty.</p><div class="chapter-number">36</div><div class="page-number">48</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="walk-the-data">Walk the Data</h3><p class="lede">A very practical technique.</p><p>Pick one operation and follow it all the way through the system.</p><p>This would be almost like tracing wiring in a service manual.</p><div class="chapter-number">37</div><div class="page-number">49</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="walk-the-failure">Walk the Failure</h3><p class="lede">Do exactly the same thing with failure.</p><p>What happens if this doesn't answer?</p><p>What happens if this returns twice?</p><p>What happens if we lose power here?</p><div class="chapter-number">38</div><div class="page-number">50</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="walk-the-change">Walk the Change</h3><p class="lede">Then do it with a hypothetical requirement.</p><p>“We now need to support X.”</p><p>Where does that change travel?</p><p>This gives readers an extraordinarily useful way of evaluating architectures.</p><div class="chapter-number">39</div><div class="page-number">51</div></div></section><section class="part-group" id="engineering-leverage"><div class="sheet part-divider"><span class="part-divider-label">Part</span><div class="part-divider-number">VIII</div><div class="part-divider-title">Engineering Leverage</div><div class="part-divider-summary"><p>TBD</p></div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="make-the-machine-do-the-repetition">Make the Machine do the Repetition</h3><p class="lede">You've taught people what code is made from; now you show them how engineers can manipulate those building blocks at a higher level.</p><p>Make the Machine Do the Repetition</p><p>The basic principle:</p><p>Humans should make decisions. Machines should repeat them.</p><p>Start with mundane duplication, then show the spectrum:</p><p>copy and paste</p><p>function ↓ generic function ↓ template / generic type ↓ macro ↓ code generation ↓ domain-specific language</p><p>Each step is essentially saying:</p><p>“I have recognised a repeated structure and want to encode the structure rather than its instances.”</p><p>That's a very architectural concept.</p><h5 id="functions-aren-t-the-only-abstraction"><span class="subheading-num">40.1</span> Functions Aren't the Only Abstraction</h5><p>This is where macros become interesting.</p><p>Most introductory programming implicitly teaches:</p><p>If something repeats, make a function.</p><p>But sometimes what repeats isn't runtime behaviour. It's program structure.</p><div class="chapter-number">40</div><div class="page-number">53</div></div><div class="sheet"><p>Rust makes this particularly visible.</p><p>You might contrast:</p><p>functions — abstract runtime behaviour generics — abstract over types traits — abstract capabilities/relationships declarative macros — abstract repeated syntax/structure procedural macros — transform or generate program structure build-time generation — manufacture artefacts before compilation</p><p>That gives people a much richer picture of the available design space.</p><div class="page-number">54</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="macros">Macros</h3><p class="lede">I'd definitely give these their own chapter.</p><p>Not a Rust tutorial, but use Rust heavily because it has unusually good examples.</p><p>Show why something like:</p><p>#[derive(Debug, Serialize, Deserialize)] struct Person { name: String, age: u32, }</p><p>is enormously powerful.</p><p>Those three attributes may generate hundreds of lines of mechanically predictable implementation.</p><p>The engineer specifies intent and structure, rather than manually reproducing machinery.</p><p>Then explain the different flavours:</p><p>Declarative macros — reusable syntactic structures.</p><p>Derive/procedural macros — inspect program structure and generate code around it.</p><p>Attribute macros — transform how something behaves or is interpreted.</p><p>And importantly, macros aren't merely about saving typing.</p><p>They can enforce uniformity.</p><p>Templates and Generation</p><p>Then broaden outward.</p><p>Templates can generate:</p><div class="chapter-number">41</div><div class="page-number">55</div></div><div class="sheet"><p>source code configuration SQL schemas deployment manifests documentation APIs clients serialization layers</p><p>This leads into an important principle:</p><p>Generate the boring parts from the authoritative parts.</p><p>If your schema already describes something, perhaps five other representations shouldn't be manually maintained.</p><p>That's a huge sustainment lesson.</p><div class="page-number">56</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="declarative-versus-imperative">Declarative Versus Imperative</h3><p class="lede">This fits beautifully here too.</p><p>Instead of telling a machine how:</p><p>create this then create that then connect them then configure this</p><p>you sometimes describe what should exist:</p><p>these are the things these are their relationships</p><p>Then another system determines how to produce the result.</p><p>SQL, HTML, CSS, Terraform, build systems, parser grammars and Kubernetes manifests all demonstrate variations of this idea.</p><p>Not “declarative is better.”</p><p>Rather:</p><p>Moving the mechanism elsewhere can give you enormous leverage—but you've also surrendered some control and visibility.</p><p>That's exactly the kind of trade-off your book wants to teach.</p><div class="chapter-number">42</div><div class="page-number">57</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="small-languages">Small Languages</h3><p class="lede">This could be another wonderful chapter.</p><p>Engineers eventually discover that sometimes the best abstraction is not another class hierarchy.</p><p>It's a tiny language.</p><p>Regular expressions are one.</p><p>SQL is one.</p><p>Format strings are one.</p><p>Routing definitions can become one.</p><p>Configuration can accidentally become one.</p><p>And eventually:</p><p>rule when customer.age &gt; 65 apply senior_discount</p><p>You have created a language whether you intended to or not.</p><p>Then teach people to recognise the threshold:</p><p>When configuration gains conditions, variables, references and composition, you are probably designing a programming language.</p><p>That's experienced-engineer knowledge.</p><div class="chapter-number">43</div><div class="page-number">58</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="encode-decisions-not-just-repetition">Encode Decisions, Not Just Repetition</h3><p class="lede">This is where I'd distinguish the whole section from productivity.</p><p>The best leverage often isn't:</p><p>“This saved us writing 300 lines.”</p><p>It's:</p><p>“Nobody has to remember to do this correctly anymore.”</p><p>Examples:</p><p>type system enforces an invariant macro generates consistent registration formatter eliminates stylistic decisions linter catches prohibited structures schema generates serialization build system calculates dependency order compiler checks exhaustiveness migration tool tracks database state</p><p>You're moving knowledge from people's heads into machinery.</p><p>That connects directly back to sustainment.</p><div class="chapter-number">44</div><div class="page-number">59</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="the-cost-of-magic">The Cost of Magic</h3><p class="lede">And this needs to be the counterweight.</p><p>Macros, generators, frameworks and metaprogramming can make five lines represent five thousand.</p><p>That's wonderful until something breaks.</p><p>5 lines written ↓ 5,000 lines implied ↓ 20,000 behaviours possible</p><p>So teach people to ask:</p><p>Can I see what was generated? Can I debug through it? Can I understand when it runs? Can I escape it? Can I replace it? Does knowing the abstraction save more understanding than it costs?</p><p>That last question is probably the heart of it.</p><p>Compression has a decompression cost</p><p>I might actually use that phrase in the book.</p><p>Macros and abstractions compress knowledge.</p><p>#[derive(Serialize)]</p><p>contains a lot of implied behaviour.</p><p>For someone familiar with it, that's excellent compression.</p><p>For someone debugging an edge case without understanding the machinery, they now have to decompress the abstraction mentally.</p><p>That's not an argument against abstraction. It's a way of understanding its cost.</p><div class="chapter-number">45</div><div class="page-number">60</div></div></section><section class="part-group" id="breaking-down-the-work"><div class="sheet part-divider"><span class="part-divider-label">Part</span><div class="part-divider-number">IX</div><div class="part-divider-title">Breaking Down the Work</div><div class="part-divider-summary"><p>TBD</p></div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="from-problem-to-work">From Problem to Work</h3><p class="lede">How to turn:</p><p>“We need customers to upload documents”</p><p>into things engineers can actually build.</p><div class="chapter-number">46</div><div class="page-number">62</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="find-the-thin-slice">Find the Thin Slice</h3><p class="lede">Vertical slices versus layers of infrastructure.</p><p>How to find something small enough to implement but real enough to teach you something.</p><div class="chapter-number">47</div><div class="page-number">63</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="build-to-learn">Build to Learn</h3><p class="lede">Prototypes, spikes, experiments and disposable code.</p><p>And crucially: recognising the difference between learning work and production work.</p><div class="chapter-number">48</div><div class="page-number">64</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="make-uncertainty-visible">Make Uncertainty Visible</h3><p class="lede">Separate:</p><p>we know this we think this we haven't decided this we need to discover this</p><p>That's engineering.</p><div class="chapter-number">49</div><div class="page-number">65</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="estimates-are-models">Estimates Are Models</h3><p class="lede">Why estimation isn't fortune telling.</p><p>You're modelling work from incomplete information.</p><div class="chapter-number">50</div><div class="page-number">66</div></div></section><section class="part-group" id="reading-existing-software"><div class="sheet part-divider"><span class="part-divider-label">Part</span><div class="part-divider-number">X</div><div class="part-divider-title">Reading Existing Software</div><div class="part-divider-summary"><p>TBD</p></div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="where-do-i-start">Where Do I Start?</h3><p class="lede">You've inherited 400,000 lines of code.</p><p>Now what?</p><div class="chapter-number">51</div><div class="page-number">68</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="find-the-seams">Find the Seams</h3><p class="lede">Entry points, interfaces, persistence, dependency boundaries, processes.</p><div class="chapter-number">52</div><div class="page-number">69</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="follow-something-real">Follow Something Real</h3><p class="lede">Again: trace a user action or piece of data.</p><div class="chapter-number">53</div><div class="page-number">70</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="read-the-history">Read the History</h3><p class="lede">Git history, old decisions, abandoned approaches.</p><p>The code tells you what. History often tells you why.</p><div class="chapter-number">54</div><div class="page-number">71</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="recognising-accretion">Recognising Accretion</h3><p class="lede">Distinguish complexity that represents the problem from complexity that represents history.</p><div class="chapter-number">55</div><div class="page-number">72</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="changing-things-safely">Changing Things Safely</h3><p class="lede">Not “refactoring best practices.”</p><p>Reasoning about blast radius, observability, reversibility and confidence.</p><div class="chapter-number">56</div><div class="page-number">73</div></div></section><section class="part-group" id="building-with-other-people"><div class="sheet part-divider"><span class="part-divider-label">Part</span><div class="part-divider-number">XI</div><div class="part-divider-title">Building With Other People</div><div class="part-divider-summary"><p>TBD</p></div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="communicating-designs">Communicating Designs</h3><p class="lede">Sketches, written proposals, examples, prototypes.</p><div class="chapter-number">57</div><div class="page-number">75</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="how-to-disagree-about-software">How to Disagree About Software</h3><p class="lede">Move the conversation away from taste:</p><p>“I don't like this.”</p><p>towards forces, constraints and consequences.</p><div class="chapter-number">58</div><div class="page-number">76</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="making-decisions-at-your-vantage-point">Making Decisions at Your Vantage Point</h3><p class="lede">This chapter feels particularly important given what you've just said.</p><p>You don't need to be “the architect.”</p><p>A junior engineer can notice a boundary that doesn't make sense.</p><p>A hobbyist can reason about persistence.</p><p>A senior engineer can spot organisational coupling.</p><p>Architecture is visible from wherever you're standing.</p><div class="chapter-number">59</div><div class="page-number">77</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="knowing-what-you-don-t-know">Knowing What You Don't Know</h3><p class="lede">How to recognise when a decision has escaped the limits of your understanding.</p><div class="chapter-number">60</div><div class="page-number">78</div></div></section><section class="part-group" id="keeping-it-alive"><div class="sheet part-divider"><span class="part-divider-label">Part</span><div class="part-divider-number">XII</div><div class="part-divider-title">Keeping It Alive</div><div class="part-divider-summary"><p>TBD</p></div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="build-for-the-next-person">Build for the Next Person</h3><p class="lede">That next person may be you six months later.</p><div class="chapter-number">61</div><div class="page-number">80</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="legibility">Legibility</h3><p class="lede">I'd make this one of the book's core engineering qualities.</p><p>Not cleanliness.</p><p>Not elegance.</p><p>Can I understand the thing well enough to safely act upon it?</p><div class="chapter-number">62</div><div class="page-number">81</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="repairability">Repairability</h3><p class="lede">Can you get inside it?</p><p>Can you interrogate it?</p><p>Can you replace parts?</p><p>Can you operate it imperfectly?</p><div class="chapter-number">63</div><div class="page-number">82</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="changeability">Changeability</h3><p class="lede">Systems don't need to accommodate every conceivable change.</p><p>They need to make reasonable change possible.</p><div class="chapter-number">64</div><div class="page-number">83</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="compatibility-and-migration">Compatibility and Migration</h3><p class="lede">How real systems evolve without coordinated replacement.</p><div class="chapter-number">65</div><div class="page-number">84</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="leaving-things-alone">Leaving Things Alone</h3><p class="lede">Sometimes the best engineering decision available.</p><div class="chapter-number">66</div><div class="page-number">85</div></div><div class="sheet chapter-start"><h3 class="chapter-title" id="removing-things">Removing Things</h3><p class="lede">Deletion as an engineering capability.</p><div class="chapter-number">67</div><div class="page-number">86</div></div></section>
+
+<div class="sheet chapter-start"><h3 class="chapter-title" id="bibliography">Bibliography</h3><ul><li>TBD. <em>TBD</em>. TBD, 2026.</li></ul><div class="page-number">87</div></div>
+
+</div>
+</body>
+</html>

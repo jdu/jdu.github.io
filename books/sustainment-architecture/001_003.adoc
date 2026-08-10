@@ -1,5 +1,129 @@
 = Two kinds of organisations
 
+An assumption held a lot of architecture is that organisations become better by becoming more predictable. Processes become more consistent, operations become more efficient, variation is reduced and change itself becomes something to minimise. This is actually fairly sensible for a lot of organisations. If success for your org depends on manufacturing millions of identical products, operating an airline or processing insurance claims accurately and efficiently, stability isn't just desirable, it's one of your greatest assets.
+
+Those organisations improve by refining _what they already do_. The work changes, but usually incrementally. Architecture, in that environment, naturally focuses on standardisation, repeatability, optimisation and reducing unnecessary variation. The assumptions behind a lot of architecture frameworks, governance models and operating practices were developed in organisations that have these kinds of characteristics.
+
+*Not every organisation exists to become more stable*.
+
+Some organisations exist exactly because the world is inherently unstable. Research institutes pursue questions that haven't yet been answered. Humanitarian organisations respond to crises that can't be predicted years, or even months in advance. Universities continually create new disciplines, collaborations and ways of thinking. Funders shift their priorities as science, politics and society evolve. 
+
+The success of all of these types of organisations, and a great many more, doesn't depend on repeating what they did yesterday at a higher efficiency level. Success is defined by continually discovering, learning, and adapting in order to be able to do what they will need to tomorrow.
+
+For these types of organisations, change isn't a failure of planning.
+
+*It is the work*
+
+Trying to remove variability can produces the opposite of the intended effect. Systems become difficult to adapt. Governance becomes increasingly burdensome. Organisational structures designed for stability begin resisting the changes the organisation exists to make. What looks like dysfunction is sometimes just an organisation behaving exactly the way its purpose requires.
+
+Architecture carries assumptions with it. Practices that work exceptionally well in organisations optimising for consistency can become liabilities in organisations optimising for discovery. A governance process that reduces unnecessary variation in a manufacturing business could slow down a research organisation where value comes from discovering and exploring new directions. Likewise, techniques developed for highly adaptive organisations can introduce unnecessary complexity into environments where stability genuinely is the goal.
+
+In reality, most organisations don't sit squarely at one or either end of that spectrum. Most places have aspects of both. Finance might value consistency while research values exploration. Operations may need standardisation while product development thrives on experimentation. Good architecture is recognising those differences instead of attempting to force every part of the organisation towards the same operating model.
+
+Before adopting any architectural framework, methodology or set of practices [[sidenote:including those described in this book]] it's worth asking a pretty simple question.
+
+== How does your organisation create value?
+
+Does it become better primarily by refining what it already knows, or by continually learning what it didn't know before?
+
+The answer will influence almost every architectural decision afterwards.
+
+This book assumes that your organisation contains at least some parts whose primary challenge is adaptation rather than optimisation. If that assumption is wrong, many of the practices described in here might feel _wrong_. It's not a fear of change, or self-doubt. Some or all of these things can feel wrong in a variety of different organisational context. If it's right though, then architecture has a responsibility that extends beyond improving systems. It has to help the organisation preserve enough shared understanding so that it can continue changing without forgetting who it is.
+
+
+== Different relationships with change
+
+An organisation optimising for execution treats change as something to control. Every unnecessary variation introduces risk, cost and uncertainty. Good architecture therefore seeks to minimise differences, standardise approaches and make tomorrow look as much like today as possible.
+
+An organisation optimising for discovery has a different relationship with change. New work appears unexpectedly, priorities shift and previously unrelated capabilities suddenly need to collaborate. Change is not a disruption to normal operation. It is the mechanism by which the organisation fulfils its purpose. Architecture cannot prevent it; it must make it survivable.
+
+== Different relationships with knowledge
+
+Execution-oriented organisations benefit from knowing the answers. Once a process has been refined, documented and proven, there is considerable value in repeating it consistently. Knowledge becomes something to preserve and disseminate.
+
+Discovery-oriented organisations spend much of their time discovering that yesterday's answers no longer fit today's questions. Knowledge is still valuable, but it is treated as something provisional rather than permanent. Architecture therefore has to preserve not only what the organisation knows, but its ability to revise what it knows without losing coherence.
+
+== Different relationships with risk
+
+For one organisation, the greatest risk is unnecessary variation. A process executed differently in different places produces inconsistent outcomes, increased cost and reduced quality.
+
+For the other, the greatest risk is becoming unable to adapt. A process that cannot evolve, a system that cannot represent new ideas or an organisation that cannot change direction becomes increasingly disconnected from the world it exists to serve. Stability eventually becomes a liability.
+
+== Different relationships with technology
+
+Execution-oriented organisations often expect technology to encode the business. The software becomes the process because the process itself is expected to remain relatively stable.
+
+Discovery-oriented organisations place a different demand on technology. Systems are expected to support work that has not yet been fully understood. The technology therefore needs to separate enduring meaning from temporary implementation. Otherwise every change in the organisation becomes a migration project.
+
+== Different relationships with architecture
+
+These differences lead to different architectural priorities.
+
+One architecture seeks to reduce variation, increase standardisation and optimise known work.
+
+The other seeks to preserve meaning, reduce the cost of change and allow new capabilities to emerge without destabilising the organisation.
+
+Both care about governance.
+
+Both care about quality.
+
+Both care about consistency.
+
+What differs is where they believe stability should exist.
+
+For an execution-oriented organisation, stability often resides in processes, systems and operating models.
+
+For a discovery-oriented organisation, stability resides in meaning. Systems, processes and teams are expected to change, but the organisation's understanding of itself must remain coherent throughout that change.
+
+== Different relationships with time
+
+Execution-oriented organisations often assume that success comes from extending today's understanding into the future. Improvements are incremental, and architectural decisions are expected to remain valid for long periods.
+
+Discovery-oriented organisations assume that their understanding will change. Architecture is therefore designed not just to survive time, but to accommodate the organisation learning something fundamentally new about itself.
+
+== Different relationships with meaning
+
+Perhaps the deepest difference is where meaning comes from.
+
+In execution-oriented organisations, meaning often becomes embedded within processes and systems because those things change relatively slowly.
+
+In discovery-oriented organisations, that coupling quickly becomes expensive. Meaning has to exist independently of the systems that happen to express it, otherwise every organisational change requires the organisation to renegotiate its own language.
+
+== Neither is better
+
+It would be a mistake to conclude that one of these organisations is somehow more mature than the other. They simply optimise for different outcomes.
+
+Many large organisations contain both. Manufacturing may optimise for execution while research optimises for discovery. Finance may value consistency while product development depends on experimentation. The architect's responsibility is not to force every part of the organisation into the same operating model, but to understand which assumptions are appropriate in which context.
+
+Before adopting any framework, methodology or architectural practice—including those described in this book—it is worth asking a simple question.
+
+What kind of problem is this part of the organisation trying to solve?
+
+The answer matters far more than whether the approach happens to be described as "best practice."
+
+
+---
+
+I also think there's one profound observation that could sit near the end:
+
+Execution-oriented organisations optimise for repeating successful decisions. Discovery-oriented organisations optimise for revising successful decisions.
+
+That's a subtle but enormous distinction.
+
+Or another:
+
+In one organisation, change is the cost of doing business. In the other, change is the business.
+
+That's a line I think readers would remember because it immediately reframes why architecture has to be different.
+
+Finally, I'd avoid implying that one organisation is static and the other changes. Every organisation changes. The real distinction is what they're trying to optimise:
+
+Execution organisations optimise certainty.
+Discovery organisations optimise learning.
+
+That's a much deeper distinction, and I think it's one that underpins the rest of your book.
+
+
 
 * Some organisations succeed by executing the same thing more efficiently each year, and for them stability is a genuine asset. Others, funders, humanitarian responders, universities, succeed by continually becoming something they weren't before, and treating that as dysfunction misreads what the organisation is actually for.
 * Most architecture practice was built inside the first kind of organisation and imported wholesale into the second, without anyone checking whether the assumptions travelled. Worth working out, honestly, which kind of organisation you're actually in before adopting anyone's playbook, including this book's.

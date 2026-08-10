@@ -1,0 +1,40 @@
+= The Cost of Magic
+
+And this needs to be the counterweight.
+
+Macros, generators, frameworks and metaprogramming can make five lines represent five thousand.
+
+That's wonderful until something breaks.
+
+5 lines written
+       ↓
+5,000 lines implied
+       ↓
+20,000 behaviours possible
+
+So teach people to ask:
+
+Can I see what was generated?
+Can I debug through it?
+Can I understand when it runs?
+Can I escape it?
+Can I replace it?
+Does knowing the abstraction save more understanding than it costs?
+
+That last question is probably the heart of it.
+
+Compression has a decompression cost
+
+I might actually use that phrase in the book.
+
+Macros and abstractions compress knowledge.
+
+#[derive(Serialize)]
+
+contains a lot of implied behaviour.
+
+For someone familiar with it, that's excellent compression.
+
+For someone debugging an edge case without understanding the machinery, they now have to decompress the abstraction mentally.
+
+That's not an argument against abstraction. It's a way of understanding its cost.

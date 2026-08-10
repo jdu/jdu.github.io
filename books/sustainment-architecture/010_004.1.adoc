@@ -1,0 +1,515 @@
+= Ask Vendors Where Their Incentives Stop Matching Yours
+
+Vendor conversations deserve a different level of scrutiny from internal design discussions because the relationship is structurally different.
+
+An engineer inside the organisation may be wrong, overconfident or attached to a preferred technology, but they usually remain exposed to the long-term consequences of the choice. They will have to operate it, explain it, change it and eventually repair whatever assumptions turn out to be wrong.
+
+A vendor does not necessarily carry those same consequences.
+
+Their responsibility is to sell, implement and retain the use of their product. That is not an accusation of bad faith. It is simply the commercial arrangement. The vendor succeeds when the organisation adopts more of the product, renews the contract, expands its footprint and becomes a reference customer. The organisation succeeds when it solves its problem at an acceptable cost while retaining enough control to change direction later.
+
+Those goals overlap.
+
+They are not identical.
+
+The architect should therefore spend less time establishing whether a product can satisfy a requirement and more time discovering the conditions under which using that <D-Bslash>product stops serving the organisation.
+
+== Do not ask whether it can do something
+
+Almost every mature enterprise product can be made to do an extraordinary range of things.
+
+The more useful question is whether doing those things is natural to the product.
+
+There is a large difference between:
+
+> Can your platform support this process?
+
+and:
+
+> Is this the kind of process your platform was designed to support?
+
+The first question invites a demonstration.
+
+The second invites an architectural answer.
+
+A vendor can often satisfy an unusual requirement through configuration, scripting, custom objects, plugins, professional services or another product in the same suite. Every one of those mechanisms may be legitimate. The danger lies in gradually moving farther from the product's natural shape while continuing to describe the result as an off-the-shelf solution.
+
+Ask:
+
+> Which parts of our requirement fit your product poorly?
+
+> Where would you advise us not to use it?
+
+> Which requirement would make you question whether we are the right customer?
+
+> What do customers commonly customise that they later regret?
+
+> Which parts of our process would you expect us to change rather than configure the product around?
+
+A supplier that can clearly describe its own limits is usually giving you more useful information than one able to demonstrate another feature.
+
+== Ask them to describe the bad fit
+
+Vendor demonstrations are designed around successful paths.
+
+A customer exists. A workflow starts. An approval is completed. A dashboard updates. Everything proceeds through the state model as intended.
+
+Real organisations spend much of their lives outside those paths.
+
+Ask the vendor to demonstrate the awkward cases.
+
+> Show us what happens when the data is incomplete.
+
+> Show us how two conflicting records are resolved.
+
+> Show us what happens when a process must move backwards.
+
+> Show us how we represent an exception that does not fit the standard workflow.
+
+> Show us how the system behaves when ownership is disputed.
+
+> Show us what an administrator has to do when the automation fails halfway through.
+
+> Show us how historical meaning is preserved when a definition changes.
+
+The point is not to invent pathological edge cases.
+
+It is to see whether the product has a coherent way of representing the kinds of mess the organisation already knows exist.
+
+A product that only works cleanly after reality has been simplified to fit it may still be appropriate. The organisation should simply understand that the simplification is part of the purchase.
+
+== Ask what gets expensive later
+
+Initial adoption is usually where a vendor is most competitive.
+
+The organisation has not yet accumulated much data, many users, specialist integrations or organisational dependency. Migration costs are still hypothetical. The supplier is competing for the business.
+
+The economics may look very different after five years.
+
+Ask directly:
+
+> What causes customers' costs to increase most quickly?
+
+> Which usage dimensions affect pricing?
+
+> What typically becomes expensive after the first implementation?
+
+> Which features require higher licensing tiers?
+
+> How is historic data priced?
+
+> What happens when we double the number of users?
+
+> How does pricing change when more departments adopt the product?
+
+> Which capabilities are commonly introduced as add-ons later?
+
+> What professional-services work do mature customers still require from you?
+
+Do not evaluate the answer solely as a forecast of licence cost.
+
+You are looking for *gravity*.
+
+The product may become economically difficult to leave because it has become technically useful. That is not necessarily bad. But the organisation should understand how that gravity will accumulate before building the rest of its estate around it.
+
+== Ask where the product creates dependency
+
+Lock-in discussions often remain too superficial.
+
+They focus on whether data can technically be exported.
+
+That is only one form of dependency.
+
+The more important question is:
+
+> What will we know only because we use this product?
+
+An organisation may be able to export every row of data and still be unable to reconstruct the system.
+
+* Business rules may exist in proprietary workflow definitions.
+* Authorisation logic may be encoded in configuration.
+* Relationships may depend on internal identifiers.
+* Historical states may not survive export.
+* Users may have spent years learning product-specific ways of working.
+* Specialist teams may have formed around administering it.
+* Integrations may rely directly on vendor APIs.
+
+The organisation's language itself may have begun adopting the vendor's terminology.
+
+Ask:
+
+> What information cannot be represented outside your product without translation?
+
+> Which configuration objects are exportable?
+
+> Can we reconstruct workflows independently from the system?
+
+> Are authorisation rules portable?
+
+> Which identifiers are proprietary?
+
+> Which APIs or behaviours are unique to your platform?
+
+> What documentation would allow another supplier to reproduce our implementation?
+
+> Which skills would we need to recruit if we stopped using your professional services?
+
+Dependency is often encoded in knowledge long before it becomes visible in contracts.
+
+== Ask how customers leave
+
+One of the strongest questions in a vendor conversation is also one of the simplest:
+
+Tell us about customers who have left.
+
+Not merely whether exit is supported.
+
+Ask how it actually happens.
+
+> How long does a typical exit take?
+
+> What data is provided?
+
+> In what formats?
+
+> What is not included?
+
+> What help do you provide during transition?
+
+> What does that support cost?
+
+> Do customers normally run both systems in parallel?
+
+> Which parts of the implementation are hardest to recreate elsewhere?
+
+> What happens to our data after termination?
+
+> How long do we retain access?
+
+> What happens if we need extraction after the contract ends?
+
+> Which customers have successfully migrated from your platform to another?
+
+A vendor will naturally have many stories about customers arriving.
+
+Architecture should be equally interested in customers leaving.
+
+A product that provides a credible account of departure is easier to treat as a component rather than a permanent commitment.
+
+== Ask which assumptions the product makes about your organisation
+
+Every enterprise product contains an organisational model.
+
+It has opinions about ownership, hierarchy, workflow, identity, status, permissions and what constitutes a valid transaction.
+
+Those opinions may never appear in the feature list.
+
+Ask:
+
+> What assumptions does your product make about organisational structure?
+
+> Can responsibility exist independently of hierarchy?
+
+> Can one thing belong to several domains?
+
+> How does the system represent changing ownership over time?
+
+> What happens when two parts of the organisation legitimately use different definitions?
+
+> Does the product require one authoritative record?
+
+> How are exceptions represented?
+
+> Which concepts are fixed by the platform?
+
+These questions are particularly important for systems that become systems of record.
+
+You are not merely buying software.
+
+You may be adopting a model of how the organisation works.
+
+That model deserves at least as much scrutiny as the technology.
+
+== Distinguish configuration from customisation from integration
+
+These words are routinely blurred during sales conversations.
+
+They should not be.
+
+*Configuration* uses supported mechanisms intended to vary between customers.
+
+*Customisation* changes or extends the product to represent behaviour the standard product does not naturally contain.
+
+*Integration* moves responsibility across the product boundary.
+
+Each has a different architectural consequence.
+
+Ask the supplier to categorise every major requirement explicitly.
+
+> Is this native capability?
+
+> Is this configuration?
+
+> Is this customisation?
+
+> Is this integration?
+
+> Does it require professional services?
+
+> Is it supported during upgrades?
+
+> Who owns the code?
+
+> Who tests it when the platform changes?
+
+A solution that is "80% standard" can sound reassuring until the remaining 20% contains the organisation's most important processes.
+
+The percentage itself tells you almost nothing.
+
+What matters is which twenty percent.
+
+== Ask what upgrades will break
+
+Products change.
+
+This is obvious, but vendor evaluations frequently treat today's feature set as though it were a stable architectural object.
+
+Ask:
+
+> Which customisations commonly make upgrades difficult?
+
+> Which APIs have changed significantly in the last five years?
+
+> What backward-compatibility guarantees do you provide?
+
+> What happens when a feature we depend upon is deprecated?
+
+> How much notice do customers receive?
+
+> Can we defer upgrades?
+
+> What happens if we cannot?
+
+> Which changes are under your control but would materially affect our implementation?
+
+This exposes an important distinction.
+
+When you build something yourself, you accept the cost of maintaining it.
+
+When you buy something, you accept the cost of somebody else changing it.
+
+Those are different risks, but they are both risks.
+
+Ask how the product fails
+
+== Architecture conversations often concentrate on availability percentages.
+
+Those numbers matter, but they do not tell you how failure is experienced.
+
+Ask:
+
+> What does partial failure look like?
+
+> What happens when authentication works but a downstream service does not?
+
+> What happens to writes during an outage?
+
+> Can users continue working?
+
+> How are retries handled?
+
+> Can messages be lost or duplicated?
+
+> What happens after restoration?
+
+> Who is responsible for reconciliation?
+
+> What visibility do we have during an incident?
+
+> What information will your support team need from us?
+
+> What information can we obtain without opening a support case?
+
+A managed product does not remove failure.
+
+It changes the boundary at which you can respond to failure.
+
+That boundary needs to be understood before the system becomes critical.
+
+== Ask who carries the unresolved work
+
+There is a class of vendor answer that sounds reassuring:
+
+> "That's usually handled by the customer."
+
+Listen carefully when you hear it.
+
+Ask who exactly will perform that work.
+
+* Data cleansing.
+* Exception handling.
+* Migration reconciliation.
+* Permissions administration.
+* Integration monitoring.
+* Semantic mapping.
+* Configuration maintenance.
+* Release testing.
+* User support.
+
+The supplier may be providing a very effective product while transferring significant operational work back to the organisation.
+
+That is perfectly acceptable when deliberate.
+
+It becomes dangerous when the organisation believes it has purchased an end-to-end capability and discovers after implementation that it has really purchased a sophisticated component surrounded by new internal responsibilities.
+
+Ask:
+
+> What work must we permanently perform to make this product successful?
+
+That is often more revealing than asking what the product does.
+
+== Ask for evidence beyond reference customers
+
+Reference customers are useful.
+
+They are also selected evidence.
+
+Vendors naturally introduce organisations where the implementation went well, the relationship remains healthy and someone is prepared to speak publicly.
+
+Ask for the denominator.
+
+> How many customers of our size use this capability?
+
+> What proportion have adopted the feature you are recommending?
+
+> How many implementations required substantial customisation?
+
+> What is the median implementation duration rather than the fastest?
+
+> How often do customers exceed the original implementation budget?
+
+> What are the most common reasons projects struggle?
+
+> What proportion of customers still depend on your professional services after three years?
+
+> How many customers have stopped using this capability?
+
+The vendor may not disclose all of this.
+
+That itself tells you something about what evidence is and is not available.
+
+A case study tells you that success is possible.
+
+It does not tell you how probable it is.
+
+== Ask what the salesperson is not measured on
+
+This is a more direct question, but in the right conversation it is incredibly useful.
+
+Ask:
+
+> What are you personally incentivised to achieve in this engagement?
+
+You may not get a detailed compensation plan, nor should you necessarily expect one.
+
+But the underlying issue can still be discussed.
+
+Is success:
+
+* selling the licence?
+* increasing adoption?
+* expanding the number of modules?
+* renewal?
+* customer satisfaction?
+* implementation completion?
+* long-term outcome?
+
+The same question should be asked of implementation partners and consultancies.
+
+A reseller may earn more when the product footprint grows.
+
+An implementation partner may earn more when customisation increases.
+
+A consultancy may earn more when the transformation becomes larger.
+
+Again, this does not imply misconduct.
+
+It tells you where independent scrutiny is required.
+
+The architect should understand the commercial machinery surrounding an architectural recommendation just as carefully as the technical machinery.
+
+== Separate the vendor from the adviser
+
+One particularly dangerous arrangement occurs when the organisation asks someone who benefits from a particular solution to define the problem.
+
+A platform vendor performs the discovery.
+
+Unsurprisingly, the resulting problem looks like something the platform solves.
+
+An implementation partner writes the target architecture.
+
+Unsurprisingly, successful delivery requires substantial implementation services.
+
+A consultancy identifies organisational fragmentation.
+
+Unsurprisingly, the solution becomes a transformation programme.
+
+None of these recommendations need be dishonest.
+
+The problem is epistemic.
+
+The organisation has allowed the party selling the answer to determine the question.
+
+Where the decision is strategically significant, architecture should insist on separating these activities enough to provide meaningful challenge.
+
+The people evaluating whether a capability should be purchased should have some independence from those rewarded when it is purchased.
+
+== Ask what they would advise you not to buy
+
+This may be the single best test.
+
+After discussing the organisation's needs, ask:
+
+> Which parts of your product or service do you think we should not buy?
+
+Then listen.
+
+A supplier that understands the organisation and is prepared to establish a boundary around its own commercial opportunity is signalling something valuable.
+
+The same applies to consultants:
+
+> Which parts of this problem do you think we can solve ourselves?
+
+> Where should we strengthen internal capability rather than purchase yours?
+
+> What should already exist inside the organisation when your engagement ends?
+
+It is not proof of alignment.
+
+But an adviser incapable of recommending less should be treated differently from one capable of explaining where their own involvement should stop.
+
+== Make the trade explicit
+
+At the end of the evaluation, the architecture should be able to describe the commercial trade without promotional language.
+
+Not:
+
+> Product X is a market-leading platform that will accelerate our digital transformation.
+
+But:
+
+> Product X allows us to avoid building and operating these capabilities ourselves. In exchange, we accept these constraints on our operating model, these forms of supplier dependency, these recurring costs and this estimated cost of exit. We retain ownership of these concepts and capabilities outside the product because they are strategically important to us.
+
+That is a purchasing decision the organisation can reason about.
+
+The purpose of vendor questioning is not to prove that suppliers cannot be trusted.
+
+Trust is not the issue.
+
+*Alignment is.*
+
+The supplier can behave entirely ethically, deliver exactly what was promised and create considerable value while still preferring an outcome that is not optimal for the organisation.
+
+Good architecture assumes that this divergence will exist somewhere.
+
+Its responsibility is to find out where before the organisation becomes too dependent to care.

@@ -1,0 +1,3 @@
+= Find the Seams
+
+Entry points, interfaces, persistence, dependency boundaries, processes.

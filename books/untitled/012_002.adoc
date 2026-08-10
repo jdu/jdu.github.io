@@ -1,0 +1,55 @@
+= Macros
+
+I'd definitely give these their own chapter.
+
+Not a Rust tutorial, but use Rust heavily because it has unusually good examples.
+
+Show why something like:
+
+#[derive(Debug, Serialize, Deserialize)]
+struct Person {
+    name: String,
+    age: u32,
+}
+
+is enormously powerful.
+
+Those three attributes may generate hundreds of lines of mechanically predictable implementation.
+
+The engineer specifies intent and structure, rather than manually reproducing machinery.
+
+Then explain the different flavours:
+
+Declarative macros — reusable syntactic structures.
+
+Derive/procedural macros — inspect program structure and generate code around it.
+
+Attribute macros — transform how something behaves or is interpreted.
+
+And importantly, macros aren't merely about saving typing.
+
+They can enforce uniformity.
+
+Templates and Generation
+
+Then broaden outward.
+
+Templates can generate:
+
+source code
+configuration
+SQL
+schemas
+deployment manifests
+documentation
+APIs
+clients
+serialization layers
+
+This leads into an important principle:
+
+Generate the boring parts from the authoritative parts.
+
+If your schema already describes something, perhaps five other representations shouldn't be manually maintained.
+
+That's a huge sustainment lesson.

@@ -1,0 +1,10 @@
+= Make Uncertainty Visible
+
+Separate:
+
+we know this
+we think this
+we haven't decided this
+we need to discover this
+
+That's engineering.

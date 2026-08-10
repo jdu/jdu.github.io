@@ -1,0 +1,9 @@
+= Legibility
+
+I'd make this one of the book's core engineering qualities.
+
+Not cleanliness.
+
+Not elegance.
+
+Can I understand the thing well enough to safely act upon it?

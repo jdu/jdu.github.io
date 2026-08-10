@@ -1,0 +1,545 @@
+= Surface the Trade-Offs
+
+Most difficult architectural decisions exist because several options are reasonable. One design is simpler to operate but harder to change. Another gives teams more independence but creates duplication. A commercial product gets us somewhere quickly but increases dependency on a supplier. Building internally preserve control but commits the organisation to maintaining what it builds. Strong consistency makes some classes of error impossible while making availability or distribution harder. A shared platform removes repeated work while creating another thing everyone has to coordinate around.
+
+The job of the architect isn't to make these tensions disappear. It's to make them _visible_.
+
+A weak architectural recommendation explains why an option is good. A strong on explains what the organisation receives, what it gives up, which assumptions make the exchange worthwhile, and what would cause us to reconsider it later.
+
+Most poor architectural decisions aren't obviously foolish when they're made. They become foolish because one side of the exchange was visible while the other was hidden away.
+
+== Every Design Makes Something Easier
+
+Every architectural choice makes some things easier and other things harder.
+
+A centralized data platform makes common governance and reuse easier. It may make independent experimentation harder. Distributed ownership can place decisions closer to domain expertise while making organisation-wide consistency more expensive. Microservices can allow parts of a system to evolve independently while introducing networking, deployment, and coordination complexity. A large enterprise product may provide considerable capability immediately while forcing the organisation to work within assumption it didn't choose.
+
+There is no such thing as a neutral architecture.
+
+Even doing nothing has shape to it. Retaining an existing system preserves investment, familiarity and stability while accepting whatever constraints caused us to consider replacing it.
+
+The first habit of useful architecture is you need to stop asking:
+
+> Which option is best?
+
+and instead start to ask:
+
+> What does each option make easier, and what does it make harder?
+
+Even that small change in language is surprisingly potent. It removes a lot of the moral weight attached to technology decisions. Centralisation is neither enlightened nor backward. Buying is neither inherently sensible, nor inherently dangerous. Open source is not automatically virtuous. Cloud is not intrinsically modern. Each creates a different distribution of cost, control, knowledge, and dependency.
+
+Once those things are visible, the organisation can decicde which distribution it prefers.
+
+== Find What You're Optimizing For
+
+A lot of architecture discussions become arguments because people are unknowingly optimising for different things.
+
+- An engineer may prefer an approach because it's easier to maintain
+- A product owner may prefer another one because it can be delivered sooner
+- Security may prefer a third because it reduces the number of trust boundaries
+- Procurement swings in with another option where they favour an established supplier because the commercial risk is easier to assess.
+- Leadership might chime in with a specific option whose cost and delivery can be explained more confidently.
+
+Everyone can be correct within the frame they're using.
+
+The architecture discussion becomes useful when those frames are brought into the same room.
+
+Ask
+
+> What are we actually trying to optimise for?
+
+Then make the answer specific.
+
+* Not _agility_
+** Agility to do what?
+* Not _scalability_
+** What's expected to scale, by how much, and over what period?
+* Not _simplicity_
+** Simple for who?
+* Not _lower risk_
+** Which risk specifically?
+* Not _flexibility_
+** Which future change are we trying to make inexpensive?
+
+Words like scalable, flexible, standardised, modern, secure, and strategic sound like properties everyone should want. They conceal choices precisely because nobody wants to argue the opposite.
+
+The architect's job is to force the adjective back into the real world.
+
+== Look for Hidden Assumptions
+
+Every design rests on assumptions.
+
+Some are technical:
+
+* Traffic will stay below some specific level.
+* Events will arrive more than once.
+* This source will always expose an API.
+
+Others are organisational:
+
+* Finance will remain the owner of this process.
+* These two teams will continue coordinating closely.
+* We'll retain people capable of operating this technology.
+
+Others are commercial:
+
+* The supplier is going to continue offering this capability
+* Pricing will remain proportionate
+* We will be able to extract our data if we leave.
+
+And some are assumptions about the future:
+
+* This requirement will stay stable
+* We'll eventually consolidate these systems
+* Adoption will increase
+* AI capability will improve enough to automate this work.
+
+An architecture can be perfectly reasonable if its assumptions hold. The problem is that assumptions often enter designs disguised as facts:
+
+Here's a useful question:
+
+> What would have to be true for this to be a good decision?
+
+Suppose someone recommends buying a large enterprise data platform. 
+
+For that to be the right decision, a few things need to be true:
+
+* the organisation needs capabilities it can't economically assemble from existing components
+* enough teams will use the platform to justify its cost
+* the platform's model fits the organisation sufficiently well
+* internal capability will remain strong enough to govern it
+* and the cost of the dependency is lower than the benefit of standardisation
+
+Those are now actual things we can investigate.
+
+The conversation has moved on from:
+
+> "I think we should use this platform"
+
+to:
+
+> "Here are the conditions under which using this platform makes sense."
+
+That's architecture.
+
+== Ask What Could Change the Answer
+
+Another pretty powerful question:
+
+> What would make you choose differently?
+
+People are remarkably good at defending a preferred solution. They're less often asked to describe the conditions under which they would abandon it.
+
+An engineering advocating for Kafka might say that an ordinary queue would be sufficient if replay were unnecessary and there were only a handful of consumers.
+
+Someone advocating a commercial product might say they would reconsider if more than a certain amount of organisational logic required customisation.
+
+A team proposing a shared service might admit that decentralisation would make more sense if domains genunely needed to evolve independently.
+
+You have now discovered the _bnoundary_ of the decision.
+
+This is a lot more useful than forcing people to argue harder for their original position.
+
+If there's no imaginable evidence that could change someone's answer, you're no longer discussing an architectural choice. You're discussing a _preference_, _identity_ or _commitment_.
+
+Those need a wholly different conversation.
+
+== Ask Engineers Where the Design Hurts
+
+engineers often understand the trade-offs in their designs long before they have articulated them. Never kick things off by trying to find faults.
+
+Ask them where their designs become uncomfortable.
+
+Questions like these work pretty well:
+
+* What becomes easier because of this design?
+* What becomes harder?
+* Which part are you least confident about?
+* Where is the complexity hiding?
+* What happens when this component is unavailable?
+* What happens when the same message arrives twice?
+* What are we assuming about scale?
+* What do we now have to operate that we didn't operate before?
+* Which change becomes surprisingly difficult?
+* What have we deliberately chosen not to solve?
+* What would make you redesign this?
+* If you had half the time, what would you remove?
+* If this had to operated for ten years, what worries you?
+* Which part requires somebody to remember something?
+* What knowledge exists only in this team?
+
+The point isn't to catch people out or put people in their place.
+
+Good engineers usually like these conversations because they allow the actual engineering problem to surface. Usually, they've already considered the issue and can explain precisely why the compromise is worthwhile.
+
+Sometimes they haven't. Either of those outcomes is useful. 
+
+On super effective question here is:
+
+> What fails first?
+
+Almost every design has a failure frontier.
+
+Maybe storage fills before compute becomes constrained. Maybe the vendor's API limit appears before the database becomes a problem. Or possibly the technical system scales comfortably but the support model collapses after the tenth team adopts it.
+
+Knowing where failure begins tells you much more about an architecture than being told that it scales.
+
+== Ask Domain Experts Where Reality Escapes the Model
+
+Technical staff are not the only people who hold architectural knowledge.
+
+People doing the work understand where official representations stop matching reality.
+
+When talking with domain experts, asking them to describe the normal process can produce the least interesting information. The documented process already does that reasonably well. 
+
+Ask about where it breaks:
+
+* What is the awkward case?
+* What do you do when the information is missing?
+* Which part requires judgement?
+* What does the system prevent you from recording?
+* Which cases look identical in the system but are actually different?
+* Where do you keep information that doesn't fit in the system?
+* What spreadsheets do you still use?
+* What do experienced people know that new starters don't?
+* Which rule do you sometimes have to break to do the work correctly?
+* If we simplified this distinction, what would we lose?
+
+These are questions that reveal the organisation underneath the workflow engine.
+
+They're particularly important when someone proposes standardisation. Variation might be accidental or wasteful. It might also encode an important distinction that the proposed design has failed to understand.
+
+The architect shouldn't preseve every exception, but they also shouldn't remove exceptions they haven't understood.
+
+== Ask Business People About Consequences
+
+Business conversations often become ineffective when architects bring technical options too early.
+
+A stakeholder might have no meaningful opinion about even streaming, graph databases, or service boundaries. They do have an opinion about what needs to stay possible.
+
+Talk about _consequences_ instead, ask:
+
+* which outcome matters most?
+* Waht could we tolerate being slow?
+* What absolutely can't go wrong?
+* How quickly do we need to be able to change it?
+* Who suffers if this decision is wrong?
+* Which part of this process differentiates us from other organisations?
+* What could we happily buy from the market?
+* Which knowledge would we never want to lose?
+* Which decision has to stay ours?
+* What would happen if this capability was unavailable for a day?
+* What would happen if we couldn't change it for six months?
+
+
+These questions produce architectural constraints without requiring people to speak architecture.
+
+"Every transaction must be available immediately" is expensive.
+
+"Finance needs yesterdays transactions before 8am" describes a much more useful requirement.
+
+"We need a flexible system" says almost nothing.
+
+"We change funding schemes several times each year and can't wait six months for a supplier to update the workflow" says a lot.
+
+Architecture becomes easiuer when vague aspirations are converted into observable consequences.
+
+== Ask Vendors Where Their Product Stops Fitting
+
+Vendor demonstrations naturally emphasise the happy path.
+
+That's their job.
+
+The architect should spend less time asking vendors what their product can do and more time discovering where it's natural boundary lies.
+
+Ask:
+
+* Which part of our requirement is least natural for your product?
+* What do customers commonly try to do that you recommend against?
+* Where do customers usually need customization?
+* Which of our requirements would you solve outside the product?
+* What happens if we need to leave?
+* Which data can we export completely?
+* Which behaviour is proprietary?
+* What happens when your service is unavailable?
+* Which limits should we know about before adoption?
+* Which parts of the platform require specialist skills that only your ecosystem commonly provides?
+* What gets substantially more expensive as adoption grows?
+
+A vendor who can answer these questions clearly is considerably more useful than one who insists everything fits.
+
+The same applies to consultants.
+
+* Ask what evidence would make them recommend doing less.
+* Ask which parts of the current organisation they would preserve.
+* Ask where their preferred approach has failed elsewhere.
+* Ask what capability the organisation will posess after they leave that it doesn't have today.
+
+
+You're not trying tto make suppliers uncomfortable, you're trying to establish where their incentives and your organisations' interests stop being identical.
+
+They'll stop being identical somewhere, good architecture will find the boundary before signing the contract.
+
+== Follow the Complexity
+
+Complexity is very very rarely removed, it's usually just displaced somewhere else.
+
+A managed service removes operational complexity from internal teams but introduces supplier and integration complexity.
+
+A central platform reduces duplicated infrastrcture but increases coordination around the platform.
+
+A standard enterprise product removes the need to build common functionality while introducing the work required to reconcile the orgasniation with the product's model.
+
+An abstraction makes future substitution easier while creating another layer that sombody must understand and maintain.
+
+Whenever a proposal claims to simplify something, ask:
+
+> Where did the complexity go?
+
+Sometimes the answer is *excellent*.
+
+> "We no longer operate databases because the provider does it."
+
+Good. That complexity has moved somewhere the organisation is happy for it to live.
+
+Sometimes the answer is less than comfortable.
+
+> "We standardised the process"
+
+But teams now maintain spreadsheets to represent exceptions.
+
+The complexity didn't disappear, it became invisible to the architecture.
+
+This is one of the most important habits you can develop: when something gets simpler in one place, look for the corresponding increase somewhere else.
+
+Complexity behaves a little like pressure. Push it out of one part of th esystem and it crops back up at another boundary.
+
+== Follow the Cost
+
+The is true of cost.
+
+Architecture decisions frequently reduce a visible cost by creating a less visible one.
+
+Outsourcing reduces headcount but introduces supplier management and change costs.
+
+A shared service reduces duplicated engineering but introduces waiting.
+
+A governance process reduces the perceived risk of local decisions but increases coordiantion and lead time.
+
+A low-code product reduces the cost of initial development while potentially increasing licensing, integration, and exit costs.
+
+Automation removes manual work while creating software that must now be understood, monitored, and maintained.
+
+The question isn't:
+
+> Does this reduce cost?
+
+It's:
+
+> Whose cost does it reduce, whose cost does it increase, and when does each cost occur?
+
+INitial costs receive extraordinary attention because they belong to the decision being made now.. Operational costs belong to somebody else in the future. Exist costs may belong to somebody five or ten years away.
+
+You need advocate for the people who aren't in the room yet, they're the ones who will inherit the decision.
+
+== Beware One-Sided Options
+
+Proposals are often presented using lists of advantages. That should immediately make you suspicious, every meaningful option has disadvantages.
+
+If a proposal contains five benefits, and no meaningful costs, you don't yet understand the proposal.
+
+This doesn't require an elaborate architecture framework. A small table is usually good enough:
+
+Option	We gain	We give up
+Central platform	Shared governance, reuse, common tooling	Local autonomy, some independent evolution
+Domain platforms	Local ownership, independent change	Duplication, greater coordination of shared meaning
+Commercial product	Faster capability, external expertise	Dependency, product constraints, exit cost
+Internal build	Control, organisational fit	Sustained engineering and operational responsibility
+
+It's not there to produce a winner mechanically, it prevents the winner from being presented without the bill.
+
+Sometimes just writing the second column is enough to change the conversation.
+
+== Separate Reverisible Decisions from Commitments
+
+
+Not all trade-offs deserve the same amount of scrutiny.
+
+Choosing a library that can be replaced next month is different from adopting an enterprise platform that will contain ten years of organisational data.
+
+A decision becomes architecturally important when it constrains future decisions.
+
+Ask:
+
+* How difficult is this to reverse?
+* What becomes dependent on it?
+* How quickly will switching costs accumulate?
+* What knowledge will grow around it?
+* What would leaving require?
+* Can we learn more before committing?
+* Reversible decisions should often be made quickly and locally.
+
+Irreversible or increasingly expensive decisions deserve broader investigation because the organisation will live with their trade-offs long after the original decision has disappeared from memory.
+
+This is also where architects need restraint.
+
+Keeping every option open is itself expensive. Abstraction, portability and configurability all introduce complexity. An architecture capable of supporting every imaginable future may become too complicated to support the present.
+
+Optionality has a price.
+
+The question is whether the future uncertainty is valuable enough to justify paying it.
+
+== Find the Disagreement Beneath the Technology
+
+Many apparent technology disagreements are disagreements about something else.
+
+> "We should use microservices."
+
+> "We should use a monolith."
+
+Perhaps the real disagreement is about how independently teams need to deploy.
+
+> "We need a central data platform."
+
+> "We need domain-owned data."
+
+Perhaps the real disagreement is about where responsibility for data quality should live.
+
+> "We should buy this."
+
+> "We should build it."
+
+Perhaps the disagreement concerns whether the capability is strategically distinctive.
+
+> "We need real-time data."
+
+Perhaps somebody needs a dashboard refreshed every five minutes while someone else has interpreted real-time as millisecond event processing.
+
+When architecture discussions become stuck, move upward.
+
+Ask what each side is trying to preserve.
+
+Often both positions become compatible once the hidden requirement is visible.
+
+The architect does not resolve disagreement by choosing a camp.
+
+They change the shape of the conversation until everyone can see what they were actually disagreeing about.
+
+== Do Not Hide the Political Trade-off
+
+Some trade-offs are not technical at all.
+
+* Centralising a capability changes authority.
+* Creating a shared platform changes which team controls investment.
+* Introducing self-service changes who can act without permission.
+* A semantic model creates the possibility that somebody's established definition will no longer be authoritative.
+* Automation may remove work that currently gives a team influence.
+
+These consequences should not be dismissed as politics interfering with architecture.
+
+They are part of the architecture.
+
+Organisations distribute authority through systems, processes, data and decision rights. Changing any of those things changes who can act, who must ask, who can see and who is responsible when something goes wrong.
+
+A technically superior design may therefore fail because the organisation was unwilling to accept the redistribution of authority required to operate it.
+
+That is not necessarily irrational.
+
+The trade-off simply remained hidden.
+
+== Be Careful with "Best Practice"
+
+Best practice can prematurely close a trade-off conversation.
+
+If something is described as industry standard or best practice, opposing it begins to sound irresponsible. The design no longer needs to explain what it optimises because the external world appears to have already decided.
+
+But a practice developed under one set of constraints may behave very differently under another.
+
+The useful question is:
+
+> What problem does this practice solve, and do we have that problem?
+
+Then:
+
+> What does adopting it cost us?
+
+This applies equally to cloud architectures, agile methods, data mesh, zero trust, microservices, product operating models, enterprise platforms and whatever replaces them.
+
+Architecture should learn aggressively from other organisations.
+
+It should copy reluctantly.
+
+== Record the Exchange, Not Just the Decision
+
+Architectural decision records frequently document what was chosen and why.
+
+They become much more valuable when they also preserve what was deliberately sacrificed.
+
+Instead of:
+
+> We selected Product X because it provides the required functionality and integrates with our existing platform.
+
+record:
+
+> We selected Product X because speed of adoption and mature commodity functionality currently outweigh our concerns about supplier dependency. We accept that Product X will constrain workflow design and require translation between its customer model and our organisational model. We will reconsider the decision if customisation exceeds this boundary or if switching costs begin to prevent reasonable alternatives.
+
+That record gives a future architect something valuable.
+
+It tells them *when the decision stops being valid*.
+
+Without that, architecture decisions acquire an accidental permanence. Future teams preserve them because they remember that considerable thought went into them but no longer remember the conditions under which the reasoning held.
+
+A good decision should carry its expiry conditions with it.
+
+== Know When to Stop
+
+Trade-off analysis can become its own form of avoidance.
+
+There will always be another risk to investigate, another scenario to model and another alternative worth considering.
+
+Architecture is not the elimination of uncertainty.
+
+Eventually there is enough information to make a responsible choice.
+
+The architect should therefore also ask:
+
+> Which unanswered question could genuinely change our decision?
+
+If none of the remaining questions would change the answer, stop.
+
+If one could, investigate that one.
+
+This prevents architecture becoming a ceremonial search for certainty that cannot exist.
+
+The goal is not perfect knowledge.
+
+It is sufficient understanding of the exchange being made.
+
+== Leave the Choice Visible
+
+A good architectural conversation should leave people able to describe the decision without referring to the architect.
+
+They should be able to say:
+
+> We chose this because these properties matter more to us right now.
+
+> We know that means accepting these costs.
+
+> These assumptions support the decision.
+
+> If those assumptions change, we will reconsider it.
+
+That is a much healthier outcome than:
+
+> Architecture told us to use this.
+
+The first organisation has learned something.
+
+The second has acquired a rule.
+
+Architecture earns its value by making consequential choices easier to see before they become expensive to reverse. It does not remove uncertainty, and it cannot make incompatible qualities simultaneously achievable. It gives the organisation enough clarity to decide which compromises it is prepared to inhabit.
+
+Every architecture is a collection of trade-offs.
+
+The dangerous ones are simply the trade-offs nobody realised they were making.
+// Questions that reveal assumptions, constraints and hidden choices.

@@ -1,0 +1,3 @@
+= Compatibility and Migration
+
+How real systems evolve without coordinated replacement.

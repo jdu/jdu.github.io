@@ -1,0 +1,3 @@
+= Letting Other People In
+
+APIs, protocols, command lines, extension points, plugins.

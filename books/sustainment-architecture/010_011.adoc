@@ -1,0 +1,3 @@
+= Preserve Options
+
+Knowing what to decide, what not to decide, and what flexibility actually costs.

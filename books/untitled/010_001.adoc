@@ -1,0 +1,319 @@
+= Benath The Software
+
+Not a computer-science survey. More like opening the bonnet and following the pipes.
+
+== The Machine Underneath
+
+Start with:
+
+application
+    ↓
+runtime / libraries
+    ↓
+system calls
+    ↓
+kernel
+    ↓
+CPU / memory / storage / devices
+
+What a process really is. Virtual memory. Threads. File descriptors. Sockets. Filesystems. Scheduling.
+
+Enough that things like “the database opened 500 connections” stop being abstract statements.
+
+== From Source Code to Running Program
+
+Take several paths:
+
+Rust/C/C++ → compiler → executable → loader → process
+
+Java/C# → compiler → bytecode → runtime → process
+
+Python → interpreter → modules → process
+
+JavaScript → runtime/JIT → process/browser
+
+What compilation, linking, loading, interpreters and runtimes actually mean.
+
+This gives people a much better instinct for what frameworks are sitting on top of.
+
+== What Happens When You Click the Button?
+
+This could be one of the signature chapters of the book.
+
+Follow one request all the way through:
+
+mouse
+ ↓
+OS
+ ↓
+browser
+ ↓
+JavaScript
+ ↓
+HTTP
+ ↓
+DNS
+ ↓
+TCP / QUIC
+ ↓
+TLS
+ ↓
+network
+ ↓
+load balancer
+ ↓
+server
+ ↓
+application
+ ↓
+database
+ ↓
+disk
+
+Then come all the way back.
+
+Do variants for a desktop application and mobile application.
+
+That single chapter could teach more useful architecture intuition than fifty diagrams of microservices.
+
+There are several other areas that I think represent experienced-engineer knowledge rather than conventional architecture curriculum.
+
+== Data Is Bytes Eventually
+
+People should understand the descent:
+
+Customer
+↓
+object
+↓
+record
+↓
+JSON / protobuf / Avro
+↓
+bytes
+↓
+packet / file / page
+
+Encoding, serialization, schemas, endianness at least conceptually, compression, framing.
+
+It explains an enormous number of engineering decisions.
+
+== Processes, Threads and Work
+
+A lot of engineers can use async frameworks without having a solid model of what is happening.
+
+Processes, threads, event loops, coroutines, parallelism, concurrency, blocking, scheduling, synchronization.
+
+Not “here's how to write pthreads.”
+
+Rather: these are the different ways computers can arrange work.
+
+== Networks Are Machines Too
+
+Networks shouldn't just appear as arrows.
+
+Packets, routing, DNS, ports, TCP, UDP, TLS, proxies, NAT, load balancers, connection pools.
+
+And especially:
+
+A network call is not a function call with a longer arrow.
+
+That lesson alone prevents a lot of bad architecture.
+
+== The Problem of Time
+
+I'd expand the earlier time chapter considerably.
+
+Clocks, ordering, timeouts, retries, deadlines, leases, TTLs, eventual consistency.
+
+Experienced distributed-systems engineers eventually discover that time is part of the data model.
+
+== Queues Mean Pressure
+
+Queues, buffers and backpressure.
+
+The important lesson isn't how Kafka works.
+
+It is:
+
+producer faster than consumer
+          ↓
+somewhere
+something accumulates
+
+Every system answers the question “where does excess work go?”, whether intentionally or accidentally.
+
+== Caches Create Two Truths
+
+A wonderfully practical chapter.
+
+Caching isn't fundamentally a performance technique.
+
+The moment you cache something, you have created another representation of state and therefore a synchronization problem.
+
+That kind of framing is exactly what I think this book should teach.
+
+I'd also add some less glamorous areas that experienced engineers eventually realise are architecture.
+
+== Configuration Is Software
+
+Environment variables, configuration files, feature flags, secrets, runtime configuration.
+
+Configuration often becomes an undocumented programming language.
+
+You can design it badly.
+
+== Deployment Is Part of the Design
+
+An application isn't merely its source tree.
+
+source
+→ build
+→ artefact
+→ package
+→ deploy
+→ configure
+→ execute
+→ observe
+→ upgrade
+
+If it can't be deployed, upgraded and rolled back sanely, that is an architectural property.
+
+== Versioning and Compatibility
+
+This deserves much more emphasis than most software books give it.
+
+Schemas evolve. APIs evolve. files survive old programs. Messages remain in queues. Mobile clients don't update immediately.
+
+Teach people to ask:
+
+What happens when two versions of this system exist at the same time?
+
+Because eventually they will.
+
+== Errors Are Information
+
+Not “exceptions versus result types.”
+
+What failures mean.
+
+When to propagate them, transform them, retry them, record them, hide them or stop.
+
+There is a huge difference between:
+
+couldn't connect
+
+and:
+
+we don't know whether the operation succeeded
+
+Experienced engineers learn to notice that distinction.
+
+== Observability Is an Interface
+
+Logs, metrics, traces, debugging interfaces, admin tools.
+
+I would frame observability as:
+
+The interface the running system provides to its maintainers.
+
+Which fits sustainment beautifully.
+
+== Performance Is Shape
+
+Avoid premature-optimization clichés.
+
+Teach where performance actually comes from:
+
+algorithms
+locality
+allocations
+serialization
+network round trips
+contention
+I/O
+batching
+caching
+parallelism
+
+And especially how to find where the time actually went.
+
+There are also a few more subtle chapters I'd want in a book like this.
+
+== Dependencies Are Decisions
+
+Not “avoid dependencies.”
+
+A dependency exchanges work today for obligations tomorrow.
+
+Libraries, frameworks, SaaS products and platforms all belong on the same spectrum.
+
+== Every Abstraction Has a Floor
+
+Eventually somebody has to understand the thing underneath.
+
+ORM → SQL → database → filesystem → storage.
+
+HTTP framework → HTTP → TCP → sockets.
+
+Containers → processes → kernel.
+
+This could become one of the recurring visual motifs of the book: keep lifting the floorboards.
+
+== Interfaces Outlive Implementations
+
+One of those things you really learn after maintaining systems for twenty years.
+
+The implementation everybody agonised over disappears.
+
+The weird API decision survives for fifteen years.
+
+== Data Usually Lives Longer Than Code
+
+Same idea.
+
+You will rewrite the application before you rewrite twenty years of business records.
+
+That should radically change how people think about schemas and migration.
+
+== Reversibility
+
+Not everything needs to be extensible.
+
+But decisions with enormous blast radii should ideally be reversible.
+
+This gives people a much healthier design heuristic than “future proofing.”
+
+And I think there is one major practical engineering part still missing from our outline:
+
+== Working the Problem
+
+How experienced engineers actually attack something unfamiliar.
+
+Chapters like:
+
+Reproduce It — make the behaviour observable.
+
+Reduce It — remove everything that isn't necessary.
+
+Trace It — follow data and control flow.
+
+Measure It — don't diagnose performance from intuition.
+
+Change One Thing — preserve causality while investigating.
+
+Read the Source — eventually the documentation runs out.
+
+Cross the Abstraction Boundary — when something impossible happens, descend a layer.
+
+Build a Toy Version — sometimes twenty lines teach you more than twenty pages of documentation.
+
+Those are incredibly transferable engineering skills, from somebody tinkering with a Raspberry Pi through to somebody responsible for a distributed platform.
+
+And that leads to what I think could be the real promise of the book:
+
+It isn't trying to make someone a software architect.
+
+It's trying to make them the kind of engineer who, when confronted with something unfamiliar, can take it apart mentally, understand the forces acting upon it, see the choices available, and work their way downward until nothing is magic anymore.
+
+That feels very consistent with the workshop-manual/Jeep Doctor idea.

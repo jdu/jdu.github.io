@@ -1,0 +1,17 @@
+= Typical approaches to remediation
+
+
+== Outsourcing, Off-shoring & Vendorization
+
+
+Outsourcing and product purchasing can provide genuine expertise, scale and commodity capability. The larger phenomenon is what happens when external provision substitutes for the organisation’s capacity to understand what it is buying.
+
+The organisation gradually loses the skills needed to specify the work, evaluate supplier claims, judge architectural consequences and take control when conditions change. Supplier dependency then becomes self-reinforcing: the less internal knowledge remains, the riskier it appears to use anyone except the incumbent supplier.
+
+Recent NAO work describes legacy systems becoming “black boxes” whose original suppliers retain the knowledge required to support them. It also identifies weak internal “intelligent client” capability as a major risk in technology procurement. Research on IT outsourcing during systemic disruption similarly found that strong internal capability remained an important means through which client organisations protected performance, even where substantial work had been externalised.
+
+The underlying paradox is:
+
+The organisation outsources technology to reduce its operational burden, then becomes permanently responsible for managing a dependency it no longer understands.
+
+This belongs directly beside your material on consultancy incentives. Capability hollowing is what happens when repeated external intervention removes the organisation’s ability to choose whether it needs the next intervention.

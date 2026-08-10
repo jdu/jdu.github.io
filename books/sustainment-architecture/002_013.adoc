@@ -1,4 +1,374 @@
 = Borrowing complexity
 
+Organisations often describe buying technology as a way of avoiding complexity.
+
+A supplier has already built the product, employed the specialists, solved the difficult technical problems and spread the cost across many customers. The organisation can purchase the result rather than reproduce the effort. In the right circumstances, this is exactly what it should do.
+
+The mistake is assuming that complexity has disappeared.
+
+It has usually moved.
+
+The product contains decisions the organisation did not make, dependencies it does not control and assumptions formed in other organisations. The supplier carries much of the complexity involved in creating and operating it, but the buyer inherits the complexity of fitting it into its own work, governing the relationship, understanding the limits and responding when the product changes direction.
+
+Buying technology is therefore better understood as borrowing complexity. The organisation avoids owning one kind of complexity by accepting another. Good architecture does not insist that everything be built internally. It decides deliberately which complexity the organisation should own, which it should borrow and where the boundary between them must remain visible.
+
+== Complexity doesn't disappear
+
+A payroll platform may save an organisation from implementing tax rules, statutory reporting, pension calculations and payment processing. That is a sensible use of an external product. The complexity has not vanished, however. The organisation still needs to understand who counts as an employee, which forms of compensation exist, how organisational changes affect payroll and what must happen when data arrives late or incorrectly.
+
+The supplier can calculate payroll. It cannot decide what employment means within the organisation.
+
+The distinction is easy to miss because products arrive with confident language. They offer standard processes, predefined entities, established practices and integrated workflows. The organisation appears to be purchasing a completed capability. In reality, it is purchasing a particular interpretation of that capability and accepting the work required to reconcile that interpretation with its own.
+
+This may still be much cheaper and safer than building everything internally. The purpose of architecture is not to prevent the purchase. It is to identify what has been transferred, what remains and what new dependency has been created.
+
+Every buy decision should therefore begin with a more honest question:
+
+> Which complexity are we choosing not to own, and which complexity are we accepting instead?
+
+== The make-or-buy decision is older than technology
+
+The boundary between what an organisation produces internally and what it obtains from the market is one of the oldest questions in organisational economics.
+
+Ronald Coase argued that markets are not free coordination mechanisms. Discovering suppliers, negotiating contracts, specifying requirements, monitoring delivery and adapting agreements all carry costs. Firms exist partly because, under some conditions, coordinating activity internally costs less than arranging every exchange through the market. The question is not whether markets or internal organisations are inherently superior, but which arrangement is better suited to the particular activity.
+
+Later work developed this into transaction-cost economics. Activities become harder to purchase cleanly when they require highly organisation-specific knowledge or investment, when needs are uncertain, when performance is difficult to measure, or when contracts must continually adapt to changing circumstances. Markets often have advantages of scale and specialisation; internal organisations may have advantages where close coordination and adaptation matter more.
+
+Research specifically examining information services reached a similarly untidy conclusion. Poppo and Zenger studied nine information services across 152 companies and found that make-or-buy choices could not be explained by production cost alone. Transaction costs, organisation-specific knowledge and the difficulty of measuring performance all mattered. They also warned that make and buy are not always clean opposites, but points within a wider range of contractual and organisational arrangements.
+
+The practical lesson is that price comparison is only a small part of the decision. The organisation is choosing where knowledge, authority, adaptation and dependency will live.
+
+== Buying and building aren't opposing forces
+
+Technology discussions often turn make-or-buy into a question of ideology.
+
+One side argues that organisations should purchase established products rather than waste effort rebuilding solved problems. The other argues that purchased technology creates lock-in, poor fit and dependence on suppliers. Both positions contain truth, and both become dangerous when applied universally.
+
+Building internally does not guarantee independence. An internal platform can become just as rigid, obscure and unresponsive as a commercial product. Its maintainers may become the only people able to change it. Other teams may have no meaningful influence over its direction. The organisation may carry all the costs of a vendor relationship without the discipline of a contract or the option of choosing another provider.
+
+Buying does not necessarily mean surrendering control. A well-bounded product with stable interfaces, portable data and several viable alternatives may reduce complexity without materially constraining the organisation. Open standards, modular architecture and a credible exit route can allow external capability to be used without allowing it to define the organisation around itself.
+
+Most real arrangements are hybrid. An organisation might buy cloud infrastructure, databases, identity services and workflow components while building the models and services through which it expresses its own knowledge. It might purchase an enterprise platform but retain internal ownership of integration, data meaning and user experience. It might use consultants to accelerate delivery while ensuring permanent staff direct the architecture and acquire the knowledge needed to sustain it.
+
+The important question is not simply whether something is bought or built.
+
+It is where the boundary is placed, who controls it and what must cross it.
+
+== Buy commodity capability
+
+Commodity capability is capability whose essential form is broadly shared across organisations.
+
+Email delivery, document storage, commodity compute, certificate management and basic identity protocols are not usually where an organisation expresses its distinctive purpose. They may still be technically difficult, important and subject to rigorous requirements. Difficulty does not make something strategic.
+
+Buying commodity capability allows the organisation to benefit from scale, specialist expertise and experience accumulated across many customers. Rebuilding these functions internally can consume scarce attention without improving the organisation’s ability to fulfil its mission.
+
+The word commodity must be used carefully, however. A capability is not a commodity merely because several products claim to provide it. Nor is it universally a commodity across every organisation. Payment processing may be supporting infrastructure for a charity but central strategic capability for a financial-services provider. Geospatial analysis may be an occasional reporting tool in one organisation and the basis of another organisation’s operating model.
+
+Commodity status is contextual.
+
+A useful test is whether the organisation would become meaningfully less itself if the capability were replaced by another conforming implementation. Changing an email provider may be inconvenient, but it should not alter the organisation’s identity. Changing the way a research funder understands grants, applications, institutions and scientific relationships may alter the organisation profoundly.
+
+Buy what can change without changing what the organisation is.
+
+== Build where meaning and judgement live
+
+The strongest case for building internally is not technical novelty. It is organisational specificity.
+
+Some capabilities encode the organisation’s particular language, history, judgement and relationships. They determine how it distinguishes one case from another, what it considers important and how it fulfils responsibilities that cannot be delegated cleanly.
+
+A commercial workflow engine may be a sensible purchase. The definition of the stages, evidence and decisions within a specialist funding process may not be.
+
+A graph database may be a commodity product. The ontology through which an organisation represents its concepts is not.
+
+An AI model may be purchased as a service. The rules governing which conclusions the organisation is prepared to act upon remain its own responsibility.
+
+This does not mean every line of software touching strategic meaning must be written internally. The underlying components can still be bought. The organisation must retain ownership of the model that makes them relevant.
+
+That ownership requires more than holding copyright or possessing a repository. The organisation must have people who understand the capability, authority to change it and enough direct experience to judge whether an external component continues to serve it.
+
+A capability is not truly owned when the organisation must ask a supplier what it means.
+
+== Asset specificity
+
+One of the most useful concepts from transaction-cost economics is asset specificity.
+
+An asset is specific when its value depends heavily on a particular relationship or organisational context. That asset may be a customised system, a specialist data model, an integration, a body of knowledge or the expertise of people who have learned how the organisation actually works.
+
+A standard document-management service has relatively low specificity. A deeply customised platform containing years of organisational terminology, workflows and exceptions has much higher specificity. The more specific the capability becomes, the harder it is to replace the supplier, transfer the work or write a complete contract describing how it must behave.
+
+Specificity creates dependency from both directions. The organisation depends upon the supplier’s knowledge of the implementation. The supplier may also become embedded in the organisation’s decisions and operations. Renewals are no longer ordinary purchasing choices because the cost of leaving includes rediscovering knowledge, rebuilding interfaces, migrating data and changing established work.
+
+This is why initial price is such a poor measure of a buy decision. A product may be inexpensive to adopt and extremely expensive to leave. A bespoke internal service may cost more initially but preserve flexibility around a strategically important capability. Neither conclusion follows automatically. The relevant question is how specificity will change over time.
+
+Before purchasing, ask:
+
+> Will using this product make our organisation-specific knowledge easier to preserve and move, or will that knowledge gradually become inseparable from the supplier?
+
+== You also borrow the vendor's model
+
+Every significant product contains a model of the world.
+
+An HR platform contains assumptions about workers, positions, organisations, contracts and reporting relationships. A CRM contains assumptions about customers, interactions, opportunities and ownership. A project-management product contains assumptions about work, priority, progress and accountability.
+
+These assumptions are not necessarily wrong. They are the reason the product can be sold repeatedly. The vendor has created a general model that fits enough organisations well enough to sustain a market.
+
+The danger begins when the general model is treated as more authoritative than the organisation’s reality.
+
+Terms are redefined to match the product. Important distinctions are collapsed because no field exists for them. Processes are changed not because the new process is better, but because the software makes the previous one difficult. Exceptions migrate into notes, spreadsheets and conversations beyond the platform’s view.
+
+The organisation then claims it has standardised.
+
+What it has often done is move its real variation outside the official system.
+
+This is not an argument for unlimited customisation. Products can reveal unnecessary local habits and force valuable simplification. Some differences genuinely should be removed. The decision must be based on understanding what the difference represents, not on the convenience of configuration.
+
+A useful product challenges accidental variation.
+
+A harmful product erases meaningful variation and calls the result best practice.
+
+== The interface determines how much you borrow
+
+The safest place to buy is behind a clear boundary.
+
+Modular systems allow components to change independently when their responsibilities and interfaces are sufficiently stable. Baldwin and Clark’s work on modularity showed how explicit design rules and interfaces create options: modules can be improved, substituted or developed separately without redesigning the whole system.
+
+This principle applies to organisational sourcing as much as software design.
+
+A purchased capability is easier to govern when the organisation controls the contract at its boundary:
+
+the meaning of the information crossing it;
+the service levels required;
+the security and policy constraints;
+the behaviour expected when the service fails;
+the format in which data can be recovered;
+and the conditions under which another implementation can replace it.
+
+The more internal details of the product leak into the rest of the organisation, the more complexity has been borrowed. Vendor-specific identifiers spread through downstream systems. Proprietary workflow states become organisational language. Internal reports query undocumented database structures. Teams build directly against features that no alternative supplier provides.
+
+What began as a product becomes part of the organisation’s anatomy.
+
+Good architecture creates an anti-corruption boundary around externally sourced capability. It translates between the product’s model and the organisation’s model, allowing each to change without silently redefining the other. That boundary carries a cost, but it is the cost of preserving choice.
+
+An interface is not merely technical integration.
+
+It is where the organisation decides which assumptions it is prepared to inherit.
+
+== Cheap adoption can produce expensive dependency
+
+Buying decisions are often made at the moment of entry.
+
+The organisation compares licence prices, implementation estimates, delivery dates and apparent feature coverage. The product that appears to satisfy the requirement with the least immediate effort becomes the rational choice.
+
+Dependency develops later.
+
+Data volumes grow. Workflows become embedded. Users learn the product. Integrations multiply. Specialist staff are recruited. Procurement negotiates enterprise pricing based on broader adoption. The cost of leaving increases with every successful expansion.
+
+This is sometimes described as lock-in, but the term can be too simplistic. All useful capability creates some switching cost. Internal systems also accumulate specialised knowledge and dependencies. The concern is not that switching has a cost. It is that the organisation may not understand or govern that cost as it grows.
+
+A healthy dependency is visible, proportionate and reversible at a cost the organisation has consciously accepted.
+
+An unhealthy dependency is discovered only when the organisation attempts to change direction.
+
+The National Audit Office has found that large public organisations frequently lack the internal digital and commercial capability needed to manage these relationships effectively. It argues that an intelligent client must understand the technology, product lifecycle, supply chain and commercial strategy even when technical delivery sits with a supplier. It has also found that organisations often fail to decide clearly which skills should remain internal and which should be sourced externally.
+
+Outsourcing execution does not outsource responsibility.
+
+The organisation still owns the consequences.
+
+== Retain the capability to buy well
+
+An organisation cannot make intelligent buy decisions if it has already outsourced the knowledge needed to evaluate them.
+
+This creates a common cycle. Internal expertise is reduced because a supplier now delivers the capability. When the contract must be renewed or replaced, the organisation lacks enough knowledge to challenge the incumbent, assess alternatives or specify what it requires. It therefore returns to the same supplier or hires another external adviser to explain the dependency created by the first decision.
+
+The supplier may have performed perfectly well. The failure lies in assuming that buying the service removed the need to understand it.
+
+The buyer must retain enough capability to:
+
+understand the organisational need;
+evaluate product and supplier claims;
+define the architectural boundary;
+monitor performance and consequences;
+integrate the service coherently;
+make informed trade-offs;
+and leave when the relationship no longer serves the organisation.
+
+This is sometimes called the intelligent-client function. It should not be interpreted as a thin contract-management layer. It requires real technical, commercial and domain knowledge. The NAO has linked weak intelligent-client capability to poor digital-change outcomes and has specifically warned against procurement processes in which technical specialists are involved too late or not at all.
+
+A team does not need to be capable of rebuilding every purchased product. It does need to understand the capability well enough to recognise when the product is no longer a sensible way of obtaining it.
+
+Without that knowledge, the organisation is not buying.
+
+It is consenting.
+
+== Don't outsource the ability to change
+
+A capability may be operationally ordinary and strategically important because of how frequently it must change.
+
+This distinction matters. Organisations sometimes outsource a system because its present operation is well understood, then discover that every future organisational change requires negotiation with the supplier. New policies become change requests. New terminology becomes configuration work. New integrations become commercial discussions.
+
+The system itself may be stable. The boundary around it becomes a toll gate through which change must pass.
+
+Where a capability is expected to evolve continuously with the organisation, adaptation cost should carry as much weight as implementation cost. The best provider is not necessarily the one that can deliver today’s requirement most cheaply. It may be the arrangement that allows tomorrow’s requirement to be discovered and implemented without renegotiating the organisation’s freedom to act.
+
+This is closely related to the idea of dynamic capability: an organisation’s ability to integrate, reconfigure and renew its resources as conditions change. A sourcing decision that produces an efficient current state while weakening that ability may optimise the organisation into immobility.
+
+Do not merely ask whether a supplier can deliver the capability.
+
+Ask whether the relationship preserves the organisation’s ability to change the capability.
+
+== Building also has a cost
+
+The argument for internal capability can become romantic very quickly.
+
+Internal teams are not automatically closer to users, more responsive or better at preserving organisational meaning. They can build products nobody asked for, invent proprietary frameworks, become attached to their own solutions and underinvest in documentation, security and support. A system may remain internal long after the organisation has ceased to possess the skills required to maintain it responsibly.
+
+Building creates permanent obligations.
+
+Someone must operate the service, respond to incidents, patch dependencies, maintain compliance, support users, evolve the design and eventually replace it. The decision to build is not a one-time development estimate. It is a commitment to sustain a capability for as long as the organisation depends upon it.
+
+Internal work also carries opportunity cost. Engineers building a commodity messaging service are not improving a capability more closely related to the organisation’s purpose. Technical autonomy can become an excuse to spend scarce attention on interesting problems that mature products already solve adequately.
+
+The discipline applied to purchasing must therefore also be applied to building:
+
+> Why must this capability be ours?
+
+> Which organisational knowledge does internal ownership protect?
+
+> Are we willing to sustain it, not merely create it?
+
+> What will we stop doing in order to own it well?
+
+A weak reason to buy is that building sounds difficult.
+
+A weak reason to build is that building sounds satisfying.
+
+== Buy the product, not the dependency
+
+The best sourcing arrangements are often deliberately asymmetrical.
+
+The organisation buys substantial external capability but retains control over a small number of critical things.
+
+It may buy a data platform while retaining ownership of its conceptual model, transformation logic and data contracts. It may buy a customer-management system while keeping customer identity and relationship definitions outside the vendor’s proprietary structures. It may use a cloud provider extensively while ensuring that data, automation and service boundaries can be reconstructed elsewhere.
+
+This does not eliminate migration cost. Portability is never free. It prevents the product from becoming the only place where the organisation can understand itself.
+
+The pattern is:
+
+> Buy the machinery. Own the meaning.
+
+> Buy the scale. Own the decisions.
+
+> Buy the specialist operation. Own the architectural boundary.
+
+The organisation does not need complete independence from every supplier. That would be prohibitively expensive and usually pointless. It needs independence in the places where losing choice would threaten its ability to fulfil its purpose.
+
+== Use more than one test
+
+No single rule can settle make-or-buy decisions. “Buy commodity, build strategic” is useful, but strategic importance is not the only concern. A capability may be strategic but better obtained through a mature market. A commodity product may create disproportionate risk because of data sensitivity or integration depth.
+
+A practical assessment should examine several dimensions together.
+
+|===
+h|Question	h|More favourable to buying	h|More favourable to building or retaining internally
+|How organisation-specific is the capability?	|Common across many organisations	|Encodes distinctive meaning, judgement or process
+|How mature is the market?	|Several credible suppliers and established standards	|Weak market, limited alternatives or immature products
+|How frequently must it change?	|Stable need with predictable evolution	|Changes continually with policy, strategy or learning
+|How measurable is supplier performance?	|Outcomes can be specified and tested clearly	|Quality depends on tacit judgement or is difficult to contract
+|How replaceable is the supplier?	|Portable data, standard interfaces and viable alternatives	|Proprietary formats, deep customisation and scarce expertise
+|Where does critical knowledge live?	|Product knowledge is broadly available	|Knowledge is deeply connected to the organisation
+|What is the operational burden?	|Specialist operation offers substantial economies of scale	|Operation is manageable and closely coupled to product learning
+|What happens during failure?	|The organisation can tolerate or route around disruption	|Failure directly threatens essential or statutory obligations
+|Can the organisation remain an intelligent client?	|It retains enough expertise to govern the service	|Purchasing would remove the final internal source of knowledge
+|Is there a credible exit?	|Exit cost is known and proportionate	|Exit requires reconstructing the capability from the supplier
+|===
+
+The result need not be a binary answer. It may suggest buying part of the capability, partnering for a period, using open-source components, retaining a small internal core or building an abstraction around a commercial product.
+
+The purpose of the assessment is not to produce a score.
+
+It is to expose where the organisation is choosing to place dependency.
+
+== Define the boundary before selecting the product
+
+Many organisations select a product and only then discover the boundary it imposes.
+
+The sequence should be reversed.
+
+Before approaching the market, define what the organisation must continue to own. Identify the concepts, data, decisions, policies and interfaces that cannot be allowed to disappear into a supplier’s implementation. Establish what must remain portable and which forms of customisation would make replacement impractical.
+
+This changes procurement from a feature comparison into an architectural decision.
+
+The requirements should include more than what the product must do. They should describe:
+
+* what it must not redefine;
+* which information must remain recoverable;
+* which standards it must support;
+* how integrations will be insulated from product internals;
+* what knowledge must transfer to permanent staff;
+* how changes will be priced and governed;
+* and how the service will be exited.
+
+These are not secondary contractual protections. They determine whether the organisation is buying a useful component or reorganising itself around a supplier.
+
+== Design the exit at the beginning
+
+Exit is where the real shape of dependency becomes visible.
+
+Ask what would need to happen if the supplier stopped operating, raised prices substantially, changed strategic direction, degraded the service or simply ceased to fit the organisation’s needs. Identify which data would be extracted, which interfaces would change, which knowledge would be missing and how long replacement would reasonably take.
+
+Backsourcing research shows that organisations commonly bring outsourced work back inside to regain control, improve quality or reduce cost. A systematic review of reported cases found that doing so required not merely contract termination but competence building, organisational reconstruction, ownership transfer and vendor-relationship management.
+
+That is the point. Exit is not a clause.
+
+It is a capability.
+
+An organisation that cannot operate during a supplier transition has no meaningful exit, regardless of what the contract says. An organisation that no longer understands the service cannot verify whether the transferred assets are complete. An organisation without permanent staff capable of receiving the work is not leaving a supplier; it is moving dependence from one supplier to another.
+
+Designing exit does not indicate distrust. It allows the relationship to remain a choice.
+
+== Revisit the boundary
+
+Make-or-buy decisions are not permanent truths.
+
+Markets mature. Internal skills develop. Products change. Strategic priorities move. A capability that once required internal development may later become a well-served commodity. A product that once fitted neatly may accumulate enough organisational specificity that the boundary needs to be reconsidered.
+
+The decision should therefore be reviewed through the life of the capability.
+
+The review should ask whether:
+
+the product remains interchangeable;
+organisation-specific logic is leaking into it;
+exit costs are rising;
+internal knowledge is weakening;
+supplier performance remains measurable;
+the market still provides credible alternatives;
+and the original reason for buying or building remains true.
+
+This is particularly important after success. A product that delivers value tends to spread. Every new team and integration increases both its benefit and the cost of leaving it. Expansion should not happen automatically merely because an enterprise agreement makes the next adoption appear inexpensive.
+
+The marginal licence may be cheap.
+
+The marginal dependency may not be.
+
+== Borrow deliberately
+
+There is no virtue in owning all complexity.
+
+An organisation that insists on building everything will exhaust itself maintaining capabilities that others can provide better and more cheaply. It will reduce the attention available for the work that only it can do.
+
+There is also no virtue in buying everything.
+
+An organisation that outsources every difficult capability eventually loses the knowledge required to understand what it has bought, why it exists and how it should change. It becomes surrounded by products while growing less capable of acting without them.
+
+Architecture should hold the boundary between these extremes.
+
+It should identify commodity capability and use the market confidently. It should recognise organisation-specific meaning and retain ownership where dependency would constrain identity, judgement or adaptation. It should build interfaces that prevent purchased products from silently becoming the organisation’s model of itself. It should preserve enough internal capability to remain an informed buyer and design every important supplier relationship with a credible route out.
+
+Buying is not the absence of architecture.
+
+It is architecture conducted across an organisational boundary.
+
+Every purchase borrows someone else’s complexity. The responsibility is to know exactly how much has been borrowed, where it will surface, and whether the organisation can return it when it no longer serves.
 
 * Deliberately choosing the complexity we want to inherit.

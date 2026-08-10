@@ -1,0 +1,5 @@
+= Start With the Smallest thing
+
+Not “MVP”.
+
+Start with the smallest conceptually complete system.

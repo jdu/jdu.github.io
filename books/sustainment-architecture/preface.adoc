@@ -1,0 +1,46 @@
+= Preface
+
+
+When I was a kid growing up in Northwestern Ontario, Canada, I spent a lot of time in my father's garage. He was the person everyone always brought their machines to, broken outboard motors, snowmobiles, motorcycles, cars, trucks, even the occasional lawnmower. He would take them apart, figure out what had failed and why, and then put them back together again. It was insane to me as a kid how quickly my father could go from a "hello" to the exact thing that was wrong. The machines themselves were always cool, but what really got me   was the story that each broken machine told about how it had been designed, built, used, and abused. 
+
+I really wanted to know how these things worked, and more importantly how they failed.
+
+Why this bearing wore before that one. Why a seal leaked. Why a bolt sheared. Why one part could survive decades while another failed after a few years. Every broken component told a story about the forces acting on it, and every repair revealed something about how the whole machine had originally been designed. How could this one rusted, beat up old engine run for decades while a brand new one failed after a few months?
+
+
+Engines specifically are extremely, deceptively simple. At their heart, they really only need three things: air, fuel and a spark. That's almost disappointingly straightforward. But from just those few ingredients emerges one of the most refined pieces of engineering humanity has ever produced. Thousands of individual decisions about timing, compression, cooling, lubrication, tolerances and materials all exist to serve that remarkably simple idea. The principle is easy to explain. Building an engine that survives hundreds of thousands of miles without tearing itself apart is something else entirely.
+
+The principles that make an old motorcycle engine reliable are fundamentally the same principles that underpin Formula One engines, aircraft turbines and spacecraft. The environments become harsher, the engineering more sophisticated and the margins for error almost disappear, but the underlying ideas remain recognisable. Complexity does not eliminate fundamentals. If anything, it makes them more important. The more demanding the system becomes, the less room there is to misunderstand the small number of things on which everything else depends.
+
+Understanding failure teaches you things that success often hides.
+
+A machine that runs perfectly doesn't tell you much about where its real weaknesses are. It's only when something breaks that the hidden assumptions become visible. The loads you underestimated, the compromises you forgot you made, the interfaces that looked simple until they were stressed. Failure exposes the seams.
+
+That habit of looking for seams never really left me, I sort of revel in them now.
+
+As my career moved from software engineering into distributed systems, data platforms and enterprise architecture, I found myself asking the same questions, only about organisations instead of machines.
+
+* Why do migrations become impossible?
+* Why do reports disagree?
+* Why do organisations repeatedly lose knowledge they once possessed?
+* Why do people lie about success and shy away from failure?
+
+Why do systems that were entirely reasonable when they were built become almost impossible to replace twenty years later?
+
+Why do capable people spend so much of their time translating between different versions of what should be the same idea?
+
+Again and again, the interesting answers rarely sat in the technology itself. They were in the places where understanding had fractured. Where language had drifted. Where context had been lost. Where one decision accumulated consequences until changing it was more expensive than continuing to live with it.
+
+This book has grown out of this obsession.
+
+It's not a book about designing perfect architectures. I don't believe that exists. Organisations are living systems. They change continuously because the world around them changes continuously. Any architecture that assumes otherwise will just become part of the problem it was trying to solve.
+
+Instead, this is a book about understanding where organisations fail, how they forget, how they become separated from reality, and what kinds of architecture allow them to survive it.
+
+Because if my father's workshop taught me anything, it was that the most interesting question is rarely "How does this work?"
+
+It's:
+
+> "What has to happen before this stops working?"
+
+Architecture, at its best, is the discipline of ensuring that when that day comes, the organisation understands enough about itself that it can grease the bearings, torque the bolts, hone out the cylinders, and put it all back together again to keep it chugging along.

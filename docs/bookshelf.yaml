@@ -1,0 +1,305 @@
+title: Bookshelf
+subtitle: Jeff Uren
+
+sections:
+  - title: Permanent Residents
+    books:
+      - title: A Sand County Almanac
+        author: Aldo Leopold
+      - title: Seven Fallen Feathers
+        author: Tanya Taladega
+      - title: Zen and the Art of Motorcycle Maintenance
+        author: Robert M. Persig
+      - title: Lila
+        author: Robert M. Pirsig
+      - title: Suttree
+        author: Cormac McCarthy
+      - title: The Summer Book
+        author: Tove Jannson
+      - title: Where the Sidewalk Ends
+        author: Shel Silverstein
+
+  - title: In Progress
+    books:
+      - title: "System Sustainment: Acquisition And Enginerering Processes for the Sustainment of Critical and Legacy Systems"
+        author: Peter Sandborn, William Lucyshyn
+      - title: Burning Questions
+        author: Margaret Atwood
+      - title: The Pig that Wants to Be Eaten
+        author: Julian Baggini
+      - title: Out of the Crisis
+        author: W. Edwards Deming
+
+  - title: To Read
+    books:
+      - title: There are places in the world where rules are less important than kindness
+        author: Carlo Revolli
+      - title: Snow Country
+        author: Yosunari Kawabata
+      - title: Invisible Cities
+        author: Italo Calvino
+      - title: Small Things Like These
+        author: Claire Keegan
+      - title: No Time to Spare
+        author: Ursula K. Le Guin
+      - title: Words Are My Matter
+        author: Ursula K. Le Guin
+      - title: How To
+        author: Randall Munroe
+
+  - title: 2026 Read
+    books:
+      - title: The Myst Reader
+        author: Rand Miller, David Wingrove
+      - title: Piranesi
+        author: Susanna Clarke
+      - title: The Essential Deming
+      - title: The Book of the New Sun
+        author: Gene Wolfe
+      - title: The Shadow of the Torturer
+        author: Gene Wolfe
+      - title: Shadow & Claw
+        author: Gene Wolfe
+      - title: The Claw of the Conciliator
+        author: Gene Wolfe
+      - title: Sword & Citadel
+        author: Gene Wolfe
+      - title: The Sword of the Lictor
+        author: Gene Wolfe
+      - title: The Citadewl of the Autarch
+        author: Gene Wolfe
+      - title: The Urth of the New Sun
+        author: Gene Wolfe
+      - title: The Jeep Bible
+        author: Granville King
+      - title: "Granta 174: Therapy"
+      - title: "Maintenance: Of Everything"
+        author: Stewart Brand
+      - title: Lila
+        author: Robert M. Pirsig
+      - title: A Whole Life
+        author: Robert Seethaler
+      - title: Chulthu
+        author: Various
+      - title: Sculptures of the Eskimo
+        author: Swinton
+
+  - title: 2025 Read
+    books:
+      - title: The Book of the New Sun Vol. 2
+        author: Gene World
+        note: reread
+      - title: The Book of the New Sun Vol. 1
+        author: Gene Wolfe
+        note: reread
+
+  # Rendered as a physical shelf: grouped and sorted automatically by
+  # author surname (falling back to title if there's no author), with
+  # every letter A-Z shown even when empty. Just add books here in any
+  # order -- no need to alphabetize or pick a letter by hand.
+  - title: Pre-2025 Read
+    alphabetical: true
+    books:
+      - title: Horus Rising
+        author: Abnett, Dan
+      - title: Life, the Univers and Everything
+        author: Adams, Douglas
+      - title: Not a River
+        author: Almada, Selva
+      - title: Xenos
+        author: Abnett, Dan
+      - title: "Strange Things: The Malevolent North in Canadian Literature"
+        author: Atwood, Margaret
+      - title: The Secret of Skeleton Island
+        author: Arthur, Robert
+      - title: The Long Dark Tea-Time of the Soul
+        author: Adams, Douglas
+
+      - title: Business Adventures
+        author: Brooks, John
+      - title: Python Essential Reference
+        author: Beazley, David
+      - title: "The Truth: Stage Adaptation"
+        author: Briggs, Stephen
+      - title: The Master and Margarita
+        author: Bulgakov, Mikhail
+      - title: "Textbook of International Health: Global Health in a Dynamic World"
+        author: Birn, Anne-Emanuelle
+
+      - title: Heart of Darkness
+        author: Conrad, Joseph
+      - title: Canada
+        author: Campbell, Wiliam Wilfred
+      - title: "Fire Season: Field notes from a wilderness lookout"
+        author: Connors, Phillip
+
+      - title: Neuromancer
+        author: Gibson, Wiliam
+      - title: The Minimum Description Length Principle
+        author: Grunwald, Peter D.
+      - title: Stardust
+        author: Gaiman, Neil
+      - title: Anansi Boys
+        author: Gaiman, Neil
+      - title: Neverwhere
+        author: Gaiman, Neil
+      - title: "Betrayal of Trust: Collapse of Global Public Health"
+        author: Garrett, Laurie
+      - title: The Coming Plaque
+        author: Garrett, Laurie
+
+      - title: Assassins Apprentice
+        author: Hobb, Robin
+      - title: The Shackleton Voyages
+        author: Huntford, Roland
+      - title: The Pragmatic Programmer
+        author: Hunt, Andy
+
+      - title: Klara and the Sun
+        author: Ishiguro, Kazuo
+
+      - title: Fair play
+        author: Jansson, Tove
+      - title: A Winter Book
+        author: Jansson, Tove
+      - title: Notes from an island
+        author: Jansson, Tove
+      - title: Travelling Light
+        author: Jansson, Tove
+
+      - title: Flight, Volume Four
+        author: Kibuishi, Kazu
+      - title: Flight, Volume Two
+        author: Kibuishi, Kazu
+      - title: Flight, Volume One
+        author: Kibuishi, Kazu
+      - title: Programming in Objective-C
+        author: Kochan, Stephen G.
+      - title: The UNIX Programming Environment
+        author: Kernighan, Briann W.
+
+      - title: A Wizard of EarthSea
+        author: Le Guin, Ursula K.
+      - title: Canada
+        author: Leacock, Stephen
+      - title: The Call of the Wild
+        author: London, Jack
+      - title: The Disposessed
+        author: Le Guin, Ursula K.
+      - title: The Left Hand of Darkness
+        author: Le Guin, Ursula K.
+      - title: The Other Wind
+        author: Le Guin, Ursula K.
+      - title: The Word for World is Forest
+        author: Le Guin, Ursula K.
+      - title: Taran Wanderer
+        author: Lloyd, Alexander
+      - title: To Hold Up the Sky
+        author: Liu, Cixin
+      - title: The Complete Works
+        author: Lovecraft, H.P.
+
+      - title: "Island: The Complete Stories"
+        author: MacLeod, Alastair
+      - title: "Norwegian Wood: Chopping, Stacking and Drying Wood the Scandinavian Way"
+        author: Mytting, Lars
+
+      - title: Raising Steam
+        author: Pratchett, Terry
+      - title: Equal Rites
+        author: Pratchett, Terry
+      - title: Eric
+        author: Pratchett, Terry
+      - title: Hogfather
+        author: Pratchett, Terry
+      - title: Making Money
+        author: Pratchett, Terry
+      - title: Maskerade
+        author: Pratchett, Terry
+      - title: Men at Arms
+        author: Pratchett, Terr
+      - title: Nation
+        author: Pratchett, Terry
+      - title: Pyramids
+        author: Pratchett, Terry
+      - title: Sourcery
+        author: Pratchett, Terry
+      - title: The Color of Magic
+        author: Pratchett, Terry
+      - title: The Dark Side of the Sun
+        author: Pratchett, Terry
+      - title: The Fifth Elephant
+        author: Pratchett, Terry
+      - title: The Last Continent
+        author: Pratchett, Terry
+      - title: The Light Fantastic
+        author: Pratchett, Terry
+      - title: The Wee Free Men
+        author: Pratchett, Terry
+      - title: Thief of Time
+        author: Pratchett, Terry
+      - title: Thud!
+        author: Pratchett, Terry
+      - title: Witches Abroad
+        author: Pratchett, Terry
+      - title: C++ Primer Plus
+        author: Prata, Stephen
+      - title: "The Better Angels of Our Nature: Why Violence Has Declined"
+        author: Pinker, Steven
+
+      - title: A Light in the Attic
+        author: Silverstein, Shel
+      - title: The Joke's Over
+        author: Steadman, Ralph
+      - title: Wind, Sand and Start
+        author: Saint-Exupery, Antoine de
+
+      - title: Fear and Loating in America
+        author: Thompson, Hunter S.
+      - title: Generation of Swine
+        author: Thompson, Hunter S.
+      - title: Kingdom of Fear
+        author: Thompson, Hunter S.
+      - title: The Curse of Lono
+        author: Thompson, Hunter S.
+      - title: The Great Shark Hunt
+        author: Thompson, Hunter S.
+      - title: The Proud Highway
+        author: Thompson, Hunter S.
+      - title: The Rum Diary
+        author: Thompson, Hunter S.
+      - title: Eats, Shoots & Leaves
+        author: Truss, Lynne
+      - title: "Fear and Loathing: On the Campaign Trail '72"
+        author: Thompson, Hunter S.
+
+      - title: Hacker's Delight
+        author: Warren Jr., Henry S.
+      - title: Mountain of Black Glass
+        author: Williams, Tad
+      - title: River of Blue Fire
+        author: Williams, Tad
+      - title: Stone of Farewell
+        author: Williams, Tad
+      - title: The Dragonbone Chair
+        author: Williams, Tad
+      - title: Shadow & Claw
+        author: Gene Wolfe
+      - title: Sword & Citadel
+        author: Gene Wolfe
+      - title: The Complete Calvin and Hobbes
+        author: Watterson, Ralph
+
+      # Not yet alphabetized in the original list -- kept as-is; the
+      # generator will still file these under the right letter.
+      - title: Surely You're Joking Mr. Feynman!
+        author: Feynman, Richard
+      - title: The Histories
+        author: Herodotus
+      - title: The Essential Writing of Ralph Waldo Emerson
+        author: Emerson, Ralph Waldo
+      - title: Graphics Programming Black Book
+        author: Abrash, Michael
+      - title: The Weird of the White Wolf
+        author: Moorcock, Michael
+      - title: James Herriott

@@ -1,0 +1,41 @@
+= Give an inch, take a mile
+
+== AI productivity
+
+This is an emerging phenomenon, but it may become one of the defining organisational errors of the next decade: confusing faster production of technical artefacts with faster delivery of reliable capability.
+
+Evidence is currently mixed and strongly dependent on task, experience and context. Some controlled and field studies have found substantial gains, especially for bounded tasks and less-experienced developers. Others have found much weaker effects in mature, complex codebases.
+
+A particularly revealing 2025 randomised study involved 16 experienced open-source developers completing 246 real tasks in projects they already knew. The developers expected AI to reduce completion time by 24% and afterwards believed it had made them about 20% faster. In the experiment, access to the AI tools increased completion time by 19%. The study was narrow and should not be generalised to all software work, but the mismatch between perceived and measured productivity is striking.
+
+This is not an argument against AI. It exposes a larger organisational phenomenon:
+
+Tools that make work feel faster can increase output at one stage while moving verification, correction and comprehension costs downstream.
+
+Organisations may measure code produced, prompts answered or local task completion while missing the effect on review queues, maintainability, security and the number of people who genuinely understand the resulting system.
+
+== The productivity measurement trap
+
+Software delivery is unusually difficult to measure because the visible artefacts—commits, tickets, story points, lines of code, deployments—are weak proxies for value.
+
+When these proxies become management targets, Goodhart’s Law takes hold. Teams split work into more tickets, produce more deployments, reduce reported incident duration or close requests before the underlying problem has been resolved. The numbers improve precisely because the organisation has taught people how the numbers are judged.
+
+DORA’s research has helped shift measurement towards a balance of throughput and stability, including lead time, deployment frequency, failed-deployment recovery and change-failure measures. Even these are intended to describe the performance of a delivery system, not rank individual developers or become isolated objectives.
+
+The larger phenomenon is that technology leadership repeatedly tries to make uncertain intellectual work legible to management. The resulting measurements then alter the work until they no longer describe it accurately.
+
+== Failing to remove
+
+Large organisations are much better at introducing systems than removing them.
+
+A new platform receives a business case, implementation team, executive sponsor and launch date. Decommissioning depends on locating every old dependency, reproducing obscure reports, migrating historical data and persuading remaining users to stop relying on established behaviour. Once the new system is live, the political attention and funding that supported the programme begin to disappear.
+
+The result is layering rather than replacement.
+
+The UK National Audit Office has repeatedly documented this in government technology: new services must be built within estates dominated by legacy systems and data, while transformation programmes often underestimate implementation difficulty. Its work also notes that purchasing new technology can add another layer of complexity and cost rather than removing the systems beneath it.
+
+This is not merely old technology surviving too long. It is a structural asymmetry:
+
+Addition has a sponsor. Removal inherits a backlog.
+
+Over decades, that asymmetry produces much of the estate that later transformation programmes are hired to simplify.

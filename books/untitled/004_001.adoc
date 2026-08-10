@@ -1,0 +1,6 @@
+= What a pattern actuall is
+
+A pattern isn't a thing you put into software.
+
+It's a recurring shape that appears when similar forces are resolved in similar ways.
+

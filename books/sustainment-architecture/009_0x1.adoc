@@ -1,0 +1,55 @@
+= More Tools
+
+== Event Storming
+
+
+== Wardley Mapping
+
+== Domain Driven DEsign
+
+== System Thinking
+
+== Controlled Vocabularies
+
+== ADRs
+
+== Visualizing
+
+=== C4
+
+=== BPMN
+
+=== Context Maps
+
+== Git
+
+== Policy as Code
+
+=== OPA, Rego, Cedar
+
+=== IaC
+
+
+== Decision Making
+
+=== Cynefin
+
+=== OODA
+
+== Mission Command
+
+== Books
+
+|===
+h| Topic | Book
+|Systems thinking | Donella Meadows - Thinking in Systems 
+|Language | Evans - Domain-Driven Design
+|Organisation | Stafford beer - Brain of the Firm
+|Flow | Goldratt - The Goal
+|Stewardship | Elinor Ostrom - Governing the Commons
+|Complexity | Cynefin papers (Dave Snowden)
+|Decisions | Michael Nygard - Documenting Architecture Decisions
+|Evolution |  Wardley - Wardley Maps
+|Architecture | Brand - How Building Learn
+|===
+

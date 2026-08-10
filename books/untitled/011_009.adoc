@@ -1,0 +1,9 @@
+= Indirection
+
+Pointers, references, interfaces, proxies, lookup tables, DNS, dependency injection, handles, symbolic links, IDs.
+
+Software engineering uses indirection constantly because it lets us change what something refers to without changing everything that refers to it.
+
+But every additional level also makes the system harder to follow.
+
+That's almost architecture in miniature.

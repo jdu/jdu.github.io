@@ -1,0 +1,5 @@
+= Find the Thin Slice
+
+Vertical slices versus layers of infrastructure.
+
+How to find something small enough to implement but real enough to teach you something.

@@ -1,5 +1,48 @@
 = Let teams form around work
 
 
+== Support self-organisation
+
+== Push for common ground
+
+== Design for conversation
+
+== Let expertise find the problem
+
+== Temporary teams, permanent understanding
+
+== Optimize for flow, not ownership
+
+== Reward collaboration, not territorial behaviour
+
+== Capability is more important than capacity
+
+== Let them build tools
+
+== Let structure follow demand
+
+== Architecture enables, it doesn't assign
+
+== Remove the cost of collaboration
+
+People often think architecture exists to produce standards.
+
+Really it exists to make it cheap for people to work together.
+
+That means:
+
+* common language
+* shared concepts
+* good interfaces
+* visible ownership
+* discoverable knowledge
+* clear capability boundaries
+
+When those exist, teams naturally self-organise because collaboration has become inexpensive.
+
+When they don't, management compensates with meetings, governance and increasingly rigid organisational structures.
+
+== Cabals
+
 * Every new initiative typically needs a charter, a sponsor, and a headcount request before anyone can start, and the opportunity has often moved on by the time it's approved. Valve describes an alternative it calls cabals, self-organising groups that form because people choose the work, not because an org chart assigned it, and dissolve once the work is done.
 * Self-organising isn't the same as unmanaged, a cabal still needs a clear owner and shared intent. For your next piece of cross-team work, try forming a temporary, named group of volunteers with an explicit end condition instead of requesting a permanent team.

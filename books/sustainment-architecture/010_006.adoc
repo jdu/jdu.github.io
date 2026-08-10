@@ -1,0 +1,3 @@
+= Test the Story
+
+Detecting false confidence, shallow architectures, cargo cults and AI-generated plausibility.
