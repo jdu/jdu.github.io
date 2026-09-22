@@ -77,6 +77,8 @@ Pirsig later developed these ideas further in Lila, describing quality as someth
 
 The chapters that follow treat architecture as an ongoing conversation with reality rather than a finished description of it. Models will change. Definitions will evolve. Systems will come and go. The discipline isn't in creating a perfect representation to last for all time, it's continually refining our understanding while remaining humble enough to recognise that the organisation is going to always exceed even our best attempts to describe it.
 
+This is a new block of text.
+
 == What do we mean by "Enterprise"?
 
 The word enterprise has accumulated a shocking amount of baggage.
@@ -123,9 +125,9 @@ Further along, in the tools section, we'll show you how to do just that.
 
 == Responsibility
 
-This kind of reframing matters before anything else in this book, because every chapter that's
-going to follow assumes the reader is acting as a steward. Not just an implementer. Chapther 9
-explores exaclty why that stewardship is hard, organisations are remarkably good at forgetting, 
+This kind of re-framing matters before anything else in this book, because every chapter that's
+going to follow assumes the reader is acting as a steward. Not just an implementer. Chapter 9
+explores exactly why that stewardship is hard, organisations are remarkably good at forgetting, 
 and the resto of the book is really just a long answer to waht a steward does about that.
 
 Architecture is the practice of helping an organisation remember who it is while it become something new.

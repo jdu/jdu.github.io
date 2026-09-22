@@ -1,0 +1,101 @@
+Basically right now you've got:
+
+```
+Schema (Programme)
+  └ Round (Programme)
+     └ Funding Record
+       └ Animal Species
+       └ Additional Sponsor
+       └ ..
+```
+
+```
+
+Scheme (Studentships / reporting shadow)
+  └ Round (Student cohort / year)
+    └ Studentship Animal Species
+    └ Studentship Additional Sponsor
+    └ ...
+```
+
+And then you've got cross links
+
+```
+Funding Record
+  └───▶ Studentship 
+  └───▶ Studentship 
+```
+
+You've basically got Funding Record doing *two jobs* (alongside bundling multiple distinct concepts: Application, Funded Grant, etc...)
+
+* Financial / Operational Record
+* Container for funded activity
+
+If you injected a new upper level, you'd have a much easier time of all of this I think. Or it would all be a lot clearer and easier to maintain.
+
+```
+Scheme
+ └ Round
+   └ Funding.... Fascicle?  ◀─── New Object
+     └ Funding Record
+     └ Studentship Programme
+        └ Cohort / Round 1
+           └ Studentship 
+           └ Studentship
+        └ Cohort / Round 2
+           └ Studentship
+           └ ...
+```
+
+. The Funding Fascicle is basically a package
+. The Funding Records represents the application/grant
+. The Studentship is an operational thing happening inside of the fascicle
+
+Then you've got things happening to the whole funded activity
+
+```
+Funding Fascicle
+  └ Sponsors
+  └ Organisations
+  └ Funding conditions
+  └ Programme metadata
+  └ other relationships
+```
+
+Then you've got thing specific to the grant / application
+
+```
+Funding Fascicle
+  └ Funding Record
+    └ Details
+    └ Award Values
+    └ ...
+  └ Annual Report
+  └ ...
+```
+
+And things specifically about individual studentships
+
+```
+Funding Fascicle
+  └ Studentship Programme
+    └ Studentship
+      └ Animal Species
+      └ Student
+      └ ...
+```
+    
+That way too, if something actually really needs to apply at multiple levels, rather than it being implied through naming, you can model it formally.
+
+```
+Funding Fascicle
+  └ Primary Sponsor
+  └ Studentship
+    └ Additional Sponsor
+```
+
+Basically that stops you having to imitate an copy things so much, and as we keep getting these requests to tack more things on, it'll get easier to extend the mode without having to do a lot of refactoring or dealing with lots of complicated cross-validation rules. 
+
+You could eventually as well shift that Funding Record to being more concretely disambiguated where you have Funding Application, Funded Grant, as distinct modeled items so that boundaries are clearer for you.
+
+

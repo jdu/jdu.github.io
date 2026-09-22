@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Hysterisis in Tech ~ JDU</title>
+    <link rel="stylesheet" href="static/css/tufte.css" />
+    <script src="static/js/theme.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Part 5 of the UDA series — on the tools being built to operationalize the system and bring it to the people who use it."
+    />
+    <meta property="og:title" content="Part 5: Bringing It to People" />
+    <meta
+      property="og:description"
+      content="Part 5 of the UDA series — on the tools being built to operationalize the system and bring it to the people who use it."
+    />
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:url"
+      content="https://jdu.github.io/2026-08-15-uda-5-bringing-it-to-people.html"
+    />
+    <meta property="og:site_name" content="JDU" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Part 5: Bringing It to People" />
+    <meta
+      name="twitter:description"
+      content="Part 5 of the UDA series — on the tools being built to operationalize the system and bring it to the people who use it."
+    />
+  </head>
+
+  <body>
+    <article>
+      <nav class="back-link"><a href="index.html">← Jeff Uren</a></nav>
+      <h1>Hysterisis in Tech</h1>
+      <p class="subtitle">Jeff Uren ★ 2026-XX-XX</p>
+
+      <section>
+        <p>
+          In
+          <i
+            >Breaking the Trust Thermocline Is the Biggest Hidden Risk in
+            Business,</i
+          >
+          Gareth Edwards talks us through a problem that's pretty difficult to
+          visualize because while it's happening the system carries on
+          functioning like it isn't a problem. In the article, it comes at trust
+          from the perspective of Customers of a Product-oriented company, and
+          posits that customers can tolerate a fair amount from a company that
+          they've put their trust into. You can do things like hike prices, have
+          reliability issues, even remove features, or fail to hold up your
+          promises with only a modicum of thrashing. From inside the business,
+          it's really easy to mistake the lack of change in numbers as
+          acceptance by customers. Your revenue and retention can stay flat or
+          even grow with each decision seeming like the customer-base has
+          absorbed it without any real consequences to the business.
+        </p>
+
+        <p>
+          Eventually it can all come crashing down, and you can accidentally
+          attribute it to a single event, when the truth is it was a long
+          process of attrition.
+        </p>
+
+        <p>
+          I'm really into the premise of this article, but I think it's worth
+          spinning it around and evaluating it from the perspetive of the people
+          who are responsible for building and operating the technology too, and
+          their relationship with the organisation that they're operating
+          within.
+        </p>
+
+        <p>
+          In that situation it has less to do with customers deciding whether to
+          keep buying a product than whether the people responsible for building
+          and operating technology still trust the organisation around them.
+          Sure, the surface indicators are different, but the underlying problem
+          is actually pretty similar. Things tend to still carry on happening
+          like shipping code, handling incidents, meetings, q&amp;a's and retros
+          and all that. All the visible operations more or less stay on an even
+          keel throughout the time.
+        </p>
+
+        <p>
+          Similar to with Customers though, the conditions under which good
+          engineering happens kind of start to disappear and you end up in a
+          situation where bad things start to happen:
+        </p>
+
+        <ul>
+          <li>Architecture gets acknowledged but not actioned</li>
+          <li>Technical debt keeps getting shunted further down the backlog</li>
+          <li>
+            Platform creates standards that get abandoned because their
+            inconvenient
+          </li>
+          <li>Specialists come in in after decisions are made</li>
+          <li>
+            Restructures remove strong knowledge-keepers without replacing them
+          </li>
+          <li>
+            Teams (and individuals) increasingly absorb more without a
+            corresponding reduction somewhere else
+          </li>
+          <li>
+            Programmes promise to simplify things, but just add more layers to
+            maintain
+          </li>
+        </ul>
+
+        <p>
+          A single one of those isn't generally going to lead to some humongous
+          disaster. Your engineers and technology people are generally pretty
+          good at compromise overall, or operating with not enough info, or
+          operating under a wide, complicated cross-section of constraints that
+          don't have clear solutions. Basically everything in technology is a
+          trade-off and that's baked into how good engineers make decisions,
+          through experience and having your fingertips burnt a few times. The
+          more general consideration inthere is that an engineering team is
+          going to have a much deeper well of tolerance and accommodation to
+          draw from than you might realize. Engineers will accept compromises if
+          they think there's some larger sense of coherent philosophy behind it,
+          and they'll take on super awkward work if they can trust that at some
+          point it'll end, becoming something more reasonable. They'll event
+          tolerate multiple, successive poor decisions as long as the next has
+          the promise of at least being incrementally better than the last.
+        </p>
+
+        <p>
+          It's really easy to confuse that well for being some magical,
+          limitless reservoir of capacity though.
+        </p>
+
+        <p>
+          Engineers are really good at compensating for <i>broken systems</i>. A
+          competent engineer rarely encounters a bad organisational boundary and
+          just stops there. They'll build a script, create an informal process,
+          figure who they need to talk to or ask. Cumulatively they maintain
+          undocumented translations between multiple systems whose owners
+          probably don't speak each other anymore or maybe don't even exist.
+          Architectural context for large swathes of the system sits in their
+          noggins', and they use it to quietly correct bad assumptions, and they
+          spend a little longer than anyone really notices making something work
+          sometimes. Even in spite of some gnarly conditions that work gets
+          commissioned under.
+        </p>
+
+        <p>
+          Basically, all of that coping and resilience, from the surface level,
+          can look like a concretely well-functioning system, but under the hood
+          it's just a collection of behaviours and traits that are giving the
+          appearance of stability.
+        </p>
+
+        <p>
+          This might get kind of uncomfortable. The stronger your engineers, the
+          longer organisational dysfunction can stay hidden. The people most
+          capable of recognising those structural problems are often also those
+          most capable of compensating for them, the engineers. Their competence
+          essentially becomes a shock absorber in between poor organisational
+          decisions and their actual consequences. So long as the consequences
+          remain manageable, the decisions themselves obtain the appearance of
+          success.
+        </p>
+
+        <p>
+          An organisation can subsist on that well of capacity for a pretty long
+          time overall but it doesn't last forever and it doesn't refill as
+          quickly as it gets used up.
+        </p>
+
+        <p>
+          We can frame this around technical debt a bit here, although debt
+          being accumulated isn't just in the code. Debt also exists in
+          relationships, expectations, and things like credibility. Every
+          commitment that's made and sort of casually abandoned changes the cost
+          of the next commitment. Every consultation whose outcome was actually
+          predetermined changes the meaning of the next invite to contribue.
+          Every request to raise risks followed by punishment for raising
+          inconvenient ones teaches people something about what the organisation
+          actually values. Every declaration that engineering quality matters,
+          followed by a decision in which it clearly doesn't, makes the next
+          declaration worth less and less.
+        </p>
+
+        <p>
+          This is where Edwards' thermocline breaks out. Trust inside an
+          organisation isn't just a mood that rises and falls in response to the
+          most recent event. It's got institutional memory.
+        </p>
+
+        <h2>Hysterisis</h2>
+
+        <p>
+          In engineering and physics, <i>hysterisis</i> describes systems whose
+          current behaviour depends partly on the path through which they
+          arrived at the current position. Push a system in one direction for
+          some time and then try to reverse the force, and it's highly unlikely
+          to retrace the same path backwards. Something changes in the system
+          itself which means the path back just isn't valid anymore.
+        </p>
+
+        <p>
+          You have the same situation with people within an organisation. If as
+          leadership, you've been consistently overruling technical advice, or
+          repeatedly postponing foundational work, or restructuring teams you're
+          going to have a hard time restoring trust and confidence by just
+          walking back those behaviours. If your teams been watching colleagues
+          disappear through a succession of restructures, each next announcement
+          of change, the words can be different, and maybe the intentions are
+          sincere, but the people hearing them carry the evidence of everything
+          that came before.
+        </p>
+
+        <p>
+          If you have a culture that's learned that commitments are more or less
+          temporary through years of attrition, or that risks are unwelcome,
+          people start to treat <i>all</i> things as temporary and all the risks
+          start to get a whole heck of a lot <i>quieter</i>.
+        </p>
+
+        <p>
+          Specifically in engineering, once they've learned that careful
+          engineering is systemically sacrificed at the altar for urgency, they
+          all stop planning as if careful engineering will eventually be OK.
+        </p>
+
+        <p>
+          Sounds like cynicism right? It's really easy to label it cynicism, or
+          even lack of personal resilience. Really, it's actually a pretty
+          rational response to the environment on the whole. You can chock it up
+          to a lack of morale, or people being jaded, but if more and more
+          people are behaving this way, you're really just watching people adapt
+          to the environment in real-time.
+        </p>
+
+        <h2>Building the Wrong Skills</h2>
+
+        <p>
+          You can actually create a weird microcosm of a skillset within your
+          organisation where people are insanely skilled at surviving the
+          orgranisation they're actually working inside of versus the one that's
+          described by the operating model. People will do things like shorten
+          their planning horizons, reduce their personal investment in
+          improvements where there isn't certainty, and even stop maintaining
+          things that only make sense if someone is still going to care about
+          them two years from now. Overall, these people become extremely
+          cautious about ownership, especially where that ownership doesn't come
+          with correlating authority, because ownership without authority is
+          essentially seen as liability, it's just got better branding.
+        </p>
+
+        <p>
+          Let's be super clear, all throughout this, your org will still keep
+          <i>delivering things</i>, all of this can be happening right under
+          your nose without any super obvious signs as it's spread out across
+          teams and individuals. It's actually really difficult to recognize.
+        </p>
+
+        <p>
+          Most technology management systems tend to observe <i>outputs</i> or
+          <i>measures</i> far more aggressively than they observe the conditions
+          under which the outputs emerge. We sure can count lots of stuff:
+          delivery, incidents, vacancies, attrition, MTTRs, velocities. The
+          concept of Trust is a lot harder to measure and the lack of it tends
+          to reveal itself at sort of right angles to everything else. Primarily
+          peoples behaviour changes, and some of that behaviour is really easy
+          to explain away in isolation or framed in the light of isolated or
+          recent events.
+        </p>
+
+        <p>
+          You'll see things like Senior engineers not really challenging
+          qestionable decisions and they might even seem like they're easier to
+          work with, more agreeable. On the other side you can see engineers
+          forcing change through stricter and stricter formal processes, even
+          when the fix is something that could be done informally and pretty
+          qiuickly. You'll have had engineers that seemed like they were
+          octopii, while they solved their assigned work, they would also spend
+          time improving shared tooling that made everyone's assigned work
+          easier and faster, they'll stop doing that, and spend their time
+          focused on just what's expected of them. Overall, people will stop
+          volunteering for difficult chunks of work, and a lot of that work may
+          fall to people who are newer, or less experienced.
+        </p>
+
+        <p>
+          There's not going to be an alert or an alarm when all this is
+          happening, it's slow, and insidious. And some of all this can easily
+          be spun and framed as <i>improvement</i> when viewed in isolation.
+        </p>
+
+        <p>
+          Meetings become less contentious, responsibilities clearer. People
+          interfere less in work outside their immediate remit. Delivery might
+          become more predictable for awhile because engineers have stopped
+          spending discretionary effort on problems that don't belong to them.
+        </p>
+
+        <p>
+          The difficulty is that much of the resilience of a technology
+          organisation lives precisely in that discretionary space.
+        </p>
+
+        <p>
+          Formal structures rarely describe all the work required to keep
+          complex systems alive. There are gaps between teams, mismatches
+          between models, old decisions whose consequences have outlived their
+          authors, and incidents whose resolution depends on someone remembering
+          a detail that was never important enough to document. Health
+          engineering organisations survive these imperfections because people
+          cross boundaries for one another. They share context, challenge
+          assumptions, repair thingsbefore they become crises, and invest in
+          improvements whose value can't always be attached neatly to a
+          quarterly objective.
+        </p>
+
+        <p>
+          Trust is what makes most of that behaviour possible, which makes trust
+          less like employee sentiment and more like critical infrastructure.
+        </p>
+
+        <p>
+          We're used to thinking of infrastructure as the machiner beneath
+          software: networks, databases, identity systems, build pipelines,
+          cloud platforms and observability. Yet engineering organisations
+          depend just as heavily on another layer of infrastructure that's
+          rarely drawn in their diagrams. It's made of credible commitments,
+          professional respect, shared language, institutional memory,
+          psychological safety, stable expectations and confidence that
+          decisions have some relationship to the evidence presented in makign
+          them.
+        </p>
+
+        <p>
+          When the infrastructure deteriorates, the applications running on top
+          of it can continune for a long while but eventually to cost has to
+          move somewhere else.
+        </p>
+
+        <p>
+          It sort of takes up residence in the engineer who leaves and takes
+          five years of context with them. Or in the redesign that unknowingly
+          repeats an abandoned experiment because nobody left remembers why it
+          failed. In technical debt that nobody is willing to champion because
+          previous attempts ended in cancellation. In incidents taht take six
+          hours rather than forty minutes because the informal network that used
+          to connect the relevant people has weakened into non-existence. In
+          programmes whose estimates become padded because no one trusts the
+          surrounding organisation to protect them from uncertainty.
+        </p>
+
+        <p>Then, at some point, an organisation cross its own thermocline.</p>
+
+        <p>
+          I can tell you now it won't be a big ceremonial point when it does
+          happen. There won't be alarm bells ringin' that everyones trust has
+          fallen below a safe operating level. The visible trigger will probably
+          be surprisingly small. Maybe another restructure. A disappointing pay
+          decision. A respected colleague leaving. A project cancelled after
+          months of effort. A senior appointment that confirms something people
+          had already begun to suspect about the direction of the organisation.
+        </p>
+
+        <p>
+          Leadership might understandably focus on that event because it's the
+          one immediatel preceding the change in behaviour, but the event is
+          usually only just the final measurement of a much older, and longer
+          process.
+        </p>
+
+        <p>
+          The engineer that resigns after the latest reorganisation might not be
+          leaving because of that reorganisation. They might be leaving beacuse
+          the previous four taught them how to interpret this one. The team that
+          refuses to absorb another responsibility might not have suddenly
+          become inflexible. It might just simply have exhausted the goodwill
+          which it absorbed the previous ten. The architect who no longer fights
+          a technically damaging proposal may not have been persuaded by it.
+          They just might have concluded that persuasion isn't really worth the
+          expenditure anymore.
+        </p>
+
+        <p>
+          By the time these things become visible, reversing the most recent
+          decision can do very little, which is the organisational form of
+          hysterisis, the path back isn't always the same path in reverse.
+        </p>
+
+        <p>
+          Restoring a training budget doesn't restore the people who left when
+          development stopped being funded. Announcing protected engineering
+          time doesn't immediately restore the belief that the time will stay
+          protected. Asking for candour doesn't instantly revive a culture that
+          learned caution. Hiring new people can replace capacity, but it can't
+          cheaply replace the network of relaitonships through which the old
+          organisation understood itself.
+        </p>
+
+        <p>
+          Trust has to be rebuilt throug accumulated evidence in much the same
+          way that it ended up lost.
+        </p>
+
+        <p>
+          This is might be the most uncomfortable implication of the thermocline
+          because it leaves very little room for symbolic repair. Organisations
+          usually respond to cultural deterioration with communication, as
+          though the central problem were that people had misunderstood the
+          organisation's intentions. Sometimes they have, more often the
+          organisation has communicated perfectly well through it's decisions.
+        </p>
+
+        <p>People believe in patterns.</p>
+
+        <p>
+          If the pattern changes, believe can eventually change with it, but the
+          change has to survive long enough to become a new history. Commitments
+          have to repeatedly be kept when breaking them would have been
+          inconvenient. Technical have to alter the direction of programmes
+          rather than just be recorded in their risk registers. Team sneed to
+          see foundational work survive contact with deadlines. Leaders have to
+          tolerate disagreement without quietly converting it into reputational
+          damage.
+        </p>
+
+        <p>There's no announcement capable of substituting for all of this.</p>
+
+        <p>
+          Edward's original argument was concerned with companies discovering
+          too late that customers who appeared loyal had in fact been spending
+          down their trust for years. Technology organisations face the same
+          danger internally. They can look at continued delivery, modest
+          attrition, completed projects and functioning systems and conclude
+          that the organisation remains healthy enough.
+        </p>
+
+        <p>And maybe it will, or maybe its engineers are still compensating.</p>
+
+        <p>
+          The difference between those is important because compensation has
+          limits. A mature technology organisation isn't one where people can
+          endure unlimited amounts of dysfunction. It's one wthat understands
+          how much of its apparent stability is being produced by invisible acts
+          of judgement, cooperation and trust, and treats those things as
+          resources that have to be renewed rather than reserves that can be
+          endlessly extracted.
+        </p>
+
+        <p>
+          So the really dangerous moment, isn't really the point where your
+          engineers start to complain, it's when they stop.
+        </p>
+      </section>
+    </article>
+  </body>
+</html>

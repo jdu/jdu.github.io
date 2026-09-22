@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Corrosion ~ JDU</title>
+    <link rel="stylesheet" href="static/css/tufte.css" />
+    <script src="static/js/theme.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Part 5 of the UDA series — on the tools being built to operationalize the system and bring it to the people who use it."
+    />
+    <meta property="og:title" content="Part 5: Bringing It to People" />
+    <meta
+      property="og:description"
+      content="Part 5 of the UDA series — on the tools being built to operationalize the system and bring it to the people who use it."
+    />
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:url"
+      content="https://jdu.github.io/2026-08-15-uda-5-bringing-it-to-people.html"
+    />
+    <meta property="og:site_name" content="JDU" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Part 5: Bringing It to People" />
+    <meta
+      name="twitter:description"
+      content="Part 5 of the UDA series — on the tools being built to operationalize the system and bring it to the people who use it."
+    />
+  </head>
+
+  <body>
+    <article>
+      <nav class="back-link"><a href="index.html">← Jeff Uren</a></nav>
+      <h1>Corrosion</h1>
+      <p class="subtitle">Jeff Uren ★ 2026-XX-XX</p>
+
+      <section>
+        <p>
+          To start out, I want to be really clear. I'm not setting out in this
+          article to ruffle anyones feathers. Enough years have gone by that we
+          can look back on things with a little more clarity than we had at the
+          time and I like understand socio-technical and socio-political things
+          as they evolve over time. Rust presented engendered an environment
+          that I'm not really sure the original incentives set out to create,
+          but nonetheless did and it's worth poking all of that at least a
+          little bit.
+        </p>
+
+        <p>
+          So let's set the stage a bit. It's the early 2010's, PHP is eating the
+          internet, it feels like every site is a Wordpress site, a few are
+          built on Python frameworkes like Django or Pyramid. Another subset on
+          Ruby and RoR. There are a number of commerical languages and
+          frameworks floating around like C# / .NET and Adobe ColdFusion.
+        </p>
+
+        <p>
+          You've got a large number of web-oriented, mobile-oriented programmers
+          who are becoming more and more proficient at programming and who are
+          tackling higher and higher complexity problems incrementally lower
+          down the stack.
+        </p>
+
+        <p>
+          The leap from web to systems downward at certains points was a pretty
+          large one. Nonetheless, more and more developers started using the
+          languages they were comfortable in to do work that more and more
+          looked like systems programming or danced around the edges of it.
+          These developers slowly but surely moved their way down to in the
+          technological stack and because of familiarity and some hard barriers,
+          they tended to bring their preferred languages with them.
+        </p>
+
+        <p>
+          At systems-level at the time, that layer of programming was actually
+          kind of stale. C was (and still is) a hugely important language, but
+          no one I think would have made the assertion of labelling it "modern"
+          at that time. C++ had been churning along accreting "ideas" since the
+          early 80's with C++ 11 bringing things forwards by leaps and bounds,
+          but modern C++ more or less sits on top of old C++ and building real
+          strong expertise in C++ is and always has been very path-dependent.
+          Knowing C++ then and now generally means knowing C++ 10-15 years
+          before including things like which compiler supports which flags and
+          features, what hits the ABI, and when you're working in an established
+          code-base, you very much might need to know which era of conventions
+          that code-base was actually developed under, and it's not always as
+          clear-cut as you might think.
+        </p>
+
+        <p>
+          Again, I'm not out to skewer either C or C++ at the moment (and never
+          will be). I like both of them and I wrote and still write a bit of
+          both here and there when I feel like there's call for it. But we're
+          setting the stage for where Rust entered the ecosystem. Rust came
+          along in the midst of all this and more or less explicitly presented
+          itself as taking lessons from that landscape and history but
+          explicitly called out that C++ factored very heavily into its design.
+        </p>
+
+        <blockquote>
+          <p>hammered out by generations of C and C++ programmers</p>
+        </blockquote>
+
+        <p>
+          The whole Rust proposition aligned heavily with a weird gap that had
+          formed in programming and software development overall. It created a
+          situation where someone new to systems programming in 2016 had a
+          <i>choice</i>, either spend years acquiring all that accumulated
+          folklore of C++, or join something where
+          <strong>everyone was still relatively new.</strong>
+        </p>
+
+        <p>
+          A twenty-five year old developer could reasonably become a recognised
+          Rust expert. Becoming equivalently authoritative in C++ meant walking
+          into a community containing people who'd been doing things like
+          template metaprogramming since well before you'd even finished primary
+          school. Speaking primarily for myself though I had more lower-level
+          systems understanding than a number of others at the time, becoming an
+          expert in C/C++ was actually astronomically intimidating.
+        </p>
+
+        <p>
+          There were some concrete examples of this, for instance, I remember
+          reading a forum online at one point (a normal forum, I don't think SO
+          was around or prevalent yet) where someone had asked about building a
+          game engine. And the prevailing answer was essentially "don't". The
+          implication was that it would be too hard for the person.
+        </p>
+
+        <hr />
+
+        <p>
+          We're not not just focusing on Rust here though, the truth is the
+          <strong>Go</strong> programming language is actually really important
+          here too in this context. It sort of filled the same historical vaccum
+          that Rust was trying to, but from a very different direction.
+        </p>
+
+        <p>
+          <strong>Go</strong> came out of Google, essentially to solve Google's
+          software engineering problems. Rob Pike describes its beginnings as
+          discussions in 2007 about problems he and his colleagues were
+          experiencing building the large systems that Google needed.
+        </p>
+
+        <p>
+          Go's answer to C++ was (in summation) to <i>strip away</i> all of the
+          complexity and build up a language that was simpler, but still
+          powerful enough to do serious systems work.
+        </p>
+
+        <p>
+          Contrasted with Rust's being closer to the idea that we can
+          <i>have</i>
+          sophisticated abstractions without inheriting the historical baggage,
+          and you have two very ideologically different approaches to a very
+          similar problem.
+        </p>
+
+        <p>
+          If you were someone who was really frustrated by complexity in and of
+          itself, Go was super compelling. But if you liked type systems,
+          abstractions, generics, functional programming ideas, and zero-cost
+          abstractions with your systems programming, but struggled with the
+          historical layers of C++, Rust actually ended up enormously
+          attractive.
+        </p>
+
+        <p>
+          We can't gloss over something just as important as the technical
+          differentiators between the two. Go at that time was unmistakebly a
+          <strong>Google language</strong>. Rust was started by Mozilla,
+          absolutely, but Mozilla had a very different cultural position in open
+          source at the time, and Rust intentionally developed community
+          governance before eventually moving to an independent foundation.
+        </p>
+
+        <p>
+          There was some hullabaloo around the time about which of these two
+          languages would "win" and a sort of attitude of them vying for the
+          crown of the "next C++". Honestly, they were and still are, very
+          different languages, with very different goals, communities, and
+          trade-offs. They've settled into a world where they both have their
+          own idioms, and both are extremely successful in their own right, but
+          the narrative at the time created an "us and them" environment in
+          certain circles which I found really unfortunate because from a pure
+          programming perspective, I actually like them both.
+        </p>
+
+        <hr />
+
+        <p>
+          C and C++ predate things like GitHub, Reddit, Stack Overflow, Discord,
+          social media in general<span class="marginnote"
+            >It's easy to forget this, or get mixed up.</span
+          >
+          and the entire modern open-source contribution identity.
+        </p>
+
+        <p>
+          Rust, in contrast, was born in the deep innards of that world. So it
+          didn't end up with users, it had <strong>Rustaceans</strong>.
+          Terminology, imagery, conferences, community teams, RFC participation,
+          working groups, roadmaps, mentorship and in contrast to others at the
+          time, an explicit contributor culture.
+        </p>
+
+        <p>
+          You can see this if you look at the language that was used by the
+          project itself around 2017 to 2018. Rust's roadmap wasn't just
+          "compiler features we're implementing". It actively talked about
+          mentoring, empathy, accessibility, underrepresented groups, community
+          participation and making systems programming available to people who
+          historically were discouraged from doing so.
+        </p>
+
+        <p>
+          The 2018 roadmap specifically talks about community-wide calls for
+          blog posts, hundreds of participants, domain working groups, mentoring
+          and loads of ways for newcomers to get involved. The proverbial door
+          was wide open.
+        </p>
+
+        <p>
+          The outcome was that Rust wasn't just baking up a language, it was
+          actively, and continually manufacturing opportunity for a broad,
+          diverse number of people to become a contributing part of it.
+        </p>
+
+        <hr />
+
+        <p>
+          So looking at things how they stood, engineers (me included) who were
+          interested in the jump to systems programming, were presented with two
+          paths:
+        </p>
+
+        <p>
+          The C++ path meant we encountered history, a lot of static values and
+          accreted decisions, and a lot of people who had been doing things
+          specific ways for a very long time.
+        </p>
+
+        <p>
+          A newcomer to Rust was presented with <i>possibility</i>. If you
+          didn't like something, it could be changed, through RFCs, better
+          documentation, missing functionality could be filled with a crate, if
+          compiler diagnostics weren't great, you could contribute improvements.
+          The whole Rust language was actually visibly moving.
+        </p>
+
+        <p>
+          The 2017 roadmap for Rust explicitly concrentrated on lowering the
+          learning curve, improving tools, mentoring contributors and making the
+          language more productive. All these things in concert tend to create a
+          strong psychological relationship with technology. People don't defend
+          things that they have a consumptive relationship with, I'm not going
+          to defend my choice of laundry detergent very hard, but people defend
+          things ardently that they believe they or their peers helped build,
+          that they've personally invested in whether through contribution, or
+          time and effort learning.
+        </p>
+
+        <hr />
+
+        <p>
+          One of the things that I always struggled with in terms of C++, was
+          that expertise in C++ is tightly intertwined with accumulated
+          experience over longer breadths of time. You needed to have started
+          your career more or less in C++ in order to be perceived as proficient
+          in it. The timelines to be <i>considered</i> proficient were notably,
+          and perceptibly long.
+        </p>
+
+        <p>
+          For Rust, at least initially, proficiency was derived from
+          <strong>participation</strong>. A programmer who had spent twenty
+          years becoming exceptionally good at C++ could reasonably look at Rust
+          and see an immature language recreating things they already knew how
+          to do. But a programmer who had spent three years becoming
+          exceptionally good at Rust could look at C++ and see decades of
+          accidental complexity that their chosen language had avoided.
+        </p>
+
+        <p>
+          Both of those views can be and are valid, but the different
+          perspectives clash where they're both claiming authority over what
+          systems programming ought to be.
+        </p>
+
+        <hr />
+
+        <p>
+          Here's where we talk about "safety". The proposition that Rust made
+          wasn't just that this was some new way of managing memory. The talk
+          around how memory was managed really rapidly turned into something a
+          lot closer to an assertion. Mainly that we know memory-unsafety causes
+          a large number of classes of defects, so continuing to choose
+          technology susceptible to them requires justification.
+        </p>
+
+        <p>
+          What really was a technical preference started taking on a lot of
+          moral weight.
+        </p>
+
+        <p>
+          I can say something like "Python is a lot nicer to work with than
+          Ruby", and frankly, that doesn't say a whole hell of a lot about a
+          Ruby programmer, and it shouldn't. The programmer isn't the subject,
+          the language is and I'm just expressing my preference for it. The
+          entire implication is that I think Python is better than Ruby. Some
+          people can read deeper into that and infer that I mean that Ruby is
+          inferior, but really all I'm saying is that I prefer to write Python.
+        </p>
+
+        <p>
+          "I believe this technology prevents classes of vulnerabilities which
+          repeatedly harm users" is a different type of discourse, especially
+          when pushed far, and forces a moral decision into a technology choice
+          making the engineer fully responsible for the implied moral failing.
+        </p>
+
+        <p>
+          Instead of "I like what Rust gives me," it becomes: "Why are
+          <strong>you</strong> still writing C++?"
+        </p>
+
+        <p>
+          That's the right mix of ingredients for tribalism. The "Rust
+          Evangelism Strike Force" joke works pretty much because enough people
+          recognised this specific behaviour, and it turned into caricature.
+          There are Hacker News discussions explicitly complaining about Rust
+          advocacy being unusually political or fanatical, while Rust-oriented
+          joke communities themselves repeatedly use the same term.
+        </p>
+
+        <hr />
+
+        <p>
+          All this formed a feedback loop, Rust very quickly acquired evidence
+          that Rust people really liked Rust. In the 2015 Stack Overflow survey,
+          the year that 1.0 of Rust shipped, it was already the third "most
+          loved" language.
+        </p>
+
+        <p>
+          By 2018 it had topped that measure for three consecutive years, and by
+          2022 it had done it for seven.
+        </p>
+
+        <p>
+          That statistic is basically now part of Rusts whole identity. There's
+          a big different between
+          <strong>lots of software is written in python</strong> and
+          <strong>People who know our language <u>love it</u></strong
+          >.
+        </p>
+
+        <p>
+          That latter message, that's a recruiting message, it's reinforcing the
+          idea that there is something special here that outsiders haven't yet
+          found. Which makes the evangelism self-reinforcing.
+        </p>
+
+        <hr />
+
+        <p>
+          All of this kind of culminates in a sort of status reset. C++ has an
+          enormouse accumulated hierarchy of expertise. In 2015, someone could
+          have twenty-five years of experience in C++,
+          <strong>no one</strong> had twenty-five years of experience in Rust.
+          Rust created a new context within which a relatively young programmer
+          could become an authority, crate maintainer, compiler contributor,
+          conference speaker or language designer pretty damn quickly with a lot
+          less friction.
+        </p>
+
+        <p>
+          The whole project actively created routes into working groups and
+          mentored contributions. This isn't cynicism, people genuinely
+          contributed enormouse amounts. But it changes the sociology of
+          adoption. <strong>A new language creates new experts.</strong>
+        </p>
+
+        <hr />
+
+        <p>
+          The other thing this did, was let application programmers become
+          "systems programmers". System programming traditionally had an
+          apprenticeship barrier. You needed to learn pointers, linkers,
+          compilation models, undefined behaviour, build systems, decades of
+          C/C++ lore. Rust deliberately presented itself as a way of opening
+          that world to a new generation.
+        </p>
+
+        <p>
+          In 2015 the Rust project itself described its potential as unlocking
+          "a new generation of systems programmers," explicitly saying newcomers
+          didn't already need to understand things like stacks and heaps.
+        </p>
+
+        <p>
+          The first Rust survey was noted for having a huge amount of interest
+          from Python programmers. Rust offered something really potent, you
+          didn't have to have been a systems programmer already to become one.
+        </p>
+
+        <hr />
+
+        <p>
+          If you look at C++, it's not really one coherent environment. It's a
+          language surrounded by CMaake, Make, Conan, vcpkg, compiler
+          variations, platform toolchains, library discovery issues and
+          project-specific conventions. Rust arrived with cargo build, cargo
+          test, and cargo publish, crates.io and eventually rustfmt, Clippy and
+          rustup.
+        </p>
+
+        <p>
+          Cargo was consciously modelled on the successful ecosystems around
+          Bundler and npm. That created a shared cultural experience, two Rust
+          programmers who have never met probably recognise approximately the
+          same project structure and commands. Cargo didn't just solve
+          dependency management, it actually helped to manufacture the
+          community.
+        </p>
+
+        <hr />
+
+        <p>
+          One of the things, if you were programming during this period, you'll
+          know that OO was the prevailing approach to, well, everything. A lot
+          developers had experience that culture through Java, Ruby, Python,
+          PHP, JavaScript's explosion, and tangentially experienced functional
+          programming concepts from Haskell/ML/Scala, immutable data, algebraic
+          types, pattern matching and increasingly more complex type systems.
+        </p>
+
+        <p>
+          Rust bundled a huge amount of that intellectual movement into
+          something that could still write an operating system. So there was a
+          population of thinking, roughly, I like what we've learned since C++,
+          but I don't want to give up control of the machine. Rust gave that
+          population somewhere to go.
+        </p>
+
+        <hr />
+
+        <hr />
+
+        <p>
+          Lets talk about that huge initial lift of learning Rust and how it
+          functioned as a sort of initiaition. Rust more or less famously asks
+          beginners to change how they reason about programs. Fighting the
+          borrow checker, eventually understanding why it rejected something,
+          and then beginning to "think in Rust" produces a weirdly strong sense
+          of acquired mastery.
+        </p>
+
+        <p>
+          Once that transition happens, contructs in other languages can start
+          looking not merely different, but actually reckless. There's a
+          sociological pattern in there, where difficulty followed by mastery
+          can strengthen identification with the thing mastered. The borrow
+          checker was simulataneously an adoption barrier, and paradoxically a
+          community-binding mechanism.
+        </p>
+
+        <hr />
+
+        <p></p>
+
+        <p>
+          So we look back at a specific point and we see a landscape that more
+          or less looked like this:
+        </p>
+
+        <ul>
+          <li><strong>C++</strong> had become an establishment</li>
+          <li>
+            <strong>Java, C# and the JVM</strong> represented managed enterprise
+            computing
+          </li>
+          <li>
+            <strong>Dynamic languages</strong> had enjoyed an enormouse
+            200s/early-2010s uplift but weren't really systems languages
+          </li>
+          <li>
+            The <strong>functional languages</strong> had many of the
+            intellectual ideas Rust developers found attractive but stayed in
+            the periphery
+          </li>
+        </ul>
+
+        <p>
+          Rust shows up and basically says:
+          <strong>we can start systems programming over</strong>
+        </p>
+
+        <p>
+          Not necessarily in a simplistic way, but not with a VM, or under the
+          constraints of C++. Or purely for one organisations commercial
+          benefit. Not only that, <strong>you</strong
+          ><span class="marginnote">yes you</span> can help decide what it
+          becomes.
+        </p>
+
+        <p>
+          That's powerful, and it should also make you more sympathetic for the
+          aggressive commmunity. Maybe the hardcore Rustaceans are a little
+          annoying, but that annoyingness is probably a consequence of the
+          conditions that actually made Rust successful.
+        </p>
+
+        <p>
+          I think if you look at the individual people, in constrained spaces
+          that speak endlessly about the benefits of Rust, it's hard to see the
+          wider framing. People can be really bad at articulating large concepts
+          in the abstract, and it's very easy for things to erode into what
+          feels like attacks.
+        </p>
+
+        <p>
+          That's doubly-so when the people doing the talking are also the people
+          who are actually building the language, and in an industry where
+          people have tendency to let their programming language of choice
+          intermingle with their sense of identity and self.
+        </p>
+
+        <p>
+          If you look at things from these sort of isolated incidents, you see
+          the "tribalism", "evangelism", and "fanaticism" that people complain
+          about. But if you look at the wider context, you can see that it's a
+          weird consequence of the conditions that made Rust successful in the
+          first place. Maybe it's an unfortunate context, but invariably, people
+          who find success with Rust, seem to want to share, and they want to
+          share it with people who are willing to listen, and learn. Excitement
+          can very easily be misinterpreted as something other than what it is,
+          and the people who are excited about Rust are often people who have
+          been involved in its development or day to day to use.
+        </p>
+
+        <p>
+          C/C++ were born in a different era, and in a academic context. There
+          weren't enough people and avenues available for people to actually
+          participate in the development of the language, or to speak it's
+          praises. But I'd like to think that if the internet had been around in
+          the 80's and 90's the way it is now, with the avenues for discussion
+          we have now, that C/C++ would have had a similar community to Rust.
+          But it didn't, and the same people that were involved in it's
+          development are now in positions of authority and influence, and they
+          have a different perspective on what systems programming should be,
+          and how it should be done. The Rust community is a new generation of
+          sysmtes programmers, and they're coming from it at a wholly different
+          angle.
+        </p>
+      </section>
+    </article>
+  </body>
+</html>
